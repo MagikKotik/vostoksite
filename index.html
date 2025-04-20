@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vostok – Portfolio</title>
+  <!-- Google Font -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --bg:#fafafa;
+      --text:#111;
+    }
+    *{box-sizing:border-box;}
+    html{scroll-behavior:smooth;}
+    body{
+      margin:0;
+      font-family:'Poppins',sans-serif;
+      background:var(--bg);
+      color:var(--text);
+    }
+    h1{
+      position:absolute;
+      top:2rem;
+      left:2rem;
+      margin:0;
+      font-size:4rem;
+      font-weight:700;
+      letter-spacing:-1px;
+    }
+
+    /* Generic section layout */
+    section{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      padding:4rem 2rem;
+    }
+
+    /* === HERO / HOME === */
+    .hero{flex-direction:row;}
+
+    /* Variant helpers to switch thumb side */
+    .side-left{flex-direction:row-reverse;}
+    .side-full{flex-direction:column;}
+
+    /* Main images */
+    .main-img{
+      width:70%;
+      max-width:1000px;
+      height:auto;
+      object-fit:cover;
+      border-radius:16px;
+      box-shadow:0 10px 25px rgba(0,0,0,.12);
+    }
+
+    /* Thumbnail navigation */
+    .nav-thumbs{
+      display:flex;
+      flex-direction:column;
+      gap:1.5rem;
+      margin-left:2rem;
+    }
+    .side-left .nav-thumbs{margin-left:0;margin-right:2rem;}
+
+    .nav-thumbs a{position:relative;display:block;}
+    .nav-thumbs img{
+      width:160px;
+      height:120px;
+      object-fit:cover;
+      border-radius:12px;
+      transition:transform .3s ease, box-shadow .3s ease;
+    }
+    .nav-thumbs a:hover img{
+      transform:scale(1.05);
+      box-shadow:0 10px 20px rgba(0,0,0,.25);
+    }
+
+    /* Responsive tweaks */
+    @media(max-width:900px){
+      .hero,.side-left{flex-direction:column;}
+      .nav-thumbs{flex-direction:row;margin:2rem 0 0 0;}
+      .nav-thumbs img{width:120px;height:90px;}
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HOME / HERO -->
+  <section id="home" class="hero">
+    <h1>VOSTOK</h1>
+    <img class="main-img" src="A_digital_photograph_captures_a_close-up_portrait_.png" alt="Vostok – portrait">
+    <nav class="nav-thumbs">
+      <a href="#toiletteur"><img src="A_photograph_captures_a_professional_dog_groomer_d.png" alt="Vostok chez le toiletteur"></a>
+      <a href="#noirblanc"><img src="A_black_and_white_photograph_captures_a_Rough_Coll.png" alt="Vostok noir et blanc"></a>
+      <a href="#pre"><img src="A_high-resolution_digital_photograph_captures_Vost.png" alt="Vostok dans un pré"></a>
+    </nav>
+  </section>
+
+  <!-- SECTION 1 : TOILETTEUR -->
+  <section id="toiletteur" class="side-left">
+    <nav class="nav-thumbs">
+      <a href="#home"><img src="A_digital_photograph_captures_a_close-up_portrait_.png" alt="Accueil"></a>
+      <a href="#noirblanc"><img src="A_black_and_white_photograph_captures_a_Rough_Coll.png" alt="Noir & blanc"></a>
+      <a href="#pre"><img src="A_high-resolution_digital_photograph_captures_Vost.png" alt="Pré"></a>
+    </nav>
+    <img class="main-img" src="A_photograph_captures_a_professional_dog_groomer_d.png" alt="Vostok chez le toiletteur">
+  </section>
+
+  <!-- SECTION 2 : NOIR & BLANC -->
+  <section id="noirblanc" class="side-full">
+    <nav class="nav-thumbs" style="flex-direction:row;gap:1rem;">
+      <a href="#home"><img src="A_digital_photograph_captures_a_close-up_portrait_.png" alt="Accueil"></a>
+      <a href="#toiletteur"><img src="A_photograph_captures_a_professional_dog_groomer_d.png" alt="Toiletteur"></a>
+      <a href="#pre"><img src="A_high-resolution_digital_photograph_captures_Vost.png" alt="Pré"></a>
+    </nav>
+    <img class="main-img" src="A_black_and_white_photograph_captures_a_Rough_Coll.png" alt="Portrait noir et blanc de Vostok">
+  </section>
+
+  <!-- SECTION 3 : PRÉ -->
+  <section id="pre" class="hero">
+    <img class="main-img" src="A_high-resolution_digital_photograph_captures_Vost.png" alt="Vostok dans un pré">
+    <nav class="nav-thumbs">
+      <a href="#home"><img src="A_digital_photograph_captures_a_close-up_portrait_.png" alt="Accueil"></a>
+      <a href="#toiletteur"><img src="A_photograph_captures_a_professional_dog_groomer_d.png" alt="Toiletteur"></a>
+      <a href="#noirblanc"><img src="A_black_and_white_photograph_captures_a_Rough_Coll.png" alt="Noir & blanc"></a>
+    </nav>
+  </section>
+
+</body>
+</html>
