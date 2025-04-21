@@ -56,7 +56,7 @@
       box-shadow:0 10px 25px rgba(0,0,0,.12);
     }
 
-    /* Thumbnail navigation */
+    /* Thumbnail navigation with parallax reveal effect */
     .nav-thumbs{
       display:flex;
       flex-direction:column;
@@ -66,23 +66,38 @@
     .side-left .nav-thumbs{margin-left:0;margin-right:2rem;}
 
     .nav-thumbs a{position:relative;display:block;}
+
+    /*
+      We limit the 3D parallax "reveal" effect to the thumbnails only.
+      Main images keep their original appearance.
+    */
     .nav-thumbs img{
+      /* Custom‑props for the effect */
+      --f:.1;          /* parallax factor (the smaller, the subtler) */
+      --r:12px;        /* border‑radius */
+
+      /* Derived values – don't touch */
+      --_f:calc(100%*var(--f)/(1 + var(--f)));
+      --_a:calc(90deg*var(--f));
+
       width:160px;
-      height:120px;
+      aspect-ratio:calc(1 + var(--f));
       object-fit:cover;
-      border-radius:12px;
-      transition:transform .3s ease, box-shadow .3s ease;
+      clip-path:inset(0 var(--_f) 0 0 round var(--r));
+      transform:perspective(400px) var(--_t,rotateY(var(--_a)));
+      transition:.5s;
+      cursor:pointer;
     }
-    .nav-thumbs a:hover img{
-      transform:scale(1.05);
-      box-shadow:0 10px 20px rgba(0,0,0,.25);
+    .nav-thumbs img:hover{
+      clip-path:inset(0 0 0 var(--_f) round var(--r));
+      --_t:translateX(calc(-1*var(--_f))) rotateY(calc(-1*var(--_a)));
     }
 
     /* Responsive tweaks */
     @media(max-width:900px){
       .hero,.side-left{flex-direction:column;}
       .nav-thumbs{flex-direction:row;margin:2rem 0 0 0;}
-      .nav-thumbs img{width:120px;height:90px;}
+      .nav-thumbs img{width:120px;}
     }
   </style>
 </head>
