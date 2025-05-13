@@ -22,46 +22,61 @@
       }
 
       header {
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        padding: 20px;
-      }
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
 
-      .logo-container {
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-      }
+.logo-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
 
-      .logo {
-        width: 60px;
-        border-radius: 10px;
-      }
+.logo {
+  width: 60px;
+  border-radius: 10px;
+}
 
-      .profil-link {
-        text-decoration: none;
-        color: #f26c0d;
-        font-weight: bold;
-        margin-top: 5px;
-      }
+.profil-link {
+  text-decoration: none;
+  color: #f26c0d;
+  font-weight: bold;
+  margin-top: 5px;
+  font-size: 0.9rem;
+}
 
-      .header-text {
-        text-align: center;
-        flex: 1;
-      }
+.header-text {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
 
-      .site-title {
-        font-family: 'Russo One', sans-serif;
-        font-size: 2.5rem;
-        color: #f26c0d;
-      }
+.site-title {
+  font-family: 'Russo One', sans-serif;
+  font-size: 2.5rem;
+  color: #f26c0d;
+}
 
-      .slogan {
-        font-family: 'Inter', sans-serif;
-        font-size: 1rem;
-        color: #333333;
-      }
+.slogan {
+  font-family: 'Inter', sans-serif;
+  font-size: 1rem;
+  color: #333333;
+}
+@media (max-width: 600px) {
+  header {
+    grid-template-columns: 1fr;
+    text-align: center;
+  }
+}
+
 
       .content {
         display: flex;
@@ -74,7 +89,7 @@
 
       .main-photo {
         width: 60vw;
-        max-width: 800px;
+        max-width: 1000px;
         border-radius: 10px;
         height: auto;
       }
@@ -96,12 +111,7 @@
         text-decoration: none;
       }
 
-      .banner img {
-        width: 200px;
-        height: auto;
-        border-radius: 10px;
-        transition: transform 0.3s, box-shadow 0.3s;
-      }
+    
 
       .banner span {
         position: absolute;
@@ -115,11 +125,49 @@
         font-family: 'Inter', sans-serif;
       }
 
-      .banner:hover img,
-      .banner:focus img {
-        transform: scale(1.05);
-        box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
-      }
+    .banner {
+  display: block;
+  width: 200px;
+  height: auto;
+  position: relative;
+  border-radius: 10px;
+  overflow: hidden;
+  text-decoration: none;
+}
+
+.banner-img {
+  width: 100%;
+  height: 120px;
+  background-size: cover;
+  background-position: center;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  background-image: var(--bg);
+}
+
+.banner:hover .banner-img {
+  background-image: var(--bg-hover);
+  transform: scale(1.05);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.25);
+}
+
+.banner span {
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  right: 0;
+  text-align: center;
+  color: #f26c0d;
+  background-color: rgba(255, 255, 255, 0.8);
+  padding: 5px;
+  font-weight: bold;
+  font-family: 'Inter', sans-serif;
+  transition: color 0.3s;
+}
+
+.banner:hover span {
+  color: #000000;
+}
 
       .section {
         padding: 40px 20px;
@@ -180,11 +228,10 @@
         <div class="content">
           <img src="assets/A1.jpg" alt="Photo principale Vostok" class="main-photo" />
           <nav class="sidebar">
-           <a href="#C" class="banner">
+            <a href="#B" class="banner">
               <img src="assets/B1.jpg" alt="Moi, Vostok" />
               <span>Moi, Vostok</span>
             </a>
-
             <a href="#C" class="banner">
               <img src="assets/C1.jpg" alt="Monochrome" />
               <span>Monochrome</span>
@@ -202,32 +249,9 @@
       </section>
 
       <section id="B" class="section">
-        <div class="text-content" >
-          <p>Salut les humains.<br>
-                  Moi c’est Vostok. Berger des Shetland, modèle mâle, pure élégance. Je vis dans une coloc un peu bizarre, avec deux humains (Yuliana et Rudy), et… deux chats. Oui, deux. On va y revenir.
-
-Ce site, c’est mon espace à moi. Officiellement tenu par mes humains, parce que je n’ai pas de clavier compatible avec mes pattes. J’aurais bien tenu ce site moi-même, mais bizarrement, aucun fabricant de clavier ne pense à adapter leurs touches aux pattes élégantes des chiens. Même les smartphones, c’est 100 % humano-centrique. La technologie me déçoit. 
-<br>J’ai aussi testé leur téléphone, mais il refuse de scanner mes truffes ou de reconnaître mes aboiements comme commandes vocales. 
-<br> Bref, c’est un monde pensé pour les humains. Triste époque.
-
-<br> Et je vous vois venir : "Mais Vostok, tu pourrais dicter à tes humains ce que tu veux dire!"  
-Ahah. Oui. J’ai essayé. Mais leur langage est si limité… Comment leur faire comprendre la complexité émotionnelle d’un pipi territorial sur le buisson préféré de la teckel du quartier ? Ou l’intensité mystique d’un pet laissé par un dogue allemand sur notre banc de parc? Ou l’avertissement territorial d’un staffie vénère (mais respecté)? C’est trop profond pour eux.
-
-Mais malgré leur lenteur intellectuelle, je les aime. (Après la nourriture, bien sûr.)
-
-<br>Maintenant, parlons des squatteurs poilus :  
-– Jango, jeune bengal de 1 an et demi, surnommé affectueusement *Tupoy*. Il met des sacs sur la tête et se prend pour un fantôme. On joue parfois ensemble. Il est un peu lent du bulbe, mais fun.  
-– Lassya, 10 ans, alias *Skatina*, la princesse intouchable. Elle a une voix d’opéra et une humeur de drag-queen sous caféine. Elle me déteste. Je le lui rends bien.
-
-Le pire ? Mes hùmans les caressent. Et osent dire : "Quel bon chat ! Quelle jolie minette !"  
-NON.  
-Pas. Devant. Moi.
-
-Je rapplique aussitôt, gueule au vent, pour rétablir l’ordre moral. Moi seul mérite les compliments, les câlins, et les biscuits.
-
-Donc voilà. Ce site, c’est ma version officielle de la vie.  
-Les chats n’ont qu’à faire leur propre blog.
-</p>
+        <div class="text-content"  text-align: justify; >
+                 <p>Salut les humains.<br>
+          Moi c’est Vostok. Berger des Shetland, modèle mâle, pure élégance... (texte complet à insérer ici)</p>
         </div>
       </section>
 
