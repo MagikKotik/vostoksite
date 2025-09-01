@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>OLL – Grille 4× (Rudy‑style T/t)</title>
+<style>
+  :root {
+    --bg:#0f1115; --card:#161a22; --muted:#9aa4b2; --border:#222937; --fg:#e7ecf3;
+    --accent:#4da3ff;
+  }
+  * { box-sizing:border-box; }
+  body { margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+         background:var(--bg); color:var(--fg); }
+  header { padding:24px 16px 8px; text-align:center; }
+  header h1 { margin:0 0 8px; font-size:24px; letter-spacing:.2px; }
+  header .legend { font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+                   color:var(--muted); font-size:13px; }
+  .container { max-width:1200px; margin:0 auto; padding:16px; }
+  .grid {
+    display:grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap:16px;
+  }
+  @media (max-width: 1000px) {
+    .grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+  }
+  @media (max-width: 760px) {
+    .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  }
+  .card {
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.02)), var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    box-shadow: 0 10px 24px rgba(0,0,0,.25);
+    padding:14px 14px 12px;
+    display:flex; flex-direction:column; align-items:center;
+    transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease;
+  }
+  .card:hover {
+    transform: translateY(-2px);
+    border-color: #2b364a;
+    box-shadow: 0 16px 36px rgba(0,0,0,.32);
+  }
+  .imgwrap {
+    width: 100%;
+    display:flex; align-items:center; justify-content:center;
+    padding-top:6px;
+  }
+  .imgwrap img {
+    max-width: 150px;
+    width: 100%;
+    height: auto;
+    image-rendering: -webkit-optimize-contrast;
+    filter: drop-shadow(0 2px 2px rgba(0,0,0,.25));
+  }
+  .algo {
+    margin-top:10px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 14px;
+    letter-spacing: .2px;
+    text-align:center;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+  }
+  .num {
+    margin-top:6px;
+    font-size:12px;
+    color:var(--muted);
+    letter-spacing:.08em;
+    background: rgba(77,163,255,.08);
+    border:1px solid rgba(77,163,255,.25);
+    padding:2px 8px;
+    border-radius:999px;
+  }
+  footer { text-align:center; padding:20px; color:var(--muted); font-size:12px; }
+
+/* --- Rudy-style intro & examples --- */
+.intro-wrap{max-width:1200px; margin:0 auto; padding:8px 16px 0}
+.intro{background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.05)); 
+       border:1px solid var(--border); border-radius:14px; padding:16px 16px 12px;}
+.intro h2{margin:6px 0 8px; font-size:20px}
+.intro p{color:var(--muted); line-height:1.55}
+.examples-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(260px,1fr)); gap:12px; margin-top:10px}
+.ex{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04)), var(--card); 
+    border:1px solid var(--border); border-radius:12px; padding:10px}
+.pill{display:inline-block; font-size:12px; padding:3px 8px; border:1px solid rgba(77,163,255,.25); 
+     color:#cfe7ff; background:rgba(77,163,255,.08); border-radius:999px; margin-bottom:6px}
+.algo-ex{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; margin:4px 0 6px}
+.hint{color:var(--muted); font-size:12px}
+/* --- Lexique --- */
+.lexique{max-width:1200px; margin:0 auto; padding:10px 16px 24px}
+.lex-grid{display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px}
+.lex{background:var(--card); border:1px solid var(--border); border-radius:12px; padding:10px; font-size:14px}
+.lex kbd{font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; 
+         background:#0b0e14; border:1px solid #222937; border-radius:6px; padding:1px 6px}
+.lex small{color:var(--muted)}
+</style>
+</head>
+<body>
+<header>
+  <h1>OLL – Grille (4 par ligne) – Rudy‑style</h1>
+  <div class="legend">T = F S F' &nbsp;·&nbsp; t = f S f' &nbsp;·&nbsp; crochets supprimés</div>
+</header>
+
+<section class="intro-wrap">
+  <div class="intro">
+    <h2>Le Rudy‑style, c’est quoi ?</h2>
+    <p>
+      Une <strong>notation compacte</strong> pour écrire les OLL du Rubik’s Cube : on remplace des séquences longues
+      par des <em>blocs</em> faciles à reconnaître (<strong>S</strong>, <strong>N</strong>, <strong>H</strong>, <strong>T</strong>…), 
+      qu’on peut composer, mettre en puissance (<code>S²</code>, <code>N³</code>) et encadrer avec des parenthèses (ex. <code>F ( … ) F'</code>).
+    </p>
+    <div class="examples-grid">
+      <div class="ex">
+        <div class="pill">Exemple – <strong>S</strong> (sexy)</div>
+        <div class="algo-ex"><code>R U R' U'</code> → <code><strong>S</strong></code></div>
+        <div class="hint">Puissance : <code><strong>S</strong>²</code> = <code>R U R' U' R U R' U'</code></div>
+      </div>
+      <div class="ex">
+        <div class="pill">Exemple – <strong>T</strong></div>
+        <div class="algo-ex"><code>F (R U R' U') F'</code> → <code><strong>T</strong> = F S F'</code></div>
+        <div class="hint">Très fréquent sur de nombreux OLL</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="lexique">
+  <h2>Lexique Rudy‑style</h2>
+  <div class="lex-grid">
+    <div class="lex"><b>S</b> = <kbd>R U R' U'</kbd> · <b>S’</b> = <kbd>L' U' L U</kbd> · puissances : <kbd>S²</kbd>, <kbd>S³</kbd>…</div>
+    <div class="lex"><b>N</b> = <kbd>R U R'</kbd> · <b>N’</b> = <kbd>R U' R'</kbd> · <b>N2</b> = <kbd>R U2 R'</kbd> · <b>N²</b> = <kbd>R U R' R U R'</kbd></div>
+    <div class="lex"><b>H</b> = <kbd>R' F R F'</kbd> (hammer) · <b>K</b> = <kbd>S + H</kbd></div>
+    <div class="lex"><b>C</b> = <kbd>F S R' F'</kbd> (encadrement F…F’) · <b>W</b> = <kbd>M2 U</kbd></div>
+    <div class="lex"><b>T</b> = <kbd>F S F'</kbd> (très fréquent sur de nombreux OLL)</div>
+    <div class="lex"><b>n</b> = <kbd>r U r'</kbd> · <b>n’</b> = <kbd>r U' r'</kbd> · <b>n2</b> = <kbd>r U2 r'</kbd> <small>(wide)</small></div>
+    <div class="lex">Parenthèses : regroupement / conjugaison <kbd>F ( … ) F'</kbd> · Puissances : <kbd>(…)</kbd><sup>2</sup>, <kbd>S²</kbd>, <kbd>N³</kbd>…</div>
+  </div>
+</section>
+
+
+<div class="container">
+  <div class="grid">
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_001.png" alt="OLL 001"></div>
+      <div class="algo">T</div>
+      <div class="num">#001</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_002.png" alt="OLL 002"></div>
+      <div class="algo">F S² F'</div>
+      <div class="num">#002</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_003.png" alt="OLL 003"></div>
+      <div class="algo">F S³ F'</div>
+      <div class="num">#003</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_004.png" alt="OLL 004"></div>
+      <div class="algo">t</div>
+      <div class="num">#004</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_005.png" alt="OLL 005"></div>
+      <div class="algo">f S² f'</div>
+      <div class="num">#005</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_006.png" alt="OLL 006"></div>
+      <div class="algo">f' S ' f</div>
+      <div class="num">#006</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_007.png" alt="OLL 007"></div>
+      <div class="algo">F' S'² F</div>
+      <div class="num">#007</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_008.png" alt="OLL 008"></div>
+      <div class="algo">T U T</div>
+      <div class="num">#008</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_009.png" alt="OLL 009"></div>
+      <div class="algo">F' S' F</div>
+      <div class="num">#009</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_010.png" alt="OLL 010"></div>
+      <div class="algo">t U T</div>
+      <div class="num">#010</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_011.png" alt="OLL 011"></div>
+      <div class="algo">t U' T</div>
+      <div class="num">#011</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_012.png" alt="OLL 012"></div>
+      <div class="algo">T t</div>
+      <div class="num">#012</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_013.png" alt="OLL 013"></div>
+      <div class="algo">t T</div>
+      <div class="num">#013</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_014.png" alt="OLL 014"></div>
+      <div class="algo">n S n'</div>
+      <div class="num">#014</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_015.png" alt="OLL 015"></div>
+      <div class="algo">(l' U' l) (L' U' L U) (l' U l)</div>
+      <div class="num">#015</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_016.png" alt="OLL 016"></div>
+      <div class="algo">R' T U R</div>
+      <div class="num">#016</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_017.png" alt="OLL 017"></div>
+      <div class="algo">S M' (U R U' r')</div>
+      <div class="num">#017</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_018.png" alt="OLL 018"></div>
+      <div class="algo">M U S M2 (U R U' r')</div>
+      <div class="num">#018</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_019.png" alt="OLL 019"></div>
+      <div class="algo">C r (U R U') r'</div>
+      <div class="num">#019</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_020.png" alt="OLL 020"></div>
+      <div class="algo">K</div>
+      <div class="num">#020</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_021.png" alt="OLL 021"></div>
+      <div class="algo">r (U R U') (r' F R F')</div>
+      <div class="num">#021</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_022.png" alt="OLL 022"></div>
+      <div class="algo">F' r (U R U') (r' F R)</div>
+      <div class="num">#022</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_023.png" alt="OLL 023"></div>
+      <div class="algo">R' U' H U R</div>
+      <div class="num">#023</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_024.png" alt="OLL 024"></div>
+      <div class="algo">N2 (R' F R F') U2 H</div>
+      <div class="num">#024</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_025.png" alt="OLL 025"></div>
+      <div class="algo">N2 H N2</div>
+      <div class="num">#025</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_026.png" alt="OLL 026"></div>
+      <div class="algo">M U S M' H</div>
+      <div class="num">#026</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_027.png" alt="OLL 027"></div>
+      <div class="algo">(R' F R' F') R2 U2 y H</div>
+      <div class="num">#027</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_028.png" alt="OLL 028"></div>
+      <div class="algo">(R U R' U) (R U' R' U') (R' F R F')</div>
+      <div class="num">#028</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_029.png" alt="OLL 029"></div>
+      <div class="algo">(L' U' L U') (L' U L U) (L F' L' F)</div>
+      <div class="num">#029</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_030.png" alt="OLL 030"></div>
+      <div class="algo">(R U R' U) R d' N ' F'</div>
+      <div class="num">#030</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_031.png" alt="OLL 031"></div>
+      <div class="algo">(R U R' U) (R' F R F') U2 H</div>
+      <div class="num">#031</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_032.png" alt="OLL 032"></div>
+      <div class="algo">F (N U) F' y' U2 H</div>
+      <div class="num">#032</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_033.png" alt="OLL 033"></div>
+      <div class="algo">r' U2 (R U R' U) r</div>
+      <div class="num">#033</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_034.png" alt="OLL 034"></div>
+      <div class="algo">(r U R' U) R U2 r'</div>
+      <div class="num">#034</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_035.png" alt="OLL 035"></div>
+      <div class="algo">N U N2</div>
+      <div class="num">#035</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_036.png" alt="OLL 036"></div>
+      <div class="algo">N2 U' N</div>
+      <div class="num">#036</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_037.png" alt="OLL 037"></div>
+      <div class="algo">( R' U2 N U R) y T</div>
+      <div class="num">#037</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_038.png" alt="OLL 038"></div>
+      <div class="algo">N U N2 T</div>
+      <div class="num">#038</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_039.png" alt="OLL 039"></div>
+      <div class="algo">(r U R' U) N ' U R U2' r'</div>
+      <div class="num">#039</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_040.png" alt="OLL 040"></div>
+      <div class="algo">l' U' L U' L' U L U' L' U2 l</div>
+      <div class="num">#040</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_041.png" alt="OLL 041"></div>
+      <div class="algo">r U2 R' U' R U' r'</div>
+      <div class="num">#041</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_042.png" alt="OLL 042"></div>
+      <div class="algo">F R U' R' U' R U R' F'</div>
+      <div class="num">#042</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_043.png" alt="OLL 043"></div>
+      <div class="algo">r' U' R U' R' U2 r</div>
+      <div class="num">#043</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_044.png" alt="OLL 044"></div>
+      <div class="algo">M' U M U2 M' U M</div>
+      <div class="num">#044</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_045.png" alt="OLL 045"></div>
+      <div class="algo">(R U R2 U') (R' F) (R U) (R U') F'</div>
+      <div class="num">#045</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_046.png" alt="OLL 046"></div>
+      <div class="algo">F U R U' R2 F' R (U R U' R')</div>
+      <div class="num">#046</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_047.png" alt="OLL 047"></div>
+      <div class="algo">R' F R U R' F' R y' (R U' R')</div>
+      <div class="num">#047</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_048.png" alt="OLL 048"></div>
+      <div class="algo">R2 D' N2 D R U2 R</div>
+      <div class="num">#048</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_049.png" alt="OLL 049"></div>
+      <div class="algo">R' U2 R2 U R' U R U2 x' U' R' U</div>
+      <div class="num">#049</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_050.png" alt="OLL 050"></div>
+      <div class="algo">R U B' (U' R' U R B) R'</div>
+      <div class="num">#050</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_051.png" alt="OLL 051"></div>
+      <div class="algo">R' U' F (U R U' R') F' R</div>
+      <div class="num">#051</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_052.png" alt="OLL 052"></div>
+      <div class="algo">R B' (R' U' R U) B U' R'</div>
+      <div class="num">#052</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_053.png" alt="OLL 053"></div>
+      <div class="algo">R' F R2 B' R2' F' R2 B R'</div>
+      <div class="num">#053</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_054.png" alt="OLL 054"></div>
+      <div class="algo">S R U' R' F' U' F N</div>
+      <div class="num">#054</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_055.png" alt="OLL 055"></div>
+      <div class="algo">(R2 U R' B' R) U' (R2 U R B R')</div>
+      <div class="num">#055</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_056.png" alt="OLL 056"></div>
+      <div class="algo">(R' U' R) y' x' (R U') (R' F) (R U R') S R' F R2 U R' U' F'</div>
+      <div class="num">#056</div>
+    </div>
+    <div class="card">
+      <div class="imgwrap"><img src="https://www.vostok.fr/oll/img_057.png" alt="OLL 057"></div>
+      <div class="algo">N U H N2</div>
+      <div class="num">#057</div>
+    </div>
+  </div>
+
+
+
+</div>
+<footer>Première passe de factorisation appliquée automatiquement.</footer>
+</body>
+</html>
