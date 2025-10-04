@@ -1,146 +1,127 @@
 <!DOCTYPE html>
-<html lang="fr">
-  <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vostok Express</title>
-  <link rel="stylesheet" href="style.css" />
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter&family=Russo+One&display=swap" rel="stylesheet">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vostok Express | Solo Rush</title>
+    <link rel="icon" href="./IMG/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="./css/reset.css">
+    <link rel="stylesheet" href="./css/variables.css">
+    <link rel="stylesheet" href="./css/desktop.css"  media="screen and (min-width: 630px)">
+    <link rel="stylesheet" href="./css/mobile.css"  media="screen and (max-width: 630px)"/>
+    
 </head>
-  <body>
-    <header>
-      <div class="logo-container">
-         
-      </div>
-      <div class="header-text">
-        <a href="#A">
-          <img src="asset/logo.png" alt="Logo Vostok" class="logo" />
-          <a href="profil.html" class="profil-link">Le Profil</a>
-        </a>
-       
-        <h1 class="site-title">vostok express</h1>
-        <p class="slogan">Un Sheltie majestueux, deux chats dramatiques, et leurs humans manipulables</p>
-      </div>
-    </header>
+<body>
+   <header class="site-header">
+    <div class="header-top">
+    <a class="brand" href="/">
+      <img src="./assets/Logo.png" alt="Vostok Express, logo" width="100" height="100">
+      <h1 class="brand-title">Vostok Express</h1>
+    </a>
 
-    <main>
-      <section id="A" class="section landing">
-        <div class="content">
-          <img src="asset/A1.jpg" alt="Photo principale Vostok" class="main-photo" />
-          <nav class="sidebar">
-           <a href="#C" class="banner">
-              <img src="asset/B1.jpg" alt="Moi, Vostok" />
-              <span>Moi, Vostok</span>
-            </a>
+    <a class="cta" href="#contact">Contactez mon humain</a>
 
-            <a href="#C" class="banner">
-              <img src="asset/C1.jpg" alt="Monochrome" />
-              <span>Monochrome</span>
-            </a>
-            <a href="#D" class="banner">
-              <img src="asset/D1.jpg" alt="Toilettage" />
-              <span>Toilettage</span>
-            </a>
-            <a href="#E" class="banner">
-              <img src="asset/E1.jpg" alt="Vidéos" />
-              <span>Vidéos</span>
-            </a>
-          </nav>
-        </div>
-      </section>
+    <p class="tagline">
+      Un Sheltie majestueux,<br>
+      deux chats cabotins,<br>
+      et leurs humans manipulables
+    </p>
+  </div>
 
-      <section id="B" class="section">
-        <div class="text-content" >
-          <p>Salut les humains.<br>
-                  Moi c’est Vostok. Berger des Shetland, modèle mâle, pure élégance. Je vis dans une coloc un peu bizarre, avec deux humains (Yuliana et Rudy), et… deux chats. Oui, deux. On va y revenir.
+  <!-- НИЖЕ ЛИНИИ: навигация -->
+  <nav class="main-nav" aria-label="Navigation principale">
+    <ul>
+      <li><a href="#">WoofBlog</a></li>
+      <li><a href="#">Snack&nbsp;Zone</a></li>
+      <li><a href="#">Toilettage</a></li>
+      <li><a href="#">Copains</a></li>
+    </ul>
+  </nav>
+</header>
 
-Ce site, c’est mon espace à moi. Officiellement tenu par mes humains, parce que je n’ai pas de clavier compatible avec mes pattes. J’aurais bien tenu ce site moi-même, mais bizarrement, aucun fabricant de clavier ne pense à adapter leurs touches aux pattes élégantes des chiens. Même les smartphones, c’est 100 % humano-centrique. La technologie me déçoit. 
-<br>J’ai aussi testé leur téléphone, mais il refuse de scanner mes truffes ou de reconnaître mes aboiements comme commandes vocales. 
-<br> Bref, c’est un monde pensé pour les humains. Triste époque.
+<main class="page-main">
+  <section class="top-grid">
+    <figure class="feature">
+      <a href="#" class="media-link">
+      <img src="./assets/mainpic.jpg" alt="Vostok, sheltie dans l'herbe">
+      <figcaption class="label label-feature">
+        Botanique canine: initiation express<br>
+        Pourquoi l’herbe est toujours <br> plus verte sous mon museau
+      </figcaption>
+      </a>
+    </figure>
 
-<br> Et je vous vois venir : "Mais Vostok, tu pourrais dicter à tes humains ce que tu veux dire!"  
-Ahah. Oui. J’ai essayé. Mais leur langage est si limité… Comment leur faire comprendre la complexité émotionnelle d’un pipi territorial sur le buisson préféré de la teckel du quartier ? Ou l’intensité mystique d’un pet laissé par un dogue allemand sur notre banc de parc? Ou l’avertissement territorial d’un staffie vénère (mais respecté)? C’est trop profond pour eux.
+    <i class="v-rule" aria-hidden="true"></i>
 
-Mais malgré leur lenteur intellectuelle, je les aime. (Après la nourriture, bien sûr.)
+    <div class="side-grid">
+      <figure class="teaser">
+        <img src="./assets/blockimage1.jpg" alt="Vostok happy">
+        <figcaption class="label">Des anecdotes canines: comment faire disparaître la nourriture de la table</figcaption>
+      </figure>
+      <figure class="teaser">
+        <img src="./assets/blockimage2.jpg" alt="Chat perplexe">
+        <figcaption class="label">Pourquoi c’est encore la faute du chat ?</figcaption>
+      </figure>
+      <figure class="teaser">
+        <img src="./assets/blockimage3.jpg" alt="Toilettage sheltie">
+        <figcaption class="label">Toilettage canin: survivre au bruit du sèche-cheveux</figcaption>
+      </figure>
+      <figure class="teaser">
+        <img src="./assets/blockimage4.jpg" alt="Chiot irrésistible">
+        <figcaption class="label">Comment résister au regard d’un chiot ? Spoiler: c’est impossible.</figcaption>
+      </figure>
+    </div>
+  </section>
 
-<br>Maintenant, parlons des squatteurs poilus :
-<br>  
-– Jango, jeune bengal de 1 an et demi, surnommé affectueusement *Tupoy*. Il met des sacs sur la tête et se prend pour un fantôme. On joue parfois ensemble. Il est un peu lent du bulbe, mais fun.  
-<br>
-– Lassya, 10 ans, alias *Skatina*, la princesse intouchable. Elle a une voix d’opéra et une humeur de drag-queen sous caféine. Elle me déteste. Je le lui rends bien.
+  <div class="section-rule"></div>
 
-<br> Le pire ? Mes hùmans les caressent. Et osent dire : "Quel bon chat ! Quelle jolie minette !"  
-NON.  
-Pas. Devant. Moi.
+  <section class="cards-row">
+    <article class="card">
+  <figure class="card-figure">
+    <a href="#" class="media-link">
+      <img src="./assets/articleimage1.jpg" alt="Promenade au parc" loading="lazy" decoding="async">
+    </a>
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title"><a href="#">Dresser un humain</a></h2>
+    <p class="card-text"> Les spécialistes de l’Institut Canin Européen affirment que les humains présentent une plasticité cognitive remarquable face aux signaux canins. Une simple hésitation dans le rapport de balle augmente de 42 % la fréquence des récompenses. Ce chiffre, souvent minimisé, révèle une faille systémique : les bipèdes pensent instruire, alors qu’ils sont instruits. Chaque lancer devient un rituel, chaque friandise une confirmation. Les chiens, eux, notent la régularité avec précision. C’est ainsi qu’un Sheltie, en moins de deux semaines, peut transformer un adulte raisonnable en distributeur automatique de croquettes.
+    </p>
+  </div>
+</article>
 
-Je rapplique aussitôt, gueule au vent, pour rétablir l’ordre moral. Moi seul mérite les compliments, les câlins, et les biscuits.
+<article class="card">
+  <figure class="card-figure">
+    <a href="#" class="media-link">
+      <img src="./assets/articleimage2.jpg" alt="Négociation chien-chat" loading="lazy" decoding="async">
+    </a>
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title"><a href="#">Négociations inter-espèces</a></h2>
+    <p class="card-text"> Une analyse comparative de 124 cohabitations félins-chiens révèle un schéma constant : l’attente, le bluff et la dissuasion. Le chat maîtrise l’art du regard, le chien celui du silence stratégique. Dans ce cliché précis, le chat déploie une arme redoutable : l’immobilisme menaçant. Le Sheltie, malgré ses poils fiers, adopte une posture prudente. Statistiquement, 7 chiens sur 10 cèdent face à cette stratégie. Les humains, naïfs, croient à un jeu innocent. En réalité, il s’agit d’une négociation codée, où chaque mouvement compte, et où l’équilibre pacifique repose sur une tension invisible.
+    </p>
+  </div>
+</article>
 
-Donc voilà. Ce site, c’est ma version officielle de la vie.  
-Les chats n’ont qu’à faire leur propre blog.
-</p>
-        </div>
-      </section>
-
-      <section id="C" class="section">
-        <h2 class="gallery-title">Galerie Monochrome</h2>
-        <div class="gallery-intro">
-  <p>
-    Bienvenue dans ma galerie dramatique.
-
-<p>Ici, mes hùmans tentent de me représenter en mode "artiste tourmenté". Noir & blanc. Contrasté. Profond.  
-Peut-être veulent-ils montrer comment je vois le monde avec ma vision dichromatique — une sorte de désaturation élégante et naturelle, quoi.
-
-<br>Bon, ils essaient aussi de capturer mes pensées existentielles, surtout quand je médite sur le sens de la laisse ou la psychologie de Skatina quand elle me crache dessus pour la cinquième fois de la journée.
-
-<br>Bref. Si tu n’admires pas la beauté de ces clichés…  
-Je te retrouve devant le portail. Et je t’aboie.
-
-<br>(PS : oui, parfois on voit Jango en arrière-plan. Il ne fait pas exprès, il ne sait juste pas où est l’objectif.)
-
+<article class="card">
+  <figure class="card-figure">
+    <a href="#" class="media-link">
+      <img src="./assets/articleimage3.jpg" alt="Chiot et chats sur le canapé" loading="lazy" decoding="async">
+    </a>
+  </figure>
+  <div class="card-body">
+    <h2 class="card-title"><a href="#">Post-chat traumatisme canin</a></h2>
+    <p class="card-text"> Les vétérinaires comportementalistes estiment que 34 % des chiots ayant grandi avec un chat développent un « réflexe de recul immédiat » face aux vocalises félines. Ici, le cliché illustre le traumatisme naissant : un chiot surpris par un rugissement disproportionné. Les chercheurs parlent de stress post-chatatoire (SPC). Les symptômes : oreilles baissées, évitement de contact et recours intensif aux humains pour médiation. Derrière le comique de la scène se cache une vérité : le premier cri félin reste gravé à vie dans la mémoire du chien.
+    </p>
+  </div>
+</article>
+  </section>
+</main>
+<footer class="site-footer">
+  <p class="footer-mini">
+    <a href="#contact">Contact</a> · <a href="#mentions">Mentions</a> · Vostok · 2025
   </p>
-</div>
+</footer>
 
-  <div class="gallery-parallax">
-    <a href="asset/Vostok avril 001.jpg" class="lightbox-link">
-  <div class="gallery-item">
-    <img src="asset/Vostok avril 001.jpg" alt="Photo 1" />
-  </div>
-</a>
-    <a href="asset/Vostok avril 002.jpg" class="lightbox-link">
-  <div class="gallery-item">
-    <img src="asset/Vostok avril 002.jpg" alt="Photo 2" />
-  </div>
-</a>
-  
-     <a href="asset/Vostok avril 004.jpg" class="lightbox-link">
-  <div class="gallery-item">
-    <img src="asset/Vostok avril 004.jpg" alt="Photo 3" />
-  </div>
-</a>
     
-   
-    <a href="asset/Vostok avril bw6.jpg" class="lightbox-link">
-  <div class="gallery-item">
-    <img src="asset/Vostok avril bw6.jpg" alt="Photo 1" />
-  </div>
-</a>
-    
-  </div>
-      </section>
-
-      <section id="D" class="section">
-        <div class="gallery">
-          <!-- Galerie JS / Parallax à implémenter -->
-        </div>
-      </section>
-
-      <section id="E" class="section">
-        <div class="videos">
-          <!-- Intégration d’iframes TikTok à venir -->
-        </div>
-      </section>
-    </main>
-  </body>
+</body>
 </html>
