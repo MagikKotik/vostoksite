@@ -1,146 +1,432 @@
 <!DOCTYPE html>
 <html lang="fr">
-  <head>
+<head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Vostok Express</title>
-  <link rel="stylesheet" href="style.css" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+  <title>CV – Rudy Burnay (Phone Compact + Snap v2)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter&family=Russo+One&display=swap" rel="stylesheet">
-</head>
-  <body>
-    <header>
-      <div class="logo-container">
-         
-      </div>
-      <div class="header-text">
-        <a href="#A">
-          <img src="asset/logo.png" alt="Logo Vostok" class="logo" />
-          <a href="profil.html" class="profil-link">Le Profil</a>
-        </a>
-       
-        <h1 class="site-title">vostok express</h1>
-        <p class="slogan">Un Sheltie majestueux, deux chats dramatiques, et leurs humans manipulables</p>
-      </div>
-    </header>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <style>
+    :root{
+      --fs-base: clamp(11px, 3.2vw, 13px);
+      --fs-title: clamp(12px, 3.6vw, 14px);
+      --fs-hero: clamp(16px, 5vw, 18px);
+      --fs-sub: clamp(12px, 3.7vw, 14px);
+      --fs-small: clamp(10px, 3vw, 12px);
 
-    <main>
-      <section id="A" class="section landing">
-        <div class="content">
-          <img src="asset/A1.jpg" alt="Photo principale Vostok" class="main-photo" />
-          <nav class="sidebar">
-           <a href="#C" class="banner">
-              <img src="asset/B1.jpg" alt="Moi, Vostok" />
-              <span>Moi, Vostok</span>
-            </a>
+      --ink:#13243a;
+      --muted:#6b7280;
+      --brand:#2f6fdf;
+      --brand2:#00a3ff;
+      --line:#e5e7eb;
+      --chip:#eaf2ff;
+      --chip-ink:#0f172a;
+      --bg:#ffffff;
+      --card:#ffffff;
+      --radius:12px;
+      --pad:10px;
+      --gap:8px;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--ink);
+      font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
+      font-size:var(--fs-base);
+      line-height:1.35;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+    }
 
-            <a href="#C" class="banner">
-              <img src="asset/C1.jpg" alt="Monochrome" />
-              <span>Monochrome</span>
-            </a>
-            <a href="#D" class="banner">
-              <img src="asset/D1.jpg" alt="Toilettage" />
-              <span>Toilettage</span>
-            </a>
-            <a href="#E" class="banner">
-              <img src="asset/E1.jpg" alt="Vidéos" />
-              <span>Vidéos</span>
-            </a>
-          </nav>
-        </div>
-      </section>
+    /* Vertical snap viewport */
+    main#viewport{
+      height:100svh;
+      overflow-y:auto;
+      scroll-snap-type:y mandatory;
+      scroll-behavior:smooth;
+      -webkit-overflow-scrolling:touch;
+      background:var(--bg);
+    }
+    section.panel{
+      min-height:100svh;
+      scroll-snap-align:start;
+      display:flex;
+      flex-direction:column;
+      gap:var(--gap);
+      padding:8px;
+      width:100vw;
+      max-width:420px;
+      margin:0 auto;
+    }
 
-      <section id="B" class="section">
-        <div class="text-content" >
-          <p>Salut les humains.<br>
-                  Moi c’est Vostok. Berger des Shetland, modèle mâle, pure élégance. Je vis dans une coloc un peu bizarre, avec deux humains (Yuliana et Rudy), et… deux chats. Oui, deux. On va y revenir.
+    /* Full-width banner */
+    .hero{
+      position:relative;
+      width:100%;
+      min-height:clamp(120px, 28vh, 160px);
+      border-radius:16px;
+      overflow:hidden;
+      color:#fff;
+      background-image:linear-gradient(0deg, rgba(0,0,0,.55), rgba(0,0,0,.15)), url('https://images.pexels.com/photos/1103970/pexels-photo-1103970.jpeg?auto=compress&cs=tinysrgb&w=1200');
+      background-size:cover;
+      background-position:center;
+      padding:12px;
+    }
+    .hero h1{margin:0 0 2px 0; font-size:var(--fs-hero); font-weight:800;}
+    .hero .subtitle{font-size:var(--fs-sub); font-weight:800; text-shadow:0 1px 2px rgba(0,0,0,.35)}
+    .hero .xp{font-size:var(--fs-small); font-weight:700; opacity:.95}
+    .contacts{display:grid; grid-template-columns:1fr; gap:3px; margin-top:5px; font-size:var(--fs-small)}
+    .contacts i{width:14px; font-size:0.9em}
+    .contacts a{color:#fff; text-decoration:none}
 
-Ce site, c’est mon espace à moi. Officiellement tenu par mes humains, parce que je n’ai pas de clavier compatible avec mes pattes. J’aurais bien tenu ce site moi-même, mais bizarrement, aucun fabricant de clavier ne pense à adapter leurs touches aux pattes élégantes des chiens. Même les smartphones, c’est 100 % humano-centrique. La technologie me déçoit. 
-<br>J’ai aussi testé leur téléphone, mais il refuse de scanner mes truffes ou de reconnaître mes aboiements comme commandes vocales. 
-<br> Bref, c’est un monde pensé pour les humains. Triste époque.
+    /* Two columns under banner (kept even on small phones) */
+    .columns{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:var(--gap);
+      width:100%;
+    }
 
-<br> Et je vous vois venir : "Mais Vostok, tu pourrais dicter à tes humains ce que tu veux dire!"  
-Ahah. Oui. J’ai essayé. Mais leur langage est si limité… Comment leur faire comprendre la complexité émotionnelle d’un pipi territorial sur le buisson préféré de la teckel du quartier ? Ou l’intensité mystique d’un pet laissé par un dogue allemand sur notre banc de parc? Ou l’avertissement territorial d’un staffie vénère (mais respecté)? C’est trop profond pour eux.
+    .card{
+      background:var(--card);
+      border:1px solid var(--line);
+      border-radius:var(--radius);
+      padding:var(--pad);
+      box-shadow:0 1px 2px rgba(0,0,0,.03);
+    }
 
-Mais malgré leur lenteur intellectuelle, je les aime. (Après la nourriture, bien sûr.)
+    .title{
+      font-size:var(--fs-title);
+      font-weight:800;
+      border-bottom:2px solid var(--brand);
+      padding-bottom:6px;
+      margin:0 0 6px 0;
+    }
 
-<br>Maintenant, parlons des squatteurs poilus :
-<br>  
-– Jango, jeune bengal de 1 an et demi, surnommé affectueusement *Tupoy*. Il met des sacs sur la tête et se prend pour un fantôme. On joue parfois ensemble. Il est un peu lent du bulbe, mais fun.  
-<br>
-– Lassya, 10 ans, alias *Skatina*, la princesse intouchable. Elle a une voix d’opéra et une humeur de drag-queen sous caféine. Elle me déteste. Je le lui rends bien.
+    .skills{display:flex; flex-wrap:wrap; gap:6px}
+    .chip{
+      font-size:calc(var(--fs-base) * .9);
+      padding:4px 7px;
+      border-radius:999px;
+      background:var(--chip);
+      color:var(--chip-ink);
+      border:1px solid rgba(47,111,223,.18);
+      display:inline-flex; align-items:center; gap:5px;
+      font-weight:700;
+      white-space:nowrap;
+    }
+    .chip i{font-size:.85em}
+    .chip.primary{background:linear-gradient(135deg, var(--brand), var(--brand2)); color:#fff; border:none}
 
-<br> Le pire ? Mes hùmans les caressent. Et osent dire : "Quel bon chat ! Quelle jolie minette !"  
-NON.  
-Pas. Devant. Moi.
+    .list, .edu{margin:0; padding:0; list-style:none}
+    .edu li{margin:5px 0}
+    .list.compact{list-style:disc; padding-left:14px}
+    .list.compact li{margin:3px 0}
 
-Je rapplique aussitôt, gueule au vent, pour rétablir l’ordre moral. Moi seul mérite les compliments, les câlins, et les biscuits.
+    .role{font-weight:800; margin-bottom:1px}
+    .when{color:var(--muted); font-size:var(--fs-small); margin-bottom:4px}
 
-Donc voilà. Ce site, c’est ma version officielle de la vie.  
-Les chats n’ont qu’à faire leur propre blog.
-</p>
-        </div>
-      </section>
+    .sep{height:6px}
 
-      <section id="C" class="section">
-        <h2 class="gallery-title">Galerie Monochrome</h2>
-        <div class="gallery-intro">
-  <p>
-    Bienvenue dans ma galerie dramatique.
+    @media (max-width: 360px){
+      :root{ --pad:8px; --gap:6px; }
+      .chip{ padding:3px 6px; gap:4px; }
+      .card{ border-radius:10px; }
+      .contacts i{ width:12px; }
+      .title{ padding-bottom:4px; margin-bottom:5px; }
+      .list.compact{ padding-left:12px; }
+    }
 
-<p>Ici, mes hùmans tentent de me représenter en mode "artiste tourmenté". Noir & blanc. Contrasté. Profond.  
-Peut-être veulent-ils montrer comment je vois le monde avec ma vision dichromatique — une sorte de désaturation élégante et naturelle, quoi.
-
-<br>Bon, ils essaient aussi de capturer mes pensées existentielles, surtout quand je médite sur le sens de la laisse ou la psychologie de Skatina quand elle me crache dessus pour la cinquième fois de la journée.
-
-<br>Bref. Si tu n’admires pas la beauté de ces clichés…  
-Je te retrouve devant le portail. Et je t’aboie.
-
-<br>(PS : oui, parfois on voit Jango en arrière-plan. Il ne fait pas exprès, il ne sait juste pas où est l’objectif.)
-
-  </p>
-</div>
-
-  <div class="gallery-parallax">
-    <a href="asset/Vostok avril 001.jpg" class="lightbox-link">
-  <div class="gallery-item">
-    <img src="asset/Vostok avril 001.jpg" alt="Photo 1" />
-  </div>
-</a>
-    <a href="asset/Vostok avril 002.jpg" class="lightbox-link">
-  <div class="gallery-item">
-    <img src="asset/Vostok avril 002.jpg" alt="Photo 2" />
-  </div>
-</a>
+    .hint{
+      text-align:center;
+      font-size:var(--fs-small);
+      color:var(--muted);
+      margin-top:auto;
+      opacity:.8;
+    }
   
-     <a href="asset/Vostok avril 004.jpg" class="lightbox-link">
-  <div class="gallery-item">
-    <img src="asset/Vostok avril 004.jpg" alt="Photo 3" />
-  </div>
-</a>
-    
-   
-    <a href="asset/Vostok avril bw6.jpg" class="lightbox-link">
-  <div class="gallery-item">
-    <img src="asset/Vostok avril bw6.jpg" alt="Photo 1" />
-  </div>
-</a>
-    
-  </div>
-      </section>
+/* =========  Desktop & grands écrans  ========= */
+@media (min-width: 960px) {
+  main#viewport {
+    height: auto;
+    overflow-y: visible;
+    scroll-snap-type: none;
+  }
+  section.panel {
+    min-height: auto;
+    width: 100%;
+    max-width: 1100px;
+    padding: 24px 20px;
+    margin: 0 auto 28px;
+  }
+  :root{
+    --fs-base: 16px;
+    --fs-title: 20px;
+    --fs-hero: 28px;
+    --fs-sub: 18px;
+    --fs-small: 14px;
+  }
+  .hero{
+    min-height: 240px;
+    padding: 20px;
+    border-radius: 18px;
+    background-position: center;
+  }
+  .columns{
+    display: grid;
+    grid-template-columns: 1.6fr 1fr;
+    gap: 16px;
+    width: 100%;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+  .card{
+    border-radius: 14px;
+    padding: 16px;
+  }
+  .title{ padding-bottom: 8px; margin-bottom: 10px; }
+  .hint{ display:none; }
+}
+@media (min-width: 1280px){
+  section.panel,
+  .columns{ max-width: 1200px; }
+  :root{ --fs-hero: 32px; --fs-title: 22px; }
+}
 
-      <section id="D" class="section">
-        <div class="gallery">
-          <!-- Galerie JS / Parallax à implémenter -->
+
+    /* Discreet company logo badges */
+    .logo-badge{height:2.2em;width:auto;vertical-align:middle;margin-right:10px;opacity:.9;background:#fff;border:1px solid var(--line);border-radius:4px;padding:.2em;}
+    @media (min-width:960px){.logo-badge{height:2.8em;}}
+
+</style>
+</head>
+<body>
+  <main id="viewport" aria-label="CV téléphone – défilement vertical par pages">
+    <!-- PAGE 1 : Landing -->
+    <section class="panel" id="page1">
+      <section class="hero" aria-labelledby="name">
+        <h1 id="name">Rudy Burnay</h1>
+        <div class="xp">25 ans d'expérience</div>
+        <div class="subtitle">Développeur Senior C# .NET Core Backend</div>
+        <div class="contacts" aria-label="Coordonnées">
+          <span><i class="fa-solid fa-envelope"></i> <a href="mailto:Rudy.burnay@gmail.com">Rudy.burnay@gmail.com</a></span>
+          <span><i class="fa-solid fa-phone"></i> <a href="tel:+33662520860">06 62 52 08 60</a></span>
         </div>
       </section>
 
-      <section id="E" class="section">
-        <div class="videos">
-          <!-- Intégration d’iframes TikTok à venir -->
+      <section class="columns" aria-label="Contenu principal en deux colonnes">
+        <!-- LEFT COLUMN -->
+        <div>
+          <div class="card">
+            <h2 class="title">Compétences techniques</h2>
+            <div class="skills" role="list">
+              <span role="listitem" class="chip primary"><i class="fa-solid fa-code"></i> C#</span>
+              <span role="listitem" class="chip primary"><i class="fa-solid fa-cogs"></i> .NET Core</span>
+              <span role="listitem" class="chip primary"><i class="fa-solid fa-network-wired"></i> API</span>
+              <span role="listitem" class="chip primary"><i class="fa-solid fa-database"></i> SQL</span>
+              <span role="listitem" class="chip"><i class="fa-solid fa-exchange-alt"></i> WCF</span>
+              <span role="listitem" class="chip"><i class="fa-solid fa-shield-halved"></i> Entity Framework</span>
+              <span role="listitem" class="chip"><i class="fa-solid fa-cloud"></i> Azure</span>
+              <span role="listitem" class="chip"><i class="fa-solid fa-laptop-code"></i> ASP.NET Core</span>
+              <span role="listitem" class="chip"><i class="fa-solid fa-server"></i> IIS</span>
+              <span role="listitem" class="chip"><i class="fa-solid fa-file-code"></i> XSLT</span>
+              <span role="listitem" class="chip"><i class="fa-solid fa-screwdriver-wrench"></i> CI/CD</span>
+              <span role="listitem" class="chip"><i class="fa-solid fa-code-branch"></i> Azure DevOps</span>
+              <span role="listitem" class="chip"><i class="fa-brands fa-git-alt"></i> GIT</span>
+              <span role="listitem" class="chip"><i class="fa-solid fa-code"></i> Visual Studio</span>
+              <span role="listitem" class="chip"><i class="fa-solid fa-code"></i> VB.NET</span>
+            </div>
+          </div>
+
+          <div class="sep"></div>
+
+
+          <div class="sep"></div>
+
+          <div class="card">
+            <h3 class="title">Formations</h3>
+            <ul class="edu">
+              <li>AZ-900 : Microsoft Azure Fundamentals</li>
+              <li>AZ-204 : Developing Solutions for Microsoft Azure</li>
+              <li>AI-900 : Microsoft Azure AI Fundamentals</li>
+              <li>AI-104 : Microsoft Azure Cognitive</li>
+              <li>Programming in C#</li>
+              <li>Data access .NET solution</li>
+            </ul>
+          </div>
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div>
+          <div class="card">
+            <h2 class="title">Expériences récentes</h2>
+
+            <article>
+              <div class="role"><img class="logo-badge" src="./groupetf1_logo.jpeg" alt="Logo TF1" loading="lazy" /> TF1 – Ingénieur d’étude (Août 2021 à Août 2024)</div>
+              <ul class="list compact">
+                <li>Gestion des visiteurs : Programmation de rendez-vous pour faciliter l’aspect de sécurité du bâtiment.</li>
+                <li>Gestion Aviwest : Gestion du prêt de caméras Aviwest.</li>
+                <li>Projet Mulan : Évolution et maintenance.</li>
+                <li>Dalet Pocket : Création d’un client léger pour consulter des informations de Dalet.</li>
+              </ul>
+            </article>
+
+            <hr style="border:none; border-top:1px solid var(--line); margin:8px 0" />
+
+            <article>
+              <div class="role"><img class="logo-badge" src="./canal__logo.jpeg" alt="Logo Canal+" loading="lazy" /> Canal+ – Ingénieur d’étude (Février 2017 à août 2021)</div>
+              <ul class="list compact">
+                <li>VCFilter : API permettant d’enregistrer une box Bytel lors de sa première connexion.</li>
+                <li>Projet TOMI : Ensemble d’applicatifs backend composés d’une API et de plusieurs services WCF.</li>
+                <li>PPL : Architecture complexe permettant de vérifier l’unicité d’utilisation des abonnements.</li>
+              </ul>
+            </article>
+          </div>
         </div>
       </section>
-    </main>
-  </body>
+
+      <div class="hint">Balaye vers le bas pour la page suivante</div>
+    </section>
+
+    <!-- PAGE 2 : Euro-Information + TF1 détaillé -->
+    <section class="panel" id="page2" aria-label="Expériences professionnelles détaillées">
+      <div class="card">
+        <h2 class="title">Expériences professionnelles détaillées</h2>
+
+        <article>
+          <div class="role"><img class="logo-badge" src="./euro_informations_developpements_eid_logo.jpeg" alt="Logo Euro-Information" loading="lazy" /> Euro-Information – Ingénieur d’étude (2025)</div>
+          <p class="when"><strong>Objectif :</strong> Responsable du bon fonctionnement, suivi et évolution du parc applicatif MFX et MDFI</p>
+          <ul class="list compact">
+            <li><span class="role">MFX</span> : Création d'un outil de montée en charge applicative pour vérifier sa robustesse</li>
+            <li><span class="role">Système multi devise</span> : Développement de MFX en WPF</li>
+            <li><span class="role">MDFI</span> : Aide à la saisie des mapping</li>
+          </ul>
+        </article>
+
+        <hr style="border:none; border-top:1px solid var(--line); margin:8px 0" />
+
+        <article>
+          <div class="role"><img class="logo-badge" src="./groupetf1_logo.jpeg" alt="Logo TF1" loading="lazy" /> TF1 – Ingénieur d’étude (Août 2021 à Août 2024)</div>
+          <p class="when"><strong>Projets :</strong></p>
+          <ul class="list compact">
+            <li><span class="role">Gestion des visiteurs</span> : Programmation de rendez-vous pour faciliter l’aspect de sécurité du bâtiment. Technologies utilisées : ASP .NET Core, Entity Framework (code first), API REST, MVC.</li>
+            <li><span class="role">Gestion Aviwest</span> : Gestion du prêt de caméras Aviwest. Technologies utilisées : Service Windows, API, SQL Server.</li>
+            <li><span class="role">Projet Mulan</span> : Évolution et maintenance. Service Windows consultant l’API de Dalet pour fournir des données au BI. Technologies utilisées : C#, API.</li>
+            <li><span class="role">Dalet Pocket</span> : Création d’un client léger pour consulter des informations de Dalet. Technologies utilisées : ASP.NET, MVC, liaison avec l’API Dalet.</li>
+            <li><span class="role">Alimentation Annuaire</span> : Évolution par la création d’un service et une API pour fournir des photos à l’annuaire. Technologies utilisées : API RESTful, Service Windows, C#, Azure.</li>
+            <li><span class="role">Archivage Naos</span> : Archivage d’anciens médias et consultation via un client léger. Technologies utilisées : Angular, HTML, CSS, C#.</li>
+            <li><span class="role">Audit TrailLog</span> : Génération automatique de rapports issus de Dalet.</li>
+            <li><span class="role">Migration SQL</span> : Migration et modernisation d’un parc applicatif legacy.</li>
+            <li><span class="role">Autres missions</span> : Création de XSLT pour convertir des données de sources tierces vers Dalet, TMA sur un large parc applicatif, migration d’anciens applicatifs vers des technologies modernes.</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="hint">Balaye pour continuer</div>
+    </section>
+
+    <!-- PAGE 3 : Canal+ + Société Générale -->
+    <section class="panel" id="page3" aria-label="Expériences professionnelles détaillées">
+      <div class="card">
+        <h2 class="title">Expériences professionnelles détaillées</h2>
+
+        <article>
+          <div class="role"><img class="logo-badge" src="./canal__logo.jpeg" alt="Logo Canal+" loading="lazy" /> Canal+ – Ingénieur d’étude (Février 2017 à août 2021)</div>
+          <p class="when"><strong>Projets :</strong></p>
+          <ul class="list compact">
+            <li><span class="role">VCFilter</span> : API permettant d’enregistrer une box Bytel lors de sa première connexion. Technologies utilisées : C#, API, WCF, SQL.</li>
+            <li><span class="role">Projet TOMI</span> : Ensemble d’applicatifs backend composés d’une API et de plusieurs services WCF connectés à l’OMI pour déclarer les box Bytel dans le système Canal+. Technologies utilisées : C#, API, WCF, SQL.</li>
+            <li><span class="role">PPL</span> : Architecture complexe permettant de vérifier l’unicité d’utilisation des abonnements et de collecter des informations en temps réel. Migration de ces systèmes vers de nouveaux serveurs. Technologies utilisées : C#, API, SQL.</li>
+            <li><span class="role">Outils d’assistance</span> : Client léger pour la migration de l’OMI. Technologies utilisées : CI/CD, ElasticSearch, DataLog.</li>
+          </ul>
+        </article>
+
+        <hr style="border:none; border-top:1px solid var(--line); margin:8px 0" />
+
+        <article>
+          <div class="role"><img class="logo-badge" src="./societe_generale_logo.jpeg" alt="Logo Société Générale" loading="lazy" /> Société Générale – Consultant .NET (2013 à 2017)</div>
+          <p class="when"><strong>Projets :</strong></p>
+          <ul class="list compact">
+            <li><span class="role">Projet Atlas</span> : Gestion et facturation interne du parc immobilier. Migration VBA vers C# et VB.NET. Technologies utilisées : C#, VB.NET, SQL Server, Entity Framework.</li>
+            <li><span class="role">Projet Sable</span> : Gestion des clients suspectés de blanchiment. Développement d’un site intranet et de pages web. Technologies utilisées : ASP.NET, MVC, Bootstrap, Oracle.</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="hint">Balaye pour continuer</div>
+    </section>
+
+    <!-- PAGE 4 : Groupama + Natixis + Cardif -->
+    <section class="panel" id="page4" aria-label="Expériences professionnelles détaillées">
+      <div class="card">
+        <h2 class="title">Expériences professionnelles détaillées</h2>
+
+        <article>
+          <div class="role"><img class="logo-badge" src="./groupama_asset_management_logo.jpeg" alt="Logo Groupama" loading="lazy" /> Groupama – AM Ingénieur d’étude et développement (2009 à 2013)</div>
+          <ul class="list compact">
+            <li><span class="role">Création d’une architecture de gestion de batchs</span> : Rapport quotidien et gestion des pannes de batchs. Création d’un système de « météo » des batchs. Technologies utilisées : VBA, VBScript, C#, SQL Server.</li>
+          </ul>
+        </article>
+
+        <hr style="border:none; border-top:1px solid var(--line); margin:8px 0" />
+
+        <article>
+          <div class="role">Natixis – Ingénieur d’étude (2008)</div>
+          <ul class="list compact">
+            <li><span class="role">Maintenance et migration d’applicatifs VBA</span> : Migration d’applicatifs VBA vers C# et VB.NET. Technologies utilisées : Access, Excel, ADO.NET, Framework 3.0.</li>
+          </ul>
+        </article>
+
+        <hr style="border:none; border-top:1px solid var(--line); margin:8px 0" />
+
+        <article>
+          <div class="role"><img class="logo-badge" src="./cardif.jpeg" alt="Logo Cardif" loading="lazy" /> Cardif – Ingénieur d’étude (2007)</div>
+          <ul class="list compact">
+            <li><span class="role">Projet COFFI</span> : Application post-fusion Cardif et Natio-Vie. Architecture et développement applicatif. Technologies utilisées : VBA, Access.</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="hint">Balaye pour continuer</div>
+    </section>
+
+    <!-- PAGE 5 : Mastercard Belgique + Phillips Mobile + AXA-Assistance -->
+    <section class="panel" id="page5" aria-label="Expériences professionnelles détaillées">
+      <div class="card">
+        <h2 class="title">Expériences professionnelles détaillées</h2>
+
+        <article>
+          <div class="role">Mastercard Belgique – Ingénieur d’étude (2006)</div>
+          <ul class="list compact">
+            <li><span class="role">Projet TPE</span> : Application de gestion internationale des TPE Mastercard. Recueil des besoins, modélisation et déploiement des livrables. Technologies utilisées : VBA, Access, Excel.</li>
+          </ul>
+        </article>
+
+        <hr style="border:none; border-top:1px solid var(--line); margin:8px 0" />
+
+        <article>
+          <div class="role"><img class="logo-badge" src="./philips_logo.jpeg" alt="Logo Phillips Mobile" loading="lazy" /> Phillips Mobile – Ingénieur d’étude (2005)</div>
+          <ul class="list compact">
+            <li><span class="role">Outil de reporting des ventes mobiles</span> : Modélisation de base de données, développement et gestion des statistiques. Technologies utilisées : VBA, Access, Excel.</li>
+          </ul>
+        </article>
+
+        <hr style="border:none; border-top:1px solid var(--line); margin:8px 0" />
+
+        <article>
+          <div class="role">AXA-Assistance Protection – Responsable Informatique (2001 à 2004)</div>
+          <ul class="list compact">
+            <li><span class="role">Amélioration et maintenance des systèmes informatiques</span> : Développement adapté aux besoins utilisateurs. Refonte logicielle, formation du personnel et gestion des achats. Technologies utilisées : VBA, Access, Excel.</li>
+          </ul>
+        </article>
+      </div>
+
+      <div class="hint">Fin • Balaye vers le haut pour remonter</div>
+    </section>
+  </main>
+</body>
 </html>
