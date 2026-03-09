@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>CV – Rudy Burnay</title>
+  <style>
+    :root {
+      --bg: #0f172a;
+      --panel: #111827;
+      --panel-2: #1f2937;
+      --text: #e5e7eb;
+      --muted: #94a3b8;
+      --accent: #38bdf8;
+      --accent-2: #22c55e;
+      --border: rgba(255,255,255,0.08);
+      --shadow: 0 20px 45px rgba(0,0,0,0.35);
+      --max: 1100px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Inter, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(56,189,248,0.12), transparent 35%),
+        radial-gradient(circle at top right, rgba(34,197,94,0.08), transparent 30%),
+        linear-gradient(180deg, #020617 0%, #0f172a 100%);
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    a {
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    a:hover { text-decoration: underline; }
+
+    .container {
+      width: min(calc(100% - 32px), var(--max));
+      margin: 0 auto;
+    }
+
+    .hero {
+      padding: 56px 0 30px;
+    }
+
+    .hero-card {
+      background: linear-gradient(180deg, rgba(17,24,39,0.96), rgba(15,23,42,0.96));
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      padding: 34px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(6px);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      gap: 8px;
+      align-items: center;
+      padding: 6px 12px;
+      border: 1px solid rgba(56,189,248,0.25);
+      border-radius: 999px;
+      color: #bae6fd;
+      font-size: 0.92rem;
+      margin-bottom: 18px;
+      background: rgba(56,189,248,0.08);
+    }
+
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(2.2rem, 5vw, 4rem);
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+    }
+
+    .subtitle {
+      font-size: clamp(1.1rem, 2vw, 1.5rem);
+      color: #cbd5e1;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .lead {
+      max-width: 900px;
+      color: var(--muted);
+      font-size: 1.04rem;
+      margin: 0;
+    }
+
+    .contact {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 22px;
+    }
+
+    .pill {
+      background: rgba(255,255,255,0.05);
+      color: var(--text);
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      padding: 10px 14px;
+      font-size: 0.96rem;
+    }
+
+    main {
+      padding-bottom: 44px;
+    }
+
+    section {
+      margin-top: 24px;
+    }
+
+    .section-card {
+      background: rgba(17,24,39,0.88);
+      border: 1px solid var(--border);
+      border-radius: 22px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+    }
+
+    h2 {
+      margin: 0 0 18px;
+      font-size: 1.45rem;
+      letter-spacing: -0.02em;
+    }
+
+    h3 {
+      margin: 0 0 6px;
+      font-size: 1.1rem;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: 24px;
+    }
+
+    .skills {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0,1fr));
+      gap: 14px;
+    }
+
+    .skill-box {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .skill-box p,
+    .certs li,
+    .exp-content li,
+    .summary-list li {
+      color: var(--muted);
+    }
+
+    .skill-box p,
+    .summary-list,
+    .certs,
+    .exp-content ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .summary-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .experience-list {
+      display: grid;
+      gap: 18px;
+    }
+
+    .experience {
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      overflow: hidden;
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.015));
+    }
+
+    .exp-head {
+      padding: 18px 20px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      background: rgba(255,255,255,0.02);
+    }
+
+    .exp-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 14px;
+      align-items: center;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .exp-content {
+      padding: 16px 20px 18px;
+    }
+
+    .tagline {
+      color: #dbeafe;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    footer {
+      color: var(--muted);
+      text-align: center;
+      padding: 18px 0 40px;
+      font-size: 0.94rem;
+    }
+
+    @media (max-width: 900px) {
+      .grid-2,
+      .skills {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-card,
+      .section-card {
+        padding: 22px;
+      }
+    }
+  
+    @media print {
+      @page {
+        size: A4;
+        margin: 11mm;
+      }
+
+      :root {
+        --bg: #ffffff;
+        --panel: #ffffff;
+        --panel-2: #ffffff;
+        --text: #111827;
+        --muted: #4b5563;
+        --accent: #0369a1;
+        --accent-2: #15803d;
+        --border: #dbe3ea;
+        --shadow: none;
+        --max: none;
+      }
+
+      html, body {
+        background: #ffffff !important;
+      }
+
+      body {
+        color: var(--text) !important;
+        font-size: 10.5pt;
+        line-height: 1.34;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+
+      .container {
+        width: 100% !important;
+        max-width: none !important;
+        margin: 0 !important;
+      }
+
+      .hero {
+        padding: 0 0 10px !important;
+      }
+
+      main {
+        padding-bottom: 0 !important;
+      }
+
+      section {
+        margin-top: 10px !important;
+        break-inside: auto !important;
+        page-break-inside: auto !important;
+      }
+
+      .hero-card,
+      .section-card,
+      .experience,
+      .skill-box {
+        background: #ffffff !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+      }
+
+      .hero-card {
+        border: 1px solid var(--border) !important;
+        border-radius: 12px !important;
+        padding: 16px 18px !important;
+      }
+
+      .section-card {
+        border: none !important;
+        border-radius: 0 !important;
+        padding: 10px 0 0 !important;
+      }
+
+      .eyebrow {
+        color: #0c4a6e !important;
+        background: #eef6fb !important;
+        border-color: #bfdbfe !important;
+        font-size: 8.5pt !important;
+        margin-bottom: 10px !important;
+        padding: 4px 8px !important;
+      }
+
+      h1 {
+        font-size: 24pt !important;
+        margin: 0 0 4px !important;
+      }
+
+      .subtitle {
+        color: #475569 !important;
+        font-size: 12pt !important;
+        margin-bottom: 6px !important;
+      }
+
+      .lead {
+        color: var(--text) !important;
+        max-width: none !important;
+        font-size: 10.5pt !important;
+      }
+
+      .contact {
+        gap: 8px !important;
+        margin-top: 12px !important;
+      }
+
+      .pill {
+        color: #1f2937 !important;
+        background: #f8fafc !important;
+        border: 1px solid #dbe3ea !important;
+        padding: 6px 10px !important;
+        font-size: 9pt !important;
+      }
+
+      h2 {
+        font-size: 14pt !important;
+        margin: 0 0 8px !important;
+        padding-top: 6px !important;
+        border-top: 2px solid #e5e7eb;
+        break-after: avoid !important;
+        page-break-after: avoid !important;
+      }
+
+      h3 {
+        font-size: 11pt !important;
+        margin: 0 0 4px !important;
+        break-after: avoid !important;
+        page-break-after: avoid !important;
+      }
+
+      .grid-2,
+      .skills {
+        display: block !important;
+      }
+
+      .grid-2 > *,
+      .skills > * {
+        margin-bottom: 10px !important;
+      }
+
+      .skill-box {
+        border: 1px solid #e5e7eb !important;
+        border-radius: 10px !important;
+        padding: 10px 12px !important;
+        margin-bottom: 8px !important;
+        break-inside: avoid !important;
+        page-break-inside: avoid !important;
+      }
+
+      .experience-list {
+        display: block !important;
+      }
+
+      .experience {
+        border: 1px solid #e5e7eb !important;
+        border-radius: 10px !important;
+        margin-bottom: 10px !important;
+        overflow: visible !important;
+        break-inside: auto !important;
+        page-break-inside: auto !important;
+      }
+
+      .exp-head {
+        padding: 10px 12px 6px !important;
+        background: #f8fafc !important;
+        border-bottom: 1px solid #e5e7eb !important;
+        break-after: avoid !important;
+        page-break-after: avoid !important;
+      }
+
+      .exp-meta {
+        color: #6b7280 !important;
+        font-size: 8.8pt !important;
+      }
+
+      .exp-content {
+        padding: 8px 12px 10px !important;
+      }
+
+      .tagline {
+        color: #0f172a !important;
+        margin-bottom: 4px !important;
+      }
+
+      p, li, .skill-box p, .certs li, .exp-content li, .summary-list li {
+        color: inherit !important;
+      }
+
+      ul, ol {
+        margin: 6px 0 0 !important;
+      }
+
+      .summary-list,
+      .certs,
+      .exp-content ul,
+      .skill-box p {
+        padding-left: 18px !important;
+      }
+
+      li {
+        margin-bottom: 3px !important;
+      }
+
+      footer {
+        color: #6b7280 !important;
+        padding: 6px 0 0 !important;
+        font-size: 8.8pt !important;
+      }
+    }
+
+  </style>
+</head>
+<body>
+  <header class="hero">
+    <div class="container">
+      <div class="hero-card">
+        <div class="eyebrow">25+ ans d'expérience · .NET Framework · WinForms · Legacy & migrations</div>
+        <h1>Rudy Burnay</h1>
+        <div class="subtitle">Lead Dev Architect</div>
+        <p class="lead">
+          Spécialiste .NET Framework / client lourd WinForms, traitement de données complexes et migrations legacy.
+          Lead Dev / Architecte .NET avec plus de 25 ans d'expérience, habitué aux environnements critiques,
+          au rétro-engineering, aux refontes progressives back-end first, à l'optimisation de performances et au pilotage technique d'évolutions sans rupture.
+        </p>
+        <div class="contact">
+          <span class="pill">Rudy.burnay@gmail.com</span>
+          <span class="pill">06 62 52 08 60</span>
+          <span class="pill">.NET Framework 4.x / C# 7</span>
+          <span class="pill">SQL Server · EF6 · WinForms</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section>
+        <div class="grid-2">
+          <div class="section-card">
+            <h2>Profil</h2>
+            <ul class="summary-list">
+              <li>Expertise approfondie sur <strong>.NET Framework</strong>, applications <strong>client lourd WinForms</strong> et environnements legacy critiques.</li>
+              <li>Maîtrise d'<strong>Entity Framework</strong> en contexte legacy <strong>EF6</strong> comme en approche <strong>Code First</strong> plus récente.</li>
+              <li>Solide expérience <strong>SQL Server</strong>, et <strong>SQL</strong> sur près de 30 ans cumulés : optimisation de requêtes, gros volumes, tuning et exploitation SSMS.</li>
+              <li>Forte capacité à manipuler des <strong>fichiers complexes</strong> : XML, CSV, JSON, binaires, formats structurés, XSLT et parsing spécifique.</li>
+              <li>Très à l'aise sur les sujets <strong>algorithmique avancée</strong>, structures de données, performance et fiabilité des traitements.</li>
+              <li>Encadrement technique, architecture robuste, modernisation progressive et migration sans rupture des systèmes existants.</li>
+            </ul>
+          </div>
+
+          <div class="section-card">
+            <h2>Formations & certifications</h2>
+            <ul class="certs">
+              <li>Certification Codingame – Algorithmique</li>
+              <li>Programming in C#</li>
+              <li>Data access .NET solution</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-card">
+          <h2>Compétences techniques</h2>
+          <div class="skills">
+            <div class="skill-box">
+              <h3>Écosystème .NET</h3>
+              <p>C# (.NET Framework 4.x / C#7, .NET Core en complément), WinForms, WCF, Services Windows, API REST/JSON.</p>
+            </div>
+            <div class="skill-box">
+              <h3>Accès aux données</h3>
+              <p>Entity Framework (EF6 legacy + Code First récent), SQL Server, optimisation de requêtes, gros volumes, SSMS, notions Oracle.</p>
+            </div>
+            <div class="skill-box">
+              <h3>Fichiers & formats</h3>
+              <p>XML, CSV, JSON, binaires, formats structurés, XSLT, parsing custom, échanges inter-applicatifs et conversions complexes.</p>
+            </div>
+            <div class="skill-box">
+              <h3>Algorithmique & performance</h3>
+              <p>Algorithmique avancée, structures de données, traitements haute performance, optimisation back-end et logique métier complexe.</p>
+            </div>
+            <div class="skill-box">
+              <h3>Reporting & automation</h3>
+              <p>Génération automatisée Excel / PDF, reporting technique et métier, outillage d'exploitation et industrialisation.</p>
+            </div>
+            <div class="skill-box">
+              <h3>Lead technique</h3>
+              <p>Pilotage d'évolutions, architecture robuste, rétro-engineering legacy, encadrement technique, migration progressive back-end first.</p>
+            </div>
+            <div class="skill-box">
+              <h3>Outils</h3>
+              <p>Visual Studio (toutes versions), TFS, Git, Azure DevOps (expérience secondaire).</p>
+            </div>
+            <div class="skill-box">
+              <h3>Compléments</h3>
+              <p>GDI+ pour rendus précis, MongoDB en montée en compétences rapide avec approche LINQ-like.</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <div class="section-card">
+          <h2>Expériences professionnelles détaillées</h2>
+          <div class="experience-list">
+
+            <article class="experience">
+              <div class="exp-head">
+                <h3>TF1 – Ingénieur d’étude / Lead technique</h3>
+                <div class="exp-meta">
+                  <span>Août 2021 – Août 2024</span>
+                  <span>C# · Entity Framework Code First · SQL Server · API REST · Services Windows · XSLT</span>
+                </div>
+              </div>
+              <div class="exp-content">
+                <div class="tagline">Développement et optimisation back-end sur flux de données massives dans un contexte média.</div>
+                <ul>
+                  <li>Création de XSLT pour convertir des formats tiers vers Dalet et manipulation intensive de fichiers structurés (XML, JSON, CSV).</li>
+                  <li>Migration et modernisation d'un parc applicatif legacy vers des technologies plus récentes via rétro-engineering et approche back-end first.</li>
+                  <li>TMA, audit logs, reporting automatisé et amélioration de traitements sur de gros volumes de données.</li>
+                  <li>Contribution sur plusieurs applications critiques en assurant robustesse, continuité de service et évolutivité.</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="experience">
+              <div class="exp-head">
+                <h3>Canal+ – Ingénieur d’étude / Architecte</h3>
+                <div class="exp-meta">
+                  <span>Février 2017 – Août 2021</span>
+                  <span>C# · WCF · SQL Server · API · ElasticSearch</span>
+                </div>
+              </div>
+              <div class="exp-content">
+                <div class="tagline">Architecture back-end complexe, haute performance et migration d'environnements critiques.</div>
+                <ul>
+                  <li><strong>Projet PPL</strong> : architecture à forte exigence de performance, jusqu'à 10k req/s, algorithmes avancés pour contrôler l'unicité d'utilisation des abonnements et collecter des données en temps réel.</li>
+                  <li><strong>Projet TOMI</strong> : back-end multi-services WCF et API pour la déclaration de box dans le SI Canal+.</li>
+                  <li><strong>VCFilter & outils d’assistance</strong> : développement d'API, services et clients légers dans un cadre de migration applicative.</li>
+                  <li>Participation au pilotage des migrations serveurs et à l'observabilité via logs et ElasticSearch.</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="experience">
+              <div class="exp-head">
+                <h3>Société Générale – Consultant .NET</h3>
+                <div class="exp-meta">
+                  <span>2013 – 2017</span>
+                  <span>C# · VB.NET · WinForms · SQL Server · Entity Framework · Oracle</span>
+                </div>
+              </div>
+              <div class="exp-content">
+                <div class="tagline">Migration d'outils métiers vers un socle .NET robuste et pérenne.</div>
+                <ul>
+                  <li><strong>Projet Atlas</strong> : développement et migration d'une application client lourd WinForms C# de gestion et facturation du parc immobilier, avec bascule VBA vers C# / WinForms.</li>
+                  <li><strong>Projet Sable</strong> : back-end de gestion de clients suspects avec Entity Framework 6 legacy et interopération SQL / Oracle.</li>
+                  <li>Travail sur des domaines métiers sensibles avec forte exigence de fiabilité et de maintenabilité.</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="experience">
+              <div class="exp-head">
+                <h3>Groupama – AM Ingénieur d’étude et développement</h3>
+                <div class="exp-meta">
+                  <span>2009 – 2013</span>
+                  <span>C# · VBA · VBScript · SQL Server</span>
+                </div>
+              </div>
+              <div class="exp-content">
+                <div class="tagline">Architecture de batchs robustes et suivi d'exploitation quotidien.</div>
+                <ul>
+                  <li>Conception de traitements batch avec reporting quotidien, gestion des pannes et mise en place d'une véritable “météo batchs”.</li>
+                  <li>Travail sur gros volumes de données avec exigences de stabilité et de lisibilité pour les équipes d'exploitation.</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="experience">
+              <div class="exp-head">
+                <h3>Natixis / Cardif / Phillips Mobile</h3>
+                <div class="exp-meta">
+                  <span>2005 – 2008</span>
+                  <span>Access · Excel · ADO.NET · C# · VB.NET · WinForms · Framework 3.0</span>
+                </div>
+              </div>
+              <div class="exp-content">
+                <div class="tagline">Développement et migrations d'applications desktop et reporting métier.</div>
+                <ul>
+                  <li>Migration d'applications VBA / Access vers C#, VB.NET et WinForms.</li>
+                  <li>Réalisation d'outils de reporting ventes, statistiques et consolidation post-fusion.</li>
+                  <li>Manipulation de fichiers CSV, Excel et binaires dans des contextes métiers variés.</li>
+                </ul>
+              </div>
+            </article>
+
+            <article class="experience">
+              <div class="exp-head">
+                <h3>AXA-Assistance – Responsable Informatique / Architecte</h3>
+                <div class="exp-meta">
+                  <span>2001 – 2004</span>
+                  <span>VBA · Access · Excel</span>
+                </div>
+              </div>
+              <div class="exp-content">
+                <div class="tagline">Refonte de systèmes legacy, architecture applicative et encadrement.</div>
+                <ul>
+                  <li>Pilotage de la refonte des systèmes existants, rétro-engineering et développement sur mesure adapté aux besoins utilisateurs.</li>
+                  <li>Encadrement d'équipe, structuration des solutions, formation du personnel et gestion des achats informatiques.</li>
+                </ul>
+              </div>
+            </article>
+
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    CV HTML adapté pour Rudy Burnay.
+  </footer>
+</body>
+</html>
