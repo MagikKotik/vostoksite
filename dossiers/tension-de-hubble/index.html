@@ -1,0 +1,857 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La Tension de Hubble — La Crise la Plus Profonde de la Cosmologie Moderne | Vostok</title>
+  <meta name="description" content="La constante de Hubble est au cœur d'un conflit qui ébranle la cosmologie moderne. Deux méthodes, deux résultats incompatibles, et une tension à 5σ que ni Webb ni Planck n'ont réussi à résoudre." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --deep:   #020b18;
+      --navy:   #061628;
+      --blue:   #0d2d4a;
+      --accent: #00b4d8;
+      --bright: #90e0ef;
+      --gold:   #f4c542;
+      --white:  #e8f4fd;
+      --muted:  #8bb8d0;
+      --text:   #cce4f0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--deep);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 17px;
+      line-height: 1.8;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://v3b.fal.media/files/b/0a9a4ee7/_luIXcY-0xrlGEFdyFAbs.jpg');
+      background-size: cover;
+      background-position: center;
+      transform: scale(1.04);
+      transition: transform 8s ease-out;
+    }
+    .hero-bg.loaded { transform: scale(1); }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom,
+        rgba(2,11,24,0.15) 0%,
+        rgba(2,11,24,0.30) 40%,
+        rgba(2,11,24,0.88) 80%,
+        rgba(2,11,24,1.00) 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 8vw 6rem;
+      max-width: 860px;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--deep);
+      font-family: 'Inter', sans-serif;
+      font-weight: 600;
+      font-size: 0.72rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 3px;
+      margin-bottom: 1.4rem;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 5.5vw, 4.2rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.12;
+      margin-bottom: 1.2rem;
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero-sub {
+      font-size: 1.08rem;
+      color: var(--bright);
+      max-width: 600px;
+      margin-bottom: 2rem;
+      font-weight: 300;
+    }
+    .hero-meta {
+      display: flex;
+      gap: 2rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    .hero-meta span { display: flex; align-items: center; gap: 0.4rem; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(2,11,24,0.85);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,180,216,0.15);
+    }
+    .nav-inner {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 6vw;
+      display: flex;
+      align-items: center;
+      gap: 0;
+      overflow-x: auto;
+    }
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      padding: 1rem 1.1rem;
+      white-space: nowrap;
+      transition: color 0.2s;
+      border-bottom: 2px solid transparent;
+    }
+    nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 8vw;
+    }
+
+    section { padding: 5rem 0; }
+    section + section { border-top: 1px solid rgba(0,180,216,0.08); }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.7rem, 3.2vw, 2.4rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 1.8rem;
+      line-height: 1.25;
+    }
+    h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--bright);
+      margin: 2.2rem 0 0.8rem;
+    }
+    p { margin-bottom: 1.4rem; }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── INTRO ── */
+    .intro-lead {
+      font-size: 1.2rem;
+      font-weight: 300;
+      color: var(--bright);
+      line-height: 1.7;
+      margin-bottom: 2.4rem;
+      border-left: 3px solid var(--accent);
+      padding-left: 1.4rem;
+    }
+
+    /* ── STATS ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.2rem;
+      margin: 2.8rem 0;
+    }
+    .stat-card {
+      background: var(--navy);
+      border: 1px solid rgba(0,180,216,0.2);
+      border-radius: 8px;
+      padding: 1.4rem 1.2rem;
+      text-align: center;
+    }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1.1;
+      display: block;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-top: 0.5rem;
+      display: block;
+    }
+
+    /* ── IMAGES ── */
+    .img-wide {
+      width: 100%;
+      margin: 3rem 0 0.6rem;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid rgba(0,180,216,0.12);
+    }
+    .img-wide img { width: 100%; display: block; }
+    .img-caption {
+      font-size: 0.78rem;
+      color: var(--muted);
+      font-style: italic;
+      text-align: center;
+      padding: 0.7rem 0 2.4rem;
+    }
+
+    .img-inline {
+      float: right;
+      width: 44%;
+      margin: 4px 0 28px 36px;
+      border-radius: 6px;
+      overflow: hidden;
+      border: 1px solid rgba(0,180,216,0.15);
+    }
+    .img-inline img { width: 100%; display: block; }
+    .img-inline .img-caption { padding: 0.5rem 0.6rem; }
+
+    .clearfix::after { content: ''; display: table; clear: both; }
+
+    /* ── HIGHLIGHT ── */
+    .highlight {
+      border-left: 4px solid var(--accent);
+      background: rgba(0,180,216,0.06);
+      border-radius: 0 6px 6px 0;
+      padding: 1.4rem 1.6rem;
+      margin: 2.4rem 0;
+      font-style: italic;
+      font-size: 1.05rem;
+      color: var(--bright);
+    }
+    .highlight cite {
+      display: block;
+      margin-top: 0.7rem;
+      font-size: 0.82rem;
+      font-style: normal;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    /* ── CONCEPTS ── */
+    .concepts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1.2rem;
+      margin: 2.4rem 0;
+    }
+    .concept-card {
+      background: var(--navy);
+      border: 1px solid rgba(0,180,216,0.15);
+      border-radius: 8px;
+      padding: 1.4rem;
+    }
+    .concept-card .icon {
+      font-size: 1.8rem;
+      margin-bottom: 0.7rem;
+      display: block;
+    }
+    .concept-card h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    .concept-card p {
+      font-size: 0.88rem;
+      color: var(--muted);
+      margin: 0;
+      line-height: 1.6;
+    }
+
+    /* ── TIMELINE ── */
+    .timeline { margin: 2.4rem 0; }
+    .tl-item {
+      display: flex;
+      gap: 1.4rem;
+      margin-bottom: 1.6rem;
+      align-items: flex-start;
+    }
+    .tl-dot {
+      flex-shrink: 0;
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--blue);
+      border: 2px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 0.85rem;
+      color: var(--accent);
+    }
+    .tl-body h4 {
+      font-weight: 600;
+      color: var(--white);
+      margin-bottom: 0.25rem;
+    }
+    .tl-body p {
+      font-size: 0.9rem;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* ── TENSION BOX ── */
+    .tension-box {
+      background: linear-gradient(135deg, rgba(13,45,74,0.8), rgba(6,22,40,0.9));
+      border: 1px solid rgba(244,197,66,0.3);
+      border-radius: 10px;
+      padding: 2rem;
+      margin: 2.6rem 0;
+    }
+    .tension-box h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--gold);
+      margin-bottom: 1.2rem;
+      text-align: center;
+      letter-spacing: 0.04em;
+    }
+    .tension-row {
+      display: flex;
+      justify-content: space-around;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .tension-camp {
+      text-align: center;
+      flex: 1;
+      min-width: 180px;
+    }
+    .tension-camp .t-val {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      font-weight: 900;
+      line-height: 1;
+    }
+    .tension-camp.local .t-val { color: var(--gold); }
+    .tension-camp.cmb .t-val { color: var(--accent); }
+    .tension-camp .t-label { font-size: 0.82rem; color: var(--muted); margin-top: 0.4rem; }
+    .tension-camp .t-method { font-size: 0.78rem; color: var(--muted); margin-top: 0.3rem; font-style: italic; }
+    .tension-vs {
+      display: flex;
+      align-items: center;
+      font-family: 'Playfair Display', serif;
+      font-size: 2rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.2);
+    }
+    .sigma-badge {
+      display: block;
+      text-align: center;
+      margin-top: 1.4rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--gold);
+      background: rgba(244,197,66,0.08);
+      border: 1px solid rgba(244,197,66,0.25);
+      border-radius: 4px;
+      padding: 0.5rem;
+    }
+
+    /* ── SOURCES ── */
+    #sources { padding-bottom: 5rem; }
+    #sources h2 { font-size: 1.5rem; margin-bottom: 1.4rem; }
+    .sources-list { list-style: none; }
+    .sources-list li {
+      padding: 0.7rem 0;
+      border-bottom: 1px solid rgba(0,180,216,0.08);
+      font-size: 0.88rem;
+    }
+    .sources-list a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .sources-list a:hover { text-decoration: underline; }
+    .src-pub {
+      color: var(--muted);
+      margin-left: 0.5rem;
+      font-style: italic;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      border-top: 1px solid rgba(0,180,216,0.1);
+      text-align: center;
+      padding: 2.5rem;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* ── BACK LINK ── */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.82rem;
+      font-weight: 500;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 0.9rem 1.1rem;
+    }
+    .back-link:hover { color: var(--accent); }
+
+    @media (max-width: 640px) {
+      .img-inline { float: none; width: 100%; margin: 1.5rem 0; }
+      .tension-row { flex-direction: column; }
+      .tension-vs { display: none; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero" id="top">
+  <div class="hero-bg" id="heroBg"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-tag">Cosmologie · Physique Fondamentale</span>
+    <h1>La <span>Tension de Hubble</span><br>La crise au cœur de l'univers</h1>
+    <p class="hero-sub">Deux méthodes de mesure. Deux résultats incompatibles. Un écart à 5 sigma que la physique moderne ne parvient pas à expliquer — et qui pourrait tout changer.</p>
+    <div class="hero-meta">
+      <span>🔭 Vostok Science</span>
+      <span>📅 Mai 2026</span>
+      <span>⏱ 18 min de lecture</span>
+    </div>
+  </div>
+</section>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-inner">
+    <a href="/dossiers/">← Index</a>
+    <a href="#histoire">Histoire</a>
+    <a href="#distances">Distances</a>
+    <a href="#redshift">Redshift</a>
+    <a href="#tension">La Tension</a>
+    <a href="#webb">Webb</a>
+    <a href="#lambdacdm">ΛCDM</a>
+    <a href="#pistes">Pistes</a>
+    <a href="#sources">Sources</a>
+  </div>
+</nav>
+
+<!-- INTRO -->
+<section id="intro">
+  <div class="container">
+    <p class="intro-lead">Mesurez la vitesse à laquelle l'univers s'étend. Faites-le depuis l'univers proche, avec des étoiles et des supernovae. Puis faites-le depuis l'aube du cosmos, avec l'écho du Big Bang. Vous obtiendrez deux réponses différentes — et cet écart, que les cosmologues appellent la « tension de Hubble », pourrait être le signe que quelque chose d'essentiel nous échappe encore.</p>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-num">73</span>
+        <span class="stat-label">km/s/Mpc — mesure locale</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">67,4</span>
+        <span class="stat-label">km/s/Mpc — CMB Planck</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">~5σ</span>
+        <span class="stat-label">Niveau de tension statistique</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-num">1929</span>
+        <span class="stat-label">Découverte de l'expansion</span>
+      </div>
+    </div>
+
+    <p>La constante de Hubble, notée H₀, est l'un des paramètres les plus fondamentaux de la cosmologie. Elle mesure le taux d'expansion actuel de l'univers : à quelle vitesse les galaxies s'éloignent les unes des autres en fonction de la distance qui les sépare. Sa valeur — exprimée en kilomètres par seconde par mégaparsec (km/s/Mpc) — est au cœur de notre compréhension de l'âge, de la taille et du destin de l'univers. Et depuis plusieurs années, cette valeur est en crise.</p>
+
+    <p>Ce n'est pas une erreur de calcul, pas un bug instrumental, pas un manque de données. Les meilleures équipes du monde ont mesuré H₀ avec une précision de moins d'un pourcent, en utilisant les télescopes les plus puissants jamais construits — y compris le James Webb Space Telescope. Et leurs résultats ne convergent pas. Ils divergent. C'est ce que les physiciens appellent une tension : non pas une légère approximation, mais un désaccord profond, statistiquement accablant, qui pourrait annoncer une révolution dans notre compréhension du cosmos.</p>
+  </div>
+</section>
+
+<!-- SECTION 1 : HISTOIRE -->
+<section id="histoire">
+  <div class="container">
+    <h2>Edwin Hubble et la découverte de l'expansion</h2>
+
+    <div class="img-inline">
+      <img src="https://v3b.fal.media/files/b/0a9a4ee7/lx7uJYd3aKitS2hKm86G6.jpg" alt="Télescopes Webb et Hubble observant des céphéides dans l'espace profond" loading="lazy" />
+      <p class="img-caption">Webb et Hubble, l'un après l'autre, ont observé les mêmes étoiles céphéides — et confirmé les mêmes mesures.</p>
+    </div>
+
+    <div class="clearfix">
+      <p>En 1929, l'astronome américain Edwin Hubble publie l'une des observations les plus bouleversantes de l'histoire des sciences : les galaxies lointaines s'éloignent de nous, et plus elles sont lointaines, plus elles s'éloignent vite. Cette relation linéaire — la vitesse de récession est proportionnelle à la distance — porte aujourd'hui son nom sous la forme de la loi de Hubble-Lemaître (le cosmologiste belge Georges Lemaître avait théorisé ce résultat deux ans plus tôt). C'est la preuve observationnelle directe que l'univers est en expansion.</p>
+
+      <p>Hubble estimait le taux d'expansion à environ 500 km/s/Mpc — une valeur que l'on sait aujourd'hui être environ sept fois trop élevée. Ses mesures des distances galactiques étaient entachées d'erreurs systématiques : il avait confondu deux types d'étoiles céphéides de luminosités différentes, faussant l'étalonnage de toute son échelle de distances. Dans les décennies suivantes, l'astronome Allan Sandage et ses collaborateurs ont progressivement révisé la valeur à la baisse, aboutissant dans les années 1970-80 à des estimations autour de 50 à 55 km/s/Mpc. D'autres équipes maintenaient des valeurs proches de 100. La controverse dura des décennies.</p>
+
+      <p>Ce n'est qu'en 2001, avec le programme Key Project du télescope spatial Hubble, que les cosmologues s'accordent sur une valeur de référence : H₀ = 72 ± 8 km/s/Mpc. Une belle convergence. Mais au lieu de clore le débat, cette précision croissante allait révéler quelque chose d'inattendu : plus les mesures devenaient précises, plus deux camps distincts émergeaient — et plus leur désaccord devenait statistiquement inacceptable.</p>
+    </div>
+
+    <div class="highlight">
+      « La constante de Hubble n'est pas seulement un nombre. C'est la clé de voûte de toute la cosmologie. Si elle est fausse, tout ce que nous croyons savoir sur l'âge et le destin de l'univers est faux. »
+      <cite>— Adam Riess, Prix Nobel de Physique 2011, Johns Hopkins University</cite>
+    </div>
+
+    <p>La révolution instrumentale du XXIe siècle — caméra avancée ACS du télescope Hubble, puis satellites Gaia pour la parallaxe, puis JWST — a permis de réduire les incertitudes à moins d'un pourcent. C'est précisément cette précision nouvelle qui a mis la tension en pleine lumière. Ce que l'on prenait pour une marge d'erreur est devenu une fracture.</p>
+  </div>
+</section>
+
+<!-- SECTION 2 : DISTANCES -->
+<section id="distances">
+  <div class="container">
+    <h2>Comment mesure-t-on les distances cosmiques&nbsp;?</h2>
+
+    <p>La cosmologie affronte un problème fondamental : on ne peut pas poser un mètre-ruban entre deux galaxies. Pour mesurer des distances allant de quelques années-lumière à des milliards d'années-lumière, les astronomes ont construit une « échelle des distances cosmiques » — une série de méthodes enchaînées, chaque échelon s'appuyant sur le précédent. C'est une construction d'une précision remarquable, mais aussi d'une fragilité relative : une erreur à la base se propage vers le haut.</p>
+
+    <div class="img-wide">
+      <img src="https://v3b.fal.media/files/b/0a9a4ee8/gGkHW8RtY31p6KwX3AZpJ.jpg" alt="Infographie abstraite de l'échelle des distances cosmiques" loading="lazy" />
+    </div>
+    <p class="img-caption">L'échelle des distances cosmiques : de la parallaxe stellaire au fond diffus cosmologique, chaque méthode calibre la suivante.</p>
+
+    <div class="concepts-grid">
+      <div class="concept-card">
+        <span class="icon">📐</span>
+        <h4>Parallaxe stellaire</h4>
+        <p>La méthode géométrique directe, valable jusqu'à quelques milliers d'années-lumière. Le satellite Gaia a mesuré la parallaxe de plus d'un milliard d'étoiles avec une précision de quelques microarcsecondes. C'est l'ancre absolue de l'échelle.</p>
+      </div>
+      <div class="concept-card">
+        <span class="icon">⭐</span>
+        <h4>Étoiles Céphéides</h4>
+        <p>Des étoiles géantes pulsantes dont la période d'oscillation est liée à leur luminosité absolue (relation de Leavitt, 1908). En mesurant la période, on déduit la luminosité vraie, puis la distance par comparaison avec la luminosité apparente. Valables jusqu'à ~50 mégaparsecs.</p>
+      </div>
+      <div class="concept-card">
+        <span class="icon">💥</span>
+        <h4>Supernovae de type Ia</h4>
+        <p>Des explosions thermonucléaires de naines blanches qui atteignent toutes presque la même luminosité maximale — des « chandelles standard ». Visibles à des milliards d'années-lumière, elles permettent de cartographier l'expansion de l'univers sur des échelles cosmiques gigantesques.</p>
+      </div>
+      <div class="concept-card">
+        <span class="icon">🌊</span>
+        <h4>BAO & CMB</h4>
+        <p>Les oscillations acoustiques baryoniques (BAO) sont des empreintes sonores laissées dans la distribution des galaxies, issues d'ondes de pression dans l'univers primitif. Le fond diffus cosmologique (CMB) est l'écho du Big Bang lui-même, une carte de l'univers à 380 000 ans. Ces méthodes « indépendantes » donnent H₀ ≈ 67,4 km/s/Mpc.</p>
+      </div>
+    </div>
+
+    <p>La tension naît de la comparaison entre deux familles de méthodes. D'un côté, la « méthode locale » : parallaxe → céphéides → supernovae Ia → H₀. C'est une chaîne d'étalonnages étape par étape, qui donne H₀ ≈ 73 km/s/Mpc. De l'autre, la « méthode cosmologique » : modélisation du CMB selon le modèle standard ΛCDM → extrapolation de H₀ jusqu'à aujourd'hui. C'est une approche totalement indépendante qui donne H₀ ≈ 67,4 km/s/Mpc. L'écart entre ces deux familles est ce que l'on appelle la Tension de Hubble.</p>
+
+    <p>Wendy Freedman, de l'Université de Chicago, qui dirige le programme Carnegie-Chicago Hubble (CCHP), a tenté une voie alternative en utilisant les étoiles de la branche des géantes rouges (TRGB) comme calibrateurs à la place des céphéides. Sa mesure, publiée en 2019, donnait H₀ = 69,8 ± 1,7 km/s/Mpc — une valeur intermédiaire qui semblait pouvoir réconcilier les deux camps. Des mesures JWST ultérieures de son équipe ont cependant convergé vers des valeurs plus proches de 73, creusant à nouveau l'écart.</p>
+  </div>
+</section>
+
+<!-- SECTION 3 : REDSHIFT -->
+<section id="redshift">
+  <div class="container">
+    <h2>Le décalage spectral : comment l'univers trahit son expansion</h2>
+
+    <div class="img-wide">
+      <img src="https://v3b.fal.media/files/b/0a9a4ee7/WcLD0PkZRsrupFM38Nn_B.jpg" alt="Astronomes analysant des spectres lumineux dans un laboratoire astronomique" loading="lazy" />
+    </div>
+    <p class="img-caption">L'analyse spectroscopique est l'outil central de la cosmologie observationnelle — chaque raie d'absorption raconte une histoire de vitesse et de distance.</p>
+
+    <p>Imaginez une sirène d'ambulance. Quand elle s'approche, le son est plus aigu — les ondes sont compressées. Quand elle s'éloigne, il est plus grave — les ondes sont étirées. La lumière obéit au même principe. Lorsqu'une galaxie s'éloigne de nous, la lumière qu'elle émet voit ses longueurs d'onde s'étirer vers le rouge du spectre : c'est le décalage spectral vers le rouge, ou redshift, noté z. Ce phénomène n'est pas dû au mouvement des galaxies dans l'espace, mais à l'expansion de l'espace lui-même — une nuance fondamentale que la relativité générale d'Einstein a permis de comprendre.</p>
+
+    <div class="img-inline">
+      <img src="https://v3b.fal.media/files/b/0a9a4ee9/FDlUcz3M7DBR0kcMewldO.jpg" alt="Spectre lumineux décalé vers le rouge — redshift cosmologique" loading="lazy" />
+      <p class="img-caption">Les raies d'absorption caractéristiques se déplacent vers le rouge selon la vitesse de récession de la galaxie observée.</p>
+    </div>
+
+    <div class="clearfix">
+      <p>Le redshift se mesure simplement : chaque élément chimique — hydrogène, hélium, calcium, sodium — émet et absorbe la lumière à des longueurs d'onde précises et caractéristiques. En observant le spectre d'une galaxie lointaine, on identifie ces raies d'absorption, et on mesure de combien elles ont été décalées vers le rouge par rapport à leur position théorique. Ce décalage donne directement la vitesse de récession de la galaxie. Combiné à une mesure de distance indépendante, il permet de calculer H₀.</p>
+
+      <p>La loi de Hubble-Lemaître s'écrit simplement : v = H₀ × d, où v est la vitesse de récession et d la distance. Elle est valable dans l'univers proche (z &lt; 0,1) où l'expansion peut être considérée comme uniforme. Pour les distances cosmiques plus grandes, il faut tenir compte de la géométrie de l'univers, de la matière noire, de l'énergie noire — et c'est là que le modèle ΛCDM entre en jeu, avec ses propres prédictions sur la valeur de H₀.</p>
+
+      <p>Le fond diffus cosmologique (CMB) exploite le redshift à son extrême : il observe la lumière la plus ancienne de l'univers, émise seulement 380 000 ans après le Big Bang, quand l'univers était suffisamment refroidi pour devenir transparent. Cette lumière, d'abord émise dans l'infrarouge chaud, a été décalée par l'expansion cosmique jusqu'aux micro-ondes — d'où son nom. Le satellite Planck a cartographié le CMB avec une précision extraordinaire, permettant de déduire tous les paramètres cosmologiques, dont H₀, avec moins d'un demi-pourcent d'incertitude. Sa valeur : 67,4 ± 0,5 km/s/Mpc.</p>
+    </div>
+
+    <div class="highlight">
+      « Le redshift nous permet de lire l'histoire de l'univers inscrite dans la lumière. Mais quand deux histoires ne concordent pas, c'est soit que l'un des livres est mal lu — soit qu'ils racontent deux réalités différentes. »
+      <cite>— Planck Collaboration, ESA, 2018</cite>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4 : LA TENSION -->
+<section id="tension">
+  <div class="container">
+    <h2>La tension&nbsp;: deux camps s'affrontent</h2>
+
+    <p>En science, un désaccord à 1σ (un écart-type) est banal — le hasard statistique peut l'expliquer facilement. À 2σ, on commence à s'inquiéter. À 3σ, on parle d'indice. À 5σ, par convention internationale, on parle de découverte — ou de crise. La Tension de Hubble a franchi ce seuil.</p>
+
+    <div class="tension-box">
+      <h4>⚡ L'écart qui divise la cosmologie</h4>
+      <div class="tension-row">
+        <div class="tension-camp local">
+          <div class="t-val">73,0</div>
+          <div class="t-label">km/s/Mpc</div>
+          <div class="t-method">Méthode locale<br>Céphéides + SN Ia<br>(SH0ES, Adam Riess)</div>
+        </div>
+        <div class="tension-vs">VS</div>
+        <div class="tension-camp cmb">
+          <div class="t-val">67,4</div>
+          <div class="t-label">km/s/Mpc</div>
+          <div class="t-method">Méthode cosmologique<br>CMB + ΛCDM<br>(Planck Collaboration)</div>
+        </div>
+      </div>
+      <div class="sigma-badge">Tension statistique : ~5σ — probabilité de coïncidence &lt; 1 sur 1 000 000</div>
+    </div>
+
+    <p>L'équipe SH0ES (Supernovae, H0, for the Equation of State of dark energy), dirigée par Adam Riess — lauréat du Prix Nobel de Physique 2011 pour la découverte de l'accélération de l'expansion de l'univers — utilise la méthode de l'échelle des distances. Elle calibre les distances avec la parallaxe géométrique d'étoiles masers (des masers eau dans des galaxies proches), mesure la période des céphéides dans des galaxies hôtes de supernovae récentes, puis utilise ces supernovae comme chandelles standard pour cartographier l'expansion jusqu'à des milliards d'années-lumière. Résultat : H₀ = 73,0 ± 1,0 km/s/Mpc.</p>
+
+    <p>La collaboration Planck, de son côté, travaille sur des données totalement différentes. Elle analyse les minuscules fluctuations de température du CMB — des variations de l'ordre d'un cent-millième de degré — et les ajuste avec le modèle standard ΛCDM pour en extraire tous les paramètres cosmologiques. C'est une méthode indépendante, qui ne repose sur aucune mesure locale. Sa valeur : H₀ = 67,4 ± 0,5 km/s/Mpc. L'écart avec SH0ES est de 5,7 km/s/Mpc — soit environ 8,5% — et la tension statistique atteint environ 5σ dans les comparaisons les plus récentes.</p>
+
+    <p>Les deux équipes ont vérifié, revérifié, cherché les biais potentiels dans leurs méthodes. L'équipe SH0ES a éliminé les biais liés à la contamination des photons (« crowding ») des céphéides en environnement dense. La Collaboration Planck a testé des dizaines de configurations cosmologiques différentes. Les résultats tiennent. Ce n'est pas une erreur de mesure ordinaire. C'est quelque chose de réel.</p>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot">1</div>
+        <div class="tl-body">
+          <h4>1929 — Hubble : H₀ ≈ 500 km/s/Mpc</h4>
+          <p>Première mesure de l'expansion. Valeur sept fois trop élevée par confusion de types de céphéides.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">2</div>
+        <div class="tl-body">
+          <h4>1975–1995 — La grande controverse</h4>
+          <p>Sandage défend H₀ ≈ 50, Tammann et de Vaucouleurs plaident pour 100. Débat passionnel pendant deux décennies.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">3</div>
+        <div class="tl-body">
+          <h4>2001 — HST Key Project : H₀ = 72 ± 8 km/s/Mpc</h4>
+          <p>Première convergence significative. Les barres d'erreur sont encore larges.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">4</div>
+        <div class="tl-body">
+          <h4>2013–2018 — Planck : H₀ = 67,4 ± 0,5 km/s/Mpc</h4>
+          <p>La précision extraordinaire du CMB révèle le fossé avec les mesures locales. Tension à 3–4σ.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">5</div>
+        <div class="tl-body">
+          <h4>2019–2022 — SH0ES : H₀ = 73,0 ± 1,0 km/s/Mpc</h4>
+          <p>Adam Riess réduit l'incertitude à 1%. La tension franchit le seuil des 4–5σ. Alarme mondiale.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">6</div>
+        <div class="tl-body">
+          <h4>2023–2025 — JWST confirme la tension</h4>
+          <p>Loin de résoudre le problème, Webb le confirme et l'aggrave. La tension demeure à ~5σ.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5 : WEBB -->
+<section id="webb">
+  <div class="container">
+    <h2>Webb : il devait résoudre la tension. Il l'a aggravée.</h2>
+
+    <p>Quand le James Webb Space Telescope a été lancé en décembre 2021, beaucoup espéraient qu'il mettrait fin à la controverse. La principale source de soupçon pesant sur la méthode locale était les étoiles céphéides : observées depuis le sol ou depuis Hubble, ces étoiles pulsantes pouvaient-elles être contaminées par la lumière de leurs voisines dans les régions denses des galaxies spirales ? Cette confusion photométrique — le « crowding » — aurait pu systématiquement biaiser les mesures vers une valeur élevée de H₀. JWST, avec sa résolution angulaire infrarouge sans précédent, était l'outil parfait pour trancher.</p>
+
+    <div class="highlight">
+      « Nous avons maintenant balayé toute la gamme de ce qu'Hubble avait observé. Nous pouvons exclure une erreur de mesure comme cause de la Tension de Hubble avec un très haut niveau de confiance. »
+      <cite>— Adam Riess, Johns Hopkins University, décembre 2024</cite>
+    </div>
+
+    <p>Les premiers résultats JWST sur les céphéides, publiés en janvier 2024 dans The Astrophysical Journal Letters, sont sans appel : les mesures de Hubble Space Telescope étaient correctes. L'équipe SH0ES a mesuré des céphéides dans 8 galaxies hôtes de supernovae avec JWST, en résolvant individuellement des étoiles dans des environnements très denses, impossibles à séparer depuis Hubble. L'article, publié dans l'journal IOPScience, conclut au rejet de l'hypothèse du crowding à 8σ de confiance. H₀ = 73,0 ± 1,0 km/s/Mpc. Inchangé.</p>
+
+    <p>En décembre 2024, Adam Riess publie la plus grande étude JWST à ce jour sur l'expansion de l'univers : 1 000 céphéides dans cinq galaxies hôtes de supernovae récentes. Résultat : H₀ = 72,6 ± 2,0 km/s/Mpc — virtuellement identique à la valeur obtenue par Hubble pour les mêmes galaxies (72,8 km/s/Mpc). La cohérence entre les deux télescopes est remarquable et dévastratrice : elle prouve que la mesure locale est robuste, et que la tension est réelle. L'écart avec Planck ne peut plus être mis sur le compte d'une erreur instrumentale. La crise est confirmée.</p>
+
+    <p>Certains cosmologues avaient placé leurs espoirs dans l'équipe de Wendy Freedman et sa méthode TRGB (pointe de la branche des géantes rouges). Mais des analyses JWST ultérieures de son propre groupe ont révélé des corrections à leur calibration TRGB dans le grand nuage de Magellan, poussant leur valeur de H₀ vers le haut — vers 73. Le consensus se renforce : l'univers local tourne vraiment à 73 km/s/Mpc. Le CMB prédit vraiment 67,4. Et rien, dans la physique connue, n'explique cet écart.</p>
+  </div>
+</section>
+
+<!-- SECTION 6 : ΛCDM -->
+<section id="lambdacdm">
+  <div class="container">
+    <h2>Le modèle standard ΛCDM sous pression</h2>
+
+    <p>Le modèle ΛCDM — pour Λ (lambda, la constante cosmologique représentant l'énergie noire) + CDM (Cold Dark Matter, matière noire froide) — est le modèle standard de la cosmologie. Depuis trente ans, il décrit avec une précision spectaculaire l'univers observable : la structure à grande échelle (filaments, superamas, vides cosmiques), le CMB, la nucléosynthèse primordiale, l'abondance des éléments légers, la formation des galaxies. C'est l'un des édifices scientifiques les plus validés de l'histoire.</p>
+
+    <div class="concepts-grid">
+      <div class="concept-card">
+        <span class="icon">🌑</span>
+        <h4>Matière noire froide (CDM)</h4>
+        <p>Constitue environ 27% du contenu énergétique de l'univers. Invisible électromagnétiquement, elle est détectée par ses effets gravitationnels — sans elle, les galaxies ne pourraient se former ni se maintenir.</p>
+      </div>
+      <div class="concept-card">
+        <span class="icon">⚡</span>
+        <h4>Énergie noire (Λ)</h4>
+        <p>Représente ~68% de l'énergie de l'univers. Responsable de l'accélération de l'expansion découverte en 1998. Modélisée par la constante cosmologique d'Einstein — une énergie du vide constante dans l'espace et le temps.</p>
+      </div>
+      <div class="concept-card">
+        <span class="icon">💫</span>
+        <h4>Inflation cosmique</h4>
+        <p>Phase d'expansion exponentielle ultra-rapide dans les premières fractions de seconde après le Big Bang. Explique l'homogénéité du CMB et l'origine des fluctuations quantiques qui ont semé les structures cosmiques.</p>
+      </div>
+      <div class="concept-card">
+        <span class="icon">🔬</span>
+        <h4>Matière baryonique</h4>
+        <p>La matière « normale » — protons, neutrons, électrons — ne constitue que ~5% de l'univers. Tout le reste est inconnu. Le modèle ΛCDM fonctionne avec ces proportions depuis les années 1990.</p>
+      </div>
+    </div>
+
+    <p>Pourquoi les cosmologues sont-ils si attachés à ΛCDM malgré la tension ? Parce qu'aucune alternative ne prédit avec la même précision l'ensemble des observations cosmologiques. Le modèle passe des centaines de tests avec brio. Abandonner ΛCDM pour résoudre la tension de Hubble, ce serait potentiellement briser dix autres accords parfaits avec les données. C'est un choix coûteux.</p>
+
+    <p>Et pourtant. Si ΛCDM prédit H₀ = 67,4 et que l'univers local dit 73, il y a forcément quelque chose d'incorrect — soit dans la physique qui gouverne l'univers primitif (et que le modèle encode), soit dans notre compréhension de l'énergie noire, soit dans nos méthodes de mesure locales (mais JWST vient de les valider). En novembre 2025, une équipe internationale co-dirigée par Adam Riess a reçu un financement majeur pour « investiguer la validité du modèle cosmologique » — terme diplomatique pour dire : peut-être que le modèle standard doit être révisé.</p>
+
+    <div class="highlight">
+      « Nous avons construit une montre extraordinairement précise, mais les deux aiguilles ne se rejoignent pas. La question n'est plus de savoir si les aiguilles sont mal lues — c'est de comprendre si la montre elle-même est juste. »
+      <cite>— Commentaire éditorial, CERN Courier, 2024</cite>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 7 : PISTES -->
+<section id="pistes">
+  <div class="container">
+    <h2>Les pistes ouvertes — et l'impasse actuelle</h2>
+
+    <p>Des dizaines de solutions ont été proposées depuis que la tension a franchi le seuil des 3σ. Chacune est intellectuellement stimulante. Aucune n'est convaincante. Voici l'état de l'exploration.</p>
+
+    <h3>L'énergie noire précoce (Early Dark Energy)</h3>
+    <p>L'hypothèse la plus populaire parmi les théoriciens. Si une forme d'énergie noire a existé brièvement dans l'univers primordial — avant la recombinaison, il y a 380 000 ans — elle aurait comprimé le temps acoustique avant la diffusion du CMB, augmentant la valeur prédite de H₀ et réduisant la tension. Des modèles publiés dès 2019 montrent que l'Early Dark Energy peut porter la prédiction ΛCDM jusqu'à H₀ ≈ 70–71 km/s/Mpc. Mais pas jusqu'à 73. Et les données du CMB elles-mêmes contraignent fortement l'amplitude de cette énergie précoce — elle ne peut pas être suffisamment importante pour tout résoudre sans casser d'autres accords. La piste est prometteuse mais insuffisante.</p>
+
+    <h3>Les neutrinos stériles</h3>
+    <p>Une quatrième saveur de neutrinos — non couplée aux interactions faibles — pourrait modifier la radiation dans l'univers primordial et changer le taux d'expansion à l'époque du CMB. Des modèles récents (2025) explorent la production de neutrinos stériles par oscillations mécanisme Dodelson-Widrow en combinaison avec des auto-interactions neutrino. Ces scénarios peuvent partiellement réduire la tension, mais ils introduisent de nouveaux paramètres libres et entrent souvent en conflit avec d'autres données cosmologiques (oscillations de neutrinos atmosphériques, mesures de supernovae). Pas de solution propre.</p>
+
+    <h3>La matière noire interagissante</h3>
+    <p>Et si une fraction de la matière noire interagissait avec le rayonnement ou avec elle-même ? Ces modèles de « dark matter interagissante » ou de « dark radiation » peuvent modifier la vitesse du son dans le plasma primordial et changer la prédiction de H₀. Des modèles d'atomes sombres (atomic dark matter) publiés en 2025 dans le Journal of High Energy Physics montrent des ajustements partiels de la tension. Mais encore une fois : aucune solution complète et cohérente avec l'ensemble des contraintes cosmologiques.</p>
+
+    <h3>L'énergie noire dynamique — un signal de DESI</h3>
+    <p>En 2024 et 2025, l'instrument DESI (Dark Energy Spectroscopic Instrument) a fourni les premières indications que l'énergie noire pourrait ne pas être constante — qu'elle évolue au cours du temps. Si l'énergie noire était plus forte dans le passé, cela pourrait modifier l'histoire de l'expansion et changer H₀. Ces résultats, controversés, n'ont pas encore été confirmés. Ils pourraient être un artefact statistique. Ou le premier signal d'une physique radicalement nouvelle.</p>
+
+    <h3>Physique nouvelle dans l'univers primitif</h3>
+    <p>Certains cosmologistes commencent à envisager des modifications plus radicales : changements dans la physique des neutrinos avant la recombinaison, modification des constantes fondamentales, nouvelles interactions non identifiées. Ces hypothèses sont difficiles à tester et restent pour l'instant dans le domaine spéculatif. Mais elles soulignent une réalité croissante dans la communauté : si aucune solution « raisonnable » ne fonctionne, peut-être faut-il accepter que quelque chose de profondément nouveau — et encore inconnu — joue un rôle dans la physique de l'univers primitif.</p>
+
+    <div class="highlight">
+      « La Tension de Hubble est peut-être la crise la plus profonde de la physique fondamentale depuis un siècle. Elle suggère que notre carte de l'univers — construite avec patience et précision pendant cent ans — est peut-être incomplète d'une façon que nous ne comprenons pas encore. »
+      <cite>— Monthly Roundup, AAS Nova, juillet 2024</cite>
+    </div>
+
+    <p>En 2026, aucune solution n'a émergé. La communauté scientifique est en état d'alerte. De nouveaux instruments — Euclid (satellite ESA), Vera Rubin Observatory, Roman Space Telescope — sont attendus pour trancher. Ils mesureront H₀ par de nouvelles voies indépendantes : lentilles gravitationnelles, sirènes standard (ondes gravitationnelles), statistiques de galaxies sur des volumes gigantesques. Si tous convergent vers 73, ΛCDM devra être révisé. Si certains donnent 67, la méthode locale sera remise en cause. Si les résultats divergent encore — alors nous serons peut-être face à l'une des questions les plus vertigineuses de l'histoire des sciences.</p>
+
+    <p>L'univers, à 13,8 milliards d'années, refuse toujours de se laisser mesurer sans résistance. Et c'est peut-être là sa plus belle promesse : celle que notre compréhension du cosmos n'est pas terminée — qu'il reste, quelque part dans la lumière décalée des galaxies lointaines, quelque chose que nous n'avons pas encore appris à lire.</p>
+  </div>
+</section>
+
+<!-- SOURCES -->
+<section id="sources">
+  <div class="container">
+    <h2>Sources primaires</h2>
+    <ul class="sources-list">
+      <li>
+        <a href="https://iopscience.iop.org/article/10.3847/2041-8213/ad1ddd" target="_blank" rel="noopener">JWST Observations Reject Unrecognized Crowding of Cepheid Photometry at 8σ Confidence</a>
+        <span class="src-pub">— The Astrophysical Journal Letters, 2024</span>
+      </li>
+      <li>
+        <a href="https://science.nasa.gov/blogs/webb/2023/09/12/webb-confirms-accuracy-of-universes-expansion-rate-measured-by-hubble-deepens-mystery-of-hubble-constant-tension/" target="_blank" rel="noopener">Webb Confirms Accuracy of Universe's Expansion Rate, Deepens Mystery of Hubble Constant Tension</a>
+        <span class="src-pub">— NASA Science, septembre 2023</span>
+      </li>
+      <li>
+        <a href="https://hub.jhu.edu/2024/12/09/webb-telescope-hubble-tension-universe-expansion/" target="_blank" rel="noopener">Webb Telescope's Largest Study of Universe Expansion Confirms Challenge to Cosmic Theory</a>
+        <span class="src-pub">— Johns Hopkins University Hub, décembre 2024</span>
+      </li>
+      <li>
+        <a href="https://www.aanda.org/articles/aa/full_html/2020/09/aa33910-18/aa33910-18.html" target="_blank" rel="noopener">Planck 2018 Results. VI. Cosmological Parameters</a>
+        <span class="src-pub">— Astronomy & Astrophysics, 2020</span>
+      </li>
+      <li>
+        <a href="https://cerncourier.com/a/the-hubble-tension/" target="_blank" rel="noopener">The Hubble Tension</a>
+        <span class="src-pub">— CERN Courier, 2024</span>
+      </li>
+      <li>
+        <a href="https://www.scientificamerican.com/article/the-hubble-tension-is-becoming-a-hubble-crisis/" target="_blank" rel="noopener">The Hubble Tension Is Becoming a Hubble Crisis</a>
+        <span class="src-pub">— Scientific American</span>
+      </li>
+      <li>
+        <a href="https://iopscience.iop.org/article/10.1088/1361-6382/ac086d" target="_blank" rel="noopener">In the Realm of the Hubble Tension — A Review of Solutions</a>
+        <span class="src-pub">— Classical and Quantum Gravity, IOPscience</span>
+      </li>
+      <li>
+        <a href="https://arxiv.org/abs/2211.04492" target="_blank" rel="noopener">The Hubble Tension and Early Dark Energy</a>
+        <span class="src-pub">— arXiv / Annual Reviews of Nuclear and Particle Science</span>
+      </li>
+      <li>
+        <a href="https://arxiv.org/pdf/2302.05709" target="_blank" rel="noopener">Hubble Tension: The Evidence of New Physics</a>
+        <span class="src-pub">— arXiv, 2023</span>
+      </li>
+      <li>
+        <a href="https://bigthink.com/starts-with-a-bang/hubble-tension-real-interview-wendy-freedman/" target="_blank" rel="noopener">Is the Hubble Tension Real? Exclusive Interview with Wendy Freedman</a>
+        <span class="src-pub">— Big Think / Starts With a Bang</span>
+      </li>
+      <li>
+        <a href="https://physics-astronomy.jhu.edu/2025/11/06/international-team-co-led-by-adam-riess-to-investigate-the-validity-of-the-cosmological-model/" target="_blank" rel="noopener">International Team co-led by Adam Riess to Investigate the Validity of the Cosmological Model</a>
+        <span class="src-pub">— Johns Hopkins University, novembre 2025</span>
+      </li>
+      <li>
+        <a href="https://aasnova.org/2024/07/31/monthly-roundup-perspectives-on-the-hubble-tension/" target="_blank" rel="noopener">Monthly Roundup: Perspectives on the Hubble Tension</a>
+        <span class="src-pub">— AAS Nova, juillet 2024</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p>
+    <a href="/dossiers/">← Retour à l'index des dossiers</a>
+    &nbsp;·&nbsp;
+    <a href="/">Vostok Science</a>
+  </p>
+  <p style="margin-top: 0.7rem; font-size: 0.75rem; opacity: 0.6;">
+    Article généré avec recherche approfondie et illustrations par IA. Mai 2026.
+  </p>
+</footer>
+
+<script>
+  // Hero parallax subtle
+  const bg = document.getElementById('heroBg');
+  if (bg) {
+    setTimeout(() => bg.classList.add('loaded'), 100);
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      bg.style.transform = `scale(1) translateY(${y * 0.25}px)`;
+    }, { passive: true });
+  }
+</script>
+
+</body>
+</html>
