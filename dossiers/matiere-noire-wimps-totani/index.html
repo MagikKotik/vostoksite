@@ -1,0 +1,789 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Matière Noire : Le Signal des WIMPs — Étude Totani 2025 | Vostok</title>
+  <meta name="description" content="Le Prof. Tomonori Totani a détecté un excès de rayons gamma à 20 GeV en halo autour du centre galactique — un signal qui correspond précisément aux prédictions d'annihilation de WIMPs." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --deep:   #020b18;
+      --navy:   #061628;
+      --blue:   #0d2d4a;
+      --accent: #00b4d8;
+      --bright: #90e0ef;
+      --gold:   #f4c542;
+      --white:  #e8f4fd;
+      --muted:  #8bb8d0;
+      --text:   #cce4f0;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--deep);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-weight: 400;
+      line-height: 1.75;
+      font-size: 1.05rem;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+    }
+    .hero-img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        to bottom,
+        rgba(2,11,24,0.15) 0%,
+        rgba(2,11,24,0.30) 40%,
+        rgba(2,11,24,0.85) 75%,
+        rgba(2,11,24,1.00) 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 8vw 5rem;
+      max-width: 900px;
+    }
+    .hero-tag {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--accent);
+      border: 1px solid var(--accent);
+      padding: 4px 12px;
+      border-radius: 2px;
+      margin-bottom: 1.2rem;
+    }
+    .hero-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.2rem, 5.5vw, 4.2rem);
+      font-weight: 900;
+      color: var(--white);
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    .hero-title em {
+      color: var(--gold);
+      font-style: normal;
+    }
+    .hero-subtitle {
+      font-size: 1.15rem;
+      font-weight: 300;
+      color: var(--bright);
+      max-width: 620px;
+      margin-bottom: 1.8rem;
+      line-height: 1.6;
+    }
+    .hero-meta {
+      display: flex;
+      gap: 2rem;
+      flex-wrap: wrap;
+      font-size: 0.82rem;
+      color: var(--muted);
+      letter-spacing: 0.04em;
+    }
+    .hero-meta span { display: flex; align-items: center; gap: 6px; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(2, 11, 24, 0.82);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,180,216,0.15);
+    }
+    .nav-inner {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 8vw;
+      display: flex;
+      gap: 0;
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+    .nav-inner::-webkit-scrollbar { display: none; }
+    nav a {
+      display: inline-block;
+      padding: 0.9rem 1.1rem;
+      font-size: 0.8rem;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--muted);
+      text-decoration: none;
+      white-space: nowrap;
+      transition: color 0.2s;
+      border-bottom: 2px solid transparent;
+    }
+    nav a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+    /* ── CONTAINER ── */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 8vw;
+    }
+
+    /* ── SECTIONS ── */
+    section { padding: 4.5rem 0; border-bottom: 1px solid rgba(13,45,74,0.6); }
+    section:last-of-type { border-bottom: none; }
+
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 3vw, 2.3rem);
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 1.6rem;
+      line-height: 1.2;
+    }
+    h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--bright);
+      margin-bottom: 0.8rem;
+      margin-top: 2rem;
+    }
+    p { margin-bottom: 1.2rem; }
+    p:last-child { margin-bottom: 0; }
+
+    /* ── STATS ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 1.2rem;
+      margin: 2.5rem 0;
+    }
+    .stat-card {
+      background: var(--navy);
+      border: 1px solid rgba(0,180,216,0.2);
+      border-radius: 6px;
+      padding: 1.4rem 1.2rem;
+      text-align: center;
+    }
+    .stat-number {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.4rem;
+      font-weight: 900;
+      color: var(--accent);
+      line-height: 1;
+      display: block;
+      margin-bottom: 0.4rem;
+    }
+    .stat-label {
+      font-size: 0.78rem;
+      font-weight: 500;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+    }
+
+    /* ── IMAGES ── */
+    .img-wide {
+      width: 100%;
+      border-radius: 6px;
+      display: block;
+      margin: 2.5rem 0 0.6rem;
+    }
+    .img-caption {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-style: italic;
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+    .img-inline {
+      float: right;
+      width: 46%;
+      margin: 4px 0 28px 36px;
+      border-radius: 6px;
+    }
+    .clearfix::after { content: ''; display: table; clear: both; }
+
+    /* ── HIGHLIGHT ── */
+    .highlight {
+      border-left: 4px solid var(--accent);
+      background: rgba(0,180,216,0.06);
+      padding: 1.2rem 1.6rem;
+      margin: 2rem 0;
+      border-radius: 0 4px 4px 0;
+    }
+    .highlight p {
+      font-size: 1.1rem;
+      font-style: italic;
+      color: var(--bright);
+      margin-bottom: 0.5rem;
+    }
+    .highlight cite {
+      font-size: 0.82rem;
+      color: var(--muted);
+      font-style: normal;
+      font-weight: 500;
+    }
+
+    /* ── CONCEPT CARDS ── */
+    .concepts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.2rem;
+      margin: 2rem 0;
+    }
+    .concept-card {
+      background: var(--navy);
+      border: 1px solid rgba(0,180,216,0.15);
+      border-radius: 6px;
+      padding: 1.4rem;
+    }
+    .concept-icon { font-size: 1.8rem; display: block; margin-bottom: 0.7rem; }
+    .concept-card h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+    }
+    .concept-card p { font-size: 0.88rem; color: var(--muted); margin: 0; line-height: 1.6; }
+
+    /* ── TIMELINE ── */
+    .timeline { list-style: none; margin: 2rem 0; position: relative; }
+    .timeline::before {
+      content: '';
+      position: absolute;
+      left: 16px;
+      top: 0; bottom: 0;
+      width: 2px;
+      background: rgba(0,180,216,0.25);
+    }
+    .timeline li {
+      display: flex;
+      gap: 1.2rem;
+      padding: 0 0 2rem 0;
+      position: relative;
+    }
+    .tl-dot {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--blue);
+      border: 2px solid var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--accent);
+      position: relative;
+      z-index: 1;
+    }
+    .tl-content { padding-top: 4px; }
+    .tl-year {
+      font-size: 0.78rem;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      color: var(--gold);
+      text-transform: uppercase;
+      margin-bottom: 0.2rem;
+    }
+    .tl-text { font-size: 0.92rem; color: var(--text); }
+
+    /* ── SOURCES ── */
+    .sources-list { list-style: none; }
+    .sources-list li {
+      padding: 0.7rem 0;
+      border-bottom: 1px solid rgba(13,45,74,0.6);
+      font-size: 0.88rem;
+      display: flex;
+      gap: 0.8rem;
+      align-items: baseline;
+    }
+    .sources-list li::before {
+      content: '↗';
+      color: var(--accent);
+      flex-shrink: 0;
+      font-size: 0.75rem;
+    }
+    .sources-list a { color: var(--bright); text-decoration: none; }
+    .sources-list a:hover { color: var(--accent); text-decoration: underline; }
+    .src-pub {
+      display: inline-block;
+      margin-left: 0.5rem;
+      font-size: 0.75rem;
+      color: var(--muted);
+      font-style: italic;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--navy);
+      border-top: 1px solid rgba(0,180,216,0.15);
+      padding: 2.5rem 0;
+      text-align: center;
+      font-size: 0.82rem;
+      color: var(--muted);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+    .footer-logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem;
+      color: var(--white);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    @media (max-width: 640px) {
+      .img-inline { float: none; width: 100%; margin: 0 0 1.5rem 0; }
+      .hero-meta { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════
+     1. HERO
+══════════════════════════════════════════ -->
+<header class="hero" id="top">
+  <img
+    class="hero-img"
+    src="https://v3b.fal.media/files/b/0a9a4ca3/Q73zZHvTVJsZnH4HAmKQZ.jpg"
+    alt="Halo de rayons gamma autour du centre de la Voie Lactée — potentielle signature de matière noire"
+  />
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-tag">Cosmologie · Physique des particules</span>
+    <h1 class="hero-title">La Lueur <em>Invisible</em><br>de la Matière Noire</h1>
+    <p class="hero-subtitle">
+      Le Prof. Tomonori Totani (Université de Tokyo) a détecté un halo de rayons gamma à 20 GeV autour du centre galactique — un signal qui correspond exactement aux prédictions théoriques d'annihilation de WIMPs.
+    </p>
+    <div class="hero-meta">
+      <span>🔭 Données Fermi LAT — 15 ans</span>
+      <span>📄 JCAP, novembre 2025</span>
+      <span>🎓 Université de Tokyo</span>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════════════════════════════════════
+     2. NAV STICKY
+══════════════════════════════════════════ -->
+<nav>
+  <div class="nav-inner">
+    <a href="#intro">Introduction</a>
+    <a href="#fermi">Fermi LAT</a>
+    <a href="#signal">Le Signal</a>
+    <a href="#wimps">Les WIMPs</a>
+    <a href="#contexte">Contexte</a>
+    <a href="#methodes">Méthodes</a>
+    <a href="#enjeux">Enjeux</a>
+    <a href="#sources">Sources</a>
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════════════
+     3. INTRODUCTION
+══════════════════════════════════════════ -->
+<section id="intro">
+  <div class="container">
+    <h2>La plus grande énigme de l'univers</h2>
+    <p>
+      Il y a près d'un siècle, l'astronome Fritz Zwicky observait des galaxies tournant trop vite pour la quantité de matière visible qu'elles contiennent. Il inventa le terme « matière noire » pour désigner cette masse invisible qui devait tenir l'univers ensemble. Depuis, des décennies de recherche ont confirmé son existence indirecte — via la courbure de la lumière, la formation des structures cosmiques et le fond diffus cosmologique — mais jamais personne ne l'a vue directement. Jusqu'en novembre 2025, peut-être.
+    </p>
+    <p>
+      Le professeur Tomonori Totani, astrophysicien à l'Université de Tokyo, a publié dans le <em>Journal of Cosmology and Astroparticle Physics</em> (JCAP) une analyse minutieuse de quinze ans de données du télescope spatial Fermi de la NASA. Son résultat : un excès de rayons gamma à exactement 20 gigaélectronvolts, structuré en halo autour du centre de la Voie Lactée — un signal qui correspond point par point aux prédictions théoriques de l'annihilation de WIMPs, les candidats matière noire les plus étudiés en physique des particules.
+    </p>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <span class="stat-number">27%</span>
+        <span class="stat-label">de l'univers est matière noire</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">15 ans</span>
+        <span class="stat-label">de données Fermi analysées</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">20 GeV</span>
+        <span class="stat-label">énergie du signal détecté</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">500×</span>
+        <span class="stat-label">masse WIMP vs proton</span>
+      </div>
+    </div>
+
+    <p>
+      Ce résultat ne constitue pas encore une preuve définitive — Totani lui-même appelle à la prudence. Mais la précision du signal, son profil spatial en halo et sa correspondance avec les modèles théoriques en font l'une des pistes les plus sérieuses jamais explorées dans l'histoire de la détection indirecte de matière noire. La confirmation pourrait venir d'observations complémentaires dans les galaxies naines satellites de la Voie Lactée.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     4. LE TÉLESCOPE FERMI
+══════════════════════════════════════════ -->
+<section id="fermi">
+  <div class="container clearfix">
+    <h2>Fermi LAT : quinze ans d'yeux grand ouverts sur le cosmos</h2>
+    <img
+      class="img-inline"
+      src="https://v3b.fal.media/files/b/0a9a4ca3/J7JxIdrYZMACEy7dWV7Dv.jpg"
+      alt="Télescope spatial Fermi en orbite terrestre"
+    />
+    <p>
+      Lancé en 2008 par la NASA, le télescope spatial Fermi est équipé du Large Area Telescope (LAT), un détecteur de rayons gamma couvrant une plage d'énergie de 20 mégaélectronvolts à plus de 300 gigaélectronvolts. Son grand champ de vue lui permet de balayer l'ensemble du ciel toutes les trois heures, accumulant une base de données d'une richesse sans précédent sur les sources de haute énergie dans l'univers.
+    </p>
+    <p>
+      Les rayons gamma ne peuvent être ni absorbés ni déviés par le champ magnétique interstellaire, contrairement aux rayons cosmiques ordinaires. Ils voyagent en ligne droite depuis leur source, ce qui en fait des messagers directs des processus physiques les plus énergétiques du cosmos : sursauts gamma, pulsars, noyaux actifs de galaxies — et peut-être, annihilation de matière noire. La sensibilité du Fermi LAT a progressé au fil des années grâce à des mises à jour logicielles et à l'accumulation de photons, rendant possible des analyses statistiques de plus en plus fines.
+    </p>
+
+    <div class="highlight">
+      <p>« Nous avons utilisé les données les plus récentes et les plus propres disponibles du Fermi LAT, couvrant quinze ans d'observations dans la région du halo galactique. »</p>
+      <cite>— Prof. Tomonori Totani, Université de Tokyo, JCAP 2025</cite>
+    </div>
+
+    <p>
+      Pour son analyse, Totani a concentré l'attention sur la région du halo galactique — une vaste sphère s'étendant autour du centre de la Voie Lactée — plutôt que sur le centre galactique lui-même, où la concentration de sources astrophysiques connues (pulsars, restes de supernovae, émission diffuse) complique l'extraction d'un signal propre. Cette approche méthodologique est précisément ce qui distingue son travail des précédentes études sur l'excès galactique central.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     IMAGE LARGE #1
+══════════════════════════════════════════ -->
+<div class="container">
+  <img
+    class="img-wide"
+    src="https://v3b.fal.media/files/b/0a9a4ca4/w_yt5QvuUESqhaYdwlCLh.jpg"
+    alt="Astrophysicien analysant les données du télescope Fermi"
+  />
+  <p class="img-caption">Analyse des données du Fermi LAT : chaque photon à 20 GeV est un message potentiel venu du cœur invisible de la galaxie.</p>
+</div>
+
+<!-- ══════════════════════════════════════════
+     5. LE SIGNAL
+══════════════════════════════════════════ -->
+<section id="signal">
+  <div class="container">
+    <h2>Un halo qui brille d'une lumière impossible</h2>
+    <p>
+      La méthode employée par Totani est fondée sur la soustraction minutieuse. Il modélise et retire toutes les sources d'émission gamma connues dans la région du halo : les bulles de Fermi (deux lobes géants d'émission gamma au-dessus et en dessous du centre galactique découverts en 2010), les sources ponctuelles cataloguées (blazars, pulsars), et l'émission diffuse produite par l'interaction des rayons cosmiques avec le gaz interstellaire. Ce qui reste, une fois tout cela soustrait, constitue le signal.
+    </p>
+
+    <div class="concepts-grid">
+      <div class="concept-card">
+        <span class="concept-icon">🌌</span>
+        <h4>Halo galactique</h4>
+        <p>Structure sphérique s'étendant à des milliers d'années-lumière autour du disque de la Voie Lactée, riche en matière noire selon les simulations cosmologiques.</p>
+      </div>
+      <div class="concept-card">
+        <span class="concept-icon">⚡</span>
+        <h4>Excès à 20 GeV</h4>
+        <p>Un surplus de photons gamma à exactement 20 gigaélectronvolts, inexplicable par les sources astrophysiques connues et prédit par les modèles d'annihilation WIMP.</p>
+      </div>
+      <div class="concept-card">
+        <span class="concept-icon">🔮</span>
+        <h4>Profil de halo</h4>
+        <p>La distribution spatiale du signal suit un profil NFW (Navarro-Frenk-White), la forme attendue pour une distribution de matière noire dans une galaxie spirale.</p>
+      </div>
+      <div class="concept-card">
+        <span class="concept-icon">📊</span>
+        <h4>Spectre d'énergie</h4>
+        <p>La courbe spectrale du signal correspond à la signature théorique de l'annihilation de WIMPs de masse ~500 GeV/c², avec un pic d'émission bien défini.</p>
+      </div>
+    </div>
+
+    <p>
+      L'excès résiduel présente deux caractéristiques remarquables. D'abord, son spectre en énergie — c'est-à-dire la distribution de l'intensité du signal en fonction de l'énergie des photons — correspond parfaitement à ce que les théoriciens prédisent pour l'annihilation de WIMPs d'une masse d'environ 500 fois celle du proton (soit ~470 GeV/c²). Ensuite, sa morphologie spatiale suit un profil de halo cohérent avec les simulations de distribution de matière noire dans notre galaxie.
+    </p>
+
+    <div class="highlight">
+      <p>« Ces rayons gamma ne s'expliquent pas facilement par d'autres phénomènes astronomiques ou émissions gamma plus courants. Je considère ces données comme une indication forte d'une émission provenant de la matière noire. »</p>
+      <cite>— Prof. Tomonori Totani, communiqué Université de Tokyo, novembre 2025</cite>
+    </div>
+
+    <p>
+      Le taux d'annihilation estimé à partir de l'intensité mesurée des rayons gamma tombe également dans la plage des prédictions théoriques pour les WIMPs — un deuxième point de concordance qui renforce la solidité de l'interprétation. Ce n'est pas un, mais plusieurs critères indépendants qui s'alignent simultanément sur le scénario WIMP.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     IMAGE LARGE #2
+══════════════════════════════════════════ -->
+<div class="container">
+  <img
+    class="img-wide"
+    src="https://v3b.fal.media/files/b/0a9a4ca4/eJ4PVkAdvXNEiNaQ46YfQ.jpg"
+    alt="Visualisation d'une annihilation de particules WIMPs de matière noire"
+  />
+  <p class="img-caption">Représentation de l'annihilation de deux WIMPs : leur collision libère une paire de photons gamma, messagers de haute énergie traversant des milliers d'années-lumière pour atteindre le détecteur Fermi.</p>
+</div>
+
+<!-- ══════════════════════════════════════════
+     6. LES WIMPs
+══════════════════════════════════════════ -->
+<section id="wimps">
+  <div class="container clearfix">
+    <h2>WIMPs : les particules fantômes de la physique théorique</h2>
+    <img
+      class="img-inline"
+      src="https://v3b.fal.media/files/b/0a9a4ca4/TRFPbyy2Yzn4PZoMF_G6u.jpg"
+      alt="Galaxie naine satellite avec halo de matière noire"
+    />
+    <p>
+      Les WIMPs — <em>Weakly Interacting Massive Particles</em>, ou particules massives à interaction faible — sont les candidats matière noire les plus étudiés depuis plus de quarante ans. Leur attrait théorique tient à ce que les physiciens appellent le « miracle WIMP » : une particule ayant la masse caractéristique de l'échelle électrofaible (~100 GeV à ~1 TeV) et interagissant via la force nucléaire faible produirait naturellement, après le Big Bang, exactement la densité de matière noire observée dans l'univers. Cette coïncidence remarquable entre physique des particules et cosmologie observationnelle a motivé des décennies de recherche.
+    </p>
+    <p>
+      Les WIMPs n'émettent ni n'absorbent de lumière d'aucune sorte. Ils traversent la matière ordinaire presque sans interaction. Mais lorsque deux WIMPs se rencontrent, ils peuvent s'annihiler mutuellement, convertissant leur masse en énergie sous forme de photons gamma, de paires électron-positon, ou d'autres particules du Modèle Standard. C'est cette annihilation que Fermi est conçu pour détecter indirectement : les photons gamma produits lors de la collision s'échappent sans déviation et arrivent au détecteur avec leur énergie d'origine.
+    </p>
+    <p>
+      Les régions les plus denses en matière noire — comme le centre de notre galaxie ou les galaxies naines sphéroïdales qui l'orbitent — sont naturellement les cibles privilégiées pour la détection indirecte. Plus la densité est élevée, plus le taux d'annihilation est fort, et plus le signal gamma est intense. La concordance entre la densité de matière noire prédite par le profil de halo galactique et le niveau de l'excès observé par Totani constitue une des pièces les plus convaincantes de son dossier.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     7. CONTEXTE HISTORIQUE
+══════════════════════════════════════════ -->
+<section id="contexte">
+  <div class="container">
+    <h2>Cent ans de traque : une quête aux dimensions cosmiques</h2>
+    <p>
+      La quête de la matière noire est l'une des plus longues et des plus frustrantes de l'histoire de la physique. Depuis les observations pionnières de Fritz Zwicky dans les années 1930 et la démonstration par Vera Rubin dans les années 1970 de la rotation anormale des galaxies spirales, chaque génération de physiciens a espéré être celle qui découvrirait enfin cette substance insaisissable.
+    </p>
+
+    <div class="concepts-grid">
+      <div class="concept-card">
+        <span class="concept-icon">🔬</span>
+        <h4>Détection directe</h4>
+        <p>Des détecteurs souterrains comme XENON et LUX-ZEPLIN (LZ) cherchent le recul d'un noyau de xénon frappé par un WIMP. Malgré une sensibilité record en 2025, aucune détection confirmée.</p>
+      </div>
+      <div class="concept-card">
+        <span class="concept-icon">⚛️</span>
+        <h4>Production au LHC</h4>
+        <p>Le Grand Collisionneur de Hadrons du CERN cherche à créer des WIMPs lors de collisions proton-proton à haute énergie. Aucune particule candidate n'a encore été identifiée.</p>
+      </div>
+      <div class="concept-card">
+        <span class="concept-icon">🌠</span>
+        <h4>Détection indirecte</h4>
+        <p>Chercher les produits d'annihilation depuis l'espace (rayons gamma, antimatière). C'est l'approche de Fermi LAT — et la voie qu'emprunte l'étude Totani 2025.</p>
+      </div>
+      <div class="concept-card">
+        <span class="concept-icon">🌊</span>
+        <h4>Preuve indirecte</h4>
+        <p>La matière noire se manifeste par la courbure gravitationnelle de la lumière (lentille gravitationnelle), la rotation des galaxies, et les structures à grande échelle de l'univers.</p>
+      </div>
+    </div>
+
+    <p>
+      L'excès galactique central — un surplus de rayons gamma dans la direction du centre de la Voie Lactée — a été discuté depuis les premières années de Fermi, notamment à partir de 2009-2010. Mais cet excès a été longtemps attribué à une population non résolue de pulsars milliseconde, de sources ponctuelles sous le seuil de détection, ou à des artefacts de modélisation du fond diffus. Ce qui distingue l'analyse de Totani, c'est sa focalisation sur la région du halo (et non le centre strict) et l'accumulation de quinze ans de données permettant une statistique bien plus robuste.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     8. MÉTHODES ET TECHNIQUES
+══════════════════════════════════════════ -->
+<section id="methodes">
+  <div class="container">
+    <h2>De la donnée brute au signal : une détection en cinq étapes</h2>
+    <p>
+      L'analyse de Totani représente un travail méthodologique exigeant, fondé sur la soustraction systématique de tous les processus connus pour isoler un résidu significatif. Cette approche — au cœur de toute détection indirecte de matière noire — doit faire face à un défi fondamental : le signal attendu est faible, diffus, et noyé dans une émission gamma intense d'origine astrophysique.
+    </p>
+
+    <ul class="timeline">
+      <li>
+        <span class="tl-dot">1</span>
+        <div class="tl-content">
+          <div class="tl-year">Sélection des données</div>
+          <p class="tl-text">Extraction de 15 ans de données Fermi LAT (2008–2023), filtrées pour la qualité de reconstruction des événements et centrées sur la région du halo galactique, en évitant le plan galactique (source d'émission diffuse intense).</p>
+        </div>
+      </li>
+      <li>
+        <span class="tl-dot">2</span>
+        <div class="tl-content">
+          <div class="tl-year">Modélisation du fond</div>
+          <p class="tl-text">Construction d'un modèle détaillé de toutes les sources d'émission gamma connues : diffusion inverse Compton, bremsstrahlung, pions π⁰, bulles de Fermi, sources ponctuelles des catalogues 4FGL.</p>
+        </div>
+      </li>
+      <li>
+        <span class="tl-dot">3</span>
+        <div class="tl-content">
+          <div class="tl-year">Soustraction et résidu</div>
+          <p class="tl-text">Comparaison des données observées au modèle de fond. Le résidu statistiquement significatif à 20 GeV, structuré en halo, constitue le signal candidat à l'annihilation de matière noire.</p>
+        </div>
+      </li>
+      <li>
+        <span class="tl-dot">4</span>
+        <div class="tl-content">
+          <div class="tl-year">Analyse spectrale</div>
+          <p class="tl-text">Ajustement du spectre en énergie du signal résiduel aux prédictions théoriques de l'annihilation WIMP pour différentes masses et canaux d'annihilation (bb̄, τ⁺τ⁻, W⁺W⁻). Meilleur ajustement : WIMP → bb̄ pour une masse ~470 GeV.</p>
+        </div>
+      </li>
+      <li>
+        <span class="tl-dot">5</span>
+        <div class="tl-content">
+          <div class="tl-year">Vérification morphologique</div>
+          <p class="tl-text">Confirmation que la distribution spatiale du signal suit un profil de halo NFW (Navarro-Frenk-White), cohérent avec les prédictions des simulations cosmologiques N-corps pour la distribution de matière noire dans notre galaxie.</p>
+        </div>
+      </li>
+    </ul>
+
+    <p>
+      Un résultat complémentaire est venu renforcer l'interprétation WIMP : en décembre 2025, une équipe distincte a montré que ce signal de halo peut être reproduit par le mécanisme d'annihilation résonnante de WIMPs (arXiv 2512.01404), ce qui indique que le signal de Totani n'est pas seulement compatible avec les modèles génériques de WIMPs, mais aussi avec des scénarios de physique des particules théoriquement bien motivés.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     9. ENJEUX
+══════════════════════════════════════════ -->
+<section id="enjeux">
+  <div class="container">
+    <h2>Si c'est vrai : un tournant pour la physique fondamentale</h2>
+    <p>
+      La confirmation de ce signal aurait des implications dépassant largement le cadre de la cosmologie. Elle constituerait la première preuve directe de physique au-delà du Modèle Standard des particules — le cadre théorique qui gouverne notre compréhension de toutes les forces et particules connues depuis les années 1970, mais qui ne peut accueillir la matière noire dans sa formulation actuelle. Une détection confirmée de WIMPs contraindrait fortement les théories de supersymétrie (SUSY), de dimensions supplémentaires ou d'autres extensions du Modèle Standard.
+    </p>
+
+    <div class="highlight">
+      <p>« Si un signal similaire est observé dans des galaxies naines, ce serait une forte indication. Ces galaxies sont beaucoup plus propres — leur fond astrophysique est minimal. »</p>
+      <cite>— Prof. Tomonori Totani, NBC News, novembre 2025</cite>
+    </div>
+
+    <p>
+      La prochaine étape cruciale est la vérification dans les galaxies naines sphéroïdales (dSphs) satellites de la Voie Lactée, comme Segue 1, Draco ou Reticulum II. Ces objets sont parmi les systèmes les plus dominés par la matière noire connus — leur rapport masse-lumière peut dépasser 1000 — et présentent l'avantage d'un fond astrophysique quasi inexistant. Si un excès à 20 GeV avec le même spectre apparaissait dans ces galaxies, l'hypothèse WIMP deviendrait extrêmement difficile à réfuter. À l'inverse, une non-détection contraindrait sévèrement le scénario.
+    </p>
+    <p>
+      L'expérience LZ (LUX-ZEPLIN), le détecteur de matière noire direct le plus sensible jamais construit, opérant dans la mine de Sanford (Dakota du Sud), apportera également un test complémentaire. En décembre 2025, LZ a publié ses derniers résultats — sans détection de WIMPs — mais ses contraintes portent sur des masses inférieures à 9 GeV/c², laissant entière la fenêtre de masse ~470 GeV suggérée par Totani. Les générations futures de détecteurs, comme DARWIN ou XLZD, pourront explorer cette région avec une sensibilité sans précédent dans les prochaines années.
+    </p>
+
+    <div class="highlight">
+      <p>« Il est trop tôt pour affirmer définitivement que ces rayons gamma sont originaires de la matière noire. Mais c'est, à ce jour, le signal le plus prometteur que nous ayons jamais obtenu. »</p>
+      <cite>— Prof. Tomonori Totani, The Debrief, novembre 2025</cite>
+    </div>
+
+    <p>
+      Si la découverte se confirme, elle clôturait un des chapitres les plus longs de la physique moderne : presque cent ans après que Zwicky eut posé le problème, l'humanité aurait enfin « vu » la substance qui constitue 27% de l'univers. Un univers dont nous ne connaissons encore directement que 5% du contenu total.
+    </p>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     10. SOURCES
+══════════════════════════════════════════ -->
+<section id="sources">
+  <div class="container">
+    <h2>Sources & Références</h2>
+    <ul class="sources-list">
+      <li>
+        <a href="https://iopscience.iop.org/article/10.1088/1475-7516/2025/11/080" target="_blank" rel="noopener">
+          20 GeV halo-like excess of the Galactic diffuse emission and implications for dark matter annihilation
+        </a>
+        <span class="src-pub">Totani T. — JCAP, novembre 2025</span>
+      </li>
+      <li>
+        <a href="https://www.u-tokyo.ac.jp/focus/en/press/z0508_00433.html" target="_blank" rel="noopener">
+          After nearly 100 years, scientists may have detected dark matter
+        </a>
+        <span class="src-pub">Université de Tokyo — Communiqué officiel, 2025</span>
+      </li>
+      <li>
+        <a href="https://www.eurekalert.org/news-releases/1106867" target="_blank" rel="noopener">
+          After nearly 100 years, scientists may have detected dark matter
+        </a>
+        <span class="src-pub">EurekAlert! / AAAS, novembre 2025</span>
+      </li>
+      <li>
+        <a href="https://arxiv.org/abs/2512.01404" target="_blank" rel="noopener">
+          Resonant Annihilation of WIMP Dark Matter for Halo Gamma Ray Signal
+        </a>
+        <span class="src-pub">arXiv:2512.01404, décembre 2025</span>
+      </li>
+      <li>
+        <a href="https://thedebrief.org/nasas-fermi-gamma-ray-telescope-detects-possible-first-direct-evidence-of-dark-matter/" target="_blank" rel="noopener">
+          NASA's Fermi Gamma-Ray Telescope Detects Possible First Direct Evidence of Dark Matter
+        </a>
+        <span class="src-pub">The Debrief, novembre 2025</span>
+      </li>
+      <li>
+        <a href="https://www.sciencealert.com/dark-matter-may-have-finally-been-detected-in-our-galaxys-glow" target="_blank" rel="noopener">
+          Dark Matter May Have Finally Been Detected in Our Galaxy's Glow
+        </a>
+        <span class="src-pub">ScienceAlert, novembre 2025</span>
+      </li>
+      <li>
+        <a href="https://fermi.gsfc.nasa.gov/science/eteu/dm/" target="_blank" rel="noopener">
+          Fermi Gamma-ray Space Telescope: Exploring the Extreme Universe — Dark Matter
+        </a>
+        <span class="src-pub">NASA / Fermi Science Center</span>
+      </li>
+      <li>
+        <a href="https://newscenter.lbl.gov/2025/12/08/lz-sets-a-worlds-best-in-the-hunt-for-galactic-dark-matter/" target="_blank" rel="noopener">
+          LZ Sets a World's Best in the Hunt for Galactic Dark Matter
+        </a>
+        <span class="src-pub">Lawrence Berkeley National Laboratory, décembre 2025</span>
+      </li>
+      <li>
+        <a href="https://en.wikipedia.org/wiki/Weakly_interacting_massive_particle" target="_blank" rel="noopener">
+          Weakly Interacting Massive Particle — Overview
+        </a>
+        <span class="src-pub">Wikipedia / sources académiques</span>
+      </li>
+      <li>
+        <a href="https://home.cern/science/physics/dark-matter" target="_blank" rel="noopener">
+          Dark Matter — CERN
+        </a>
+        <span class="src-pub">CERN Science</span>
+      </li>
+      <li>
+        <a href="https://science.nasa.gov/dark-matter/" target="_blank" rel="noopener">
+          Dark Matter — NASA Science
+        </a>
+        <span class="src-pub">NASA Science, 2025</span>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════
+     FOOTER
+══════════════════════════════════════════ -->
+<footer>
+  <div class="container">
+    <span class="footer-logo">Vostok</span>
+    <p>Articles scientifiques illustrés — <a href="/dossiers/">Tous les dossiers</a></p>
+    <p style="margin-top:0.5rem; font-size:0.75rem; opacity:0.6;">Mai 2026 · Généré avec recherche web et images FAL AI</p>
+  </div>
+</footer>
+
+</body>
+</html>
