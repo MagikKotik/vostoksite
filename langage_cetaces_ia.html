@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Décoder la Baleine — IA & Langage des Cétacés</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --deep:    #020b18;
+      --navy:    #061628;
+      --blue:    #0d2d4a;
+      --mid:     #0e4166;
+      --accent:  #00b4d8;
+      --bright:  #90e0ef;
+      --gold:    #f4c542;
+      --white:   #e8f4fd;
+      --muted:   #8bb8d0;
+      --text:    #cce4f0;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--deep);
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 17px;
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    /* ── HERO ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      overflow: hidden;
+    }
+    .hero-img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      filter: brightness(0.55) saturate(1.2);
+    }
+    .hero-gradient {
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 40%, var(--deep) 100%);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 0 8vw 7vh;
+      max-width: 900px;
+    }
+    .hero-tag {
+      display: inline-block;
+      background: var(--accent);
+      color: var(--deep);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      padding: 5px 14px;
+      border-radius: 3px;
+      margin-bottom: 20px;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.8rem, 6vw, 5.5rem);
+      font-weight: 900;
+      line-height: 1.1;
+      color: #fff;
+      margin-bottom: 22px;
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero-sub {
+      font-size: 1.15rem;
+      font-weight: 300;
+      color: var(--bright);
+      max-width: 640px;
+      margin-bottom: 36px;
+    }
+    .hero-meta {
+      display: flex; gap: 28px; flex-wrap: wrap;
+      font-size: 13px; color: var(--muted); font-weight: 500;
+    }
+    .hero-meta span { display: flex; align-items: center; gap: 7px; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(2,11,24,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,180,216,0.15);
+      padding: 0 8vw;
+      display: flex; align-items: center; gap: 32px;
+      height: 60px; overflow-x: auto;
+    }
+    nav a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 13px; font-weight: 500;
+      letter-spacing: 0.5px;
+      white-space: nowrap;
+      transition: color 0.2s;
+    }
+    nav a:hover { color: var(--accent); }
+
+    /* ── LAYOUT ── */
+    .container { max-width: 900px; margin: 0 auto; padding: 0 8vw; }
+    .section { padding: 90px 0 60px; }
+    .section + .section { border-top: 1px solid rgba(0,180,216,0.1); }
+
+    /* ── SECTION TITLES ── */
+    .section-label {
+      font-size: 11px; font-weight: 700; letter-spacing: 2.5px;
+      text-transform: uppercase; color: var(--accent);
+      margin-bottom: 14px;
+    }
+    h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.9rem, 3.5vw, 2.8rem);
+      font-weight: 700;
+      color: #fff;
+      margin-bottom: 28px;
+      line-height: 1.25;
+    }
+    h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--bright);
+      margin: 44px 0 16px;
+    }
+    p { margin-bottom: 20px; color: var(--text); }
+    strong { color: var(--bright); font-weight: 600; }
+
+    /* ── FULL-WIDTH IMAGE SECTIONS ── */
+    .img-wide {
+      width: 100%; max-width: 1200px;
+      margin: 48px auto;
+      display: block;
+      border-radius: 10px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+    .img-wide img { width: 100%; display: block; }
+    .img-caption {
+      text-align: center;
+      font-size: 13px; color: var(--muted); font-style: italic;
+      padding: 12px 20px;
+      background: var(--navy);
+      border-top: 1px solid rgba(0,180,216,0.1);
+    }
+
+    /* ── INLINE IMAGE ── */
+    .img-inline {
+      float: right; margin: 4px 0 28px 36px;
+      width: 46%; border-radius: 8px; overflow: hidden;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.5);
+    }
+    .img-inline img { width: 100%; display: block; }
+    .img-inline .img-caption { font-size: 12px; padding: 9px 14px; }
+    .clearfix::after { content: ''; display: table; clear: both; }
+
+    /* ── STAT CARDS ── */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+      gap: 16px;
+      margin: 40px 0;
+    }
+    .stat-card {
+      background: var(--navy);
+      border: 1px solid rgba(0,180,216,0.2);
+      border-radius: 10px;
+      padding: 26px 22px;
+      text-align: center;
+      transition: border-color 0.3s, transform 0.3s;
+    }
+    .stat-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .stat-num {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.5rem; font-weight: 900;
+      color: var(--accent); line-height: 1;
+      margin-bottom: 8px;
+    }
+    .stat-label { font-size: 13px; color: var(--muted); font-weight: 500; }
+
+    /* ── HIGHLIGHT BOX ── */
+    .highlight {
+      background: linear-gradient(135deg, rgba(0,180,216,0.08), rgba(0,180,216,0.02));
+      border-left: 4px solid var(--accent);
+      border-radius: 0 8px 8px 0;
+      padding: 24px 28px;
+      margin: 36px 0;
+    }
+    .highlight p { margin: 0; color: var(--bright); font-size: 1.05rem; font-style: italic; }
+    .highlight cite { display: block; margin-top: 12px; font-size: 13px; color: var(--muted); font-style: normal; }
+
+    /* ── CONCEPT CARDS ── */
+    .concepts-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 20px; margin: 36px 0;
+    }
+    .concept-card {
+      background: var(--navy);
+      border: 1px solid rgba(0,180,216,0.15);
+      border-radius: 10px; padding: 24px;
+    }
+    .concept-icon { font-size: 2rem; margin-bottom: 12px; }
+    .concept-card h4 {
+      font-size: 1rem; font-weight: 600;
+      color: var(--bright); margin-bottom: 10px;
+    }
+    .concept-card p { font-size: 14px; color: var(--muted); margin: 0; line-height: 1.7; }
+
+    /* ── TIMELINE ── */
+    .timeline { margin: 40px 0; position: relative; }
+    .timeline::before {
+      content: ''; position: absolute; left: 18px; top: 0; bottom: 0;
+      width: 2px; background: linear-gradient(to bottom, var(--accent), transparent);
+    }
+    .tl-item {
+      display: flex; gap: 28px; margin-bottom: 36px; align-items: flex-start;
+    }
+    .tl-dot {
+      width: 38px; height: 38px; min-width: 38px;
+      border-radius: 50%;
+      background: var(--blue); border: 2px solid var(--accent);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 11px; font-weight: 700; color: var(--accent);
+      position: relative; z-index: 1;
+    }
+    .tl-body h4 {
+      font-size: 1rem; font-weight: 600; color: var(--bright);
+      margin-bottom: 6px;
+    }
+    .tl-body p { font-size: 14.5px; color: var(--text); margin: 0; line-height: 1.7; }
+
+    /* ── SOURCES ── */
+    .sources {
+      background: var(--navy);
+      border-top: 1px solid rgba(0,180,216,0.15);
+      padding: 60px 0 80px;
+    }
+    .sources .container h2 { margin-bottom: 32px; }
+    .sources-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .sources-list li {
+      padding: 14px 18px;
+      background: var(--blue);
+      border-radius: 7px;
+      border: 1px solid rgba(0,180,216,0.1);
+      font-size: 14px;
+      transition: border-color 0.2s;
+    }
+    .sources-list li:hover { border-color: var(--accent); }
+    .sources-list a {
+      color: var(--accent);
+      text-decoration: none;
+      font-weight: 500;
+    }
+    .sources-list a:hover { text-decoration: underline; }
+    .src-pub { color: var(--muted); font-size: 12px; margin-top: 3px; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--deep);
+      text-align: center;
+      padding: 32px;
+      font-size: 13px; color: var(--muted);
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    footer span { color: var(--accent); }
+
+    @media (max-width: 680px) {
+      .img-inline { float: none; width: 100%; margin: 0 0 24px; }
+      nav { gap: 20px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════ HERO ════════════════════ -->
+<section class="hero">
+  <img class="hero-img" src="https://v3b.fal.media/files/b/0a9a484c/bmBZE_xi8eRVoiJvS4SRi.jpg" alt="Chercheur face à un cachalot" />
+  <div class="hero-gradient"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Enquête scientifique</div>
+    <h1>Décoder la <span>Baleine</span><br/>L'IA à l'écoute des cétacés</h1>
+    <p class="hero-sub">
+      Depuis 2020, une alliance inédite de chercheurs du MIT, d'Harvard et de Berkeley tente de percer l'un des mystères les plus profonds de la biologie : comprendre ce que se disent les cachalots — et peut-être, un jour, leur répondre.
+    </p>
+    <div class="hero-meta">
+      <span>🔬 Recherche approfondie</span>
+      <span>📅 Mai 2026</span>
+      <span>🐋 Cachalots &amp; Baleines</span>
+      <span>🤖 IA &amp; NLP</span>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ NAV ════════════════════ -->
+<nav>
+  <a href="#intro">Introduction</a>
+  <a href="#ceti">Projet CETI</a>
+  <a href="#alphabet">L'Alphabet</a>
+  <a href="#voyelles">Voyelles</a>
+  <a href="#social">Société</a>
+  <a href="#techno">Technologies</a>
+  <a href="#implications">Implications</a>
+  <a href="#sources">Sources</a>
+</nav>
+
+<!-- ════════════════════ INTRO ════════════════════ -->
+<section class="section" id="intro">
+  <div class="container">
+    <div class="section-label">Contexte</div>
+    <h2>Quand l'intelligence artificielle plonge dans l'abyssal</h2>
+
+    <p>
+      Les cachalots (<em>Physeter macrocephalus</em>) sont les plus grands animaux à dents de la planète. Ils plongent à plus de 3 000 mètres de profondeur, vivent en clans matriarcaux sophistiqués, et communiquent via un système de clics appelés <strong>codas</strong> — des séquences brèves, rythmées, que les chercheurs ont longtemps comparées à un code Morse biologique. Mais cette analogie s'avère aujourd'hui très réductrice.
+    </p>
+    <p>
+      Depuis le début des années 2020, une révolution silencieuse est en cours dans le monde de la bioacoustique. Grâce aux progrès du <strong>machine learning</strong>, du traitement du langage naturel (NLP) et de la robotique marine, des équipes pluridisciplinaires sont parvenues à mettre en évidence des structures linguistiques d'une complexité inattendue dans les vocalises des cétacés. L'IA n'est plus seulement un outil d'analyse — elle est devenue l'instrument central d'une possible traduction inter-espèces.
+    </p>
+
+    <div class="stats-grid">
+      <div class="stat-card">
+        <div class="stat-num">9 000+</div>
+        <div class="stat-label">Codas analysées par ML</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">156</div>
+        <div class="stat-label">Codas distinctes identifiées</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">4</div>
+        <div class="stat-label">Paramètres phonétiques (rythme, tempo, rubato, ornement)</div>
+      </div>
+      <div class="stat-card">
+        <div class="stat-num">20 000</div>
+        <div class="stat-label">Individus dans les plus grands clans</div>
+      </div>
+    </div>
+
+    <p>
+      Les cachalots ne sont pas les seuls concernés. Les baleines à bosse (<em>Megaptera novaeangliae</em>), dont les chants complexes fascinent les chercheurs depuis les années 1970, font également l'objet d'études assistées par IA. En 2024-2025, des équipes sont parvenues à des traductions partielles de leurs vocalises avec des taux de confiance avoisinant 96 %, marquant une étape symbolique dans l'histoire de la communication inter-espèces.
+    </p>
+  </div>
+</section>
+
+<!-- ════════════════════ CETI ════════════════════ -->
+<section class="section" id="ceti">
+  <div class="container">
+    <div class="section-label">Le Programme</div>
+    <h2>Project CETI — la plus grande initiative de traduction animale jamais entreprise</h2>
+
+    <div class="img-inline">
+      <img src="https://v3b.fal.media/files/b/0a9a484e/CPtLiDY79FGAUbGF5yjMp.jpg" alt="Drone posant un bio-logger sur un cachalot" />
+      <div class="img-caption">Un drone pose un bio-logger sur un cachalot en Dominique, Caraïbes</div>
+    </div>
+
+    <p>
+      Fondé en 2020, le <strong>Project CETI</strong> (<em>Cetacean Translation Initiative</em>) est une organisation à but non lucratif qui réunit, à ce jour, plus de 30 chercheurs issus du <strong>MIT CSAIL</strong>, d'<strong>Harvard</strong>, de l'<strong>Université de Californie à Berkeley</strong>, de l'Université de Haïfa, et de plusieurs autres institutions de pointe. Son terrain d'opération principal est l'île de la Dominique, dans les Petites Antilles, où séjourne une population résidente et bien documentée de cachalots de l'est des Caraïbes.
+    </p>
+    <p>
+      L'ambition déclarée du projet est monumentale : <strong>recueillir plusieurs milliards de codas</strong> sur plusieurs années, puis entraîner des grands modèles de langage (LLM) sur ce corpus pour en extraire la sémantique sous-jacente. L'analogie revendiquée par les fondateurs est celle du projet SETI — la recherche d'intelligences extraterrestres — mais appliquée à notre propre planète : et si la première intelligence non-humaine avec laquelle l'humanité pourrait dialoguer se trouvait au fond des océans ?
+    </p>
+    <p>
+      Pour collecter les données, CETI déploie une combinaison inédite de <strong>bio-loggers acoustiques</strong> fixés par drones directement sur le dos des baleines, de <strong>hydrophones autonomes</strong> suspendus dans la colonne d'eau, et de <strong>robots sous-marins</strong> capables de suivre les cachalots à distance sans les perturber. Le tout est conçu pour capturer du son multi-canal haute-fidélité, accompagné de données comportementales (position, profondeur, accélération) directement exploitables par des algorithmes de ML.
+    </p>
+
+    <div class="highlight">
+      <p>"Les cachalots pourraient bien représenter la première intelligence non-humaine avec laquelle nous ayons une chance réelle de dialoguer — non pas dans l'espace, mais ici, sur Terre."</p>
+      <cite>— David Gruber, fondateur du Project CETI</cite>
+    </div>
+
+    <p class="clearfix">
+      Le projet a également développé en open-source un <strong>bio-logger miniaturisé</strong> (Harvard School of Engineering, 2025) qui se fixe par ventouses sur le flanc du cétacé et enregistre en continu des données audio sur plusieurs canaux simultanés. La méthode "tap-and-go" par drone, opérationnelle depuis 2025, permet le placement du tag depuis une distance de sécurité, sans bateau à proximité immédiate, réduisant considérablement le stress des animaux.
+    </p>
+  </div>
+</section>
+
+<!-- ════════════════════ IMAGE LARGE : LAB ════════════════════ -->
+<div class="img-wide">
+  <img src="https://v3b.fal.media/files/b/0a9a484d/C3muhAaB0OcSqcoiDC79Y.jpg" alt="Laboratoire d'analyse des codas" />
+  <div class="img-caption">Analyse des spectrogrammes acoustiques et des réseaux de neurones dans un laboratoire de bioacoustique</div>
+</div>
+
+<!-- ════════════════════ ALPHABET ════════════════════ -->
+<section class="section" id="alphabet">
+  <div class="container">
+    <div class="section-label">Découverte Majeure — Nature Communications, mai 2024</div>
+    <h2>L'Alphabet Phonétique des Cachalots</h2>
+
+    <p>
+      En mai 2024, une équipe conjointe du <strong>MIT CSAIL</strong> et du Project CETI publie dans <em>Nature Communications</em> un article retentissant : <em>"Contextual and Combinatorial Structure in Sperm Whale Vocalisations"</em>. Pour la première fois, les chercheurs proposent formellement l'existence d'un <strong>alphabet phonétique</strong> chez le cachalot — une organisation combinatoire des clics jusqu'alors insoupçonnée.
+    </p>
+
+    <h3>La structure des codas</h3>
+    <p>
+      Jusqu'à cette étude, les scientifiques cataloguaient les codas comme des patterns relativement fixes — une sorte de répertoire d'identités sociales, comme un badge d'appartenance au clan. La nouvelle analyse révèle que les codas possèdent en réalité <strong>quatre paramètres acoustiques indépendants</strong>, qui s'articulent à la manière d'une grammaire :
+    </p>
+
+    <div class="concepts-grid">
+      <div class="concept-card">
+        <div class="concept-icon">⏱️</div>
+        <h4>Tempo</h4>
+        <p>La vitesse globale d'émission des clics dans une séquence. Varie selon l'état d'excitation de l'animal et le contexte social.</p>
+      </div>
+      <div class="concept-card">
+        <div class="concept-icon">🎼</div>
+        <h4>Rythme</h4>
+        <p>La distribution temporelle des clics au sein d'une coda. Permet des distinctions fines entre plusieurs centaines de patterns.</p>
+      </div>
+      <div class="concept-card">
+        <div class="concept-icon">〰️</div>
+        <h4>Rubato</h4>
+        <p>Des variations expressives et locales du tempo, équivalant aux inflexions émotionnelles d'une phrase — comme une hésitation ou une insistance.</p>
+      </div>
+      <div class="concept-card">
+        <div class="concept-icon">✨</div>
+        <h4>Ornementation</h4>
+        <p>Des clics supplémentaires ajoutés à la structure de base — modulant potentiellement le sens ou l'intention de la vocalisation.</p>
+      </div>
+    </div>
+
+    <p>
+      En combinant ces quatre paramètres, les chercheurs ont identifié <strong>156 codas distinctes</strong> dans leur corpus de 9 000 enregistrements caribéens. Mais surtout, ils ont démontré que ces combinaisons ne sont pas aléatoires : la structure varie <strong>selon le contexte conversationnel</strong>, ce qui constitue la marque d'un système de communication doté de <em>dualité de patterning</em> — la capacité à combiner des unités sans signification propre pour créer des unités signifiantes. C'est précisément l'une des propriétés considérées comme exclusivement humaines dans la définition classique du langage.
+    </p>
+
+    <div class="highlight">
+      <p>"Nous avons toujours pensé que la communication des baleines ressemblait à du Morse. Ce que nous voyons maintenant, c'est quelque chose qui ressemble bien davantage à un alphabet — avec ses propres règles de combinaison."</p>
+      <cite>— Pratyusha Sharma, MIT CSAIL, co-auteure de l'étude 2024</cite>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ IMAGE LARGE : PHONÉTIQUE ════════════════════ -->
+<div class="img-wide">
+  <img src="https://v3b.fal.media/files/b/0a9a484e/EZd48hx7W_YKHGmeIaI0i.jpg" alt="Visualisation de l'alphabet phonétique des cachalots" />
+  <div class="img-caption">Représentation schématique des patterns de clics et de leur organisation en alphabet acoustique</div>
+</div>
+
+<!-- ════════════════════ VOYELLES ════════════════════ -->
+<section class="section" id="voyelles">
+  <div class="container">
+    <div class="section-label">Découverte — Open Mind / Royal Society, novembre 2025</div>
+    <h2>Des Voyelles et des Diphtongues — comme nous</h2>
+
+    <div class="img-inline">
+      <img src="https://v3b.fal.media/files/b/0a9a484d/2huf7lxnLMyvWGw1g6beK.jpg" alt="Deux cachalots communiquant en profondeur" />
+      <div class="img-caption">Deux cachalots échangeant des codas dans les eaux profondes des Caraïbes</div>
+    </div>
+
+    <p>
+      Si l'étude du MIT avait mis en évidence la structure combinatoire des codas, une nouvelle étude publiée en novembre 2025 par des linguistes de l'<strong>Université de Californie à Berkeley</strong>, en collaboration avec le Project CETI, franchit un seuil encore plus symbolique. Elle est publiée simultanément dans <em>Open Mind</em> (MIT Press) et dans les <em>Proceedings B</em> de la Royal Society sous le titre : <em>"Vowel- and Diphthong-Like Spectral Patterns in Sperm Whale Codas"</em>.
+    </p>
+    <p>
+      L'équipe a analysé les <strong>propriétés spectrales</strong> des clics de cachalots — c'est-à-dire non plus leur séquencement temporel, mais leurs caractéristiques fréquentielles internes. Et ce qu'ils ont trouvé est stupéfiant : les cachalots modulent le contenu spectral de leurs clics pour produire des sons qui possèdent des caractéristiques acoustiques identiques à celles des <strong>voyelles humaines</strong>, notamment un "a" et un "i", ainsi que plusieurs <strong>diphtongues</strong> (transitions entre deux voyelles).
+    </p>
+
+    <h3>La méthode : des GAN comme "oreilles" artificielles</h3>
+    <p>
+      Pour analyser ces propriétés acoustiques, les chercheurs ont utilisé des <strong>réseaux antagonistes génératifs (GAN)</strong> — un type de modèle d'IA qui apprend en écoutant et en imitant, à la manière d'un enfant qui acquiert sa langue maternelle. Ces GAN ont été entraînés sur les enregistrements CETI, et ont spontanément fait émerger des catégories acoustiques correspondant à des voyelles, sans que les chercheurs ne les aient programmés pour cela.
+    </p>
+    <p>
+      Les cachalots produisent et <strong>distinguent</strong> ces voyelles de manière intentionnelle : ils les alternent lors de leurs échanges sociaux dans ce qui ressemble à un véritable dialogue. "Dans le passé, les chercheurs pensaient à la communication des baleines comme à une sorte de code Morse", explique la linguiste Shafi Goldwasser. "Les nouvelles données montrent que leurs vocalisations ressemblent plutôt à des voyelles très, très lentes — ce qui ajoute une dimension de complexité entièrement nouvelle."
+    </p>
+
+    <p class="clearfix">
+      Ce résultat est particulièrement significatif d'un point de vue linguistique : la présence de voyelles est considérée comme l'un des marqueurs universels du langage humain. Elle implique une capacité à moduler finement l'appareil vocal — ou dans ce cas, l'organe spermacéti des cachalots — pour produire des nuances acoustiques distinctives et reproducibles. La découverte de diphtongues renforce encore l'analogie : une diphtongue est par définition un son complexe, une <em>transition</em> entre deux états vocaux, qui requiert un contrôle articulatoire sophistiqué.
+    </p>
+  </div>
+</section>
+
+<!-- ════════════════════ SOCIAL ════════════════════ -->
+<section class="section" id="social">
+  <div class="container">
+    <div class="section-label">Contexte biologique</div>
+    <h2>La Société des Cachalots — une structure qui rend le langage nécessaire</h2>
+
+    <p>
+      Comprendre pourquoi les cachalots ont développé un système de communication aussi élaboré nécessite de se pencher sur leur organisation sociale, qui est elle-même d'une complexité remarquable.
+    </p>
+
+    <h3>Une société matrilinéaire à plusieurs niveaux</h3>
+    <p>
+      La brique fondamentale de la société des cachalots est l'<strong>unité sociale matrilinéaire</strong> : un groupe d'une dizaine de femelles adultes apparentées et de leurs jeunes, qui voyagent ensemble en permanence, s'entraident pour l'allaitement et la garde des nouveau-nés (les mères plongent à plus de 1 000 m pour chasser — leurs petits restent en surface gardés par les autres femelles du groupe). Les mâles adultes, eux, mènent une vie solitaire et rejoignent les groupes de femelles uniquement pour la reproduction.
+    </p>
+    <p>
+      Ces unités s'agrègent en <strong>clans vocaux</strong> pouvant compter jusqu'à 20 000 individus, répartis sur des milliers de kilomètres. Ce qui définit l'appartenance à un clan, c'est précisément le répertoire vocal : chaque clan possède ses propres <strong>codas d'identité</strong>, des séquences caractéristiques qui agissent comme un marqueur d'appartenance — l'équivalent d'un dialecte régional.
+    </p>
+
+    <h3>Dialectes, accents et transmission culturelle</h3>
+    <p>
+      Les cachalots ne communiquent pas de la même façon dans les Caraïbes, au large du Sri Lanka ou en mer de Cortez. Le nombre de clics par coda, leur timing et leurs ornementations varient sensiblement d'une région à l'autre, créant de véritables <strong>dialectes géographiques</strong>. Plus frappant encore : le langage des cachalots est <strong>culturellement transmis</strong>. Des observations directes ont montré une mère en train d'enseigner des codas à son nouveau-né d'une semaine, qui les répète immédiatement — une démonstration spectaculaire d'apprentissage vocal actif, extrêmement rare dans le règne animal.
+    </p>
+
+    <div class="concepts-grid">
+      <div class="concept-card">
+        <div class="concept-icon">👪</div>
+        <h4>Unité matrilinéaire</h4>
+        <p>~10 femelles apparentées + leurs petits. Base de toute la vie sociale, garde coopérative des nourrissons.</p>
+      </div>
+      <div class="concept-card">
+        <div class="concept-icon">🗣️</div>
+        <h4>Clan vocal</h4>
+        <p>Milliers d'individus liés par un répertoire de codas commun. Peut s'étendre sur des océans entiers.</p>
+      </div>
+      <div class="concept-card">
+        <div class="concept-icon">🌍</div>
+        <h4>Dialectes régionaux</h4>
+        <p>Chaque bassin océanique développe ses propres variantes. L'appartenance linguistique transcende la proximité géographique immédiate.</p>
+      </div>
+      <div class="concept-card">
+        <div class="concept-icon">🍼</div>
+        <h4>Apprentissage maternel</h4>
+        <p>Les codas sont enseignées dès la première semaine de vie. Preuve d'une transmission culturelle active et intentionnelle.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════ TECHNO ════════════════════ -->
+<section class="section" id="techno">
+  <div class="container">
+    <div class="section-label">Boîte à outils</div>
+    <h2>Les Technologies au Service de l'Écoute</h2>
+
+    <p>
+      La décennie 2020 marque un saut technologique décisif dans la bioacoustique marine. Les outils déployés par Project CETI et ses partenaires combinent robotique douce, IA de pointe et instrumentation sous-marine miniaturisée.
+    </p>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-dot">2020</div>
+        <div class="tl-body">
+          <h4>Fondation du Project CETI &amp; premiers hydrophones</h4>
+          <p>Déploiement initial d'un réseau d'hydrophones fixes autour de la Dominique. Constitution du premier corpus de codas caribéennes, base de tous les travaux futurs.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">2022</div>
+        <div class="tl-body">
+          <h4>Bio-loggers de première génération</h4>
+          <p>Premiers tags acoustiques placés manuellement depuis des embarcations pneumatiques. Enregistrement multi-canal de la perspective individuelle du cachalot pour la première fois.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">2024</div>
+        <div class="tl-body">
+          <h4>Alphabet phonétique — MIT CSAIL &amp; Nature Communications</h4>
+          <p>Application de modèles NLP (similaires à ceux utilisés pour les langues humaines) sur 9 000 codas. Première identification formelle d'une structure combinatoire : rythme, tempo, rubato, ornementation.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">2025</div>
+        <div class="tl-body">
+          <h4>Méthode "tap-and-go" par drone &amp; bio-logger Harvard open-source</h4>
+          <p>Le drone remplace l'embarcation pour le placement des tags. Le bio-logger Harvard, entièrement open-source, intègre GPS, accéléromètre et microphones haute-fidélité — conçu nativement pour le ML.</p>
+        </div>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot">2025</div>
+        <div class="tl-body">
+          <h4>Voyelles &amp; diphtongues — UC Berkeley, GAN &amp; Open Mind</h4>
+          <p>Des réseaux antagonistes génératifs (GAN) détectent spontanément des structures vocales analogues aux voyelles humaines. Publication simultanée dans Open Mind et les Proceedings B de la Royal Society.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>Le rôle clé du NLP et des LLM</h3>
+    <p>
+      L'analogie avec le traitement du langage naturel humain n'est pas qu'une métaphore : les chercheurs du MIT ont littéralement appliqué des <strong>architectures NLP développées pour les langues humaines</strong> aux codas de cachalots. Ces modèles sont capables de détecter des régularités statistiques dans de vastes corpus — et c'est précisément ce dont ont besoin les bioacousticiens pour identifier des structures sans en connaître a priori le sens. La prochaine étape, déjà en cours, consiste à entraîner des <strong>grands modèles de langage</strong> (LLM) sur des millions de codas contextualisées — c'est-à-dire accompagnées de données comportementales précises — pour tenter d'en inférer la sémantique.
+    </p>
+  </div>
+</section>
+
+<!-- ════════════════════ IMPLICATIONS ════════════════════ -->
+<section class="section" id="implications">
+  <div class="container">
+    <div class="section-label">Horizons &amp; Enjeux</div>
+    <h2>Et si nous leur parlions ?</h2>
+
+    <p>
+      Les implications de ces recherches dépassent largement le cadre de la bioacoustique. Elles soulèvent des questions fondamentales sur la nature du langage, de la conscience, et des droits.
+    </p>
+
+    <h3>Conservation et protection</h3>
+    <p>
+      La compréhension fine du répertoire vocal des clans permettrait de mieux mesurer l'impact des perturbations sonores anthropiques — trafic maritime, sonar militaire, exploration pétrolière — sur la cohésion sociale des groupes. Un clan dont le tissu communicatif est fragmenté par le bruit est un clan fragilisé. Les données CETI pourraient alimenter directement des politiques de protection des couloirs migratoires et des zones de socialisation.
+    </p>
+
+    <h3>Droits légaux des cétacés</h3>
+    <p>
+      En octobre 2025, <em>Inside Climate News</em> rapportait que les avancées de Project CETI alimentent activement le débat juridique sur la <strong>personnalité légale des cétacés</strong>. Si ces animaux possèdent un langage structuré, une culture transmise, et une vie sociale complexe, sur quelle base éthique peut-on continuer à les exclure du cercle des entités ayant des droits ? Plusieurs avocats et philosophes du droit ont commencé à citer les publications CETI dans des plaidoyers devant des juridictions américaines et européennes.
+    </p>
+
+    <h3>La question du dialogue</h3>
+    <p>
+      La perspective la plus vertigineuse reste celle d'un <strong>dialogue effectif</strong>. Project CETI a conçu, en parallèle de son travail d'écoute, un dispositif expérimental de réponse acoustique — capable d'émettre des codas synthétiques vers les animaux et d'observer leurs réactions. Les premiers tests ont montré que les cachalots <em>réagissent</em> aux émissions artificielles de codas connues, avec des comportements d'approche ou de réponse vocale. Ce n'est pas encore un dialogue. Mais c'est peut-être le début d'un.
+    </p>
+
+    <div class="highlight">
+      <p>"Nous ne savons pas encore ce que disent les cachalots. Mais nous savons désormais qu'ils disent quelque chose — et que ce quelque chose a une grammaire, une culture, et peut-être une histoire."</p>
+      <cite>— Synthèse éditoriale, Nature, décembre 2024</cite>
+    </div>
+
+    <h3>Au-delà des cétacés : une révolution pour la zoologie</h3>
+    <p>
+      Les méthodes développées pour les cachalots — corpus massif + NLP + LLM + contextualisation comportementale — sont désormais appliquées à d'autres espèces : éléphants, corbeaux, chauves-souris, primates non-humains. Le projet CETI a ouvert une voie. L'IA est en train de devenir le déchiffreur universel du vivant.
+    </p>
+  </div>
+</section>
+
+<!-- ════════════════════ SOURCES ════════════════════ -->
+<section class="sources" id="sources">
+  <div class="container">
+    <div class="section-label">Bibliographie</div>
+    <h2>Sources & Références</h2>
+    <ul class="sources-list">
+      <li>
+        <a href="https://www.nature.com/articles/s41467-024-47221-8" target="_blank">Contextual and Combinatorial Structure in Sperm Whale Vocalisations</a>
+        <div class="src-pub">Nature Communications — mai 2024 — MIT CSAIL &amp; Project CETI</div>
+      </li>
+      <li>
+        <a href="https://news.mit.edu/2024/csail-ceti-explores-sperm-whale-alphabet-0507" target="_blank">Exploring the mysterious alphabet of sperm whales</a>
+        <div class="src-pub">MIT News — 7 mai 2024</div>
+      </li>
+      <li>
+        <a href="https://direct.mit.edu/opmi/article/doi/10.1162/OPMI.a.252/133906/Vowel-and-Diphthong-Like-Spectral-Patterns-in" target="_blank">Vowel- and Diphthong-Like Spectral Patterns in Sperm Whale Codas</a>
+        <div class="src-pub">Open Mind, MIT Press — novembre 2025 — UC Berkeley &amp; Project CETI</div>
+      </li>
+      <li>
+        <a href="https://royalsocietypublishing.org/rspb/article/293/2069/20252994/481340/The-phonology-of-sperm-whale-coda-vowels" target="_blank">The Phonology of Sperm Whale Coda Vowels</a>
+        <div class="src-pub">Proceedings B, The Royal Society — novembre 2025</div>
+      </li>
+      <li>
+        <a href="https://ls.berkeley.edu/news/uc-berkeley-and-project-ceti-study-shows-sperm-whales-communicate-ways-similar-humans" target="_blank">UC Berkeley and Project CETI study shows sperm whales communicate in ways similar to humans</a>
+        <div class="src-pub">UC Berkeley Letters &amp; Science — 2025</div>
+      </li>
+      <li>
+        <a href="https://seas.harvard.edu/news/2025/12/tapping-whale-talk" target="_blank">Tapping Into Whale Talk — Harvard SEAS bio-logger open-source</a>
+        <div class="src-pub">Harvard School of Engineering and Applied Sciences — décembre 2025</div>
+      </li>
+      <li>
+        <a href="https://insideclimatenews.org/news/29102025/ai-sperm-whale-communications-legal-rights/" target="_blank">AI Is Decoding Whales' Communications. Could That Be a Turning Point for Their Rights?</a>
+        <div class="src-pub">Inside Climate News — octobre 2025</div>
+      </li>
+      <li>
+        <a href="https://www.projectceti.org/" target="_blank">Project CETI — Site officiel</a>
+        <div class="src-pub">projectceti.org</div>
+      </li>
+      <li>
+        <a href="https://www.nationalgeographic.com/animals/article/sperm-whale-communicate-vowels" target="_blank">Exclusive: Sperm whale speech has human-like 'vowels'</a>
+        <div class="src-pub">National Geographic — 2025</div>
+      </li>
+      <li>
+        <a href="https://www.nature.com/immersive/d41586-024-04050-5/index.html" target="_blank">AI Decodes the Calls of the Wild</a>
+        <div class="src-pub">Nature — décembre 2024</div>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  Dossier réalisé par <span>Claude</span> · Project CETI &amp; bioacoustique marine · Mai 2026
+</footer>
+
+</body>
+</html>
