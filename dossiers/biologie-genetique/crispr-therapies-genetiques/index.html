@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>CRISPR : La Révolution du Scalpel Génétique | Vostok</title>
+  <meta name="description" content="Première thérapie CRISPR approuvée par la FDA en 2023, un pipeline de 50+ maladies, et des enjeux éthiques sans précédent."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: #020b18; color: #cce4f0; font-family: 'Inter', sans-serif; line-height: 1.75; font-size: 1.05rem; }
+    :root { --deep:#020b18;--navy:#061628;--blue:#0d2d4a;--accent:#00b4d8;--bright:#90e0ef;--gold:#f4c542;--white:#e8f4fd;--muted:#8bb8d0;--text:#cce4f0; }
+    .hero { position:relative;width:100%;height:100vh;min-height:600px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden; }
+    .hero-img { position:absolute;inset:0;width:100%;height:100%;object-fit:cover; }
+    .hero-overlay { position:absolute;inset:0;background:linear-gradient(to bottom,rgba(2,11,24,.15) 0%,rgba(2,11,24,.35) 40%,rgba(2,11,24,.88) 75%,#020b18 100%); }
+    .hero-content { position:relative;z-index:2;padding:0 8vw 5rem;max-width:900px; }
+    .hero-tag { display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);padding:4px 12px;border-radius:2px;margin-bottom:1.2rem; }
+    .hero-title { font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5.5vw,4.2rem);font-weight:900;color:var(--white);line-height:1.1;margin-bottom:1rem; }
+    .hero-title em { color:var(--gold);font-style:normal; }
+    .hero-sub { font-size:1.1rem;font-weight:300;color:var(--bright);max-width:620px;margin-bottom:1.8rem;line-height:1.6; }
+    .hero-meta { display:flex;gap:2rem;flex-wrap:wrap;font-size:.82rem;color:var(--muted); }
+    nav { position:sticky;top:0;z-index:100;background:rgba(2,11,24,.82);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,180,216,.15); }
+    .nav-inner { max-width:900px;margin:0 auto;padding:0 8vw;display:flex;overflow-x:auto;scrollbar-width:none; }
+    .nav-inner::-webkit-scrollbar{display:none}
+    nav a { display:inline-block;padding:.9rem 1.1rem;font-size:.8rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-decoration:none;white-space:nowrap;transition:color .2s;border-bottom:2px solid transparent; }
+    nav a:hover { color:var(--accent);border-bottom-color:var(--accent); }
+    .container { max-width:900px;margin:0 auto;padding:0 8vw; }
+    section { padding:4.5rem 0;border-bottom:1px solid rgba(13,45,74,.6); }
+    section:last-of-type{border-bottom:none}
+    h2 { font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.3rem);font-weight:700;color:var(--white);margin-bottom:1.6rem;line-height:1.2; }
+    h3 { font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--bright);margin-bottom:.8rem;margin-top:2rem; }
+    p { margin-bottom:1.2rem; }
+    p:last-child{margin-bottom:0}
+    .stats-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:1.2rem;margin:2.5rem 0; }
+    .stat-card { background:var(--navy);border:1px solid rgba(0,180,216,.2);border-radius:6px;padding:1.4rem 1.2rem;text-align:center; }
+    .stat-number { font-family:'Playfair Display',serif;font-size:2.3rem;font-weight:900;color:var(--accent);line-height:1;display:block;margin-bottom:.4rem; }
+    .stat-label { font-size:.78rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted); }
+    .img-wide { width:100%;border-radius:6px;display:block;margin:2.5rem 0 .6rem; }
+    .img-caption { font-size:.82rem;color:var(--muted);font-style:italic;margin-bottom:2rem;text-align:center; }
+    .img-inline { float:right;width:46%;margin:4px 0 28px 36px;border-radius:6px; }
+    .clearfix::after{content:'';display:table;clear:both}
+    .highlight { border-left:4px solid var(--accent);background:rgba(0,180,216,.06);padding:1.2rem 1.6rem;margin:2rem 0;border-radius:0 4px 4px 0; }
+    .highlight p { font-size:1.1rem;font-style:italic;color:var(--bright);margin-bottom:.5rem; }
+    .highlight cite { font-size:.82rem;color:var(--muted);font-style:normal;font-weight:500; }
+    .concepts-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.2rem;margin:2rem 0; }
+    .concept-card { background:var(--navy);border:1px solid rgba(0,180,216,.15);border-radius:6px;padding:1.4rem; }
+    .concept-icon{font-size:1.8rem;display:block;margin-bottom:.7rem}
+    .concept-card h4 { font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--white);margin-bottom:.5rem; }
+    .concept-card p{font-size:.88rem;color:var(--muted);margin:0;line-height:1.6}
+    .timeline{list-style:none;margin:2rem 0;position:relative}
+    .timeline::before{content:'';position:absolute;left:16px;top:0;bottom:0;width:2px;background:rgba(0,180,216,.25)}
+    .timeline li{display:flex;gap:1.2rem;padding:0 0 2rem 0;position:relative}
+    .tl-dot{flex-shrink:0;width:32px;height:32px;border-radius:50%;background:var(--blue);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:var(--accent);position:relative;z-index:1}
+    .tl-content{padding-top:4px}
+    .tl-year{font-size:.78rem;font-weight:600;letter-spacing:.1em;color:var(--gold);text-transform:uppercase;margin-bottom:.2rem}
+    .tl-text{font-size:.92rem;color:var(--text)}
+    .sources-list{list-style:none}
+    .sources-list li{padding:.7rem 0;border-bottom:1px solid rgba(13,45,74,.6);font-size:.88rem;display:flex;gap:.8rem;align-items:baseline}
+    .sources-list li::before{content:'↗';color:var(--accent);flex-shrink:0;font-size:.75rem}
+    .sources-list a{color:var(--bright);text-decoration:none}
+    .sources-list a:hover{color:var(--accent);text-decoration:underline}
+    .src-pub{display:inline-block;margin-left:.5rem;font-size:.75rem;color:var(--muted);font-style:italic}
+    footer{background:var(--navy);border-top:1px solid rgba(0,180,216,.15);padding:2.5rem 0;text-align:center;font-size:.82rem;color:var(--muted)}
+    footer a{color:var(--accent);text-decoration:none}
+    .footer-logo{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--white);margin-bottom:.5rem;display:block}
+    @media(max-width:640px){.img-inline{float:none;width:100%;margin:0 0 1.5rem 0}}</style>
+</head>
+<body>
+
+<header class="hero" id="top">
+  <img class="hero-img" src="https://v3b.fal.media/files/b/0a9a714d/_m_V7P-JAJCksbf5p0ZYs.jpg" alt="Ciseaux moléculaires CRISPR-Cas9 coupant l'ADN"/>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-tag">Biologie · Génétique · Médecine</span>
+    <h1 class="hero-title">CRISPR : <em>Le Scalpel</em><br>de l'Humanité</h1>
+    <p class="hero-sub">En décembre 2023, la FDA approuvait la première thérapie basée sur CRISPR-Cas9. Après dix ans de promesses, l'édition génétique entre dans l'ère clinique — avec des guérisons, des risques, et des questions que la science seule ne peut pas résoudre.</p>
+    <div class="hero-meta">
+      <span>🧬 Prix Nobel de Chimie 2020</span>
+      <span>💊 1ère approbation FDA : déc. 2023</span>
+      <span>🔬 50+ maladies en essais cliniques</span>
+    </div>
+  </div>
+</header>
+<nav><div class="nav-inner">
+  <a href="#intro">Introduction</a><a href="#mecanisme">Mécanisme</a><a href="#casgevy">Casgevy</a><a href="#pipeline">Pipeline</a><a href="#historique">Historique</a><a href="#ethique">Éthique</a><a href="#avenir">Avenir</a><a href="#sources">Sources</a>
+</div></nav>
+
+<section id="intro"><div class="container">
+  <h2>Réécrire le code du vivant</h2>
+  <p>Le 8 décembre 2023, la Food and Drug Administration américaine approuvait Casgevy — la première thérapie génique reposant sur la technologie CRISPR-Cas9. En un seul traitement, elle promettait une guérison fonctionnelle de la drépanocytose, une maladie génétique qui touche des millions de personnes dans le monde et qui, jusqu'alors, ne disposait d'aucun remède définitif. Cette approbation marquait l'aboutissement d'une décennie de recherche effrénée, depuis la publication du papier fondateur de Jennifer Doudna et Emmanuelle Charpentier en 2012 jusqu'aux premières salles de soins.</p>
+  <p>CRISPR — acronyme de <em>Clustered Regularly Interspaced Short Palindromic Repeats</em> — est à l'origine un système immunitaire bactérien. Lorsqu'une bactérie survit à une infection virale, elle conserve des fragments du génome de l'envahisseur dans ses propres séquences répétées, comme une mémoire immunologique moléculaire. La protéine Cas9 agit comme des ciseaux guidés par un ARN messager vers la séquence cible, où elle réalise une coupure double brin précise. La cellule tente alors de réparer cette coupure — et c'est dans ce processus de réparation que le chercheur intervient, pour corriger une mutation, insérer une séquence saine, ou désactiver un gène pathologique.</p>
+  <div class="stats-grid">
+    <div class="stat-card"><span class="stat-number">2023</span><span class="stat-label">1ère approbation FDA</span></div>
+    <div class="stat-card"><span class="stat-number">29/31</span><span class="stat-label">patients drépanocytose sans crise (essai CLIMB-121)</span></div>
+    <div class="stat-card"><span class="stat-number">50+</span><span class="stat-label">maladies en essais cliniques actifs</span></div>
+    <div class="stat-card"><span class="stat-number">90%</span><span class="stat-label">réduction TTR dans cardiomyopathie (NTLA-2001)</span></div>
+  </div>
+  <p>Ce qui rend CRISPR révolutionnaire par rapport aux outils d'édition génétique précédents — nucléases à doigts de zinc, TALEN — c'est sa simplicité, sa précision et son coût. Là où les anciennes technologies demandaient des mois d'ingénierie protéique pour chaque nouvelle cible, CRISPR ne requiert que la synthèse d'un court ARN guide, réalisable en quelques jours pour quelques dizaines d'euros. Cette accessibilité a démocratisé l'édition génomique dans des milliers de laboratoires à travers le monde, accélérant la recherche à une vitesse sans précédent.</p>
+</div></section>
+
+<section id="mecanisme"><div class="container clearfix">
+  <h2>Comment fonctionnent les ciseaux moléculaires</h2>
+  <img class="img-inline" src="https://v3b.fal.media/files/b/0a9a714d/mTCBE1yGsqOqBuo35FFxx.jpg" alt="Chercheur préparant une thérapie CRISPR en laboratoire"/>
+  <p>Le système CRISPR-Cas9 repose sur deux composants essentiels : une protéine (Cas9) et un ARN guide (sgRNA). L'ARN guide est conçu par le chercheur pour être complémentaire de la séquence d'ADN qu'il souhaite cibler — typiquement 20 nucléotides uniques dans le génome. Cas9 forme un complexe avec cet ARN guide, parcourt le génome, et lorsqu'il reconnaît une séquence correspondante adjacente à un motif PAM (protospacer adjacent motif), il s'y fixe et coupe les deux brins d'ADN.</p>
+  <p>La cellule dispose de deux mécanismes principaux pour réparer cette cassure double brin. Le premier, la jonction d'extrémités non homologues (NHEJ), est une réparation rapide mais imprécise qui introduit souvent de petites insertions ou délétions — utile pour inactiver un gène. Le second, la recombinaison homologue dirigée (HDR), permet d'insérer une séquence saine si on fournit à la cellule un gabarit correctif — c'est la voie utilisée pour les thérapies de remplacement allélique. Casgevy, par exemple, ne corrige pas directement le gène de la bêta-globine muté dans la drépanocytose, mais réactive le gène de l'hémoglobine fœtale (HbF) en ciblant son répresseur BCL11A.</p>
+  <div class="highlight">
+    <p>« Nous pouvons maintenant écrire dans le génome aussi facilement que nous écrivons dans un document texte. C'est un changement de paradigme fondamental pour la biologie et la médecine. »</p>
+    <cite>— Jennifer Doudna, lauréate du Prix Nobel de Chimie 2020, co-inventrice de CRISPR-Cas9</cite>
+  </div>
+  <p>Depuis 2012, les outils d'édition ne cessent de s'affiner. L'édition de base (<em>base editing</em>) permet de modifier un nucléotide individuel sans couper les deux brins. L'édition principale (<em>prime editing</em>), développée par David Liu à Harvard, fonctionne comme un chercher-remplacer moléculaire capable d'effectuer toutes les 12 transitions et transversions possibles avec une précision encore accrue. Ces nouvelles générations réduisent considérablement le risque de modifications hors-cible (<em>off-target effects</em>), l'un des principaux obstacles à la sécurité clinique.</p>
+</div></section>
+
+<img class="img-wide" src="https://v3b.fal.media/files/b/0a9a714d/VMMbSIok9aeyGxMpaUDhq.jpg" alt="Globules rouges sains remplaçant les globules falciformes après thérapie CRISPR" style="max-width:900px;margin:0 auto 0.6rem;display:block;border-radius:6px"/>
+<p class="img-caption" style="text-align:center;font-size:.82rem;color:#8bb8d0;font-style:italic;margin-bottom:2rem">La drépanocytose déforme les globules rouges en faucilles rigides. CRISPR réactive l'hémoglobine fœtale pour contourner le défaut génétique.</p>
+
+<section id="casgevy"><div class="container">
+  <h2>Casgevy : la première guérison génétique au monde</h2>
+  <p>Développé par Vertex Pharmaceuticals et CRISPR Therapeutics, Casgevy (exagamglogene autotemcel, ou exa-cel) est le fruit d'une décennie de R&D et de plus d'un milliard de dollars d'investissement. Le traitement suit un protocole complexe : les cellules souches hématopoïétiques du patient sont prélevées, éditées ex vivo par CRISPR pour désactiver le gène BCL11A dans les cellules érythroïdes, puis réinfusées après une chimiothérapie myéloablative destinée à effacer la moelle osseuse native. Les cellules modifiées se réinstallent dans la moelle et produisent désormais de l'hémoglobine fœtale, qui compense la bêta-globine défectueuse.</p>
+  <div class="concepts-grid">
+    <div class="concept-card"><span class="concept-icon">🩸</span><h4>Drépanocytose</h4><p>Maladie génétique héréditaire due à une mutation ponctuelle dans le gène HBB. Touche ~100 000 patients aux USA, des millions en Afrique subsaharienne.</p></div>
+    <div class="concept-card"><span class="concept-icon">💉</span><h4>Mécanisme Casgevy</h4><p>Désactivation de BCL11A dans les précurseurs érythroïdes → réactivation de l'hémoglobine fœtale (HbF) → disparition des crises vaso-occlusives.</p></div>
+    <div class="concept-card"><span class="concept-icon">📊</span><h4>Résultats cliniques</h4><p>Essai CLIMB-121 : 29 des 31 patients évaluables (94%) ont été libres de crises sévères pendant au moins 12 mois consécutifs post-traitement.</p></div>
+    <div class="concept-card"><span class="concept-icon">💰</span><h4>Le coût de la guérison</h4><p>Casgevy est commercialisé à 2,2 millions de dollars aux USA — soulevant des questions d'équité d'accès pour les populations les plus touchées.</p></div>
+  </div>
+  <p>En janvier 2024, la FDA approuvait également Casgevy pour la bêta-thalassémie transfusion-dépendante, une deuxième maladie de l'hémoglobine. Ces deux premières approbations constituent une preuve de concept historique : CRISPR peut guérir des maladies génétiques humaines sévères. Mais elles soulèvent aussi une question brûlante d'équité — la drépanocytose touche disproportionnellement les populations d'origine africaine, précisément celles qui ont le moins accès aux thérapies à plusieurs millions de dollars.</p>
+</div></section>
+
+<img class="img-wide" src="https://v3b.fal.media/files/b/0a9a714e/BZeez_4q-S-SY_PdheEB5.jpg" alt="Séquençage du génome humain et analyse bioinformatique" style="max-width:900px;margin:0 auto 0.6rem;display:block;border-radius:6px"/>
+<p class="img-caption" style="text-align:center;font-size:.82rem;color:#8bb8d0;font-style:italic;margin-bottom:2rem">Chaque traitement CRISPR commence par une analyse génomique complète du patient pour concevoir l'ARN guide et vérifier l'absence de cibles hors-séquence.</p>
+
+<section id="pipeline"><div class="container clearfix">
+  <h2>Un pipeline de 50+ maladies en cours d'exploration</h2>
+  <img class="img-inline" src="https://v3b.fal.media/files/b/0a9a714e/ZGndlvwy5R0KM1q3sqYN2.jpg" alt="Thérapie CRISPR pour la cécité génétique"/>
+  <p>Au-delà des maladies de l'hémoglobine, les essais cliniques CRISPR se multiplient à un rythme soutenu. Dans les maladies cardiovasculaires, le candidat NTLA-2001 d'Intellia Therapeutics cible la cardiomyopathie amyloïde à transthyrétine (ATTR) en inactivant in vivo le gène TTR dans le foie. Les résultats de phase 1 montrent une réduction de plus de 90% des niveaux de protéine TTR pathogène — un résultat comparable aux meilleures thérapies ARNi existantes, mais potentiellement avec une seule injection. Un essai pivot de phase 3 a démarré début 2025.</p>
+  <p>Dans l'angioedème héréditaire, Intellia a montré qu'une dose unique réduit les taux de kallicréine de 86% en moyenne et rend 8 patients sur 11 libres de toute crise sur 16 semaines. Dans la cécité génétique (amaurose congénitale de Leber), les premiers essais in vivo — où CRISPR est injecté directement dans l'œil du patient — montrent des améliorations de l'acuité visuelle chez une partie des participants. Dans le cancer, les thérapies CAR-T génétiquement modifiées par CRISPR promettent des cellules immunitaires allogéniques plus puissantes, disponibles "sur étagère".</p>
+  <div class="highlight">
+    <p>« Nous entrons dans une ère où nous pouvons potentiellement traiter des centaines de maladies génétiques pour lesquelles nous n'avions aucune solution. La question n'est plus de savoir si CRISPR fonctionne — c'est de savoir comment le déployer équitablement. »</p>
+    <cite>— Innovative Genomics Institute, UC Berkeley, rapport 2025</cite>
+  </div>
+</div></section>
+
+<section id="historique"><div class="container">
+  <h2>De la bactérie au Nobel : une décennie d'histoire</h2>
+  <ul class="timeline">
+    <li><span class="tl-dot">1</span><div class="tl-content"><div class="tl-year">1987</div><p class="tl-text">Yoshizumi Ishino (Osaka) découvre des séquences répétées dans le génome de <em>E. coli</em> sans comprendre leur fonction — les premières CRISPR observées.</p></div></li>
+    <li><span class="tl-dot">2</span><div class="tl-content"><div class="tl-year">2005–2007</div><p class="tl-text">Les spacers entre répétitions sont identifiés comme des fragments de phages. Francisco Mojica propose que CRISPR soit un système immunitaire adaptatif bactérien. Rodolphe Barrangou démontre expérimentalement ce rôle défensif.</p></div></li>
+    <li><span class="tl-dot">3</span><div class="tl-content"><div class="tl-year">2012</div><p class="tl-text">Doudna & Charpentier publient dans <em>Science</em> que le système CRISPR-Cas9 peut être reprogrammé pour couper n'importe quelle séquence d'ADN. Prix Nobel de Chimie en 2020.</p></div></li>
+    <li><span class="tl-dot">4</span><div class="tl-content"><div class="tl-year">2013–2020</div><p class="tl-text">Explosion des applications en biologie fondamentale, modèles animaux, criblages génomiques. Développement de l'édition de base et de l'édition principale (prime editing). Premiers essais cliniques en Chine, puis aux USA/Europe.</p></div></li>
+    <li><span class="tl-dot">5</span><div class="tl-content"><div class="tl-year">2023–2025</div><p class="tl-text">Approbations FDA/MHRA de Casgevy. Essais pivot pour cardiomyopathie, angioedème, cécité. Premier décès associé à un essai CRISPR (DMD, réaction immunologique au vecteur AAV). Essais in vivo de plus en plus nombreux.</p></div></li>
+  </ul>
+</div></section>
+
+<section id="ethique"><div class="container">
+  <h2>La frontière germinale : ce que la science ne peut pas décider seule</h2>
+  <p>Si l'édition somatique — modifier les cellules d'un patient adulte — fait aujourd'hui l'objet d'un consensus scientifique favorable sous conditions de sécurité et d'efficacité, l'édition germinale reste une ligne rouge que la quasi-totalité de la communauté scientifique mondiale refuse de franchir. En 2018, le biophysicien chinois He Jiankui avait créé les premiers bébés dont le génome avait été modifié par CRISPR (gène CCR5 pour la résistance au VIH), provoquant une onde de choc mondiale. Il a depuis été condamné à trois ans de prison pour "pratique médicale illégale".</p>
+  <div class="concepts-grid">
+    <div class="concept-card"><span class="concept-icon">⚠️</span><h4>Effets hors-cible</h4><p>CRISPR peut couper à des endroits non prévus du génome. Même à faible fréquence, un effet hors-cible dans une cellule germinale se transmettrait à toute la descendance.</p></div>
+    <div class="concept-card"><span class="concept-icon">⚖️</span><h4>Consentement impossible</h4><p>Un embryon édité ne peut pas consentir à une modification qui affectera chacune de ses cellules pour toute sa vie — et potentiellement celle de ses enfants.</p></div>
+    <div class="concept-card"><span class="concept-icon">🌍</span><h4>Inégalité d'accès</h4><p>À 2,2 M$ le traitement somatique, qui aura accès à la médecine génétique ? Les maladies qui touchent les pays les plus pauvres risquent d'être négligées.</p></div>
+    <div class="concept-card"><span class="concept-icon">🧬</span><h4>Le spectre de l'eugénisme</h4><p>Si l'édition germinale devient sûre et accessible, jusqu'où va-t-on ? Éliminer les maladies graves est une chose. Sélectionner des traits complexes en est une autre.</p></div>
+  </div>
+  <p>Le 3ème Sommet International sur l'Édition du Génome Humain (2023) a réaffirmé qu'il serait irresponsable de procéder à toute grossesse avec un embryon édité en l'état actuel des connaissances. La question n'est pas seulement technique — elle engage la conception que nous avons de l'humanité, de l'identité génétique, et de la justice sociale à l'échelle planétaire.</p>
+</div></section>
+
+<section id="sources"><div class="container">
+  <h2>Sources & Références</h2>
+  <ul class="sources-list">
+    <li><a href="https://www.fda.gov/news-events/press-announcements/fda-approves-first-gene-therapies-treat-patients-sickle-cell-disease" target="_blank">FDA Approves First Gene Therapies to Treat Patients with Sickle Cell Disease</a><span class="src-pub">FDA, décembre 2023</span></li>
+    <li><a href="https://innovativegenomics.org/news/crispr-clinical-trials-2025/" target="_blank">CRISPR Clinical Trials: A 2025 Update</a><span class="src-pub">Innovative Genomics Institute (IGI), 2025</span></li>
+    <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10913280/" target="_blank">First Regulatory Approvals for CRISPR-Cas9 Therapeutic Gene Editing</a><span class="src-pub">PMC / PubMed, 2024</span></li>
+    <li><a href="https://www.nobelprize.org/prizes/chemistry/2020/press-release/" target="_blank">The Nobel Prize in Chemistry 2020 — CRISPR-Cas9</a><span class="src-pub">Nobel Prize Organization, 2020</span></li>
+    <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC9377665/" target="_blank">CRISPR–Cas9: A History of Its Discovery and Ethical Considerations</a><span class="src-pub">PMC, 2022</span></li>
+    <li><a href="https://innovativegenomics.org/crisprpedia/crispr-ethics/" target="_blank">CRISPR & Ethics</a><span class="src-pub">Innovative Genomics Institute, 2024</span></li>
+    <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12094669/" target="_blank">Advancing CRISPR genome editing into gene therapy clinical trials</a><span class="src-pub">PMC, 2025</span></li>
+    <li><a href="https://www.genome.gov/about-genomics/policy-issues/Genome-Editing/ethical-concerns" target="_blank">What are the Ethical Concerns of Genome Editing?</a><span class="src-pub">National Human Genome Research Institute</span></li>
+  </ul>
+</div></section>
+<footer><div class="container">
+  <span class="footer-logo">Vostok</span>
+  <p>Articles scientifiques illustrés — <a href="/dossiers/">Tous les dossiers</a></p>
+  <p style="margin-top:.5rem;font-size:.75rem;opacity:.6">Mai 2026 · Généré avec recherche web et images FAL AI</p>
+</div></footer>
+
+</body>
+</html>

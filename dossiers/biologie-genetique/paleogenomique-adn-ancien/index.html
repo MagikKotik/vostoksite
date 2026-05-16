@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Paléogénomique : Notre Héritage Néandertalien | Vostok</title>
+  <meta name="description" content="L'ADN ancien révèle les métissages entre Homo sapiens, Néandertaliens et Dénisoviens — et leurs conséquences sur notre santé aujourd'hui."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: #020b18; color: #cce4f0; font-family: 'Inter', sans-serif; line-height: 1.75; font-size: 1.05rem; }
+    :root { --deep:#020b18;--navy:#061628;--blue:#0d2d4a;--accent:#00b4d8;--bright:#90e0ef;--gold:#f4c542;--white:#e8f4fd;--muted:#8bb8d0;--text:#cce4f0; }
+    .hero { position:relative;width:100%;height:100vh;min-height:600px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden; }
+    .hero-img { position:absolute;inset:0;width:100%;height:100%;object-fit:cover; }
+    .hero-overlay { position:absolute;inset:0;background:linear-gradient(to bottom,rgba(2,11,24,.15) 0%,rgba(2,11,24,.35) 40%,rgba(2,11,24,.88) 75%,#020b18 100%); }
+    .hero-content { position:relative;z-index:2;padding:0 8vw 5rem;max-width:900px; }
+    .hero-tag { display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);padding:4px 12px;border-radius:2px;margin-bottom:1.2rem; }
+    .hero-title { font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5.5vw,4.2rem);font-weight:900;color:var(--white);line-height:1.1;margin-bottom:1rem; }
+    .hero-title em { color:var(--gold);font-style:normal; }
+    .hero-sub { font-size:1.1rem;font-weight:300;color:var(--bright);max-width:620px;margin-bottom:1.8rem;line-height:1.6; }
+    .hero-meta { display:flex;gap:2rem;flex-wrap:wrap;font-size:.82rem;color:var(--muted); }
+    nav { position:sticky;top:0;z-index:100;background:rgba(2,11,24,.82);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,180,216,.15); }
+    .nav-inner { max-width:900px;margin:0 auto;padding:0 8vw;display:flex;overflow-x:auto;scrollbar-width:none; }
+    .nav-inner::-webkit-scrollbar{display:none}
+    nav a { display:inline-block;padding:.9rem 1.1rem;font-size:.8rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-decoration:none;white-space:nowrap;transition:color .2s;border-bottom:2px solid transparent; }
+    nav a:hover { color:var(--accent);border-bottom-color:var(--accent); }
+    .container { max-width:900px;margin:0 auto;padding:0 8vw; }
+    section { padding:4.5rem 0;border-bottom:1px solid rgba(13,45,74,.6); }
+    section:last-of-type{border-bottom:none}
+    h2 { font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.3rem);font-weight:700;color:var(--white);margin-bottom:1.6rem;line-height:1.2; }
+    h3 { font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--bright);margin-bottom:.8rem;margin-top:2rem; }
+    p { margin-bottom:1.2rem; }
+    p:last-child{margin-bottom:0}
+    .stats-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:1.2rem;margin:2.5rem 0; }
+    .stat-card { background:var(--navy);border:1px solid rgba(0,180,216,.2);border-radius:6px;padding:1.4rem 1.2rem;text-align:center; }
+    .stat-number { font-family:'Playfair Display',serif;font-size:2.3rem;font-weight:900;color:var(--accent);line-height:1;display:block;margin-bottom:.4rem; }
+    .stat-label { font-size:.78rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted); }
+    .img-wide { width:100%;border-radius:6px;display:block;margin:2.5rem 0 .6rem; }
+    .img-caption { font-size:.82rem;color:var(--muted);font-style:italic;margin-bottom:2rem;text-align:center; }
+    .img-inline { float:right;width:46%;margin:4px 0 28px 36px;border-radius:6px; }
+    .clearfix::after{content:'';display:table;clear:both}
+    .highlight { border-left:4px solid var(--accent);background:rgba(0,180,216,.06);padding:1.2rem 1.6rem;margin:2rem 0;border-radius:0 4px 4px 0; }
+    .highlight p { font-size:1.1rem;font-style:italic;color:var(--bright);margin-bottom:.5rem; }
+    .highlight cite { font-size:.82rem;color:var(--muted);font-style:normal;font-weight:500; }
+    .concepts-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.2rem;margin:2rem 0; }
+    .concept-card { background:var(--navy);border:1px solid rgba(0,180,216,.15);border-radius:6px;padding:1.4rem; }
+    .concept-icon{font-size:1.8rem;display:block;margin-bottom:.7rem}
+    .concept-card h4 { font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--white);margin-bottom:.5rem; }
+    .concept-card p{font-size:.88rem;color:var(--muted);margin:0;line-height:1.6}
+    .timeline{list-style:none;margin:2rem 0;position:relative}
+    .timeline::before{content:'';position:absolute;left:16px;top:0;bottom:0;width:2px;background:rgba(0,180,216,.25)}
+    .timeline li{display:flex;gap:1.2rem;padding:0 0 2rem 0;position:relative}
+    .tl-dot{flex-shrink:0;width:32px;height:32px;border-radius:50%;background:var(--blue);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:var(--accent);position:relative;z-index:1}
+    .tl-content{padding-top:4px}
+    .tl-year{font-size:.78rem;font-weight:600;letter-spacing:.1em;color:var(--gold);text-transform:uppercase;margin-bottom:.2rem}
+    .tl-text{font-size:.92rem;color:var(--text)}
+    .sources-list{list-style:none}
+    .sources-list li{padding:.7rem 0;border-bottom:1px solid rgba(13,45,74,.6);font-size:.88rem;display:flex;gap:.8rem;align-items:baseline}
+    .sources-list li::before{content:'↗';color:var(--accent);flex-shrink:0;font-size:.75rem}
+    .sources-list a{color:var(--bright);text-decoration:none}
+    .sources-list a:hover{color:var(--accent);text-decoration:underline}
+    .src-pub{display:inline-block;margin-left:.5rem;font-size:.75rem;color:var(--muted);font-style:italic}
+    footer{background:var(--navy);border-top:1px solid rgba(0,180,216,.15);padding:2.5rem 0;text-align:center;font-size:.82rem;color:var(--muted)}
+    footer a{color:var(--accent);text-decoration:none}
+    .footer-logo{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--white);margin-bottom:.5rem;display:block}
+    @media(max-width:640px){.img-inline{float:none;width:100%;margin:0 0 1.5rem 0}}</style>
+</head>
+<body>
+
+<header class="hero" id="top">
+  <img class="hero-img" src="https://v3b.fal.media/files/b/0a9a714e/sE4fZxvtYtvS6YWXUzoLJ.jpg" alt="Crâne néandertalien relié à l'ADN humain moderne"/>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-tag">Biologie · Paléogénomique · Évolution</span>
+    <h1 class="hero-title">Nous Sommes <em>Tous</em><br>des Hybrides</h1>
+    <p class="hero-sub">La paléogénomique a révolutionné notre compréhension de l'évolution humaine. Néandertaliens, Dénisoviens, Homo sapiens — ces espèces ne s'étaient pas remplacées, elles s'étaient mélangées. Et ce passé vit encore dans chacune de nos cellules.</p>
+    <div class="hero-meta">
+      <span>🦴 Plus de 5 000 génomes anciens séquencés</span>
+      <span>🏔️ 1–6% d'ADN archaïque dans chaque humain non-africain</span>
+      <span>🧬 Prix Nobel à Svante Pääbo, 2022</span>
+    </div>
+  </div>
+</header>
+<nav><div class="nav-inner">
+  <a href="#intro">Introduction</a><a href="#techniques">Techniques</a><a href="#rencontres">Rencontres</a><a href="#heritage">Héritage</a><a href="#migrations">Migrations</a><a href="#2025">2024–2025</a><a href="#implications">Implications</a><a href="#sources">Sources</a>
+</div></nav>
+
+<section id="intro"><div class="container">
+  <h2>La révolution silencieuse de l'os et de l'ADN</h2>
+  <p>Pendant des décennies, l'histoire de l'humanité reposait sur des ossements, des outils de pierre et des fresques rupestres — des indices muets que les paléoanthropologues interprétaient avec le soin des détectives. Tout a changé en 2010 lorsque Svante Pääbo et son équipe du Max Planck Institut publiaient le premier génome séquencé d'un Néandertalien, reconstitué à partir d'os poussiéreux vieux de 40 000 ans. La révélation : entre 1 et 2% du génome des Européens et des Asiatiques provenait directement d'une espèce qu'on croyait éteinte sans laisser de traces biologiques.</p>
+  <p>Depuis, la paléogénomique a transformé notre image de nous-mêmes. Les humains modernes ne sont pas les descendants d'une lignée pure ayant remplacé toutes les autres espèces du genre <em>Homo</em> lors de leur migration hors d'Afrique. Nous sommes le produit de rencontres, de métissages répétés, d'échanges génétiques avec au moins deux autres espèces humaines — les Néandertaliens en Eurasie occidentale et les Dénisoviens en Asie orientale — et probablement d'autres encore, dont certains restent à identifier.</p>
+  <div class="stats-grid">
+    <div class="stat-card"><span class="stat-number">1–2%</span><span class="stat-label">ADN néandertalien chez les Eurasiens</span></div>
+    <div class="stat-card"><span class="stat-number">4–6%</span><span class="stat-label">ADN dénisovien en Mélanésie/Papouasie</span></div>
+    <div class="stat-card"><span class="stat-number">5 000+</span><span class="stat-label">génomes humains anciens séquencés</span></div>
+    <div class="stat-card"><span class="stat-number">200 000</span><span class="stat-label">ans : âge du plus vieux génome dénisovien (2025)</span></div>
+  </div>
+  <p>Cette science jeune — le terme "paléogénomique" n'a guère plus de 15 ans — avance à une allure stupéfiante. En 2025, une équipe a publié le génome d'un Dénisovien vieux de 200 000 ans, le plus ancien jamais séquencé à haute couverture. Les chercheurs reconstituent désormais des populations entières disparues, tracent des routes de migrations préhistoriques avec une précision millimétrique, et relient directement notre héritage archaïque à des traits biologiques qui nous affectent aujourd'hui.</p>
+</div></section>
+
+<section id="techniques"><div class="container clearfix">
+  <h2>Séquencer le passé : l'art de l'ADN dégradé</h2>
+  <img class="img-inline" src="https://v3b.fal.media/files/b/0a9a714e/bownag6jET2ToFgb6IF0x.jpg" alt="Fouille archéologique et extraction d'ADN ancien"/>
+  <p>L'ADN ancien est une matière difficile à manipuler. Au fil des millénaires, les molécules se fragmentent, les liaisons chimiques se brisent, les bases s'oxydent et se désaminent. Un os de 40 000 ans peut ne contenir que quelques molécules d'ADN endogène pour des millions de fragments bactériens et environnementaux. Svante Pääbo a dû inventer des protocoles entièrement nouveaux pour isoler, amplifier et séquencer ces fragments dégradés tout en évitant la contamination par l'ADN des chercheurs eux-mêmes — le principal écueil du domaine.</p>
+  <p>Les avancées des séquenceurs de nouvelle génération (NGS) ont été décisives. Là où le séquençage Sanger des années 1990 ne pouvait traiter que de longues séquences propres, les machines modernes — Illumina, Pacific Biosciences, Oxford Nanopore — peuvent assembler des génomes entiers à partir de millions de minuscules fragments. Des algorithmes bioinformatiques sophistiqués permettent ensuite de distinguer l'ADN endogène du contaminant, de corriger les dommages post-mortem caractéristiques (désamination des cytosines en uracile aux extrémités des fragments), et d'assembler le génome ancestral avec une fiabilité statistique rigoureuse.</p>
+  <div class="highlight">
+    <p>« Nous pouvons maintenant reconstruire l'histoire génétique d'une population entière à partir d'une poignée de dents. La paléogénomique a rendu l'histoire préhistorique aussi précise que l'histoire écrite. »</p>
+    <cite>— Johannes Krause, Max Planck Institut für Evolutionäre Anthropologie, 2024</cite>
+  </div>
+  <p>Les meilleures sources d'ADN ancien sont les os denses (pétreux temporal, dents), idéalement préservés dans des environnements froids et stables — pergélisol, grottes d'altitude, milieux secs. La grotte de Denisova en Sibérie, qui a donné son nom aux Dénisoviens, offre des conditions de préservation exceptionnelles. Mais des progrès récents permettent d'extraire de l'ADN depuis des sédiments de grottes, même en l'absence d'os — ouvrant l'accès à des sites archéologiques où les restes humains font défaut.</p>
+</div></section>
+
+<img class="img-wide" src="https://v3b.fal.media/files/b/0a9a714f/by64dfJOK9Ox23cm_AxmU.jpg" alt="Carte des migrations humaines hors d'Afrique avec routes illuminées" style="max-width:900px;margin:0 auto 0.6rem;display:block;border-radius:6px"/>
+<p class="img-caption" style="text-align:center;font-size:.82rem;color:#8bb8d0;font-style:italic;margin-bottom:2rem">La paléogénomique a permis de reconstituer les routes de migration d'Homo sapiens hors d'Afrique il y a ~50 000 ans, avec les points de contact avec les espèces archaïques.</p>
+
+<section id="rencontres"><div class="container">
+  <h2>Les rencontres qui ont façonné notre espèce</h2>
+  <p>La sortie d'Afrique d'Homo sapiens ne fut pas une avancée linéaire vers des terres vierges. C'était une entrée dans un monde déjà peuplé. En Europe et en Asie occidentale, les Néandertaliens habitaient le continent depuis 300 000 à 400 000 ans lorsque nos ancêtres y sont arrivés, il y a environ 45 000 à 50 000 ans. En Asie orientale, les Dénisoviens — connus uniquement par leurs os et leur génome, sans portrait physique complet — régnaient sur des territoires immenses, des steppes sibériennes aux îles du Pacifique.</p>
+  <div class="concepts-grid">
+    <div class="concept-card"><span class="concept-icon">🦴</span><h4>Néandertaliens</h4><p>Peuplaient l'Europe et l'Asie occidentale. Premiers mélanges avec H. sapiens il y a ~50-55 000 ans. 1-2% du génome des non-Africains. Disparus il y a ~40 000 ans.</p></div>
+    <div class="concept-card"><span class="concept-icon">🏔️</span><h4>Dénisoviens</h4><p>Connus par une molaire et un fragment d'auriculaire. Peuplaient l'Asie orientale. 4-6% d'ADN chez les Mélanésiens, crucial pour l'adaptation à l'altitude au Tibet.</p></div>
+    <div class="concept-card"><span class="concept-icon">🔀</span><h4>Vagues de métissage</h4><p>Au moins 2-3 vagues d'introgression néandertalienne identifiées. Les Dénisoviens avaient eux-mêmes de l'ADN néandertalien. Un "super-archaïque" inconnu aussi détecté.</p></div>
+    <div class="concept-card"><span class="concept-icon">🕐</span><h4>Chronologie révisée</h4><p>La divergence Néandertalien/Sapiens réévaluée à 694 000–825 000 ans (grâce au génome Denisova-25, 2025) — 50 à 100 000 ans plus tôt qu'estimé.</p></div>
+  </div>
+  <p>La nature de ces rencontres reste débattue. S'agissait-il d'interactions violentes, pacifiques, ou des deux ? La génomique suggère que les échanges ont eu lieu sur de longues périodes et de façon répétée, pas comme des événements isolés. Des travaux de 2024 (Princeton) ont identifié plusieurs vagues distinctes de flux génétique néandertalien dans le génome de plus de 300 individus anciens couvrant les 50 000 dernières années — une coexistence bien plus longue et plus complexe qu'on ne le pensait.</p>
+</div></section>
+
+<img class="img-wide" src="https://v3b.fal.media/files/b/0a9a714f/wnK_b6lB9IpxgAspiJUMm.jpg" alt="Arbre généalogique de l'ADN des espèces humaines archaïques" style="max-width:900px;margin:0 auto 0.6rem;display:block;border-radius:6px"/>
+<p class="img-caption" style="text-align:center;font-size:.82rem;color:#8bb8d0;font-style:italic;margin-bottom:2rem">La phylogénie génomique des homininés révèle un réseau de flux génétiques bien plus complexe qu'un simple arbre.</p>
+
+<section id="heritage"><div class="container clearfix">
+  <h2>Ce que nous avons hérité : immunité, altitude, et Covid</h2>
+  <img class="img-inline" src="https://v3b.fal.media/files/b/0a9a714f/uSaGVfLrrjasVXHf3ExTU.jpg" alt="Reconstruction faciale d'un Néandertalien"/>
+  <p>L'introgression archaïque n'est pas un simple artefact statistique — elle a eu des conséquences biologiques réelles et mesurables. Les gènes d'origine néandertalienne conservés dans le génome humain moderne ont été sélectionnés positivement : ils conféraient un avantage dans les environnements eurasiens où évoluaient les Néandertaliens depuis des centaines de millénaires. L'exemple le plus frappant est immunitaire : trois récepteurs Toll-like (TLR6, TLR1, TLR10), qui jouent un rôle clé dans la reconnaissance des pathogènes bactériens, portent fréquemment des variants d'origine néandertalienne chez les non-Africains.</p>
+  <p>Lors de la pandémie de Covid-19, les chercheurs ont identifié deux locus d'origine néandertalienne au rôle opposé : un haplotype sur le chromosome 3 (présent chez ~16% des Européens) qui augmentait significativement le risque de forme grave, et un autre sur le chromosome 12 (OAS1-OAS3, présent chez ~30% des non-Africains) qui réduisait ce risque de 22%. Nos ancêtres archaïques nous ont légué à la fois des vulnérabilités et des protections face à des maladies respiratoires qu'ils n'ont jamais connues.</p>
+  <p>L'héritage dénisovien est tout aussi concret. Le gène EPAS1, variante dénisovienne transmise aux ancêtres des Tibétains, régule la réponse à l'hypoxie et permet la vie à haute altitude (>4 000 m) sans les pathologies cardiovasculaires qui frapperaient d'autres populations. Sans ce "cadeau" génétique vieux de plusieurs dizaines de milliers d'années, le plateau tibétain n'aurait pu être peuplé en permanence. Un tiers des femmes européennes portent par ailleurs une variante néandertalienne du récepteur à la progestérone (PROGINS) associée à une fertilité accrue et moins de fausses couches.</p>
+</div></section>
+
+<section id="migrations"><div class="container">
+  <h2>Reconstruire les grandes migrations préhistoriques</h2>
+  <ul class="timeline">
+    <li><span class="tl-dot">1</span><div class="tl-content"><div class="tl-year">~300 000 ans</div><p class="tl-text">Émergence d'Homo sapiens en Afrique. Divergence d'avec les Néandertaliens/Dénisoviens estimée à 694 000–825 000 ans (données Denisova-25, 2025).</p></div></li>
+    <li><span class="tl-dot">2</span><div class="tl-content"><div class="tl-year">~50 000 ans</div><p class="tl-text">Sortie d'Afrique principale. Mélange avec les Néandertaliens au Proche-Orient/Eurasie occidentale. Les premiers Eurasiens portent déjà 1-2% d'ADN néandertalien. Arrivée en Asie du Sud et du Sud-Est.</p></div></li>
+    <li><span class="tl-dot">3</span><div class="tl-content"><div class="tl-year">~45 000–60 000 ans</div><p class="tl-text">Arrivée en Australie et Nouvelle-Guinée (confirmée en 2026 : ~60 000 ans). Métissage avec les Dénisoviens en Asie orientale — 4 à 6% d'ADN dénisovien chez les Mélanésiens actuels.</p></div></li>
+    <li><span class="tl-dot">4</span><div class="tl-content"><div class="tl-year">~40 000 ans</div><p class="tl-text">Extinction des Néandertaliens. Expansion de H. sapiens en Europe. Remplacement ou assimilation des populations archaïques. L'analyse de >5 000 génomes anciens reconstitue la succession des cultures préhistoriques européennes.</p></div></li>
+    <li><span class="tl-dot">5</span><div class="tl-content"><div class="tl-year">2024–2025</div><p class="tl-text">Séquençage du génome Denisova-25 (200 000 ans) — plus vieux jamais produit à haute couverture. Identification de plusieurs super-archaïques non nommés. Révélation du lien ADN ancien ↔ sclérose en plaques, Alzheimer en Europe.</p></div></li>
+  </ul>
+</div></section>
+
+<section id="implications"><div class="container">
+  <h2>Enjeux : médecine, identité, et les limites du passé</h2>
+  <p>La paléogénomique n'est pas une science abstraite. Elle redéfinit notre compréhension de la maladie. En 2024, quatre études publiées dans <em>Nature</em> ont retracé l'origine génétique de la sclérose en plaques en Europe jusqu'à une vague migratoire venue des steppes pontiques il y a ~5 000 ans. Le risque génétique de cette maladie auto-immune semble avoir été introduit en Europe par les ancêtres des peuples germaniques, porteurs de variants HLA qui protégeaient contre les infections bovines mais prédisposent à la SEP dans les environnements modernes.</p>
+  <div class="highlight">
+    <p>« Grâce à la paléogénomique, nous pouvons désormais écrire l'histoire médicale de l'humanité sur les 50 000 dernières années — et comprendre pourquoi certaines maladies sont plus fréquentes dans certaines populations. »</p>
+    <cite>— David Reich, Harvard Medical School, <em>Nature</em> 2024</cite>
+  </div>
+  <p>Ces découvertes touchent aussi à des questions d'identité sensibles. L'idée de "pureté raciale" — déjà infirmée par la biologie — est définitivement balayée par la paléogénomique : tous les humains non-africains sont des hybrides à des degrés divers, et les Africains modernes eux-mêmes portent les traces de métissages avec des espèces archaïques propres au continent africain. La diversité humaine n'est pas le produit d'une divergence mais d'un entrelacement. Notre histoire est un réseau, pas un arbre.</p>
+</div></section>
+
+<section id="sources"><div class="container">
+  <h2>Sources & Références</h2>
+  <ul class="sources-list">
+    <li><a href="https://www.science.org/doi/10.1126/science.adq3010" target="_blank">Neanderthal ancestry through time: Insights from genomes of ancient and present-day humans</a><span class="src-pub">Science, 2024</span></li>
+    <li><a href="https://www.sci.news/genetics/denisova-25-genome-14459.html" target="_blank">Researchers Sequence Genome of 200,000-Year-Old Denisovan</a><span class="src-pub">Sci.News, 2025</span></li>
+    <li><a href="https://www.nature.com/articles/s41586-024-08420-x" target="_blank">Earliest modern human genomes constrain timing of Neanderthal admixture</a><span class="src-pub">Nature, 2024</span></li>
+    <li><a href="https://www.princeton.edu/news/2024/07/12/history-contact-princeton-geneticists-are-rewriting-narrative-neanderthals-and" target="_blank">Princeton geneticists are rewriting the narrative of Neanderthals</a><span class="src-pub">Princeton University, 2024</span></li>
+    <li><a href="https://www.johnhawks.net/p/top-10-discoveries-about-ancient" target="_blank">Top 10 discoveries about ancient people from DNA in 2025</a><span class="src-pub">John Hawks, 2025</span></li>
+    <li><a href="https://www.pasteur.fr/en/neanderthal-genes-gave-modern-humans-immunity-boost-allergies" target="_blank">Neanderthal genes gave modern humans an immunity boost, allergies</a><span class="src-pub">Institut Pasteur</span></li>
+    <li><a href="https://www.sciencedaily.com/releases/2024/01/240110120200.htm" target="_blank">Ancient DNA reveals reason for high multiple sclerosis and Alzheimer's rates in Europe</a><span class="src-pub">ScienceDaily, 2024</span></li>
+    <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12265385/" target="_blank">The genomic footprints of migration: how ancient DNA reveals our history of mobility</a><span class="src-pub">PMC, 2025</span></li>
+  </ul>
+</div></section>
+<footer><div class="container">
+  <span class="footer-logo">Vostok</span>
+  <p>Articles scientifiques illustrés — <a href="/dossiers/">Tous les dossiers</a></p>
+  <p style="margin-top:.5rem;font-size:.75rem;opacity:.6">Mai 2026 · Généré avec recherche web et images FAL AI</p>
+</div></footer>
+
+</body>
+</html>
