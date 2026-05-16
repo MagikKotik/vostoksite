@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <title>Le Microbiome : Notre Deuxième Cerveau | Vostok</title>
+  <meta name="description" content="38 000 milliards de bactéries vivent en nous. Elles produisent nos neurotransmetteurs, influencent notre humeur, et sont liées à Parkinson, la dépression et l'autisme."/>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: #020b18; color: #cce4f0; font-family: 'Inter', sans-serif; line-height: 1.75; font-size: 1.05rem; }
+    :root { --deep:#020b18;--navy:#061628;--blue:#0d2d4a;--accent:#00b4d8;--bright:#90e0ef;--gold:#f4c542;--white:#e8f4fd;--muted:#8bb8d0;--text:#cce4f0; }
+    .hero { position:relative;width:100%;height:100vh;min-height:600px;display:flex;flex-direction:column;justify-content:flex-end;overflow:hidden; }
+    .hero-img { position:absolute;inset:0;width:100%;height:100%;object-fit:cover; }
+    .hero-overlay { position:absolute;inset:0;background:linear-gradient(to bottom,rgba(2,11,24,.15) 0%,rgba(2,11,24,.35) 40%,rgba(2,11,24,.88) 75%,#020b18 100%); }
+    .hero-content { position:relative;z-index:2;padding:0 8vw 5rem;max-width:900px; }
+    .hero-tag { display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--accent);border:1px solid var(--accent);padding:4px 12px;border-radius:2px;margin-bottom:1.2rem; }
+    .hero-title { font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5.5vw,4.2rem);font-weight:900;color:var(--white);line-height:1.1;margin-bottom:1rem; }
+    .hero-title em { color:var(--gold);font-style:normal; }
+    .hero-sub { font-size:1.1rem;font-weight:300;color:var(--bright);max-width:620px;margin-bottom:1.8rem;line-height:1.6; }
+    .hero-meta { display:flex;gap:2rem;flex-wrap:wrap;font-size:.82rem;color:var(--muted); }
+    nav { position:sticky;top:0;z-index:100;background:rgba(2,11,24,.82);backdrop-filter:blur(12px);border-bottom:1px solid rgba(0,180,216,.15); }
+    .nav-inner { max-width:900px;margin:0 auto;padding:0 8vw;display:flex;overflow-x:auto;scrollbar-width:none; }
+    .nav-inner::-webkit-scrollbar{display:none}
+    nav a { display:inline-block;padding:.9rem 1.1rem;font-size:.8rem;font-weight:500;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);text-decoration:none;white-space:nowrap;transition:color .2s;border-bottom:2px solid transparent; }
+    nav a:hover { color:var(--accent);border-bottom-color:var(--accent); }
+    .container { max-width:900px;margin:0 auto;padding:0 8vw; }
+    section { padding:4.5rem 0;border-bottom:1px solid rgba(13,45,74,.6); }
+    section:last-of-type{border-bottom:none}
+    h2 { font-family:'Playfair Display',serif;font-size:clamp(1.6rem,3vw,2.3rem);font-weight:700;color:var(--white);margin-bottom:1.6rem;line-height:1.2; }
+    h3 { font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--bright);margin-bottom:.8rem;margin-top:2rem; }
+    p { margin-bottom:1.2rem; }
+    p:last-child{margin-bottom:0}
+    .stats-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(175px,1fr));gap:1.2rem;margin:2.5rem 0; }
+    .stat-card { background:var(--navy);border:1px solid rgba(0,180,216,.2);border-radius:6px;padding:1.4rem 1.2rem;text-align:center; }
+    .stat-number { font-family:'Playfair Display',serif;font-size:2.3rem;font-weight:900;color:var(--accent);line-height:1;display:block;margin-bottom:.4rem; }
+    .stat-label { font-size:.78rem;font-weight:500;letter-spacing:.08em;text-transform:uppercase;color:var(--muted); }
+    .img-wide { width:100%;border-radius:6px;display:block;margin:2.5rem 0 .6rem; }
+    .img-caption { font-size:.82rem;color:var(--muted);font-style:italic;margin-bottom:2rem;text-align:center; }
+    .img-inline { float:right;width:46%;margin:4px 0 28px 36px;border-radius:6px; }
+    .clearfix::after{content:'';display:table;clear:both}
+    .highlight { border-left:4px solid var(--accent);background:rgba(0,180,216,.06);padding:1.2rem 1.6rem;margin:2rem 0;border-radius:0 4px 4px 0; }
+    .highlight p { font-size:1.1rem;font-style:italic;color:var(--bright);margin-bottom:.5rem; }
+    .highlight cite { font-size:.82rem;color:var(--muted);font-style:normal;font-weight:500; }
+    .concepts-grid { display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:1.2rem;margin:2rem 0; }
+    .concept-card { background:var(--navy);border:1px solid rgba(0,180,216,.15);border-radius:6px;padding:1.4rem; }
+    .concept-icon{font-size:1.8rem;display:block;margin-bottom:.7rem}
+    .concept-card h4 { font-family:'Playfair Display',serif;font-size:1.05rem;font-weight:700;color:var(--white);margin-bottom:.5rem; }
+    .concept-card p{font-size:.88rem;color:var(--muted);margin:0;line-height:1.6}
+    .timeline{list-style:none;margin:2rem 0;position:relative}
+    .timeline::before{content:'';position:absolute;left:16px;top:0;bottom:0;width:2px;background:rgba(0,180,216,.25)}
+    .timeline li{display:flex;gap:1.2rem;padding:0 0 2rem 0;position:relative}
+    .tl-dot{flex-shrink:0;width:32px;height:32px;border-radius:50%;background:var(--blue);border:2px solid var(--accent);display:flex;align-items:center;justify-content:center;font-size:.75rem;font-weight:700;color:var(--accent);position:relative;z-index:1}
+    .tl-content{padding-top:4px}
+    .tl-year{font-size:.78rem;font-weight:600;letter-spacing:.1em;color:var(--gold);text-transform:uppercase;margin-bottom:.2rem}
+    .tl-text{font-size:.92rem;color:var(--text)}
+    .sources-list{list-style:none}
+    .sources-list li{padding:.7rem 0;border-bottom:1px solid rgba(13,45,74,.6);font-size:.88rem;display:flex;gap:.8rem;align-items:baseline}
+    .sources-list li::before{content:'↗';color:var(--accent);flex-shrink:0;font-size:.75rem}
+    .sources-list a{color:var(--bright);text-decoration:none}
+    .sources-list a:hover{color:var(--accent);text-decoration:underline}
+    .src-pub{display:inline-block;margin-left:.5rem;font-size:.75rem;color:var(--muted);font-style:italic}
+    footer{background:var(--navy);border-top:1px solid rgba(0,180,216,.15);padding:2.5rem 0;text-align:center;font-size:.82rem;color:var(--muted)}
+    footer a{color:var(--accent);text-decoration:none}
+    .footer-logo{font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--white);margin-bottom:.5rem;display:block}
+    @media(max-width:640px){.img-inline{float:none;width:100%;margin:0 0 1.5rem 0}}</style>
+</head>
+<body>
+
+<header class="hero" id="top">
+  <img class="hero-img" src="https://v3b.fal.media/files/b/0a9a714f/dV6hAJ7yQn6FPnTKg2KwO.jpg" alt="Axe intestin-cerveau : nerf vague reliant le microbiome au cerveau"/>
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <span class="hero-tag">Biologie · Neurosciences · Microbiologie</span>
+    <h1 class="hero-title">Le <em>Microbiome</em> :<br>Notre Deuxième Cerveau</h1>
+    <p class="hero-sub">38 000 milliards de bactéries colonisent notre intestin. Elles produisent 95% de notre sérotonine, communiquent avec notre cerveau via le nerf vague, et sont associées à la dépression, Parkinson, l'autisme, et bien plus. La médecine du futur passera par nos entrailles.</p>
+    <div class="hero-meta">
+      <span>🦠 38 000 milliards de bactéries</span>
+      <span>🧠 Axe intestin-cerveau bidirectionnel</span>
+      <span>💊 90% de guérison par transplantation fécale (C. diff)</span>
+    </div>
+  </div>
+</header>
+<nav><div class="nav-inner">
+  <a href="#intro">Introduction</a><a href="#composition">Composition</a><a href="#communication">Communication</a><a href="#maladies">Maladies</a><a href="#historique">Historique</a><a href="#therapies">Thérapies</a><a href="#enjeux">Enjeux</a><a href="#sources">Sources</a>
+</div></nav>
+
+<section id="intro"><div class="container">
+  <h2>L'univers invisible qui nous gouverne</h2>
+  <p>Pendant des siècles, les bactéries intestinales ont été considérées comme de simples passagers — des organismes tolérés par l'hôte humain en échange d'une aide à la digestion. Cette vision a été radicalement renversée. Le microbiome intestinal — l'ensemble des micro-organismes qui peuplent notre tube digestif — est aujourd'hui reconnu comme un organe à part entière, d'une complexité fonctionnelle qui rivalise avec celle du cerveau. Il pèse entre 1,5 et 2 kilogrammes, contient 3,3 millions de gènes microbiens (contre ~20 000 pour le génome humain), et entre en dialogue permanent avec chacun de nos systèmes physiologiques.</p>
+  <p>L'expression "axe intestin-cerveau" désigne l'ensemble des voies de communication bidirectionnelles entre le microbiome et le système nerveux central — un réseau qui implique le nerf vague, le système immunitaire, le système endocrinien, et des métabolites microbiens qui franchissent la barrière hémato-encéphalique. Ce que nous mangeons modifie la composition de ce microbiome. Et ce microbiome, à son tour, module notre humeur, notre cognition, notre comportement, et notre susceptibilité à des maladies qui semblaient n'avoir aucun lien avec l'intestin.</p>
+  <div class="stats-grid">
+    <div class="stat-card"><span class="stat-number">38T</span><span class="stat-label">bactéries dans l'intestin humain</span></div>
+    <div class="stat-card"><span class="stat-number">95%</span><span class="stat-label">de la sérotonine produite dans l'intestin</span></div>
+    <div class="stat-card"><span class="stat-number">1 000+</span><span class="stat-label">espèces bactériennes identifiées</span></div>
+    <div class="stat-card"><span class="stat-number">90%</span><span class="stat-label">taux de guérison FMT contre C. difficile</span></div>
+  </div>
+  <p>La reconnaissance scientifique de l'importance du microbiome a explosé dans les années 2010, portée par les technologies de séquençage métagénomique qui permettent enfin de caractériser l'ensemble d'une communauté microbienne sans devoir cultiver chaque espèce en laboratoire — ce qui était impossible pour la grande majorité des bactéries intestinales, anaérobies strictes. Le programme américain Human Microbiome Project (2008–2012) a cartographié pour la première fois la diversité microbienne de 242 adultes sains, établissant une référence qui a ouvert des milliers de lignes de recherche.</p>
+</div></section>
+
+<section id="composition"><div class="container clearfix">
+  <h2>Un écosystème de mille espèces</h2>
+  <img class="img-inline" src="https://v3b.fal.media/files/b/0a9a7150/kC_i9LrziyaxaMExM-bD3.jpg" alt="Diversité des bactéries intestinales vue au microscope"/>
+  <p>Le microbiome intestinal humain est dominé à plus de 90% par deux grands phyla : les <em>Firmicutes</em> et les <em>Bacteroidetes</em>, dont le ratio varie d'un individu à l'autre et fluctue selon l'alimentation, l'âge, le stress, et les traitements antibiotiques. Les genres <em>Lactobacillus</em>, <em>Bifidobacterium</em>, <em>Faecalibacterium prausnitzii</em>, et <em>Akkermansia muciniphila</em> font partie des espèces les plus étudiées pour leurs effets bénéfiques. À l'inverse, une prolifération de <em>Clostridium difficile</em>, <em>Fusobacterium nucleatum</em>, ou de certaines souches d'<em>E. coli</em> est associée à des états pathologiques.</p>
+  <p>La dysbiose — un déséquilibre quantitatif ou qualitatif du microbiome — est désormais associée à une liste croissante de maladies : maladies inflammatoires chroniques de l'intestin (Crohn, rectocolite), syndrome du côlon irritable, diabète de type 2, obésité, allergies, maladies cardiovasculaires, mais aussi troubles neuropsychiatriques. Le concept de dysbiose a cependant ses limites : la causalité est difficile à établir, et il n'existe pas un "microbiome idéal" universel — la diversité est protectrice, mais sa composition optimale varie selon les individus, les populations, et les environnements.</p>
+  <div class="highlight">
+    <p>« Le microbiome n'est pas une signature fixe. C'est un organe dynamique, façonné par chaque repas, chaque stress, chaque antibiotique — et il nous façonne en retour à chaque instant. »</p>
+    <cite>— Rob Knight, UC San Diego, Nature Reviews Microbiology, 2024</cite>
+  </div>
+</div></section>
+
+<img class="img-wide" src="https://v3b.fal.media/files/b/0a9a7150/yMp4VUOaca3RYPPOHk0e6.jpg" alt="Chercheur analysant les données du microbiome et les scans cérébraux" style="max-width:900px;margin:0 auto 0.6rem;display:block;border-radius:6px"/>
+<p class="img-caption" style="text-align:center;font-size:.82rem;color:#8bb8d0;font-style:italic;margin-bottom:2rem">L'analyse intégrée du microbiome et de l'imagerie cérébrale révèle des corrélations directes entre la composition bactérienne et les structures cérébrales.</p>
+
+<section id="communication"><div class="container">
+  <h2>Comment l'intestin parle au cerveau</h2>
+  <p>La communication entre le microbiome et le cerveau emprunte plusieurs autoroutes moléculaires simultanées. La plus directe est le nerf vague — le dixième nerf crânien — qui innerve l'ensemble du tube digestif et remonte les signaux jusqu'au tronc cérébral. Les cellules entérochromaffines de l'intestin, stimulées par les métabolites bactériens, libèrent de la sérotonine qui active les terminaisons vagales afférentes. Plus de 90% de la sérotonine corporelle est ainsi produite dans l'intestin, pas dans le cerveau.</p>
+  <div class="concepts-grid">
+    <div class="concept-card"><span class="concept-icon">⚡</span><h4>Nerf vague</h4><p>Autoroute directe intestin → cerveau. Les bactéries stimulent les cellules entéroendocrines qui envoient des signaux électrochimiques via 80% des fibres afférentes du nerf vague.</p></div>
+    <div class="concept-card"><span class="concept-icon">🧪</span><h4>Acides gras à chaîne courte</h4><p>Butyrate, propionate, acétate — produits par fermentation bactérienne. Franchissent la barrière hémato-encéphalique, régulent la neuroinflammation et la plasticité synaptique.</p></div>
+    <div class="concept-card"><span class="concept-icon">💬</span><h4>Neurotransmetteurs</h4><p>Les bactéries intestinales synthétisent directement GABA (Bifidobacterium), sérotonine (Lactobacillus), dopamine et noradrénaline. Ces molécules influencent humeur et comportement.</p></div>
+    <div class="concept-card"><span class="concept-icon">🛡️</span><h4>Axe immunitaire</h4><p>70% des cellules immunitaires se trouvent dans l'intestin. Le microbiome régule l'inflammation systémique via des cytokines qui franchissent la barrière hémato-encéphalique.</p></div>
+  </div>
+  <p>Les acides gras à chaîne courte (AGCC) — notamment le butyrate produit par <em>Faecalibacterium prausnitzii</em> — jouent un rôle central dans la régulation de la neuroinflammation. Ils activent des récepteurs couplés aux protéines G (GPR41, GPR43) sur les neurones et les cellules immunitaires cérébrales (microglie), modulant l'expression de gènes impliqués dans la plasticité synaptique et la neuroprotection. Des études récentes (2024-2025) démontrent que la réduction du butyrate intestinal précède les signes cliniques de la maladie de Parkinson de plusieurs années — ouvrant une fenêtre de prévention potentielle.</p>
+</div></section>
+
+<img class="img-wide" src="https://v3b.fal.media/files/b/0a9a7150/Y6cURNeDGUKZHvmCmIOIs.jpg" alt="Molécules de sérotonine produites par les bactéries intestinales" style="max-width:900px;margin:0 auto 0.6rem;display:block;border-radius:6px"/>
+<p class="img-caption" style="text-align:center;font-size:.82rem;color:#8bb8d0;font-style:italic;margin-bottom:2rem">Les bactéries intestinales produisent des neurotransmetteurs qui voyagent jusqu'au cerveau — dont plus de 90% de la sérotonine corporelle.</p>
+
+<section id="maladies"><div class="container clearfix">
+  <h2>Dépression, Parkinson, autisme : l'intestin au cœur du trouble</h2>
+  <img class="img-inline" src="https://v3b.fal.media/files/b/0a9a7150/XXSok26XxTg6BXVihjzxJ.jpg" alt="Capsules de transplantation fécale — thérapie microbiome"/>
+  <p>Le lien entre microbiome et santé mentale est l'un des champs de recherche les plus dynamiques de la décennie. Dans la dépression, des études de cohorte montrent systématiquement une réduction de la diversité microbienne et une diminution des espèces productrices de butyrate. Une méta-analyse de 2024 portant sur plus de 3 000 patients a confirmé des altérations reproductibles dans les genres <em>Lactobacillus</em>, <em>Bifidobacterium</em> et <em>Faecalibacterium</em> chez les déprimés versus contrôles. Un essai clinique randomisé (2025) a montré qu'une supplémentation en <em>Bifidobacterium breve</em> CCFM1025 améliorait significativement les scores de dépression et réduisait le turnover de la sérotonine sérique.</p>
+  <p>La maladie de Parkinson offre l'un des arguments les plus convaincants en faveur d'une origine intestinale d'une maladie neurologique. L'α-synucléine — la protéine qui forme les corps de Lewy caractéristiques de Parkinson — est retrouvée en agrégats dans le système nerveux entérique des patients <em>des années avant</em> que les symptômes moteurs n'apparaissent. Des études épidémiologiques suggèrent que la vagotomie (section du nerf vague) pratiquée pour traiter les ulcères dans les années 1970-1990 était associée à une réduction du risque de Parkinson — appuyant l'hypothèse d'une progression de la maladie de l'intestin vers le cerveau via le nerf vague (hypothèse de Braak).</p>
+  <p>Dans les troubles du spectre autistique (TSA), les altérations du microbiome sont documentées chez 40 à 70% des patients, avec une prévalence élevée de troubles gastro-intestinaux. Des modèles murins ont montré que le transfert de microbiome de donneurs autistes à des souris axéniques induisait des comportements sociaux altérés. Si la relation causale chez l'humain reste à établir, les essais de transplantation fécale dans les TSA montrent des résultats préliminaires encourageants sur les symptômes gastro-intestinaux et, dans certains cas, comportementaux.</p>
+</div></section>
+
+<section id="historique"><div class="container">
+  <h2>De la flore intestinale au microbiome : une science en accélération</h2>
+  <ul class="timeline">
+    <li><span class="tl-dot">1</span><div class="tl-content"><div class="tl-year">1680</div><p class="tl-text">Antoni van Leeuwenhoek observe pour la première fois des "animalcules" dans ses propres selles — les premières bactéries intestinales jamais décrites.</p></div></li>
+    <li><span class="tl-dot">2</span><div class="tl-content"><div class="tl-year">1908</div><p class="tl-text">Élie Metchnikoff (Prix Nobel) propose que les bactéries lactiques des yaourts prolongent la vie en luttant contre la "putréfaction intestinale" — premier probiotique conceptuel.</p></div></li>
+    <li><span class="tl-dot">3</span><div class="tl-content"><div class="tl-year">1983–2000</div><p class="tl-text">Premières transplantations fécales documentées pour <em>C. difficile</em>. Développement du concept de "flore intestinale". Séquençage des premières bactéries intestinales cultivables.</p></div></li>
+    <li><span class="tl-dot">4</span><div class="tl-content"><div class="tl-year">2006–2012</div><p class="tl-text">Métagénomique 16S ARNr et shotgun : séquencer sans cultiver. Projets MetaHIT (EU) et Human Microbiome Project (USA). Premier lien génomique microbiome ↔ obésité (Gordon, Nature 2006).</p></div></li>
+    <li><span class="tl-dot">5</span><div class="tl-content"><div class="tl-year">2019–2025</div><p class="tl-text">FDA approuve Rebyota (2022) et Vowst (2023) — premiers médicaments microbiome approuvés. Essais cliniques probiotiques pour dépression, Parkinson, TSA. Cartes multi-omiques intégrant génomique, protéomique et métabolomique.</p></div></li>
+  </ul>
+</div></section>
+
+<section id="therapies"><div class="container">
+  <h2>Thérapies : transplantation, probiotiques et psychobiotiques</h2>
+  <p>La transplantation de microbiote fécal (TMF) est aujourd'hui la thérapie microbiome la plus avancée cliniquement. Pour les infections récurrentes à <em>Clostridioides difficile</em> — une bactérie opportuniste qui prolifère après antibiothérapie et provoque des diarrhées potentiellement mortelles — la TMF affiche un taux de guérison de ~90%, supérieur à n'importe quel antibiotique. Deux produits biologiques issus de la TMF ont reçu l'approbation de la FDA en 2022-2023 (Rebyota et Vowst), ouvrant la voie à une standardisation industrielle.</p>
+  <p>Les "psychobiotiques" — terme introduit par Ted Dinan et John Cryan (University College Cork) en 2013 — désignent les probiotiques et prébiotiques qui exercent un effet bénéfique sur la santé mentale via l'axe intestin-cerveau. Des souches comme <em>Lactobacillus rhamnosus</em> JB-1 ou <em>Bifidobacterium longum</em> NCC3001 ont montré des effets anxiolytiques dans des modèles animaux. Chez l'humain, les essais cliniques randomisés restent hétérogènes, mais plusieurs méta-analyses de 2024 concluent à un effet modeste mais significatif des probiotiques sur les symptômes dépressifs et anxieux.</p>
+  <div class="highlight">
+    <p>« Dans dix ans, prescrire un antibiotique sans prescrire simultanément une restauration du microbiome semblera aussi négligent que d'opérer sans stérilisation. »</p>
+    <cite>— Eran Segal, Weizmann Institute, Stanford Medicine symposium, 2025</cite>
+  </div>
+</div></section>
+
+<section id="enjeux"><div class="container">
+  <h2>Enjeux : standardisation, causalité, et médecine de précision</h2>
+  <p>Malgré l'enthousiasme, le domaine fait face à des défis méthodologiques sérieux. La reproductibilité des études est limitée par l'hétérogénéité des techniques de séquençage, des sites d'échantillonnage, des régimes alimentaires des cohortes, et des méthodes d'analyse bioinformatique. Un résultat obtenu dans une cohorte européenne ne se reproduit pas nécessairement dans une cohorte asiatique ou africaine. La distinction entre corrélation et causalité reste le talon d'Achille du domaine — le microbiome d'un déprimé est-il la cause ou la conséquence de la dépression ?</p>
+  <p>La médecine du microbiome se dirige vers une approche de précision : plutôt qu'un probiotique universel, des thérapies personnalisées basées sur le profil métagénomique individuel du patient, son génome hôte, et ses données cliniques. Des startups comme Evelo Biosciences, Pendulum Therapeutics ou Seres Therapeutics développent des consortiums bactériens définis, cultivés dans des conditions standardisées et dosés comme des médicaments classiques. L'IA joue un rôle croissant pour modéliser les interactions entre des milliers d'espèces et prédire les réponses thérapeutiques individuelles.</p>
+</div></section>
+
+<section id="sources"><div class="container">
+  <h2>Sources & Références</h2>
+  <ul class="sources-list">
+    <li><a href="https://www.nature.com/articles/s41392-024-01743-1" target="_blank">Microbiota–gut–brain axis and its therapeutic applications in neurodegenerative diseases</a><span class="src-pub">Nature / Signal Transduction and Targeted Therapy, 2024</span></li>
+    <li><a href="https://med.stanford.edu/news/insights/2025/03/gut-brain-connection-long-covid-anxiety-parkinsons.html" target="_blank">The gut-brain connection: What the science says</a><span class="src-pub">Stanford Medicine, 2025</span></li>
+    <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12289773/" target="_blank">Microbiome Gut-Brain-Axis: Impact on Brain Development and Mental Health</a><span class="src-pub">PMC, 2025</span></li>
+    <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12293201/" target="_blank">Rewiring the Brain Through the Gut: Insights into Microbiota–Nervous System Interactions</a><span class="src-pub">PMC, 2025</span></li>
+    <li><a href="https://journals.asm.org/doi/10.1128/cmr.00060-22" target="_blank">Fecal microbiota transplantation: current challenges and future landscapes</a><span class="src-pub">Clinical Microbiology Reviews</span></li>
+    <li><a href="https://www.nature.com/articles/s41423-025-01333-3" target="_blank">Beyond the gut: decoding the gut–immune–brain axis in health and disease</a><span class="src-pub">Cellular & Molecular Immunology / Nature, 2025</span></li>
+    <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC11143861/" target="_blank">Fecal microbiota transplantation and next-generation therapies</a><span class="src-pub">PMC, 2024</span></li>
+    <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC12411739/" target="_blank">The Microbiota‐Gut‐Brain Connection: A New Horizon in Neurological Disorders</a><span class="src-pub">PMC, 2025</span></li>
+  </ul>
+</div></section>
+<footer><div class="container">
+  <span class="footer-logo">Vostok</span>
+  <p>Articles scientifiques illustrés — <a href="/dossiers/">Tous les dossiers</a></p>
+  <p style="margin-top:.5rem;font-size:.75rem;opacity:.6">Mai 2026 · Généré avec recherche web et images FAL AI</p>
+</div></footer>
+
+</body>
+</html>
