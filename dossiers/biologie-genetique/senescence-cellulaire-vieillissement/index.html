@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sénescence Cellulaire — Vostok</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --deep:   #020b18; --navy: #061628; --blue: #0d2d4a;
+      --accent: #00b4d8; --bright: #90e0ef; --gold: #f4c542;
+      --muted:  #8bb8d0; --text: #cce4f0;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--deep); color: var(--text); font-family: 'Inter', sans-serif; font-size: 17px; line-height: 1.8; overflow-x: hidden; }
+
+    /* ── HERO ── */
+    .hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; }
+    .hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.55) saturate(1.2); }
+    .hero-gradient { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, var(--deep) 100%); }
+    .hero-content { position: relative; z-index: 2; padding: 0 8vw 7vh; max-width: 900px; }
+    .hero-tag { display: inline-block; background: var(--accent); color: var(--deep); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 14px; border-radius: 3px; margin-bottom: 20px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 6vw, 5.5rem); font-weight: 900; line-height: 1.1; color: #fff; margin-bottom: 22px; }
+    .hero h1 span { color: var(--accent); }
+    .hero-sub { font-size: 1.15rem; font-weight: 300; color: var(--bright); max-width: 640px; margin-bottom: 36px; }
+    .hero-meta { display: flex; gap: 28px; flex-wrap: wrap; font-size: 13px; color: var(--muted); font-weight: 500; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(2,11,24,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,180,216,0.15);
+      padding: 0 8vw;
+      display: flex; align-items: center;
+      gap: 24px; height: 60px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    nav a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 500; letter-spacing: 0.5px; white-space: nowrap; transition: color 0.2s; }
+    nav a:hover { color: var(--accent); }
+
+    /* ── LAYOUT ── */
+    .container { max-width: 900px; margin: 0 auto; padding: 0 8vw; }
+    .section { padding: 90px 0 60px; }
+    .section + .section { border-top: 1px solid rgba(0,180,216,0.1); }
+
+    /* ── TITRES ── */
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+    h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 3.5vw, 2.8rem); font-weight: 700; color: #fff; margin-bottom: 28px; line-height: 1.25; }
+    h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--bright); margin: 44px 0 16px; }
+    p { margin-bottom: 20px; color: var(--text); }
+    strong { color: var(--bright); font-weight: 600; }
+
+    /* ── IMAGES ── */
+    .img-wide { width: 100%; max-width: 1200px; margin: 48px auto; display: block; border-radius: 10px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+    .img-wide img { width: 100%; display: block; }
+    .img-caption { text-align: center; font-size: 13px; color: var(--muted); font-style: italic; padding: 12px 20px; background: var(--navy); border-top: 1px solid rgba(0,180,216,0.1); }
+    .img-inline { float: right; margin: 4px 0 28px 36px; width: 46%; border-radius: 8px; overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
+    .img-inline img { width: 100%; display: block; }
+    .img-inline .img-caption { font-size: 12px; padding: 9px 14px; text-align: left; }
+    .clearfix::after { content: ''; display: table; clear: both; }
+
+    /* ── STATS ── */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; margin: 40px 0; }
+    .stat-card { background: var(--navy); border: 1px solid rgba(0,180,216,0.2); border-radius: 10px; padding: 26px 22px; text-align: center; transition: border-color 0.3s, transform 0.3s; }
+    .stat-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 8px; }
+    .stat-label { font-size: 13px; color: var(--muted); font-weight: 500; }
+
+    /* ── HIGHLIGHT ── */
+    .highlight { background: linear-gradient(135deg, rgba(0,180,216,0.08), rgba(0,180,216,0.02)); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 24px 28px; margin: 36px 0; }
+    .highlight p { margin: 0; color: var(--bright); font-size: 1.05rem; font-style: italic; }
+    .highlight cite { display: block; margin-top: 12px; font-size: 13px; color: var(--muted); font-style: normal; }
+
+    /* ── CONCEPTS ── */
+    .concepts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin: 36px 0; }
+    .concept-card { background: var(--navy); border: 1px solid rgba(0,180,216,0.15); border-radius: 10px; padding: 24px; }
+    .concept-icon { font-size: 2rem; margin-bottom: 12px; }
+    .concept-card h4 { font-size: 1rem; font-weight: 600; color: var(--bright); margin-bottom: 10px; }
+    .concept-card p { font-size: 14px; color: var(--muted); margin: 0; line-height: 1.7; }
+
+    /* ── TIMELINE ── */
+    .timeline { margin: 40px 0; position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 18px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--accent), transparent); }
+    .tl-item { display: flex; gap: 28px; margin-bottom: 36px; align-items: flex-start; }
+    .tl-dot { width: 38px; height: 38px; min-width: 38px; border-radius: 50%; background: var(--blue); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--accent); position: relative; z-index: 1; }
+    .tl-body h4 { font-size: 1rem; font-weight: 600; color: var(--bright); margin-bottom: 6px; }
+    .tl-body p { font-size: 14.5px; color: var(--text); margin: 0; line-height: 1.7; }
+
+    /* ── SOURCES ── */
+    .sources { background: var(--navy); border-top: 1px solid rgba(0,180,216,0.15); padding: 60px 0 80px; }
+    .sources-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .sources-list li { padding: 14px 18px; background: var(--blue); border-radius: 7px; border: 1px solid rgba(0,180,216,0.1); font-size: 14px; transition: border-color 0.2s; }
+    .sources-list li:hover { border-color: var(--accent); }
+    .sources-list a { color: var(--accent); text-decoration: none; font-weight: 500; }
+    .sources-list a:hover { text-decoration: underline; }
+    .src-pub { color: var(--muted); font-size: 12px; margin-top: 3px; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--deep); text-align: center; padding: 32px; font-size: 13px; color: var(--muted); border-top: 1px solid rgba(255,255,255,0.05); }
+    footer span { color: var(--accent); }
+
+    @media (max-width: 680px) {
+      .img-inline { float: none; width: 100%; margin: 0 0 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<section class="hero">
+  <img class="hero-img" src="https://v3b.fal.media/files/b/0a9ab993/mqhWilxdqrmw2Crwy43p1_TqFScELw.png" alt="Sénescence Cellulaire" />
+  <div class="hero-gradient"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Biologie · Vieillissement</div>
+    <h1>La <span>Sénescence</span> Cellulaire</h1>
+    <p class="hero-sub">Quand nos cellules cessent de se diviser mais refusent de mourir — et comment cette rébellion silencieuse façonne notre vieillissement.</p>
+    <div class="hero-meta">
+      <span>🧬 Biologie moléculaire</span>
+      <span>⏱ Lecture 12 min</span>
+      <span>📅 Mai 2026</span>
+      <span>🔬 Recherche active</span>
+    </div>
+  </div>
+</section>
+
+<nav>
+  <a href="#intro">Introduction</a>
+  <a href="#s2">Télomères</a>
+  <a href="#s3">Mécanismes</a>
+  <a href="#s4">SASP</a>
+  <a href="#s5">Maladies</a>
+  <a href="#s6">Chronologie</a>
+  <a href="#s7">Thérapies</a>
+  <a href="#sources">Sources</a>
+</nav>
+
+<section class="section" id="intro">
+  <div class="container">
+    <div class="section-label">Fondamentaux</div>
+    <h2>L'horloge biologique de nos cellules</h2>
+    <p>La sénescence cellulaire est l'un des phénomènes les plus fascinants et les plus redoutables de la biologie du vieillissement. Décrite pour la première fois en 1961 par Leonard Hayflick, qui observa que les cellules humaines en culture ne pouvaient se diviser qu'un nombre limité de fois avant de s'arrêter définitivement, cette découverte a longtemps été perçue comme un simple mécanisme de protection contre le cancer. On comprend aujourd'hui qu'elle est bien plus : une force à double tranchant qui protège l'organisme jeune tout en contribuant activement à sa dégradation avec l'âge.</p>
+    <p>Une cellule sénescente n'est pas une cellule morte. C'est une cellule qui a mis en pause toute division, mais qui reste métaboliquement active, sécrétant un cocktail d'agents inflammatoires dans son environnement immédiat. Leur accumulation progressive dans les tissus — résultat de décennies de stress oxydatif, de dommages à l'ADN et de raccourcissement télomérique — constitue aujourd'hui l'une des cibles thérapeutiques les plus prometteuses de la médecine anti-âge.</p>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-num">50</div><div class="stat-label">Divisions max avant sénescence (limite de Hayflick)</div></div>
+      <div class="stat-card"><div class="stat-num">2–3%</div><div class="stat-label">Des cellules âgées sont sénescentes, mais suffisent à dégrader les tissus</div></div>
+      <div class="stat-card"><div class="stat-num">&gt;200</div><div class="stat-label">Facteurs sécrétés par le phénotype SASP inflammatoire</div></div>
+      <div class="stat-card"><div class="stat-num">109%</div><div class="stat-label">Extension de durée de vie chez la souris âgée par reprogrammation partielle (2024)</div></div>
+    </div>
+    <p>La sénescence touche tous les types cellulaires — fibroblastes, cellules endothéliales, neurones, cellules immunitaires — et peut être déclenchée par des stimuli très variés : raccourcissement des télomères, dommages à l'ADN, stress oncogénique, ou encore inflammation chronique. Comprendre ses mécanismes moléculaires fins est devenu un enjeu central pour développer des interventions capables de ralentir, ou même d'inverser, le vieillissement biologique.</p>
+  </div>
+</section>
+
+<section class="section" id="s2">
+  <div class="container">
+    <div class="section-label">Mécanisme fondateur</div>
+    <h2>Les télomères : l'horloge moléculaire du vieillissement</h2>
+    <div class="img-inline">
+      <img src="https://v3b.fal.media/files/b/0a9ab974/9dZm7R-1t2k0jzq7gVmi0_DHic44gN.png" alt="Télomères et raccourcissement chromosomique" />
+      <div class="img-caption">Visualisation du raccourcissement progressif des télomères aux extrémités des chromosomes après chaque division cellulaire.</div>
+    </div>
+    <p>À l'extrémité de chaque chromosome se trouve une structure protectrice appelée télomère, composée de séquences répétitives TTAGGG et de protéines associées formant le complexe shelterin. Leur rôle est double : protéger les extrémités chromosomiques des dégradations enzymatiques, et empêcher les mécanismes de réparation de l'ADN de confondre ces extrémités avec des cassures double brin. Sans télomères, chaque chromosome serait détecté comme un dommage et déclencherait immédiatement une réponse d'urgence cellulaire.</p>
+    <p>Le problème fondamental est simple : à chaque division cellulaire, l'ADN polymérase est incapable de répliquer entièrement les extrémités du brin retardé — c'est le fameux « problème de réplication des extrémités ». En conséquence, les télomères perdent entre 50 et 100 paires de bases à chaque cycle. Au bout de quelques dizaines de divisions, les télomères atteignent un seuil critique en dessous duquel leur structure de protection s'effondre. La cellule détecte alors ses propres extrémités chromosomiques comme des cassures de l'ADN, activant la kinase ATM et la voie p53/p21 qui impose un arrêt irréversible du cycle cellulaire : la sénescence réplicative.</p>
+    <div class="highlight"><p>"La longueur des télomères est l'une des mesures les plus robustes de l'âge biologique. Des télomères courts sont associés à un risque accru de maladies cardiovasculaires, métaboliques et neurodégénératives, indépendamment de l'âge chronologique."</p><cite>— Nature Cell Biology, Telomere dysfunction in ageing and age-related diseases, 2022</cite></div>
+    <p class="clearfix">Le raccourcissement télomérique n'est pas le seul déclencheur de la sénescence, mais il en constitue le mécanisme le mieux compris. Les cellules souches et certaines cellules immunitaires expriment la télomérase, une enzyme capable de rallonger les télomères, ce qui leur confère une capacité de division bien supérieure. Mais la plupart des cellules somatiques n'expriment pas cette enzyme à des niveaux suffisants. Les séquences télomériques sont également particulièrement vulnérables aux dommages oxydatifs, car leur richesse en guanine les rend susceptibles à l'oxydation par les espèces réactives de l'oxygène — ce qui explique que le stress chronique et l'inflammation accélèrent le vieillissement cellulaire même en l'absence de divisions répétées.</p>
+  </div>
+</section>
+
+<div class="img-wide">
+  <img src="https://v3b.fal.media/files/b/0a9ab978/52Lu6c4XAezip2kI28Fjk_0VtzLhod.png" alt="Laboratoire de recherche sur la sénescence cellulaire" />
+  <div class="img-caption">Les cellules sénescentes sont détectées en laboratoire grâce à la coloration β-galactosidase associée à la sénescence (SA-β-Gal), qui produit un marquage bleu intense caractéristique.</div>
+</div>
+
+<section class="section" id="s3">
+  <div class="container">
+    <div class="section-label">Biologie moléculaire</div>
+    <h2>Les voies moléculaires qui verrouillent la cellule</h2>
+    <p>La sénescence n'est pas un état binaire, mais un programme cellulaire orchestré par plusieurs voies de signalisation qui convergent vers un même résultat : l'arrêt permanent du cycle cellulaire. Deux grandes autoroutes moléculaires ont été identifiées, souvent activées simultanément et se renforçant mutuellement au fil du temps. Leur activation est initiée par la détection de dommages à l'ADN, qu'ils soient localisés dans les télomères ou ailleurs dans le génome.</p>
+    <h3>Deux gardiens, un verrou</h3>
+    <p>La première voie implique le suppresseur de tumeur p53 et son effecteur p21. Lorsque la kinase ATM détecte un dommage à l'ADN, elle active p53 qui induit l'expression de p21, un inhibiteur des kinases dépendantes des cyclines (CDK). En bloquant CDK2, p21 empêche la phosphorylation de la protéine rétinoblastome (pRB), maintenant le facteur de transcription E2F séquestré et la cellule en phase G1. La seconde voie implique p16, un inhibiteur de CDK4/6 dont l'expression augmente massivement avec l'âge. En bloquant CDK4 et CDK6, p16 maintient pRB sous forme hypophosphorylée, verrouillant E2F de façon encore plus robuste que la voie p53/p21 seule. Cette double activation explique pourquoi la sénescence est si difficile à lever de façon naturelle.</p>
+    <div class="concepts-grid">
+      <div class="concept-card"><div class="concept-icon">🔒</div><h4>Voie p53 / p21</h4><p>Réponse rapide aux dommages ADN. ATM active p53 → p21 bloque CDK2 → pRB non phosphorylée → E2F séquestré → arrêt du cycle en G1.</p></div>
+      <div class="concept-card"><div class="concept-icon">🧱</div><h4>Voie p16 / pRB</h4><p>Verrou tardif et stable. p16 s'accumule avec l'âge, bloque CDK4/6 de façon durable. Marqueur fiable de la sénescence chronique dans les tissus vieillis.</p></div>
+      <div class="concept-card"><div class="concept-icon">⚡</div><h4>Réponse DDR</h4><p>DNA Damage Response : cascade de signalisation déclenchée par les cassures de l'ADN. Foyers γH2AX visibles en microscopie, persistants dans les cellules sénescentes.</p></div>
+      <div class="concept-card"><div class="concept-icon">🔋</div><h4>Dysfonction mitochondriale</h4><p>Les cellules sénescentes présentent des mitochondries altérées produisant un excès de ROS, entretenant un cercle vicieux de dommages oxydatifs et d'inflammation locale.</p></div>
+    </div>
+    <p>Un aspect particulièrement important est la résistance à l'apoptose des cellules sénescentes. Normalement, des cellules aussi endommagées déclencheraient leur propre mort programmée. Mais les cellules sénescentes surexpriment des protéines anti-apoptotiques — notamment BCL-2, BCL-XL et BCL-W — qui bloquent cette issue. C'est précisément cette propriété qui a guidé le développement des sénolytiques : des molécules capables de contourner ces défenses et d'éliminer sélectivement les cellules sénescentes sans affecter les cellules saines.</p>
+    <div class="highlight"><p>"Nous avons longtemps pensé que la sénescence était avant tout un mécanisme de suppression tumorale. Nous comprenons maintenant que c'est une réponse biologique bien plus complexe, avec des fonctions physiologiques essentielles dans le développement embryonnaire, la cicatrisation et l'immunité — qui devient pathologique seulement lorsque les cellules sénescentes s'accumulent chroniquement."</p><cite>— Hallmarks and mechanisms of cellular senescence in aging and disease, Cell Death Discovery, 2025</cite></div>
+  </div>
+</section>
+
+<div class="img-wide">
+  <img src="https://v3b.fal.media/files/b/0a9ab97c/cQAkg2gltCZDrXZi9ECed_9jTYD2JK.png" alt="SASP — phénotype sécrétoire associé à la sénescence" />
+  <div class="img-caption">Le SASP libère dans les tissus un cocktail de cytokines pro-inflammatoires (IL-6, IL-8, TNF-α) qui propagent l'inflammation aux cellules voisines dans un effet dit « paracrine ».</div>
+</div>
+
+<section class="section" id="s4">
+  <div class="container">
+    <div class="section-label">Le poison des tissus</div>
+    <h2>Le SASP : quand les cellules âgées empoisonnent leur voisinage</h2>
+    <div class="img-inline">
+      <img src="https://v3b.fal.media/files/b/0a9ab97f/rMqeHpS6ypgQrwqXxpcoJ_85fsyhKo.png" alt="Molécules sénolytiques ciblant les cellules sénescentes" />
+      <div class="img-caption">Les sénolytiques comme le dasatinib et la quercétine ciblent sélectivement les mécanismes de survie des cellules sénescentes.</div>
+    </div>
+    <p>Le Senescence-Associated Secretory Phenotype, ou SASP, est sans doute la propriété la plus dangereuse des cellules sénescentes vieillissantes. Alors qu'une cellule sénescente pourrait en théorie rester silencieuse dans son coin, elle adopte en réalité un comportement hautement actif : elle sécrète massivement des cytokines pro-inflammatoires (IL-1β, IL-6, IL-8), des chimiokines, des métalloprotéinases matricielles, des facteurs de croissance et même des exosomes chargés de microARN et de fragments d'ADN. Ce cocktail toxique se répand dans le tissu environnant et modifie profondément l'architecture cellulaire locale.</p>
+    <p>L'effet le plus délétère du SASP est sa capacité à induire la sénescence dans des cellules voisines saines — un phénomène appelé sénescence paracrine ou « effet de bystander ». En se propageant ainsi de cellule en cellule, la sénescence peut se répandre comme une onde à travers le tissu. Plus encore, le SASP perturbe les cellules souches locales, inhibe les processus de régénération tissulaire, favorise la fibrose, et crée un environnement immunosuppresseur paradoxal qui peut favoriser l'émergence de cancers. Moins de 3% de cellules sénescentes dans un tissu suffisent à déclencher des dérégulations fonctionnelles majeures.</p>
+    <h3>L'inflammaging : l'inflammation chronique de l'âge</h3>
+    <p class="clearfix">L'accumulation progressive de cellules SASP-actives à travers l'organisme contribue à ce que les gérontologues appellent l'« inflammaging » — une inflammation systémique chronique de bas grade qui caractérise le vieillissement humain. Contrairement à l'inflammation aiguë protectrice, l'inflammaging est sourde, persistante, et touche simultanément de multiples organes. Des études longitudinales ont montré une corrélation forte entre les niveaux sériques d'IL-6 et de CRP — des marqueurs inflammatoires typiquement sécrétés par le SASP — et l'incidence des grandes maladies liées à l'âge : maladies cardiovasculaires, diabète de type 2, neurodégénérescence, et certains cancers. Ce constat a radicalement changé la façon dont on envisage la biologie du vieillissement : ce n'est pas tant l'usure mécanique qui tue, mais l'inflammation qu'elle génère.</p>
+  </div>
+</section>
+
+<section class="section" id="s5">
+  <div class="container">
+    <div class="section-label">Implications pathologiques</div>
+    <h2>De la cellule à la maladie : les dommages collatéraux</h2>
+    <p>La sénescence cellulaire n'est plus seulement une curiosité de biologiste : elle s'impose aujourd'hui comme un mécanisme transversal contribuant à la plupart des grandes pathologies liées à l'âge. Des études de délétion génétique de cellules sénescentes chez la souris ont montré des résultats spectaculaires — réduction de la fibrose rénale, amélioration de la fonction cardiaque, retard de l'apparition de tumeurs, et même extension de la durée de vie saine. Ces résultats précliniques ont ouvert la voie à une nouvelle génération d'essais cliniques.</p>
+    <h3>Quatre grands domaines d'impact</h3>
+    <div class="concepts-grid">
+      <div class="concept-card"><div class="concept-icon">🧠</div><h4>Neurodégénérescence</h4><p>Des microglies sénescentes s'accumulent dans le cerveau d'Alzheimer et de Parkinson. Leur SASP entretient la neuroinflammation, dégrade la myéline et altère la transmission synaptique. Les sénolytiques réduisent la pathologie tau dans les modèles murins.</p></div>
+      <div class="concept-card"><div class="concept-icon">❤️</div><h4>Maladies cardiovasculaires</h4><p>Les cellules endothéliales et les cellules musculaires lisses sénescentes favorisent l'athérosclérose, la rigidité artérielle, l'hypertension et l'insuffisance cardiaque. La sénescence est un facteur de risque cardiovasculaire indépendant.</p></div>
+      <div class="concept-card"><div class="concept-icon">🦠</div><h4>Cancer</h4><p>Paradoxe : la sénescence supprime les tumeurs à court terme (arrêt des cellules pré-cancéreuses), mais le SASP crée un microenvironnement pro-tumoral à long terme, favorisant la progression et les métastases des cancers établis.</p></div>
+      <div class="concept-card"><div class="concept-icon">🦴</div><h4>Métabolisme & ostéoarthrite</h4><p>Les chondrocytes sénescents détruisent le cartilage articulaire via leurs métalloprotéinases. Dans le tissu adipeux, la sénescence des préadipocytes dérègle le métabolisme du glucose et contribue au diabète de type 2.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="img-wide">
+  <img src="https://v3b.fal.media/files/b/0a9ab983/mw9Nqox7_z2RlyAvuE9Yb_i0KW7k9x.png" alt="Reprogrammation épigénétique et facteurs de Yamanaka" />
+  <div class="img-caption">La reprogrammation partielle par les facteurs de Yamanaka (OSK) restaure un profil épigénétique juvénile sans effacer l'identité cellulaire — une révolution thérapeutique en cours.</div>
+</div>
+
+<section class="section" id="s6">
+  <div class="container">
+    <div class="section-label">Chronologie scientifique</div>
+    <h2>De Hayflick aux thérapies de demain : 65 ans de découvertes</h2>
+    <p>La biologie de la sénescence a connu une évolution remarquable depuis les premières observations en culture cellulaire jusqu'aux essais cliniques d'aujourd'hui. Chaque décennie a apporté un changement de paradigme majeur, transformant progressivement un phénomène de laboratoire en cible thérapeutique concrète.</p>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot">1961</div><div class="tl-body"><h4>La limite de Hayflick</h4><p>Leonard Hayflick et Paul Moorhead démontrent que des fibroblastes humains normaux cessent de se diviser après environ 50 passages en culture. La « limite de Hayflick » entre dans les manuels, mais son mécanisme moléculaire reste mystérieux pendant 30 ans.</p></div></div>
+      <div class="tl-item"><div class="tl-dot">1991</div><div class="tl-body"><h4>Les télomères comme horloge</h4><p>Calvin Harley, Bruce Futcher et Carol Greider montrent que le raccourcissement télomérique est directement corrélé au nombre de divisions cellulaires. La télomérase, déjà identifiée, devient le mécanisme central de la sénescence réplicative. Elizabeth Blackburn, Greider et Jack Szostak reçoivent le Nobel de médecine en 2009 pour ces travaux.</p></div></div>
+      <div class="tl-item"><div class="tl-dot">2008</div><div class="tl-body"><h4>Découverte du SASP</h4><p>Judith Campisi et son équipe au Buck Institute décrivent pour la première fois le phénotype sécrétoire complet des cellules sénescentes. Le SASP redéfinit la sénescence : de mécanisme passif à acteur inflammatoire majeur. Cette découverte ouvre la voie à la ciblage thérapeutique du microenvironnement tissulaire.</p></div></div>
+      <div class="tl-item"><div class="tl-dot">2012</div><div class="tl-body"><h4>Nobel Yamanaka et reprogrammation</h4><p>Shinya Yamanaka reçoit le Nobel pour la découverte des facteurs OSKM capables de reprogrammer les cellules adultes en cellules souches pluripotentes. L'idée que l'épigénome vieilli pourrait être « réinitialisé » sans effacer l'identité cellulaire germe dans plusieurs laboratoires.</p></div></div>
+      <div class="tl-item"><div class="tl-dot">2025</div><div class="tl-body"><h4>Premiers essais cliniques sénolytiques</h4><p>L'étude STAMINA publiée dans The Lancet eBioMedicine démontre qu'une cure intermittente de dasatinib + quercétine améliore la vitesse de marche et les marqueurs cognitifs chez des patients âgés à risque Alzheimer. La FDA valide un premier essai humain de reprogrammation partielle pour traiter une maladie neurodégénérative.</p></div></div>
+    </div>
+    <div class="img-inline">
+      <img src="https://v3b.fal.media/files/b/0a9ab987/xTnKXba12x_uTIVlW-_h-_N489jSJY.png" alt="Tissu cérébral âgé vs rajeuni — microglies sénescentes" />
+      <div class="img-caption">Comparaison du tissu cérébral âgé (microglies sénescentes en orange) et d'un tissu traité aux sénolytiques montrant une restauration du profil inflammatoire.</div>
+    </div>
+    <h3>Un tournant thérapeutique historique</h3>
+    <p class="clearfix">Ce qui distingue 2024-2026 de toutes les décennies précédentes est la convergence de plusieurs approches thérapeutiques arrivant simultanément à maturité clinique. Pour la première fois, il devient possible non seulement d'observer la sénescence, de la mesurer avec des biomarqueurs sanguins fiables (p16, GDF-15, ostéopontine), mais aussi de l'atténuer par des interventions pharmacologiques et géniques. La géroscience — discipline qui étudie le vieillissement comme processus biologique traitable — n'est plus un rêve : elle entre dans la médecine de précision.</p>
+  </div>
+</section>
+
+<section class="section" id="s7">
+  <div class="container">
+    <div class="section-label">Frontières thérapeutiques</div>
+    <h2>Sénolytiques, sénomorphiques et reprogrammation : l'arsenal de demain</h2>
+    <p>Trois grandes familles d'approches thérapeutiques visent aujourd'hui la sénescence cellulaire. Chacune avec une logique distincte, des avantages et des défis propres — et une convergence possible vers des stratégies combinées qui pourraient transformer radicalement la médecine du vieillissement dans la prochaine décennie.</p>
+    <h3>Sénolytiques : éliminer les coupables</h3>
+    <p>Les sénolytiques sont des molécules qui induisent sélectivement l'apoptose des cellules sénescentes en ciblant leurs mécanismes de survie anti-apoptotiques. Le duo le mieux documenté — dasatinib (inhibiteur de tyrosine kinase utilisé contre la leucémie) et quercétine (flavonoïde végétal) — s'attaque respectivement à différentes protéines BCL-2. Administrés de façon intermittente sur deux jours consécutifs par mois, ils permettent d'éliminer une fraction significative des cellules sénescentes accumulées sans toxicité systémique. Les essais cliniques de 2024-2025 montrent des améliorations mesurables dans l'ostéoarthrite, la mobilité chez les personnes âgées, et les premiers signes encourageants dans les maladies cognitives. D'autres molécules émergent : ABT-263 (navitoclax, anti-BCL-2), fisetin (flavonoïde), et des anticorps monoclonaux ciblant des antigènes de surface spécifiques des cellules sénescentes.</p>
+    <h3>Sénomorphiques : museler le SASP</h3>
+    <p>Plutôt qu'éliminer les cellules sénescentes, les sénomorphiques visent à neutraliser leur phénotype inflammatoire en supprimant la sécrétion SASP. La rapamycine (inhibiteur mTOR) et la metformine (antidiabétique) réduisent significativement les niveaux de cytokines sécrétées. Cette approche présente l'avantage de préserver des fonctions physiologiques potentiellement bénéfiques de la sénescence — notamment dans la cicatrisation et la suppression tumorale — tout en atténuant ses effets délétères. Des inhibiteurs spécifiques de JAK1/2 (comme le ruxolitinib) ciblent directement les voies de signalisation inflammatoires activées par le SASP et sont actuellement testés dans plusieurs pathologies liées à l'âge.</p>
+    <h3>Reprogrammation partielle : rembobiner l'épigénome</h3>
+    <p>L'approche la plus révolutionnaire — et la plus risquée — consiste à utiliser les facteurs de Yamanaka (Oct4, Sox2, Klf4, c-MYC, ou un sous-ensemble) en mode pulsé pour restaurer un profil épigénétique juvénile dans les cellules âgées, sans aller jusqu'à la reprogrammation totale en cellules pluripotentes. Des expériences publiées en 2024 ont montré une extension de 109% de la durée de vie médiane restante chez des souris très âgées traitées par thérapie génique OSK inductible. Des chercheurs ont également identifié SB000, un facteur unique capable de rajeunir des cellules de multiples lignées avec une efficacité comparable aux quatre facteurs classiques. En 2025, la FDA a autorisé un premier essai humain de reprogrammation partielle cérébrale pour une maladie neurodégénérative, marquant l'entrée de cette technologie dans la clinique.</p>
+    <div class="highlight"><p>"Nous ne parlons plus de ralentir le vieillissement en marge. Nous parlons de comprendre les mécanismes moléculaires précis qui le pilotent, et de les inverser de façon ciblée. La sénescence cellulaire est au cœur de cette révolution."</p><cite>— Judith Campisi, Buck Institute for Research on Aging, Nature Cellular Senescence Collection 2025</cite></div>
+    <p>Les défis qui restent sont considérables : identifier des biomarqueurs non invasifs permettant de mesurer la charge sénescente dans différents tissus, comprendre la diversité des sous-types SASP selon le contexte cellulaire, minimiser les risques oncogènes de la reprogrammation, et rendre ces thérapies accessibles à grande échelle. Mais la trajectoire est claire : pour la première fois dans l'histoire de la médecine, ralentir biologiquement le vieillissement humain est une ambition scientifiquement crédible, et la sénescence cellulaire en est le levier le plus prometteur.</p>
+  </div>
+</section>
+
+<section class="sources" id="sources">
+  <div class="container">
+    <div class="section-label">Bibliographie</div>
+    <h2>Sources &amp; Références</h2>
+    <ul class="sources-list">
+      <li><a href="https://www.nature.com/articles/s41420-025-02655-x" target="_blank">Hallmarks and mechanisms of cellular senescence in aging and disease</a><div class="src-pub">Cell Death Discovery — Nature Publishing Group, 2025</div></li>
+      <li><a href="https://www.nature.com/articles/s41556-022-00842-x" target="_blank">Telomere dysfunction in ageing and age-related diseases</a><div class="src-pub">Nature Cell Biology, 2022</div></li>
+      <li><a href="https://www.jci.org/articles/view/64098" target="_blank">Cellular senescence and the senescent secretory phenotype: therapeutic opportunities</a><div class="src-pub">Journal of Clinical Investigation, 2013 (référence fondatrice du SASP)</div></li>
+      <li><a href="https://www.thelancet.com/journals/ebiom/article/PIIS2352-3964(25)00056-8/fulltext" target="_blank">A pilot study of senolytics to improve cognition and mobility in older adults at risk for Alzheimer's disease</a><div class="src-pub">The Lancet eBioMedicine, 2025 — étude STAMINA</div></li>
+      <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10861195/" target="_blank">Partial cellular reprogramming: A deep dive into an emerging rejuvenation technology</a><div class="src-pub">PMC / Aging Cell Review, 2024</div></li>
+      <li><a href="https://pubmed.ncbi.nlm.nih.gov/40443429/" target="_blank">Protocol for a pilot clinical trial of Dasatinib Plus Quercetin to mitigate age-related cognitive decline</a><div class="src-pub">PubMed / Clinical Trials, 2025</div></li>
+      <li><a href="https://www.frontiersin.org/journals/immunology/articles/10.3389/fimmu.2025.1534263/full" target="_blank">Cellular senescence: from homeostasis to pathological implications and therapeutic strategies</a><div class="src-pub">Frontiers in Immunology, 2025</div></li>
+      <li><a href="https://www.nature.com/collections/ahgacgcgeh" target="_blank">Cellular Senescence 2025 — Collection thématique</a><div class="src-pub">Nature Collections, 2025</div></li>
+    </ul>
+  </div>
+</section>
+
+<footer><a href="/dossiers/" style="color:var(--accent);text-decoration:none;">← Tous les dossiers</a> &nbsp;·&nbsp; <span>Vostok</span> · Mai 2026</footer>
+</body>
+</html>
