@@ -1,0 +1,152 @@
+{
+  "meta": {
+    "last_updated": "2026-05-18T10:30:00",
+    "version": "2.0"
+  },
+  "candidatures": [
+    {
+      "id": "cand_lacoste_20260507",
+      "entreprise": "Lacoste (via Freelance.com)",
+      "poste": "Expert Développeur .NET/Azure — Consumer 360",
+      "prioritaire": true,
+      "source": "LinkedIn",
+      "contact": {
+        "nom": "Marianne Gasser",
+        "email": "mgasser.mc@freelance.com",
+        "tel": "+33 6 62 54 37 80"
+      },
+      "date_premier_contact": "2026-05-07",
+      "date_relance": "2026-05-21",
+      "statut": "En attente",
+      "notes": "Mission longue. Paris La Défense, 2j TT/semaine, début courant juin 2026. Stack: Azure Functions, Service Bus, Event Hub, CosmosDB, API Management. Rôle: backup Technical Lead, force de proposition sur le design technique. Mission opérée par Freelance.com. Appel Marianne Gasser le 07/05 : OK, CV transmis à Lacoste — en attente retour client.",
+      "pipeline": [
+        { "etape": "Contact LinkedIn", "statut": "Fait" },
+        { "etape": "Appel tél Marianne", "statut": "Fait" },
+        { "etape": "CV transmis à Lacoste", "statut": "Fait" },
+        { "etape": "Retour client / Entretien", "statut": "À venir" }
+      ]
+    },
+    {
+      "id": "cand_portify_20260507",
+      "entreprise": "Portify",
+      "poste": "Missions freelance (portage salarial)",
+      "prioritaire": false,
+      "source": "Email",
+      "contact": {
+        "nom": "Aurélie Duviquet",
+        "email": "aurelie@portify.fr",
+        "tel": "0183757486"
+      },
+      "date_premier_contact": "2026-05-07",
+      "date_relance": "2026-05-21",
+      "statut": "En attente",
+      "notes": "Aurélie Duviquet a repris contact avec des missions disponibles, va recontacter. Portage salarial (label GAPSE, Zéro Frais Cachés). 58 rue de Ponthieu, 75008 Paris.",
+      "pipeline": [
+        { "etape": "Premier contact", "statut": "Fait" },
+        { "etape": "Rappel Aurélie", "statut": "À venir" },
+        { "etape": "Présentation missions", "statut": "À venir" }
+      ]
+    }
+  ],
+  "a_traiter": [
+    {
+      "id": "at_20260518_1030_orel_services",
+      "type": "Offre intéressante",
+      "expediteur": null,
+      "sujet": "OREL SERVICES — .NET Angular Azure (45k-65k€)",
+      "date": "2026-05-18T10:30:00",
+      "resume": "Offre OREL SERVICES : poste .NET Angular Azure. Salaire : 45k-65k€.",
+      "candidature_id": null,
+      "traite": false
+    },
+    {
+      "id": "at_20260518_1030_eemi_dev",
+      "type": "Offre intéressante",
+      "expediteur": null,
+      "sujet": "eemi — Développeur informatique (1000-1200€/mois)",
+      "date": "2026-05-18T10:30:00",
+      "resume": "Offre eemi : Développeur informatique. Tarif : 1000-1200€/mois.",
+      "candidature_id": null,
+      "traite": false
+    },
+    {
+      "id": "at_20260518_1030_france_billet",
+      "type": "Offre intéressante",
+      "expediteur": null,
+      "sujet": "France billet — Junior CDI (40k€)",
+      "date": "2026-05-18T10:30:00",
+      "resume": "Offre France billet : Développeur Junior en CDI. Salaire : 40k€.",
+      "candidature_id": null,
+      "traite": false
+    },
+    {
+      "id": "at_20260518_1030_natixis_alternance",
+      "type": "Offre intéressante",
+      "expediteur": null,
+      "sujet": "Natixis — Alternance",
+      "date": "2026-05-18T10:30:00",
+      "resume": "Offre Natixis : Poste en alternance (Bac+2/3).",
+      "candidature_id": null,
+      "traite": false
+    },
+    {
+      "id": "at_20260518_1030_celuga_asp",
+      "type": "Offre intéressante",
+      "expediteur": null,
+      "sujet": "Celuga — CDD ASP.NET (29k-36k€)",
+      "date": "2026-05-18T10:30:00",
+      "resume": "Offre Celuga : CDD Développeur ASP.NET. Salaire : 29k-36k€.",
+      "candidature_id": null,
+      "traite": false
+    },
+    {
+      "id": "at_20260518_1030_veepee_python",
+      "type": "Offre intéressante",
+      "expediteur": null,
+      "sujet": "Veepee — Software Engineer Python",
+      "date": "2026-05-18T10:30:00",
+      "resume": "Offre Veepee : Software Engineer Python. Profil senior attendu.",
+      "candidature_id": null,
+      "traite": false
+    },
+    {
+      "id": "at_20260518_1030_resourceful_fastapi",
+      "type": "Offre intéressante",
+      "expediteur": null,
+      "sujet": "Resourceful Talent Group — Python/FastAPI",
+      "date": "2026-05-18T10:30:00",
+      "resume": "Offre Resourceful Talent Group : Développeur Python/FastAPI.",
+      "candidature_id": null,
+      "traite": false
+    },
+    {
+      "id": "at_20260518_1030_linkedin_thales",
+      "type": "Offre intéressante",
+      "expediteur": null,
+      "sujet": "LinkedIn — Thales (offre(s) signalée(s))",
+      "date": "2026-05-18T10:30:00",
+      "resume": "Offre(s) Thales détectée(s) sur LinkedIn.",
+      "candidature_id": null,
+      "traite": false
+    },
+    {
+      "id": "at_20260518_1030_tekkit_offers",
+      "type": "Offre intéressante",
+      "expediteur": "contact-tekkit@tekkit.io",
+      "sujet": "Tekkit — Différentes offres (18/05)",
+      "date": "2026-05-18T10:30:00",
+      "resume": "Alerte Tekkit (18/05) : Nouvelles offres détectées.",
+      "candidature_id": null,
+      "traite": false
+    }
+  ],
+  "task_log": {
+    "last_run": "2026-05-18T10:30:00",
+    "status": "success",
+    "summary": "Scan Gmail 18/05 : 9 nouveaux items détectés (depuis 2026-05-13).",
+    "details": [
+      { "action": "Offres : OREL SERVICES, eemi, France billet, Natixis, Celuga, Veepee, Resourceful TG, Thales, Tekkit" },
+      { "action": "30 threads filtrés, 10 analysés LLM, 9 nouveaux items confirmés." }
+    ]
+  }
+}
