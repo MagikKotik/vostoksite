@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Cerveau en Survie — Conscience sous Stress Extrême — Vostok</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --deep:   #020b18; --navy: #061628; --blue: #0d2d4a;
+      --accent: #00b4d8; --bright: #90e0ef; --gold: #f4c542;
+      --muted:  #8bb8d0; --text: #cce4f0;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--deep); color: var(--text); font-family: 'Inter', sans-serif; font-size: 17px; line-height: 1.8; overflow-x: hidden; }
+
+    /* ── HERO ── */
+    .hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; }
+    .hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.55) saturate(1.2); }
+    .hero-gradient { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, var(--deep) 100%); }
+    .hero-content { position: relative; z-index: 2; padding: 0 8vw 7vh; max-width: 900px; }
+    .hero-tag { display: inline-block; background: var(--accent); color: var(--deep); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 14px; border-radius: 3px; margin-bottom: 20px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 6vw, 5.5rem); font-weight: 900; line-height: 1.1; color: #fff; margin-bottom: 22px; }
+    .hero h1 span { color: var(--accent); }
+    .hero-sub { font-size: 1.15rem; font-weight: 300; color: var(--bright); max-width: 640px; margin-bottom: 36px; }
+    .hero-meta { display: flex; gap: 28px; flex-wrap: wrap; font-size: 13px; color: var(--muted); font-weight: 500; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(2,11,24,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,180,216,0.15);
+      padding: 0 8vw;
+      display: flex; align-items: center;
+      gap: 24px; height: 60px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    nav a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 500; letter-spacing: 0.5px; white-space: nowrap; transition: color 0.2s; }
+    nav a:hover { color: var(--accent); }
+
+    /* ── LAYOUT ── */
+    .container { max-width: 900px; margin: 0 auto; padding: 0 8vw; }
+    .section { padding: 90px 0 60px; }
+    .section + .section { border-top: 1px solid rgba(0,180,216,0.1); }
+
+    /* ── TITRES ── */
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+    h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 3.5vw, 2.8rem); font-weight: 700; color: #fff; margin-bottom: 28px; line-height: 1.25; }
+    h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--bright); margin: 44px 0 16px; }
+    p { margin-bottom: 20px; color: var(--text); }
+    strong { color: var(--bright); font-weight: 600; }
+
+    /* ── IMAGES ── */
+    .img-wide { width: 100%; max-width: 1200px; margin: 48px auto; display: block; border-radius: 10px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+    .img-wide img { width: 100%; display: block; }
+    .img-caption { text-align: center; font-size: 13px; color: var(--muted); font-style: italic; padding: 12px 20px; background: var(--navy); border-top: 1px solid rgba(0,180,216,0.1); }
+    .img-inline { float: right; margin: 4px 0 28px 36px; width: 46%; border-radius: 8px; overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
+    .img-inline img { width: 100%; display: block; }
+    .img-inline .img-caption { font-size: 12px; padding: 9px 14px; text-align: left; }
+    .clearfix::after { content: ''; display: table; clear: both; }
+
+    /* ── STATS ── */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; margin: 40px 0; }
+    .stat-card { background: var(--navy); border: 1px solid rgba(0,180,216,0.2); border-radius: 10px; padding: 26px 22px; text-align: center; transition: border-color 0.3s, transform 0.3s; }
+    .stat-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 8px; }
+    .stat-label { font-size: 13px; color: var(--muted); font-weight: 500; }
+
+    /* ── HIGHLIGHT ── */
+    .highlight { background: linear-gradient(135deg, rgba(0,180,216,0.08), rgba(0,180,216,0.02)); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 24px 28px; margin: 36px 0; }
+    .highlight p { margin: 0; color: var(--bright); font-size: 1.05rem; font-style: italic; }
+    .highlight cite { display: block; margin-top: 12px; font-size: 13px; color: var(--muted); font-style: normal; }
+
+    /* ── CONCEPTS ── */
+    .concepts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin: 36px 0; }
+    .concept-card { background: var(--navy); border: 1px solid rgba(0,180,216,0.15); border-radius: 10px; padding: 24px; }
+    .concept-icon { font-size: 2rem; margin-bottom: 12px; }
+    .concept-card h4 { font-size: 1rem; font-weight: 600; color: var(--bright); margin-bottom: 10px; }
+    .concept-card p { font-size: 14px; color: var(--muted); margin: 0; line-height: 1.7; }
+
+    /* ── TIMELINE ── */
+    .timeline { margin: 40px 0; position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 18px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--accent), transparent); }
+    .tl-item { display: flex; gap: 28px; margin-bottom: 36px; align-items: flex-start; }
+    .tl-dot { width: 38px; height: 38px; min-width: 38px; border-radius: 50%; background: var(--blue); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--accent); position: relative; z-index: 1; }
+    .tl-body h4 { font-size: 1rem; font-weight: 600; color: var(--bright); margin-bottom: 6px; }
+    .tl-body p { font-size: 14.5px; color: var(--text); margin: 0; line-height: 1.7; }
+
+    /* ── SOURCES ── */
+    .sources { background: var(--navy); border-top: 1px solid rgba(0,180,216,0.15); padding: 60px 0 80px; }
+    .sources-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .sources-list li { padding: 14px 18px; background: var(--blue); border-radius: 7px; border: 1px solid rgba(0,180,216,0.1); font-size: 14px; transition: border-color 0.2s; }
+    .sources-list li:hover { border-color: var(--accent); }
+    .sources-list a { color: var(--accent); text-decoration: none; font-weight: 500; }
+    .sources-list a:hover { text-decoration: underline; }
+    .src-pub { color: var(--muted); font-size: 12px; margin-top: 3px; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--deep); text-align: center; padding: 32px; font-size: 13px; color: var(--muted); border-top: 1px solid rgba(255,255,255,0.05); }
+    footer span { color: var(--accent); }
+
+    @media (max-width: 680px) {
+      .img-inline { float: none; width: 100%; margin: 0 0 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<section class="hero">
+  <img class="hero-img" src="https://v3b.fal.media/files/b/0a9b1173/q4ie45RGRP_SFz905U6RM_MoVoAdJA.png" alt="Cerveau en survie — stress extrême et conscience altérée" />
+  <div class="hero-gradient"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Neurosciences · Psychologie · Survie</div>
+    <h1>Le Cerveau à l'<span>État de Guerre</span></h1>
+    <p class="hero-sub">Quand le danger vital bascule la conscience dans un autre monde : temps fragmenté, mémoire absente, gestes automatiques. La neurobiologie du stress extrême décryptée.</p>
+    <div class="hero-meta">
+      <span>Neurosciences cognitives</span>
+      <span>Psychotraumatologie</span>
+      <span>Mai 2026</span>
+      <span>Lecture : 18 min</span>
+    </div>
+  </div>
+</section>
+
+<nav>
+  <a href="#intro">Le cerveau en crise</a>
+  <a href="#s2">Amygdale & Limbique</a>
+  <a href="#s3">Cascade hormonale</a>
+  <a href="#s4">Distorsion du temps</a>
+  <a href="#s5">Mémoire & Amnésie</a>
+  <a href="#s6">Chronologie</a>
+  <a href="#s7">Dissociation</a>
+  <a href="#sources">Sources</a>
+</nav>
+
+<!-- SECTION 1 : INTRO -->
+<section class="section" id="intro">
+  <div class="container">
+    <div class="section-label">Neurobiologie de la survie</div>
+    <h2>Quand la Conscience Cède la Place à l'<span style="color:var(--accent)">Instinct</span></h2>
+    <p>Imaginez une seconde qui dure une éternité. Un bruit de freins. Un coup de feu. Une chute dans le vide. Dans ces fractions de temps où la vie bascule, le cerveau humain enclenche l'un des mécanismes les plus anciens, les plus puissants et les moins compris de la biologie : <strong>la réponse de survie</strong>. La conscience ordinaire — cette narration intérieure continue que nous appelons « moi » — s'évanouit ou se fragmente. À sa place s'installe un état radicalement différent, gouverné par des structures cérébrales évolutivement archaïques, dopé à l'adrénaline et au cortisol, capable de performances physiques extraordinaires mais aussi d'une amnésie totale sur l'événement vécu.</p>
+    <p>Ce qui se passe dans le cerveau lors d'un danger vital est désormais l'objet d'une recherche scientifique intensive, à la croisée des neurosciences cognitives, de la psychotraumatologie, de la neuroimagerie fonctionnelle et de la biologie évolutive. Les résultats bouleversent notre compréhension de la conscience, de la mémoire et de l'identité. Ils éclairent aussi des phénomènes longtemps considérés comme mystérieux : la perception du temps ralenti, les comportements automatiques exécutés sans souvenir conscient, les états de dépersonnalisation où le sujet se regarde lui-même de l'extérieur, ou encore les lacunes mnésiques qui caractérisent les victimes de trauma.</p>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-num">250 ms</div><div class="stat-label">Temps de réaction de l'amygdale — avant toute conscience corticale</div></div>
+      <div class="stat-card"><div class="stat-num">×10</div><div class="stat-label">Augmentation du cortisol plasmatique en stress aigu extrême</div></div>
+      <div class="stat-card"><div class="stat-num">72 %</div><div class="stat-label">Survivants rapportant une distorsion temporelle pendant l'événement</div></div>
+      <div class="stat-card"><div class="stat-num">30 %</div><div class="stat-label">Victimes de traumatismes sévères développant un TSPT chronique</div></div>
+    </div>
+    <p>Comprendre ces mécanismes n'est pas seulement une quête académique. C'est une nécessité clinique pour les soignants traitant le trouble de stress post-traumatique (TSPT), une question légale pour les juristes évaluant les témoignages de victimes, et une question existentielle pour tout être humain qui tente de comprendre pourquoi, dans les pires moments de son existence, il ne se souvient de presque rien — ou se souvient de tout avec une intensité insupportable.</p>
+  </div>
+</section>
+
+<!-- SECTION 2 : AMYGDALE & LIMBIQUE -->
+<section class="section" id="s2">
+  <div class="container">
+    <div class="section-label">Neuroanatomie du danger</div>
+    <h2>L'Amygdale : Le <span style="color:var(--accent)">Coup d'État</span> Limbique</h2>
+    <div class="img-inline">
+      <img src="https://v3b.fal.media/files/b/0a9b1177/4dY7pGSWYIbSgF2R6SFHy_I0HWapvH.png" alt="IRM fonctionnelle montrant l'amygdale en hyperactivation pendant un stress extrême" />
+      <div class="img-caption">IRMf montrant l'amygdale (rouge intense) en hyperactivation et le cortex préfrontal (bleu-gris) désactivé lors d'une menace vitale.</div>
+    </div>
+    <p>Au cœur du cerveau temporal, nichée dans la profondeur du système limbique, l'amygdale — cette structure en forme d'amande d'à peine 1,5 cm — joue un rôle absolument central dans la réponse au danger. Le neuroscientifique Joseph LeDoux, de l'Université de New York, a démontré dès les années 1990 l'existence de deux voies parallèles de traitement de la peur : une <strong>voie « haute »</strong> passant par le cortex, lente et consciente (environ 300-500 ms), et une <strong>voie « basse »</strong> ou voie courte, directe entre thalamus et amygdale, ultrarapide (environ 100-150 ms) et totalement préconsciente. En situation de danger, c'est cette voie courte qui prend le pouvoir.</p>
+    <p>Dès que l'amygdale détecte un signal de menace — qu'il s'agisse d'un stimulus sensoriel brut ou d'un pattern reconnu dans sa mémoire émotionnelle —, elle déclenche une salve d'activité électrique qui se propage instantanément vers l'hypothalamus. Cette activation constitue ce que le psychologue Daniel Goleman a popularisé sous le terme d'<strong>« amygdala hijack »</strong> : un véritable détournement de l'exécutif cérébral par le système d'alarme émotionnel primitif. Le cortex préfrontal dorsolatéral, siège de la pensée rationnelle, du raisonnement abstrait et du contrôle inhibiteur, est littéralement mis hors circuit — non par une panne, mais par un mécanisme actif de suppression.</p>
+    <div class="highlight"><p>"L'amygdale peut déclencher une réponse émotionnelle et comportementale complète avant même que le cortex préfrontal ait eu le temps de comprendre ce qui se passe. Nous agissons avant de penser — c'est une caractéristique du design, pas un défaut."</p><cite>— Joseph LeDoux, neuroscientifique, Centre for Neural Science, NYU, <em>The Emotional Brain</em> (1996)</cite></div>
+    <p class="clearfix">Des études d'imagerie par résonance magnétique fonctionnelle (IRMf) publiées dans l'<em>American Journal of Psychiatry</em> ont montré que lors d'une activation traumatique, le cortex préfrontal médian et le cortex cingulaire antérieur voient leur activité chuter drastiquement, tandis que l'amygdale, l'insula et le cortex somatosensoriel s'embrasent. Le cerveau bascule d'un mode d'intégration corticale distribuée vers un mode de réponse subcorticale focalisée, prêt à l'action immédiate au détriment de toute réflexion.</p>
+  </div>
+</section>
+
+<div class="img-wide">
+  <img src="https://v3b.fal.media/files/b/0a9b117c/r5SOvgIs6W7Z_Y0WpHuPu_x9B7HLrC.png" alt="Visualisation de l'axe hypothalamo-hypophyso-surrénalien et cascade hormonale du stress" />
+  <div class="img-caption">L'axe HPA (hypothalamus-hypophyse-surrénales) : la cascade hormonale déclenchée en quelques secondes lors d'un stress vital, inondant le cerveau de cortisol et de noradrénaline.</div>
+</div>
+
+<!-- SECTION 3 : CASCADE HORMONALE -->
+<section class="section" id="s3">
+  <div class="container">
+    <div class="section-label">Neurochimie du stress extrême</div>
+    <h2>La Tempête <span style="color:var(--accent)">Hormonale</span> — L'Axe HPA et ses Effets</h2>
+    <p>Dès que l'amygdale a tiré l'alarme, une cascade neurochimique d'une précision redoutable se déclenche. L'hypothalamus libère la corticolibérine (CRH), qui signal à l'hypophyse de sécréter l'ACTH, qui à son tour ordonne aux glandes surrénales de produire massivement cortisol et adrénaline. Ce circuit — l'<strong>axe hypothalamo-hypophyso-surrénalien (HPA)</strong> — est le chef d'orchestre biologique de la réponse au stress. En situation de danger vital, tout cela se produit en moins de 15 secondes. Le résultat est une véritable transformation physiologique : le cœur s'emballe (150-200 bpm), la pression artérielle monte en flèche, la circulation sanguine se redistribue massivement vers les muscles locomoteurs, la perception de la douleur s'effondre, et le cerveau bascule dans un état de fonctionnement radicalement différent.</p>
+    <h3>Les acteurs neurochimiques clés</h3>
+    <p>La noradrénaline (ou norépinéphrine), libérée par le locus coeruleus dans le tronc cérébral, joue un rôle particulièrement critique dans la modification de l'état de conscience. Elle augmente l'éveil, focalise l'attention sur la menace, amplifie la consolidation des mémoires émotionnelles via l'amygdale, mais dérègle simultanément les circuits préfrontaux. Des travaux d'Amy Arnsten à l'Université Yale ont montré qu'à haute concentration, la noradrénaline active des récepteurs α2 et β sur les neurones du cortex préfrontal qui déclenchent des cascades de signalisation intracellulaire affaiblissant les connexions synaptiques, réduisant effectivement l'activité du réseau préfrontal.</p>
+    <div class="concepts-grid">
+      <div class="concept-card"><div class="concept-icon">🧠</div><h4>Amygdale</h4><p>Détecteur de menace ultrarapide. Traite les signaux de danger avant toute conscience, active l'ensemble de la réponse de survie en millisecondes.</p></div>
+      <div class="concept-card"><div class="concept-icon">⚡</div><h4>Hypothalamus</h4><p>Chef d'orchestre hormonal. Reçoit le signal de l'amygdale et déclenche l'axe HPA, mobilisant cortisol et adrénaline en moins de 15 secondes.</p></div>
+      <div class="concept-card"><div class="concept-icon">🔴</div><h4>Cortisol</h4><p>Hormone glucocorticoïde du stress durable. À doses extrêmes, inhibe l'hippocampe, perturbe l'encodage mémoriel et, chroniquement, provoque une atrophie neuronale.</p></div>
+      <div class="concept-card"><div class="concept-icon">⚡</div><h4>Noradrénaline</h4><p>Carburant neurochimique de l'alerte. Amplifie la mémoire émotionnelle via l'amygdale tout en désactivant le cortex préfrontal rationnel.</p></div>
+    </div>
+    <p>Le cortisol, quant à lui, a des effets paradoxaux sur la mémoire selon le moment de son action. À court terme et en faible dose, il facilite la consolidation des souvenirs émotionnellement chargés — d'où les « flashbulb memories », ces souvenirs traumatiques d'une précision photographique pour certains détails. Mais à très haute concentration lors d'un stress vital maximal, il inhibe l'activité de l'hippocampe, perturbant l'encodage déclaratif et explicite. Des études en IRMf (McEwen, 2017) ont montré qu'un pic de cortisol supra-physiologique peut induire une dysfonction hippocampique aiguë, expliquant les trous de mémoire caractéristiques des survivants de traumatismes violents.</p>
+    <div class="highlight"><p>"Les voies de signalisation du stress qui altèrent la structure et la fonction du cortex préfrontal représentent l'une des découvertes les plus importantes pour comprendre pourquoi les êtres humains prennent de si mauvaises décisions sous pression extrême."</p><cite>— Amy Arnsten, professeure de neurobiologie, Yale School of Medicine, <em>Nature Reviews Neuroscience</em> (2009)</cite></div>
+  </div>
+</section>
+
+<div class="img-wide">
+  <img src="https://v3b.fal.media/files/b/0a9b1182/K_Js6k0xe_chWZqQ7QDn__v2SaJ438.png" alt="Distorsion temporelle et tachypsychie — perception du temps fragmentée en situation de danger vital" />
+  <div class="img-caption">La tachypsychie : l'expérience subjective d'un temps ralenti lors du danger n'est pas une accélération réelle du traitement perceptif, mais une illusion rétrospective née d'un encodage mémoriel ultra-dense.</div>
+</div>
+
+<!-- SECTION 4 : DISTORSION DU TEMPS -->
+<section class="section" id="s4">
+  <div class="container">
+    <div class="section-label">Neurologie du temps perçu</div>
+    <h2>La <span style="color:var(--accent)">Tachypsychie</span> — Quand le Temps se Fracture</h2>
+    <div class="img-inline">
+      <img src="https://v3b.fal.media/files/b/0a9b1188/V0RnTqBVobgK5C-7KV5Mf_CeCbwolH.png" alt="Hippocampe et consolidation mémorielle fragmentée sous stress extrême — cortisol" />
+      <div class="img-caption">L'hippocampe sous le déluge de cortisol : les souvenirs se fragmentent, certains détails gravés dans le marbre, d'autres totalement effacés.</div>
+    </div>
+    <p>Parmi les phénomènes les plus universellement rapportés par les survivants de situations de danger vital — accidents de voiture, agressions, combats militaires, catastrophes naturelles —, la distorsion de la perception du temps occupe une place centrale. Des policiers impliqués dans des fusillades, des soldats au combat, des victimes d'accidents de la route décrivent unanimement la même sensation : <strong>le temps semble ralentir dramatiquement</strong>, les événements se déroulent au ralenti comme dans un film, chaque détail paraît s'étirer. Ce phénomène porte un nom clinique : la <strong>tachypsychie</strong> (du grec <em>tachys</em>, rapide, et <em>psyche</em>, esprit).</p>
+    <h3>L'illusion rétrospective du temps ralenti</h3>
+    <p>Une étude pionnière du neuroscientifique David Eagleman (Stanford, 2007), utilisant un protocole de chute libre contrôlée depuis des hauteurs importantes, a produit une conclusion surprenante et contre-intuitive. Les sujets ne pouvaient pas lire des chiffres qui clignotaient à une fréquence trop élevée pour leur perception normale — même pendant la chute terrifiante. En d'autres termes, <strong>le temps ne ralentit pas réellement</strong> : la résolution temporelle du système perceptif n'augmente pas pendant le danger. Ce qui se produit en réalité est bien plus fascinant : le cerveau, sous l'effet de la noradrénaline et de la dopamine, encode les informations avec une densité et une granularité extraordinaires. L'amygdale activée force un encodage émotionnel ultra-détaillé de chaque stimulus sensoriel. Rétrospectivement, cette richesse mémorielle crée l'illusion que l'événement a duré plus longtemps qu'il ne l'a fait objectivement — parce que la durée subjective d'un souvenir est proportionnelle à sa densité informationnelle.</p>
+    <p class="clearfix">Des études récentes utilisant l'EEG haute résolution ont montré que le phénomène d'<strong>« oddball temporel »</strong> contribue également à ce biais : les stimuli inhabituels et saillants sont systématiquement perçus comme plus longs que des stimuli neutres. En situation de danger, tout est « oddball » — tout est nouveau, inattendu, saillant. Le cerveau surchargé de signaux d'alerte perçoit chaque fraction de seconde comme un événement distinct, créant une expérience subjective de dilatation temporelle qui n'a aucun équivalent dans le temps objectif des horloges.</p>
+  </div>
+</section>
+
+<!-- SECTION 5 : MÉMOIRE ET AMNÉSIE -->
+<section class="section" id="s5">
+  <div class="container">
+    <div class="section-label">Mnémologie du trauma</div>
+    <h2>Mémoire sous <span style="color:var(--accent)">Tension</span> — Entre Flashbulb et Amnésie</h2>
+    <p>Rien n'illustre mieux le paradoxe du cerveau en survie que ses effets sur la mémoire. D'un côté, certains survivants conservent des souvenirs d'une précision hallucinante sur certains détails de leur traumatisme — la couleur exacte d'un objet, une odeur, une phrase entendue. De l'autre, ils présentent des lacunes béantes sur la chronologie des événements, leurs propres actions, ou parfois l'événement entier. Ce paradoxe apparent s'explique par la <strong>dissociation des systèmes mnésiques</strong> sous le stress extrême.</p>
+    <h3>Deux mémoires aux destins opposés</h3>
+    <p>Le cerveau possède plusieurs systèmes de mémorisation anatomiquement distincts. La <strong>mémoire déclarative explicite</strong> — celle des faits, de la chronologie, du « quoi, quand, comment » — dépend du circuit hippocampo-cortical. Or, sous l'effet conjugué du cortisol à haute dose et de l'activation noradrénergique intense, ce circuit est précisément le plus vulnérable. L'hippocampe, saturé de glucocorticoïdes, voit ses neurones pyramidaux inhibés, ses processus de potentialisation à long terme (LTP) bloqués — les mécanismes moléculaires mêmes de la consolidation synaptique. Résultat : la mémoire épisodique de l'événement traumatique peut être sévèrement fragmentée, lacunaire, voire totalement absente dans les cas d'amnésie dissociative.</p>
+    <div class="concepts-grid">
+      <div class="concept-card"><div class="concept-icon">📸</div><h4>Flashbulb Memory</h4><p>Souvenir photographiquement précis sur certains détails émotionnellement saillants, médié par l'amygdale et le cortisol. Ne signifie pas que le souvenir est exact.</p></div>
+      <div class="concept-card"><div class="concept-icon">🕳️</div><h4>Amnésie traumatique</h4><p>Blocage de l'encodage hippocampal par le cortisol. Lacunes sur la chronologie, les propres actions du sujet, parfois l'événement entier.</p></div>
+      <div class="concept-card"><div class="concept-icon">🌀</div><h4>Mémoire implicite</h4><p>Mémoire corporelle et procédurale — les réflexes, les automatismes — qui persiste même quand la mémoire explicite est absente. Médié par le cervelet et les ganglions de la base.</p></div>
+      <div class="concept-card"><div class="concept-icon">⚡</div><h4>Reconsolidation</h4><p>Chaque rappel d'un souvenir traumatique le rend temporairement labile et modifiable. Base neurobiologique des thérapies d'exposition et de l'EMDR.</p></div>
+    </div>
+    <p>À l'inverse, la <strong>mémoire émotionnelle implicite</strong> — médiée par l'amygdale et le cortex insulaire — est potentialisée par le stress extrême. L'amygdale encode avec une force synaptique extraordinaire les stimuli associés à la peur et au danger, créant des traces mnésiques d'une robustesse exceptionnelle. Ces traces ne sont pas narratives mais sensorielles et affectives : une odeur, une couleur, une posture corporelle peuvent déclencher des années plus tard une reviviscence totale et terrifiante de l'état émotionnel du trauma — c'est le mécanisme central du TSPT. Le corps garde la trace de ce que la mémoire consciente a effacé, selon l'expression devenue célèbre du psychiatre Bessel van der Kolk.</p>
+  </div>
+</section>
+
+<div class="img-wide">
+  <img src="https://v3b.fal.media/files/b/0a9b118d/Cv-h6TbrRxVVOUHWSJUmL_kekQoUgj.png" alt="Réflexes automatiques de survie — influx nerveux dans le tronc cérébral et la moelle épinière" />
+  <div class="img-caption">Les comportements automatiques de survie : les influx nerveux court-circuitent le cortex pour passer directement par le tronc cérébral et la moelle épinière, générant des actions sans conscience ni souvenir.</div>
+</div>
+
+<!-- SECTION 6 : CHRONOLOGIE -->
+<section class="section" id="s6">
+  <div class="container">
+    <div class="section-label">Histoire des découvertes</div>
+    <h2>Un Siècle de <span style="color:var(--accent)">Découvertes</span> — De Cannon à la Neuroimagerie</h2>
+    <p>La compréhension scientifique du cerveau en survie s'est construite progressivement sur plus d'un siècle, bénéficiant de chaque avancée technologique pour révéler des mécanismes toujours plus fins. Des premières descriptions comportementales aux études de neuroimagerie moléculaire, le domaine a connu plusieurs révolutions conceptuelles majeures.</p>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot">1915</div><div class="tl-body"><h4>Walter Cannon décrit la réaction fight-or-flight</h4><p>Le physiologiste de Harvard Walter Cannon publie la première description scientifique rigoureuse de la réponse d'urgence — combat ou fuite. Il identifie le rôle central de l'adrénaline médulo-surrénalienne et du système nerveux sympathique dans la mobilisation des ressources corporelles face au danger.</p></div></div>
+      <div class="tl-item"><div class="tl-dot">1952</div><div class="tl-body"><h4>Paul MacLean et le cerveau triunique</h4><p>MacLean propose son modèle influent du « cerveau triunique » : cerveau reptilien (tronc cérébral), paléomammalien (système limbique) et néomammalien (néocortex). Bien que simplifié, ce modèle hiérarchique éclaire la compréhension de la réponse de survie comme une réactivation de circuits archaïques.</p></div></div>
+      <div class="tl-item"><div class="tl-dot">1994</div><div class="tl-body"><h4>Joseph LeDoux identifie la voie courte de la peur</h4><p>LeDoux démontre expérimentalement l'existence de la voie thalamo-amygdalienne directe, court-circuitant le cortex. Cette découverte révolutionne la neurobiologie de la peur et explique pourquoi les réponses émotionnelles précèdent la conscience dans les situations de danger.</p></div></div>
+      <div class="tl-item"><div class="tl-dot">2007</div><div class="tl-body"><h4>Eagleman et la tachypsychie — le temps ne ralentit pas</h4><p>L'équipe de David Eagleman à Stanford démontre expérimentalement, via un protocole de chute libre, que le ralentissement perçu du temps en situation de danger est une illusion rétrospective liée à la densité d'encodage mémoriel, et non une accélération réelle du traitement perceptif.</p></div></div>
+      <div class="tl-item"><div class="tl-dot">2016</div><div class="tl-body"><h4>Dissociation et neurones de couche 5</h4><p>Des chercheurs du MIT et de l'HHMI identifient que la dissociation génère une activité rythmique lente dans les neurones de couche 5 du cortex postéromédian, déconnectant cette région des autres aires cérébrales. Cette découverte offre pour la première fois un mécanisme neuronal précis pour l'état dissociatif.</p></div></div>
+    </div>
+    <div class="img-inline">
+      <img src="https://v3b.fal.media/files/b/0a9b1191/SSCm1y_izInY92sVnDXsc_nFZgohXL.png" alt="Dépersonnalisation et dissociation — conscience fractionnée, expérience hors du corps" />
+      <div class="img-caption">La dissociation péritraumatique : le sujet se perçoit comme observateur extérieur de sa propre scène de danger — un mécanisme de protection contre l'insupportable.</div>
+    </div>
+    <h3>La neuroimagerie comme révélateur</h3>
+    <p class="clearfix">L'avènement de l'IRMf et de la TEP (tomographie par émission de positons) dans les années 2000 a permis d'observer directement, pour la première fois, le cerveau traumatisé en action. Ruth Lanius et son équipe à l'Université Western Ontario ont ainsi filmé ce qui se passe neurologiquement lors d'une reviviscence traumatique : désactivation spectaculaire du cortex préfrontal médian — la région du langage intérieur et de la narration du soi —, activation explosive de l'amygdale droite et du cortex visuel, et paradoxalement, dans le sous-type dissociatif du TSPT, hyper-activation des régions de régulation émotionnelle du cortex préfrontal avec hypo-activation limbique simultanée, comme si le cerveau se gelait lui-même pour se protéger d'une surcharge émotionnelle insupportable.</p>
+  </div>
+</section>
+
+<!-- SECTION 7 : DISSOCIATION -->
+<section class="section" id="s7">
+  <div class="container">
+    <div class="section-label">États de conscience altérés</div>
+    <h2><span style="color:var(--accent)">Dissociation</span> — Quand la Conscience se Fragmente pour Survivre</h2>
+    <p>La dissociation péritraumatique représente sans doute l'altération de conscience la plus profonde et la plus déstabilisante que peut vivre un être humain. Elle survient lorsque le cerveau, confronté à un danger ou une douleur dépassant sa capacité de traitement intégré, fragmente l'expérience consciente en compartiments étanches. Le sujet peut se sentir « hors de son corps », comme s'il observait la scène de danger depuis un point de vue extérieur — une expérience connue sous le nom de <strong>dépersonnalisation</strong>. Il peut percevoir son environnement comme irréel, brumeux, de papier — c'est la <strong>déréalisation</strong>. Il peut exécuter des séquences d'actions complexes et adaptatives sans aucun souvenir conscient de les avoir réalisées — c'est l'<strong>automatisme comportemental</strong>.</p>
+    <h3>Un mécanisme de défense évolutif</h3>
+    <p>Contrairement à une idée reçue, la dissociation n'est pas un dysfonctionnement pathologique mais, dans sa forme péritraumatique aiguë, un <strong>mécanisme de défense adaptatif</strong>. Elle a probablement été sélectionnée par l'évolution précisément parce qu'elle permet à un individu confronté à un danger insurmontable — attaque, capture, torture — de continuer à fonctionner malgré une surcharge sensorielle et émotionnelle qui le paralyserait autrement. L'anesthésie psychique produite par la dissociation réduit la souffrance immédiate et maintient des capacités comportementales minimales. C'est le cerveau qui « protège l'individu de sa propre expérience ».</p>
+    <h3>Le sous-type dissociatif du TSPT</h3>
+    <p>Lorsque ce mécanisme se chronifie et persiste bien après la fin du danger, il devient pathologique. Le DSM-5 reconnaît depuis 2013 un <strong>sous-type dissociatif du TSPT</strong>, caractérisé par des épisodes récurrents de dépersonnalisation et/ou déréalisation en réponse aux déclencheurs traumatiques. Neurologiquement, ce sous-type présente un profil d'activation cérébrale inverse au TSPT classique : au lieu de l'hyperréactivité amygdalienne caractéristique, on observe une hypo-réactivité limbique avec hyper-activation des régions médio-frontales inhibitrices, comme si le cerveau maintenait un verrou actif sur ses propres émotions. Ce verrou a un coût : l'individu se sent perpétuellement coupé de lui-même, de ses émotions, de sa propre identité.</p>
+    <div class="highlight"><p>"Le temps ne ralentit pas réellement lors d'un danger ; c'est la mémoire qui s'enrichit, créant rétrospectivement l'illusion d'une durée étendue. Mais cette illusion a des conséquences réelles sur la façon dont le traumatisme est encodé et dont le TSPT se développe."</p><cite>— David Eagleman, neuroscientifique, Stanford University, <em>PLOS ONE</em> (2007)</cite></div>
+    <p>Les implications cliniques de ces découvertes sont profondes. Elles expliquent pourquoi les thérapies d'exposition standard peuvent aggraver le TSPT dissociatif plutôt que le traiter : confronter un patient figé dans un état d'hypo-arousal dissociatif aux stimuli traumatiques renforce le verrou cortical plutôt que de le lever. Des approches thérapeutiques spécifiques — EMDR, thérapie somatique, neurofeedback — qui travaillent directement sur la régulation de l'arousal et la reconnexion corpo-sensorielle montrent des résultats significativement meilleurs pour ce sous-type, en réactivant doucement les circuits limbiques que la dissociation a mis en veille.</p>
+  </div>
+</section>
+
+<section class="sources" id="sources">
+  <div class="container">
+    <div class="section-label">Bibliographie</div>
+    <h2>Sources &amp; Références</h2>
+    <ul class="sources-list">
+      <li><a href="https://www.annualreviews.org/doi/abs/10.1146/annurev.neuro.23.1.155" target="_blank">LeDoux JE — Emotion circuits in the brain</a><div class="src-pub">Annual Review of Neuroscience, vol. 23, 2000 — New York University</div></li>
+      <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4774859/" target="_blank">Arnsten AF — Stress signaling pathways that impair prefrontal cortex structure and function</a><div class="src-pub">Nature Reviews Neuroscience, 2009 — Yale School of Medicine · PMC</div></li>
+      <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4439425/" target="_blank">Spiegel D et al. — Trauma-related dissociation and altered states of consciousness</a><div class="src-pub">European Journal of Psychotraumatology, 2015 · PMC4439425</div></li>
+      <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC1906714/" target="_blank">Metcalfe J, Jacobs WJ — The Temporal Dynamics Model of Emotional Memory Processing</a><div class="src-pub">Neural Plasticity, 2007 — Modèle Yerkes-Dodson et amnésie induite par le stress · PMC</div></li>
+      <li><a href="https://encyclopedia.pub/entry/33341" target="_blank">Tachypsychia — Mécanismes et phénomènes de distorsion temporelle</a><div class="src-pub">Encyclopedia MDPI — Eagleman DM, perception du temps en situation de danger</div></li>
+      <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5475317/" target="_blank">Pitman RK et al. — The neurobiology of PTSD</a><div class="src-pub">Nature Reviews Neuroscience, 2012 — Harvard Medical School · PMC5475317</div></li>
+      <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4561403/" target="_blank">Conrad CD — Stress effects on the hippocampus: a critical review</a><div class="src-pub">Frontiers in Behavioral Neuroscience / PMC, 2015 — McEwen BS, Rockefeller University</div></li>
+      <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4440663/" target="_blank">Dell PF — Trauma-Related Altered States of Consciousness: The 4-D Model</a><div class="src-pub">Journal of Trauma & Dissociation, 2013 · PMC4440663</div></li>
+    </ul>
+  </div>
+</section>
+
+<footer><span>Vostok</span> · Dossiers · Mai 2026</footer>
+</body>
+</html>
