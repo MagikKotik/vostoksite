@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ryugu — Les Briques de la Vie Venues de l'Espace — Vostok</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --deep:   #020b18; --navy: #061628; --blue: #0d2d4a;
+      --accent: #00b4d8; --bright: #90e0ef; --gold: #f4c542;
+      --muted:  #8bb8d0; --text: #cce4f0;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--deep); color: var(--text); font-family: 'Inter', sans-serif; font-size: 17px; line-height: 1.8; overflow-x: hidden; }
+
+    /* ── HERO ── */
+    .hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; }
+    .hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.55) saturate(1.2); }
+    .hero-gradient { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, var(--deep) 100%); }
+    .hero-content { position: relative; z-index: 2; padding: 0 8vw 7vh; max-width: 900px; }
+    .hero-tag { display: inline-block; background: var(--accent); color: var(--deep); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 14px; border-radius: 3px; margin-bottom: 20px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 6vw, 5.5rem); font-weight: 900; line-height: 1.1; color: #fff; margin-bottom: 22px; }
+    .hero h1 span { color: var(--accent); }
+    .hero-sub { font-size: 1.15rem; font-weight: 300; color: var(--bright); max-width: 640px; margin-bottom: 36px; }
+    .hero-meta { display: flex; gap: 28px; flex-wrap: wrap; font-size: 13px; color: var(--muted); font-weight: 500; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(2,11,24,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,180,216,0.15);
+      padding: 0 8vw;
+      display: flex; align-items: center;
+      gap: 24px; height: 60px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    nav a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 500; letter-spacing: 0.5px; white-space: nowrap; transition: color 0.2s; }
+    nav a:hover { color: var(--accent); }
+
+    /* ── LAYOUT ── */
+    .container { max-width: 900px; margin: 0 auto; padding: 0 8vw; }
+    .section { padding: 90px 0 60px; }
+    .section + .section { border-top: 1px solid rgba(0,180,216,0.1); }
+
+    /* ── TITRES ── */
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+    h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 3.5vw, 2.8rem); font-weight: 700; color: #fff; margin-bottom: 28px; line-height: 1.25; }
+    h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--bright); margin: 44px 0 16px; }
+    p { margin-bottom: 20px; color: var(--text); }
+    strong { color: var(--bright); font-weight: 600; }
+
+    /* ── IMAGES ── */
+    .img-wide { width: 100%; max-width: 1200px; margin: 48px auto; display: block; border-radius: 10px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+    .img-wide img { width: 100%; display: block; }
+    .img-caption { text-align: center; font-size: 13px; color: var(--muted); font-style: italic; padding: 12px 20px; background: var(--navy); border-top: 1px solid rgba(0,180,216,0.1); }
+    .img-inline { float: right; margin: 4px 0 28px 36px; width: 46%; border-radius: 8px; overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
+    .img-inline img { width: 100%; display: block; }
+    .img-inline .img-caption { font-size: 12px; padding: 9px 14px; text-align: left; }
+    .clearfix::after { content: ''; display: table; clear: both; }
+
+    /* ── STATS ── */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; margin: 40px 0; }
+    .stat-card { background: var(--navy); border: 1px solid rgba(0,180,216,0.2); border-radius: 10px; padding: 26px 22px; text-align: center; transition: border-color 0.3s, transform 0.3s; }
+    .stat-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 8px; }
+    .stat-label { font-size: 13px; color: var(--muted); font-weight: 500; }
+
+    /* ── HIGHLIGHT ── */
+    .highlight { background: linear-gradient(135deg, rgba(0,180,216,0.08), rgba(0,180,216,0.02)); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 24px 28px; margin: 36px 0; }
+    .highlight p { margin: 0; color: var(--bright); font-size: 1.05rem; font-style: italic; }
+    .highlight cite { display: block; margin-top: 12px; font-size: 13px; color: var(--muted); font-style: normal; }
+
+    /* ── CONCEPTS ── */
+    .concepts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin: 36px 0; }
+    .concept-card { background: var(--navy); border: 1px solid rgba(0,180,216,0.15); border-radius: 10px; padding: 24px; }
+    .concept-icon { font-size: 2rem; margin-bottom: 12px; }
+    .concept-card h4 { font-size: 1rem; font-weight: 600; color: var(--bright); margin-bottom: 10px; }
+    .concept-card p { font-size: 14px; color: var(--muted); margin: 0; line-height: 1.7; }
+
+    /* ── TIMELINE ── */
+    .timeline { margin: 40px 0; position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 18px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--accent), transparent); }
+    .tl-item { display: flex; gap: 28px; margin-bottom: 36px; align-items: flex-start; }
+    .tl-dot { width: 38px; height: 38px; min-width: 38px; border-radius: 50%; background: var(--blue); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--accent); position: relative; z-index: 1; }
+    .tl-body h4 { font-size: 1rem; font-weight: 600; color: var(--bright); margin-bottom: 6px; }
+    .tl-body p { font-size: 14.5px; color: var(--text); margin: 0; line-height: 1.7; }
+
+    /* ── SOURCES ── */
+    .sources { background: var(--navy); border-top: 1px solid rgba(0,180,216,0.15); padding: 60px 0 80px; }
+    .sources-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .sources-list li { padding: 14px 18px; background: var(--blue); border-radius: 7px; border: 1px solid rgba(0,180,216,0.1); font-size: 14px; transition: border-color 0.2s; }
+    .sources-list li:hover { border-color: var(--accent); }
+    .sources-list a { color: var(--accent); text-decoration: none; font-weight: 500; }
+    .sources-list a:hover { text-decoration: underline; }
+    .src-pub { color: var(--muted); font-size: 12px; margin-top: 3px; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--deep); text-align: center; padding: 32px; font-size: 13px; color: var(--muted); border-top: 1px solid rgba(255,255,255,0.05); }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer span { color: var(--accent); }
+
+    @media (max-width: 680px) {
+      .img-inline { float: none; width: 100%; margin: 0 0 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<section class="hero">
+  <img class="hero-img" src="https://v3b.fal.media/files/b/0a9b4ded/WQdktyuBiId2JjZ9oO-Hd_VoMQOgtb.png" alt="Astéroïde Ryugu et molécules de nucléobases" />
+  <div class="hero-gradient"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Astrobiologie · Panspermie</div>
+    <h1>Ryugu — Les <span>Briques de la Vie</span> Venues de l'Espace</h1>
+    <p class="hero-sub">Un astéroïde primitif vieux de 4,6 milliards d'années révèle les 5 nucléobases de l'ADN/ARN et plus de 20 acides aminés — remodelant notre compréhension des origines de la vie.</p>
+    <div class="hero-meta">
+      <span>🪨 Astéroïde (162173) Ryugu</span>
+      <span>🚀 Mission Hayabusa2 — JAXA</span>
+      <span>🧬 Biologie · Cosmochimie</span>
+      <span>📅 Mai 2026</span>
+    </div>
+  </div>
+</section>
+
+<nav>
+  <a href="#intro">Vue d'ensemble</a>
+  <a href="#s2">Hayabusa2</a>
+  <a href="#s3">5 nucléobases</a>
+  <a href="#s4">Acides aminés</a>
+  <a href="#s5">Panspermie</a>
+  <a href="#s6">Chronologie</a>
+  <a href="#s7">Implications</a>
+  <a href="#sources">Sources</a>
+</nav>
+
+<section class="section" id="intro">
+  <div class="container">
+    <div class="section-label">Vue d'ensemble</div>
+    <h2>L'astéroïde qui repose la question des origines</h2>
+    <p>En décembre 2020, une capsule de la taille d'un pamplemousse s'écrase dans le désert australien. À l'intérieur : 5,4 grammes de poussière prélevée sur l'astéroïde Ryugu, à plus de 300 millions de kilomètres de la Terre. Ces quelques grammes allaient bouleverser l'astrobiologie. Depuis 2022, les analyses publiées dans <em>Nature Communications</em>, <em>Science</em> et, en 2026, dans <em>Nature Astronomy</em>, révèlent une réalité stupéfiante : Ryugu contient la totalité des cinq nucléobases constitutives de l'ADN et de l'ARN — adénine, guanine, cytosine, thymine et uracile — ainsi qu'une palette remarquable d'acides aminés, les mêmes briques moléculaires qui constituent toutes les protéines du vivant terrestre.</p>
+    <p>Cette découverte marque un tournant dans notre compréhension de la chimie prébiotique. Elle démontre que la synthèse de molécules biologiquement essentielles n'est pas une exclusivité terrestre, mais un phénomène cosmique, spontané, qui se produit dans les entrailles d'astéroïdes primitifs sous l'action de l'eau liquide et des rayonnements spatiaux. La théorie de la panspermie chimique — ou <em>pseudo-panspermie</em> — selon laquelle les impacts d'astéroïdes auraient ensemencé la Terre primitive de ces molécules, trouve dans les échantillons de Ryugu son argument le plus solide à ce jour.</p>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-num">5</div><div class="stat-label">Nucléobases de l'ADN/ARN détectées</div></div>
+      <div class="stat-card"><div class="stat-num">20+</div><div class="stat-label">Acides aminés identifiés</div></div>
+      <div class="stat-card"><div class="stat-num">4,6 Ga</div><div class="stat-label">Âge de l'astéroïde Ryugu</div></div>
+      <div class="stat-card"><div class="stat-num">5,4 g</div><div class="stat-label">Masse totale des échantillons ramenés</div></div>
+    </div>
+    <p>Ce qui rend Ryugu particulièrement précieux, c'est sa pristinité. Contrairement aux météorites qui traversent l'atmosphère terrestre et peuvent être contaminées, les échantillons d'Hayabusa2 ont été collectés directement sur l'astéroïde et scellés hermétiquement avant le retour sur Terre. Cette chaîne de custody irréprochable permet aux scientifiques d'affirmer avec certitude que les molécules détectées sont bien d'origine extraterrestre — et non des artefacts de contamination terrestre.</p>
+  </div>
+</section>
+
+<section class="section" id="s2">
+  <div class="container">
+    <div class="section-label">La mission Hayabusa2</div>
+    <h2>Six ans dans l'espace pour un gramme de cosmos</h2>
+    <div class="img-inline">
+      <img src="https://v3b.fal.media/files/b/0a9b4df1/pIPB6SBThCVDixH_EB2MG_LWa73xet.png" alt="Scientifique JAXA analysant les échantillons de Ryugu" />
+      <div class="img-caption">Un chercheur JAXA examine la capsule de retour d'Hayabusa2 contenant les précieux échantillons de Ryugu.</div>
+    </div>
+    <p>Lancée en décembre 2014 par la JAXA (Agence japonaise d'exploration aérospatiale), la sonde Hayabusa2 a rejoint l'astéroïde (162173) Ryugu en juin 2018 après 3,5 ans de voyage. Ryugu est un astéroïde de type C — l'une des classes les plus primitives du système solaire, composée principalement de minéraux hydratés, de carbone et de matière organique. Son nom signifie « palais du dragon » en japonais, une référence à un conte folklorique, mais les scientifiques y voient surtout un gardien des secrets du système solaire primordial.</p>
+    <p>La mission a accompli plusieurs prouesses techniques inédites. En février 2019, Hayabusa2 a effectué un premier atterrissage sur la surface de Ryugu, tirant un projectile de tantale pour projeter de la poussière de surface dans un collecteur. En avril 2019, la sonde a déployé un impacteur explosif de cuivre pour créer un cratère artificiel et collecter des matériaux sous-surfaciques non exposés aux rayonnements solaires. Un second atterrissage en juillet 2019 a permis de prélever ces matériaux souterrains. En décembre 2020, la capsule de retour a atterri dans le désert de Woomera, en Australie, ramenant 5,4 grammes d'échantillons — deux fois plus que prévu.</p>
+    <div class="highlight"><p>"Ce que nous avons dans ces 5 grammes, c'est potentiellement la mémoire chimique des premières 100 millions d'années du système solaire — une archive que la Terre, géologiquement active, a effacé depuis longtemps."</p><cite>— Hisayoshi Yurimoto, Université de Hokkaido, co-directeur de l'analyse initiale des échantillons</cite></div>
+    <p class="clearfix">Le fait que deux sites de prélèvement (TD1 en surface, TD2 en sous-surface) aient été échantillonnés permet une comparaison inestimable. Les matériaux sous-surfaciques, protégés des rayonnements spatiaux depuis des milliards d'années, présentent une composition organique légèrement différente, révélant des informations sur l'évolution photochimique de l'astéroïde et sur les réactions qui ont eu lieu en présence d'eau liquide dans son corps parent primitif.</p>
+  </div>
+</section>
+
+<div class="img-wide">
+  <img src="https://v3b.fal.media/files/b/0a9b4df5/h4Rq__lK0VOsw1d3mGNsJ_JHq92LcS.png" alt="Les 5 nucléobases de l'ADN et l'ARN visualisées en 3D dans l'espace" />
+  <div class="img-caption">Visualisation moléculaire des cinq nucléobases canoniques — adénine (A), guanine (G), cytosine (C), thymine (T) et uracile (U) — toutes détectées dans les échantillons de Ryugu.</div>
+</div>
+
+<section class="section" id="s3">
+  <div class="container">
+    <div class="section-label">La découverte centrale</div>
+    <h2>Les cinq lettres du code de la vie, trouvées dans l'espace</h2>
+    <p>C'est la publication de mars 2026 dans <em>Nature Astronomy</em>, intitulée "A complete set of canonical nucleobases in the carbonaceous asteroid (162173) Ryugu", qui représente l'aboutissement de plusieurs années d'analyses. Pour la première fois, les cinq nucléobases canoniques — celles qui encodent l'information génétique dans l'ADN et l'ARN de tous les êtres vivants sur Terre — ont été confirmées simultanément dans un échantillon extraterrestre pristine. Uracile, adénine, guanine, cytosine et thymine : l'alphabet complet de la biochimie terrestre existait déjà dans l'espace, des milliards d'années avant que la vie n'apparaisse sur Terre.</p>
+    <h3>La preuve anti-contamination</h3>
+    <p>L'une des objections les plus sérieuses à ce type de découverte est la contamination. Des nucléobases terrestres auraient pu polluer les échantillons lors de la manipulation. Les scientifiques ont démontré l'origine extraterrestre des molécules détectées grâce à un argument chimique élégant : la présence d'isomères structuraux anormaux. Les nucléobases trouvées dans Ryugu sont accompagnées d'isomères — des molécules de même formule brute mais de structure différente — qui ne se trouvent pas dans les processus biologiques terrestres mais qui sont cohérents avec une synthèse abiotique en conditions spatiales. De plus, les ratios isotopiques du carbone et de l'azote diffèrent de ceux attendus pour une contamination terrestre. Ces marqueurs convergents constituent une preuve solide d'origine cosmique.</p>
+    <div class="concepts-grid">
+      <div class="concept-card"><div class="concept-icon">🧬</div><h4>Adénine (A)</h4><p>Nucléobase purique présente dans l'ADN et l'ARN, composante de l'ATP, molécule énergétique universelle du vivant. Détectée en quantités significatives dans les deux sites de prélèvement de Ryugu.</p></div>
+      <div class="concept-card"><div class="concept-icon">🔵</div><h4>Guanine (G)</h4><p>Nucléobase purique fondamentale de l'ADN et l'ARN. Sa présence dans Ryugu aux côtés d'adénine confirme que les deux purines se forment naturellement dans la chimie prébiotique spatiale.</p></div>
+      <div class="concept-card"><div class="concept-icon">🟡</div><h4>Cytosine & Thymine (C, T)</h4><p>Nucléobases pyrimidiques spécifiques à l'ADN. Leur détection complète le tableau : Ryugu contient aussi bien les bases de l'ADN (C, T) que celles de l'ARN (U), suggérant que les deux types d'acides nucléiques ont des précurseurs cosmiques communs.</p></div>
+      <div class="concept-card"><div class="concept-icon">🟣</div><h4>Uracile (U)</h4><p>Nucléobase spécifique de l'ARN, première base détectée dans Ryugu (2022-2023 dans Nature Communications). Sa présence suggère que l'ARN — hypothétique molécule primordiale du "monde ARN" — pourrait avoir des origines extraterrestres.</p></div>
+    </div>
+    <p>La comparaison avec d'autres astéroïdes est instructive. Les échantillons de Ryugu présentent des proportions remarquablement équilibrées entre nucléobases puriques (A, G) et pyrimidiques (C, T, U), alors que la météorite de Murchison — un analogue bien étudié — est plus riche en purines. Les astéroïdes Bennu (mission OSIRIS-REx) et la météorite d'Orgueil sont eux davantage enrichis en pyrimidines. Cette variabilité suggère des histoires évolutives différentes pour chaque corps céleste, et que la chimie des nucléobases dans le système solaire primitif était riche et diversifiée.</p>
+    <div class="highlight"><p>"Trouver les cinq nucléobases dans un seul échantillon pristine est extraordinaire. Cela signifie que les blocs de construction de l'information génétique se forment spontanément dans le cosmos, indépendamment de toute vie."</p><cite>— Yasuhiro Oba, Université de Hokkaido, auteur principal de la publication Nature Astronomy 2026</cite></div>
+  </div>
+</section>
+
+<div class="img-wide">
+  <img src="https://v3b.fal.media/files/b/0a9b4dfb/HS__NnUe-V13h94yUyb2V_KzJY70sw.png" alt="Sonde spatiale Hayabusa2 approchant l'astéroïde Ryugu" />
+  <div class="img-caption">Reconstitution artistique d'Hayabusa2 lors de son approche finale de Ryugu en 2018. La sonde a effectué deux atterrissages sur la surface pour collecter des matériaux de surface et sous-surfaciques.</div>
+</div>
+
+<section class="section" id="s4">
+  <div class="container">
+    <div class="section-label">La chimie prébiotique</div>
+    <h2>Acides aminés et chimie de l'eau : la vie fabriquée en apesanteur</h2>
+    <div class="img-inline">
+      <img src="https://v3b.fal.media/files/b/0a9b4dfe/OAv9ob6PQkgSFdnq-zPsW_V56eKCqj.png" alt="Visualisation de la panspermie — impact météoritique sur la Terre primitive" />
+      <div class="img-caption">L'impact d'astéroïdes riches en organiques sur la Terre primitive, il y a 4 milliards d'années, aurait pu déposer les briques moléculaires nécessaires à l'émergence de la vie.</div>
+    </div>
+    <p>Parallèlement aux nucléobases, les analyses ont identifié plus de 20 acides aminés dans les échantillons de Ryugu, dont 14 des 20 acides aminés protéinogènes utilisés par la biologie terrestre — glycine, alanine, valine, acide glutamique… Ces molécules constituent la matière première des protéines et des enzymes qui régissent tous les processus vitaux connus. Ce qui rend ces détections particulièrement significatives, c'est que tous les acides aminés chiraux détectés (ceux qui existent en forme "gauche" et "droite") se trouvent en quantités égales — un mélange racémique. La vie terrestre utilise exclusivement des acides aminés "gauchers" (L-acides aminés). L'absence de biais chiral dans Ryugu démontre que ces molécules se sont formées par des processus abiotiques, non biologiques.</p>
+    <h3>L'altération aqueuse : une usine chimique dans l'astéroïde</h3>
+    <p>Comment ces molécules se sont-elles formées ? Les analyses minéralogiques pointent vers un processus fascinant : l'<strong>altération aqueuse</strong>. À une époque reculée, le corps parent de Ryugu — un objet beaucoup plus grand dont Ryugu est un fragment — contenait de la glace d'eau. Sous l'effet de la chaleur radiogénique (produite par la désintégration d'isotopes radioactifs à vie courte comme l'aluminium-26), cette glace a fondu, créant un environnement aqueux alcalin et riche en sel. Dans cet "océan" intérieur primitif, les minéraux et la matière organique ont interagi pendant des millions d'années, produisant les molécules complexes que nous observons aujourd'hui. Ryugu était, en quelque sorte, un réacteur chimique ambulant dans l'espace.</p>
+    <p class="clearfix">La détection de nicotinic acid (vitamine B3 / niacine) et de composés imidazoles aux côtés des nucléobases est également remarquable. Ces molécules jouent des rôles enzymatiques cruciaux dans le métabolisme cellulaire. L'inventaire chimique de Ryugu commence à ressembler à un kit de démarrage rudimentaire pour la vie : des constituants de l'ADN/ARN, des précurseurs protéiques, des cofacteurs enzymatiques — le tout synthétisé abiotiquement dans l'espace, prêt à être livré sur une planète hospitalière.</p>
+  </div>
+</section>
+
+<section class="section" id="s5">
+  <div class="container">
+    <div class="section-label">La théorie renaissante</div>
+    <h2>La panspermie chimique : une hypothèse devenue incontournable</h2>
+    <p>La panspermie — du grec <em>pan</em> (tout) et <em>sperma</em> (graine) — est l'hypothèse selon laquelle la vie, ou ses précurseurs, se propage dans l'univers via des corps célestes. Sa version la plus forte (panspermie lithosphérique) postule le transfert d'organismes vivants entre planètes via des météorites. Mais c'est sa version plus modérée, la <strong>pseudo-panspermie</strong>, qui bénéficie aujourd'hui du soutien empirique le plus solide : non pas du transfert de vie, mais du transfert de <em>matières premières chimiques</em> nécessaires à l'émergence de la vie — nucléobases, acides aminés, sucres, lipides.</p>
+    <h3>Un bombardement fertile</h3>
+    <p>La Terre primitive, entre 4,5 et 3,8 milliards d'années, a subi un intense bombardement météoritique connu sous le nom de Grand Bombardement Tardif. Pendant cette période, des astéroïdes et comètes de type C — semblables à Ryugu — ont frappé la Terre en masse. Les estimations suggèrent que ces impacts auraient pu déposer entre 10⁷ et 10⁸ kilogrammes de matière organique extraterrestre par an sur la Terre primitive. Si ces astéroïdes étaient aussi riches en molécules prébiotiques que Ryugu, ce bombardement aurait constitué un ensemencement chimique massif des océans primitifs.</p>
+    <div class="concepts-grid">
+      <div class="concept-card"><div class="concept-icon">☄️</div><h4>Panspermie lithosphérique</h4><p>Transfert d'organismes vivants ou de spores résistantes entre planètes, protégés dans des météorites. Reste spéculative et difficile à tester.</p></div>
+      <div class="concept-card"><div class="concept-icon">🧪</div><h4>Pseudo-panspermie</h4><p>Transfert de molécules prébiotiques (acides aminés, nucléobases) par impacts d'astéroïdes et de comètes. C'est cette hypothèse que Ryugu soutient directement.</p></div>
+      <div class="concept-card"><div class="concept-icon">💧</div><h4>Abiogenèse terrestre</h4><h4></h4><p>La vie émerge de molécules simples formées sur Terre dans des environnements spécifiques (sources hydrothermales, mares tidales). Non exclusive avec la pseudo-panspermie.</p></div>
+      <div class="concept-card"><div class="concept-icon">🌍</div><h4>Hypothèse combinée</h2><p>Les deux mécanismes auraient pu agir en synergie : chimie prébiotique terrestre enrichie par les apports extraterrestres — une vision de plus en plus défendue.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="s6">
+  <div class="container">
+    <div class="section-label">Chronologie</div>
+    <h2>De l'astéroïde à la révolution scientifique</h2>
+    <p>La mission Hayabusa2 et l'analyse de ses échantillons représentent une décennie de travail scientifique et technologique, dont les découvertes se sont déployées progressivement au rythme des publications.</p>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot">2014</div><div class="tl-body"><h4>Lancement d'Hayabusa2</h4><p>La JAXA lance la sonde le 3 décembre 2014 depuis le centre spatial de Tanegashima. Destinée à l'astéroïde (162173) Ryugu, la mission succède à Hayabusa (2003-2010), première mission à rapporter des échantillons d'astéroïde. Le budget total s'élève à environ 150 millions d'euros.</p></div></div>
+      <div class="tl-item"><div class="tl-dot">2018</div><div class="tl-body"><h4>Arrivée en orbite autour de Ryugu</h4><p>Hayabusa2 atteint Ryugu en juin 2018 et commence une cartographie détaillée. L'astéroïde se révèle être une "toupie" de 900 mètres de diamètre, de couleur très sombre, composé de matériaux riches en carbone et fortement poreux.</p></div></div>
+      <div class="tl-item"><div class="tl-dot">2019</div><div class="tl-body"><h4>Deux atterrissages et collecte d'échantillons</h4><p>Premier atterrissage en février (site TD1), second en juillet (site TD2, sous-surfacique). En avril, un impacteur explosif crée un cratère artificiel de 10 mètres, permettant l'accès à des matériaux non exposés au rayonnement solaire depuis des milliards d'années.</p></div></div>
+      <div class="tl-item"><div class="tl-dot">2020</div><div class="tl-body"><h4>Retour sur Terre et premières analyses</h4><p>La capsule atterrit dans le désert de Woomera (Australie) le 5 décembre 2020. Les premières analyses rapides révèlent une richesse organique exceptionnelle — hydrocarbures aromatiques polycycliques, acides aminés initiaux — immédiatement publiées dans <em>Science</em> et <em>Nature Astronomy</em> en 2022.</p></div></div>
+      <div class="tl-item"><div class="tl-dot">2026</div><div class="tl-body"><h4>Les 5 nucléobases confirmées — Nature Astronomy</h4><p>Publication en mars 2026 de la confirmation complète des cinq nucléobases canoniques dans les échantillons de Ryugu. Cette publication couronne plusieurs années d'analyses et constitue la preuve la plus directe à ce jour de la disponibilité cosmique des briques de l'information génétique.</p></div></div>
+    </div>
+    <h3>Une fenêtre sur le système solaire primitif</h3>
+    <p class="clearfix">La valeur de Ryugu tient autant à ce qu'il est qu'à ce qu'il contient. En tant qu'astéroïde de type C primitif, peu altéré depuis la formation du système solaire il y a 4,6 milliards d'années, il représente un échantillon direct du disque protoplanétaire dont sont issus la Terre et toutes les planètes. Analyser Ryugu, c'est ouvrir une fenêtre temporelle sur les conditions chimiques qui régnaient au moment où les planètes se formaient — et potentiellement, au moment où les ingrédients de la vie commençaient à s'assembler.</p>
+  </div>
+</section>
+
+<section class="section" id="s7">
+  <div class="container">
+    <div class="section-label">Implications</div>
+    <h2>Sommes-nous tous, en partie, extraterrestres ?</h2>
+    <p>Les découvertes de Ryugu ne prouvent pas que la vie existe ailleurs dans l'univers, ni même que la vie terrestre est d'origine extraterrestre. Ce qu'elles démontrent, avec une force empirique inédite, c'est que la chimie prébiotique — la synthèse abiotique des molécules fondamentales du vivant — est un phénomène cosmique ordinaire, non un miracle terrien. Cette distinction est philosophiquement et scientifiquement capitale.</p>
+    <h3>Repenser l'abiogenèse</h3>
+    <p>Si les nucléobases et acides aminés se forment spontanément dans des astéroïdes primitifs, partout dans le système solaire (et potentiellement dans d'autres systèmes stellaires), alors le problème de l'abiogenèse — comment la vie est apparue à partir de la matière inerte — n'est plus seulement un défi terrestre local. Les ingrédients sont apparemment abondants et diffusés à large échelle. Le vrai défi devient : dans quelles conditions ces ingrédients s'assemblent-ils en systèmes auto-réplicants ? Ryugu ne répond pas à cette question, mais il la reformule profondément.</p>
+    <h3>Implications pour la recherche de vie extraterrestre</h3>
+    <p>Si la chimie prébiotique est universelle, la probabilité d'émergence de la vie ailleurs dans l'univers augmente considérablement. Des planètes ou lunes comme Europa (Jupiter) ou Encelade (Saturne), qui possèdent des océans sous-glaciaires et subissent probablement des apports de matière organique extraterrestre, deviennent des cibles encore plus prioritaires pour la recherche astrobiologique. De même, les futures missions vers des astéroïdes de type C ou des comètes pourraient affiner notre compréhension de la chimie prébiotique spatiale. La mission OSIRIS-REx de la NASA, qui a rapporté des échantillons de l'astéroïde Bennu fin 2023, permettra des comparaisons directes avec Ryugu.</p>
+    <h3>La question de la chiralité</h3>
+    <p>Un mystère subsiste : la vie terrestre est <em>chirale</em> — elle n'utilise que des acides aminés "gauchers" et des sucres "droitiers". Or, les acides aminés de Ryugu sont racémiques (mélange 50/50 gauche/droite). Comment le vivant a-t-il choisi une seule chiralité à partir d'un pool racémique ? Ce biais chiral — l'une des questions les plus profondes de la biochimie — n'est pas résolu par Ryugu, mais les recherches futures sur ses constituants pourraient fournir des indices sur des mécanismes d'amplification chirale en conditions prébiotiques.</p>
+    <div class="highlight"><p>"Ryugu nous montre que l'univers fabrique les pièces détachées de la vie de façon routinière. La question n'est plus 'les ingrédients existent-ils ailleurs ?' mais 'dans quels environnements s'assemblent-ils ?'"</p><cite>— Daniel Glavin, NASA Goddard Space Flight Center, spécialiste en astrobiologie</cite></div>
+    <p>La mission Hayabusa2 a transformé notre regard sur l'origine de la vie. Ryugu n'est pas seulement un caillou spatial : c'est une archive de 4,6 milliards d'années de chimie cosmique, un messager du passé lointain du système solaire qui nous dit, avec la précision du spectromètre de masse, que les briques de la vie font partie du décor ordinaire de l'univers. Ce que la vie a fait avec ces briques, en un lieu et un temps particuliers, reste le grand mystère. Mais au moins, les matériaux de construction étaient là, voyageant entre les planètes, bien avant que quiconque soit présent pour les chercher.</p>
+  </div>
+</section>
+
+<section class="sources" id="sources">
+  <div class="container">
+    <div class="section-label">Bibliographie</div>
+    <h2>Sources &amp; Références</h2>
+    <ul class="sources-list">
+      <li><a href="https://www.nature.com/articles/s41550-026-02791-z" target="_blank">A complete set of canonical nucleobases in the carbonaceous asteroid (162173) Ryugu</a><div class="src-pub">Nature Astronomy, Mars 2026</div></li>
+      <li><a href="https://www.nature.com/articles/s41467-023-36904-3" target="_blank">Uracil in the carbonaceous asteroid (162173) Ryugu</a><div class="src-pub">Nature Communications, 2023 — Y. Oba et al.</div></li>
+      <li><a href="https://www.nature.com/articles/s41467-023-37107-6" target="_blank">Insights into the formation and evolution of extraterrestrial amino acids from the asteroid Ryugu</a><div class="src-pub">Nature Communications, 2023</div></li>
+      <li><a href="https://www.science.org/doi/10.1126/science.abn9033" target="_blank">Soluble organic molecules in samples of the carbonaceous asteroid (162173) Ryugu</a><div class="src-pub">Science, 2022</div></li>
+      <li><a href="https://www.nature.com/articles/s41467-023-38518-1" target="_blank">Ryugu asteroid sample return provides a natural laboratory for primordial chemical evolution</a><div class="src-pub">Nature Communications, 2023</div></li>
+      <li><a href="https://www.nature.com/articles/s41467-024-50004-w" target="_blank">The evolution of organic material on Asteroid 162173 Ryugu and its delivery to Earth</a><div class="src-pub">Nature Communications, 2024</div></li>
+      <li><a href="https://www.nasa.gov/centers-and-facilities/goddard/first-look-at-ryugu-asteroid-sample-reveals-it-is-organic-rich/" target="_blank">First Look at Ryugu Asteroid Sample Reveals it is Organic-Rich</a><div class="src-pub">NASA Goddard Space Flight Center, 2022</div></li>
+      <li><a href="https://www.nature.com/articles/s41550-024-02418-1" target="_blank">Sodium carbonates on Ryugu as evidence of highly saline water in the outer Solar System</a><div class="src-pub">Nature Astronomy, 2024</div></li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <a href="/dossiers/">← Tous les dossiers</a> &nbsp;·&nbsp; <span>Vostok</span> · Mai 2026
+</footer>
+</body>
+</html>
