@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>L'Empreinte Invisible — Vostok</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --deep:   #020b18; --navy: #061628; --blue: #0d2d4a;
+      --accent: #00b4d8; --bright: #90e0ef; --gold: #f4c542;
+      --muted:  #8bb8d0; --text: #cce4f0;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--deep); color: var(--text); font-family: 'Inter', sans-serif; font-size: 17px; line-height: 1.8; overflow-x: hidden; }
+
+    /* ── HERO ── */
+    .hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; }
+    .hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.55) saturate(1.2); }
+    .hero-gradient { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, var(--deep) 100%); }
+    .hero-content { position: relative; z-index: 2; padding: 0 8vw 7vh; max-width: 900px; }
+    .hero-tag { display: inline-block; background: var(--accent); color: var(--deep); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 14px; border-radius: 3px; margin-bottom: 20px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 6vw, 5.5rem); font-weight: 900; line-height: 1.1; color: #fff; margin-bottom: 22px; }
+    .hero h1 span { color: var(--accent); }
+    .hero-sub { font-size: 1.15rem; font-weight: 300; color: var(--bright); max-width: 640px; margin-bottom: 36px; }
+    .hero-meta { display: flex; gap: 28px; flex-wrap: wrap; font-size: 13px; color: var(--muted); font-weight: 500; }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(2,11,24,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,180,216,0.15);
+      padding: 0 8vw;
+      display: flex; align-items: center;
+      gap: 24px; height: 60px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    nav a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 500; letter-spacing: 0.5px; white-space: nowrap; transition: color 0.2s; }
+    nav a:hover { color: var(--accent); }
+
+    /* ── LAYOUT ── */
+    .container { max-width: 900px; margin: 0 auto; padding: 0 8vw; }
+    .section { padding: 90px 0 60px; }
+    .section + .section { border-top: 1px solid rgba(0,180,216,0.1); }
+
+    /* ── TITRES ── */
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+    h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 3.5vw, 2.8rem); font-weight: 700; color: #fff; margin-bottom: 28px; line-height: 1.25; }
+    h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--bright); margin: 44px 0 16px; }
+    p { margin-bottom: 20px; color: var(--text); }
+    strong { color: var(--bright); font-weight: 600; }
+
+    /* ── IMAGES ── */
+    .img-wide { width: 100%; max-width: 1200px; margin: 48px auto; display: block; border-radius: 10px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+    .img-wide img { width: 100%; display: block; }
+    .img-caption { text-align: center; font-size: 13px; color: var(--muted); font-style: italic; padding: 12px 20px; background: var(--navy); border-top: 1px solid rgba(0,180,216,0.1); }
+    .img-inline { float: right; margin: 4px 0 28px 36px; width: 46%; border-radius: 8px; overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
+    .img-inline img { width: 100%; display: block; }
+    .img-inline .img-caption { font-size: 12px; padding: 9px 14px; text-align: left; }
+    .clearfix::after { content: ''; display: table; clear: both; }
+
+    /* ── STATS ── */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; margin: 40px 0; }
+    .stat-card { background: var(--navy); border: 1px solid rgba(0,180,216,0.2); border-radius: 10px; padding: 26px 22px; text-align: center; transition: border-color 0.3s, transform 0.3s; }
+    .stat-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 8px; }
+    .stat-label { font-size: 13px; color: var(--muted); font-weight: 500; }
+
+    /* ── HIGHLIGHT ── */
+    .highlight { background: linear-gradient(135deg, rgba(0,180,216,0.08), rgba(0,180,216,0.02)); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 24px 28px; margin: 36px 0; }
+    .highlight p { margin: 0; color: var(--bright); font-size: 1.05rem; font-style: italic; }
+    .highlight cite { display: block; margin-top: 12px; font-size: 13px; color: var(--muted); font-style: normal; }
+
+    /* ── CONCEPTS ── */
+    .concepts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin: 36px 0; }
+    .concept-card { background: var(--navy); border: 1px solid rgba(0,180,216,0.15); border-radius: 10px; padding: 24px; }
+    .concept-icon { font-size: 2rem; margin-bottom: 12px; }
+    .concept-card h4 { font-size: 1rem; font-weight: 600; color: var(--bright); margin-bottom: 10px; }
+    .concept-card p { font-size: 14px; color: var(--muted); margin: 0; line-height: 1.7; }
+
+    /* ── TIMELINE ── */
+    .timeline { margin: 40px 0; position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 18px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--accent), transparent); }
+    .tl-item { display: flex; gap: 28px; margin-bottom: 36px; align-items: flex-start; }
+    .tl-dot { width: 38px; height: 38px; min-width: 38px; border-radius: 50%; background: var(--blue); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--accent); position: relative; z-index: 1; }
+    .tl-body h4 { font-size: 1rem; font-weight: 600; color: var(--bright); margin-bottom: 6px; }
+    .tl-body p { font-size: 14.5px; color: var(--text); margin: 0; line-height: 1.7; }
+
+    /* ── SOURCES ── */
+    .sources { background: var(--navy); border-top: 1px solid rgba(0,180,216,0.15); padding: 60px 0 80px; }
+    .sources-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .sources-list li { padding: 14px 18px; background: var(--blue); border-radius: 7px; border: 1px solid rgba(0,180,216,0.1); font-size: 14px; transition: border-color 0.2s; }
+    .sources-list li:hover { border-color: var(--accent); }
+    .sources-list a { color: var(--accent); text-decoration: none; font-weight: 500; }
+    .sources-list a:hover { text-decoration: underline; }
+    .src-pub { color: var(--muted); font-size: 12px; margin-top: 3px; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--deep); text-align: center; padding: 32px; font-size: 13px; color: var(--muted); border-top: 1px solid rgba(255,255,255,0.05); }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    @media (max-width: 680px) {
+      .img-inline { float: none; width: 100%; margin: 0 0 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<section class="hero">
+  <img class="hero-img" src="https://v3b.fal.media/files/b/0a9d3db6/4LomI2F-qRUS13w2Dey2C_n3ITAmXk.png" alt="Trous noirs en fusion traversant une région de matière noire" />
+  <div class="hero-gradient"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Cosmologie &amp; Astrophysique</div>
+    <h1>L'Empreinte <span>Invisible</span></h1>
+    <p class="hero-sub">Quand les ondes gravitationnelles deviennent un détecteur de matière noire — non plus par ce qu'elles émettent, mais par la façon dont elles sont déformées en chemin.</p>
+    <div class="hero-meta">
+      <span>Ondes gravitationnelles</span><span>Matière noire</span>
+      <span>Lentillage &amp; environnement</span><span>Juin 2026</span>
+    </div>
+  </div>
+</section>
+
+<nav>
+  <a href="#intro">L'idée</a>
+  <a href="#s2">Le principe</a>
+  <a href="#s3">Lentillage</a>
+  <a href="#s4">Environnement</a>
+  <a href="#s5">Carte d'identité</a>
+  <a href="#s6">L'étude MIT</a>
+  <a href="#s7">Limites &amp; horizon</a>
+  <a href="#sources">Sources</a>
+</nav>
+
+<section class="section" id="intro">
+  <div class="container">
+    <div class="section-label">L'idée maîtresse</div>
+    <h2>Faire parler l'invisible avec les rides de l'espace-temps</h2>
+    <p>La matière noire ne rayonne pas, n'absorbe pas, ne réfléchit pas la lumière : elle ne se trahit que par sa gravité. Toute la difficulté est là — il faut un messager sensible uniquement à la masse, indifférent à la lumière. Les ondes gravitationnelles, ces déformations du tissu de l'espace-temps émises par les fusions d'objets compacts, sont précisément ce messager. Et l'idée qui anime une vague de travaux récents est élégante : on connaît si bien la forme d'onde attendue d'une fusion que le moindre écart au modèle devient un indice.</p>
+    <p>Le raisonnement est celui d'un musicien à l'oreille absolue : la partition d'une fusion de trous noirs est dictée par la relativité générale, au point près. Si la mélodie reçue dévie de la partition, c'est qu'un instrument invisible — une concentration massive — a altéré le son entre la source et nous. Cet instrument candidat, c'est la matière noire, soit qu'elle se trouve sur le trajet de l'onde, soit qu'elle baigne directement le couple d'astres en train de fusionner.</p>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-num">28</div><div class="stat-label">événements analysés (étude MIT, 2026)</div></div>
+      <div class="stat-card"><div class="stat-num">GW190728</div><div class="stat-label">seul candidat à une empreinte</div></div>
+      <div class="stat-card"><div class="stat-num">10²–10⁷</div><div class="stat-label">masses solaires de halos sondables</div></div>
+      <div class="stat-card"><div class="stat-num">~2035</div><div class="stat-label">lancement prévu de LISA</div></div>
+    </div>
+    <p>Deux familles de méthodes coexistent, qu'il faut distinguer car elles n'observent pas le même phénomène. La première exploite le <strong>lentillage</strong> : la matière noire courbe et diffracte l'onde sur son trajet. La seconde traque l'<strong>environnement</strong> : la matière noire dans laquelle baignent les astres modifie leur spirale finale. Ensemble, elles dessinent ce qu'on pourrait appeler une carte d'identité de la matière noire, lisible sur plusieurs bandes de fréquences.</p>
+  </div>
+</section>
+
+<section class="section" id="s2">
+  <div class="container">
+    <div class="section-label">Le principe</div>
+    <h2>Une partition connue, donc tout écart est une information</h2>
+    <div class="img-inline">
+      <img src="https://v3b.fal.media/files/b/0a9d3dba/4WED2X9Oy9vrnXLASP0Ow_QWduN88Z.png" alt="Interféromètre de détection d'ondes gravitationnelles" />
+      <div class="img-caption">Un interféromètre kilométrique de type LIGO : deux bras laser perpendiculaires mesurent l'étirement infinitésimal de l'espace au passage d'une onde.</div>
+    </div>
+    <p>La force de la méthode tient à la qualité du modèle de référence. La forme d'onde d'une coalescence — la montée en fréquence du « chirp », l'instant de fusion, la décroissance amortie du trou noir final — est calculée par la relativité numérique et les développements post-newtoniens avec une précision redoutable. C'est ce gabarit théorique qui sert à extraire le signal du bruit dans les détecteurs : on corrèle les données à des centaines de milliers de formes d'onde modèles. Un signal qui colle parfaitement est dit « compatible avec le vide », c'est-à-dire une propagation et une fusion sans interférence extérieure.</p>
+    <p>L'enjeu se déplace donc vers les résidus. Si, après ajustement du meilleur modèle de vide, il subsiste une déviation structurée — pas un bruit aléatoire, mais une modulation cohérente —, deux causes restent à départager : une physique de la source mal modélisée (spins extrêmes, excentricité de l'orbite) ou une intervention gravitationnelle externe. C'est uniquement lorsque cette seconde hypothèse résiste à l'examen qu'on peut invoquer la matière noire. La prudence statistique est ici la règle, pas l'exception.</p>
+    <div class="highlight"><p>"L'analyse de 28 signaux clairs montre 27 cas compatibles avec des fusions dans le vide ; un seul, GW190728, présente de possibles signes d'une empreinte de matière noire."</p><cite>— D'après MIT News, mai 2026</cite></div>
+    <p class="clearfix">Cette asymétrie — vingt-sept « rien à signaler » pour un seul « peut-être » — illustre bien la philosophie du domaine. On ne cherche pas à voir la matière noire partout ; on construit un test capable de la rejeter dans l'immense majorité des cas, pour ne retenir que les événements véritablement anormaux. C'est dans cet espace étroit, entre le bruit et le modèle parfait, que se loge l'information sur l'invisible.</p>
+  </div>
+</section>
+
+<div class="img-wide">
+  <img src="https://v3b.fal.media/files/b/0a9d3dc3/J4WDIKZp2VTZb1rl1amUC_DA0DITlE.png" alt="Onde gravitationnelle diffractée par une masse invisible" />
+  <div class="img-caption">Une onde gravitationnelle diffractée au passage d'une masse compacte : en optique ondulatoire, la lentille n'imprime pas une ombre mais un motif d'interférence dépendant de la fréquence.</div>
+</div>
+
+<section class="section" id="s3">
+  <div class="container">
+    <div class="section-label">Mécanisme 1 — Le lentillage</div>
+    <h2>Diffracter une onde, pas projeter une ombre</h2>
+    <p>Le lentillage gravitationnel de la lumière est familier : une masse courbe l'espace-temps et dévie les rayons, produisant arcs, anneaux d'Einstein et images multiples. Pour les ondes gravitationnelles, un régime supplémentaire entre en jeu, et c'est lui qui rend la technique si discriminante. Les longueurs d'onde gravitationnelles détectées par les instruments terrestres sont colossales — de l'ordre de milliers de kilomètres à plusieurs unités astronomiques. Lorsqu'elles croisent une structure de matière noire dont la taille caractéristique est comparable à cette longueur d'onde, on quitte l'optique géométrique pour l'<strong>optique ondulatoire</strong>.</p>
+    <h3>Le régime ondulatoire, signature des petites masses</h3>
+    <p>Concrètement, l'onde ne se contente pas d'être déviée : elle se diffracte et interfère avec elle-même. Le résultat est une amplification dépendante de la fréquence — certaines fréquences sont renforcées, d'autres atténuées — qui imprime des oscillations caractéristiques dans la forme d'onde. La diffraction devient notable quand la longueur d'onde gravitationnelle avoisine le rayon de Schwarzschild de la lentille, soit, pour les détecteurs au sol (10 à 1000 Hz), des objets compacts d'environ 100 à 100 000 masses solaires. C'est une fenêtre sur des structures sous-galactiques que l'astronomie électromagnétique ne sait pas atteindre.</p>
+    <div class="concepts-grid">
+      <div class="concept-card"><div class="concept-icon">🔭</div><h4>Optique géométrique</h4><p>Lentille bien plus grande que la longueur d'onde : images multiples et retards temporels, comme pour la lumière. Sensible aux grosses masses (galaxies, amas).</p></div>
+      <div class="concept-card"><div class="concept-icon">🌊</div><h4>Optique ondulatoire</h4><p>Lentille de taille comparable à la longueur d'onde : diffraction, interférence, amplification dépendant de la fréquence. La signature des petites structures.</p></div>
+      <div class="concept-card"><div class="concept-icon">⚖️</div><h4>Masses sondées</h4><p>Sous-halos de 10⁴–10⁷ M☉ pour les lentilles galactiques ; objets compacts de 10²–10⁵ M☉ pour le microlentillage au sol.</p></div>
+      <div class="concept-card"><div class="concept-icon">📡</div><h4>Multi-bande</h4><p>Observer la même source au sol et dans l'espace permet de saisir à la fois les effets géométriques et ondulatoires, et de lever les ambiguïtés.</p></div>
+    </div>
+    <p>L'avantage décisif de cette approche est sa propreté théorique. Contrairement au lentillage de la lumière, brouillé par la poussière, le gaz et les étoiles d'avant-plan, le lentillage diffractif des ondes gravitationnelles par de petits halos est largement exempt de contamination baryonique. Le signal capte la distribution de masse seule — exactement ce qu'on veut pour caractériser un objet par définition sombre.</p>
+    <div class="highlight"><p>"Les ondes gravitationnelles fortement lentillées offrent une fenêtre directe et complémentaire sur la structure de la matière noire à des échelles sous-galactiques inaccessibles aux mesures électromagnétiques."</p><cite>— Synthèse des travaux sur les empreintes en optique ondulatoire (arXiv, 2022–2026)</cite></div>
+  </div>
+</section>
+
+<div class="img-wide">
+  <img src="https://v3b.fal.media/files/b/0a9d3dc3/Z13qI3NnuWsOMgbp9ru4y_x5IqwvZt.png" alt="Halo de matière noire entourant une galaxie avec une binaire de trous noirs" />
+  <div class="img-caption">Un halo de matière noire enveloppant une galaxie : au cœur, une binaire de trous noirs spirale au sein du milieu sombre, dont la densité peut modeler sa trajectoire finale.</div>
+</div>
+
+<section class="section" id="s4">
+  <div class="container">
+    <div class="section-label">Mécanisme 2 — L'environnement</div>
+    <h2>Quand les astres baignent dans la matière noire</h2>
+    <div class="img-inline">
+      <img src="https://v3b.fal.media/files/b/0a9d3dd0/6pi4_8k2ds7nO8W2vaCT5_DiZ1YyV3.png" alt="Analyse d'une forme d'onde gravitationnelle anormale" />
+      <div class="img-caption">Recherche d'anomalies dans le « chirp » : une accélération inattendue de la spirale peut trahir la friction d'un milieu sombre.</div>
+    </div>
+    <p>Le second mécanisme ne regarde plus le trajet de l'onde, mais le lieu de naissance du signal. Si une binaire de trous noirs ne fusionne pas dans le vide mais au sein d'une concentration dense de matière noire, ce milieu agit sur la dynamique du couple. Frottement dynamique, accrétion, traînée gravitationnelle d'un « halo habillé » autour des astres : autant d'effets qui retirent de l'énergie au système ou en ajoutent, modifiant subtilement le rythme auquel les deux corps se rapprochent. La spirale s'accélère ou se déforme par rapport au scénario du vide.</p>
+    <h3>Une empreinte dans le rythme de la spirale</h3>
+    <p>C'est cet écart de cadence que traque l'approche d'environnement, popularisée par une étude de mai 2026 menée au MIT et en Europe. Les chercheurs ont calculé à quoi devrait ressembler une onde gravitationnelle produite par des trous noirs traversant un champ de matière noire scalaire légère — un candidat invisible par tout autre moyen — plutôt que le vide. À densité suffisante, ce milieu marque la forme d'onde de manière prédictible, ce qui transforme la prédiction en test applicable aux données réelles.</p>
+    <p class="clearfix">La distinction avec le lentillage est essentielle. Le lentillage est un effet de propagation, sensible aux structures n'importe où entre la source et le détecteur ; l'environnement est un effet de source, sensible à ce qui entoure immédiatement la binaire. Le premier cartographie la distribution de masse dans l'Univers ; le second sonde la densité locale de matière noire au cœur même des régions où naissent les fusions. Les deux sont complémentaires, et c'est leur recoupement qui fera la robustesse d'une future détection.</p>
+  </div>
+</section>
+
+<section class="section" id="s5">
+  <div class="container">
+    <div class="section-label">La carte d'identité</div>
+    <h2>Plusieurs natures, plusieurs signatures</h2>
+    <div class="img-inline">
+      <img src="https://v3b.fal.media/files/b/0a9d3dc7/a1pw5BEEEzT1euz9O0YuM_OuTqTdPc.png" alt="Cœur solitonique d'un halo de matière noire floue" />
+      <div class="img-caption">Le cœur solitonique d'un halo de matière noire floue : une structure quantique dense dont la signature de diffraction diffère nettement de celle de la matière noire froide.</div>
+    </div>
+    <p>L'intérêt profond de la méthode n'est pas seulement de détecter une présence, mais de l'identifier. Les modèles concurrents de matière noire prédisent des profils de densité différents — et qui dit profil différent dit déformation différente de l'onde. En comparant la signature observée aux prédictions, on peut espérer trancher entre des scénarios que la cosmologie standard peine à départager autrement.</p>
+    <h3>Lire le modèle dans la déformation</h3>
+    <p>La matière noire froide (CDM) forme des halos aux profils piqués classiques ; la matière noire floue (« fuzzy »), constituée de particules ultralégères au comportement ondulatoire, condense au contraire un cœur central dense appelé soliton. Or ce cœur solitonique induit, dans le lentillage ondulatoire, des oscillations distinctes absentes du cas froid. C'est précisément ce type de discrimination que vise la future mission LISA en observant des fusions de trous noirs supermassifs lentillées.</p>
+    <div class="concepts-grid">
+      <div class="concept-card"><div class="concept-icon">❄️</div><h4>Matière noire froide</h4><p>Le paradigme standard : halos hiérarchiques aux profils piqués. Signature de lentillage de référence à laquelle on compare tout le reste.</p></div>
+      <div class="concept-card"><div class="concept-icon">🌫️</div><h4>Matière noire floue</h4><p>Particules ultralégères, cœur solitonique central. Oscillations caractéristiques en optique ondulatoire — cible privilégiée de LISA.</p></div>
+      <div class="concept-card"><div class="concept-icon">⚫</div><h4>Trous noirs primordiaux</h4><p>Objets compacts ponctuels : microlentillage diffractif net. Leur non-observation contraint déjà leur abondance comme matière noire.</p></div>
+      <div class="concept-card"><div class="concept-icon">✨</div><h4>Matière noire scalaire légère</h4><p>Champ continu autour des binaires : empreinte d'environnement sur le rythme de la spirale, cœur de l'étude MIT 2026.</p></div>
+    </div>
+  </div>
+</section>
+
+<div class="img-wide">
+  <img src="https://v3b.fal.media/files/b/0a9d3dcc/NJyHnmrbC29mmrWsf-XTo_l1QSQ78L.png" alt="Le détecteur spatial LISA, triangle de trois satellites reliés par laser" />
+  <div class="img-caption">LISA : trois satellites en formation triangulaire de plusieurs millions de kilomètres de côté, reliés par laser, ouvriront la bande des basses fréquences inaccessible au sol.</div>
+</div>
+
+<section class="section" id="s6">
+  <div class="container">
+    <div class="section-label">L'étude MIT 2026</div>
+    <h2>Un premier candidat dans les données</h2>
+    <p>L'histoire de l'idée est courte mais dense. Depuis la première détection directe d'ondes gravitationnelles, les propositions pour en faire un outil de cosmologie de la matière noire se sont multipliées, du lentillage aux effets d'environnement, portées par l'amélioration constante des détecteurs et des méthodes d'analyse, dont l'apprentissage automatique pour repérer les motifs de diffraction.</p>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot">2015</div><div class="tl-body"><h4>Première détection (GW150914)</h4><p>LIGO capte la fusion de deux trous noirs. La preuve que la forme d'onde se modélise au point près ouvre la voie aux tests de précision.</p></div></div>
+      <div class="tl-item"><div class="tl-dot">2017</div><div class="tl-body"><h4>L'idée des « franges » à LIGO</h4><p>Premières propositions de détecter la matière noire compacte par lentillage diffractif des ondes gravitationnelles.</p></div></div>
+      <div class="tl-item"><div class="tl-dot">2022</div><div class="tl-body"><h4>Premières contraintes</h4><p>La non-observation de microlentillage dans les catalogues existants commence à borner l'abondance d'objets compacts comme matière noire.</p></div></div>
+      <div class="tl-item"><div class="tl-dot">2025</div><div class="tl-body"><h4>Cibler la matière noire floue</h4><p>Des travaux montrent que LISA pourrait distinguer un cœur solitonique (matière noire floue) d'un halo froid via le lentillage.</p></div></div>
+      <div class="tl-item"><div class="tl-dot">2026</div><div class="tl-body"><h4>L'empreinte d'environnement (MIT)</h4><p>Un modèle appliqué à 28 événements réels : 27 compatibles avec le vide, GW190728 retenu comme candidat possible à une empreinte de matière noire.</p></div></div>
+    </div>
+    <h3>Un candidat n'est pas une découverte</h3>
+    <p class="clearfix">Il faut lire GW190728 pour ce qu'il est : un point d'intérêt, pas une confirmation. Un seul événement faiblement anormal sur vingt-huit reste parfaitement compatible avec une fluctuation, une particularité de la source ou un défaut de modélisation. Sa valeur est ailleurs : il démontre que la méthode tourne sur des données réelles et qu'elle sait isoler un cas méritant un examen approfondi. C'est la naissance d'un programme d'observation, pas la fin d'une quête.</p>
+  </div>
+</section>
+
+<section class="section" id="s7">
+  <div class="container">
+    <div class="section-label">Limites &amp; horizon</div>
+    <h2>Ce qui sépare un indice d'une preuve</h2>
+    <p>La méthode est séduisante, mais son talon d'Achille est la dégénérescence : plusieurs causes très différentes peuvent produire des écarts ressemblants. Démêler une empreinte de matière noire d'un artefact exige à la fois des modèles de source impeccables, une compréhension fine du bruit des instruments et, idéalement, plusieurs événements convergents.</p>
+    <h3>Le piège des dégénérescences</h3>
+    <p>Une excentricité orbitale résiduelle, des spins mal contraints, un bruit instrumental corrélé : autant d'effets capables d'imiter une déformation d'origine gravitationnelle externe. C'est pourquoi les candidats les plus massifs et les plus nets, comme l'événement exceptionnel GW231123, restent étudiés avec prudence, leur interprétation freinée par les incertitudes sur la forme d'onde et la complexité du bruit.</p>
+    <h3>Les détecteurs qui changeront la donne</h3>
+    <p>La sensibilité décidera. Les détecteurs de troisième génération — l'Einstein Telescope au sol, le projet spatial DECIGO — et surtout LISA, attendue vers 2035 dans la bande des basses fréquences, multiplieront les événements et permettront l'observation multi-bande d'une même source. Saisir à la fois les effets géométriques et ondulatoires lèvera une grande part des ambiguïtés actuelles.</p>
+    <h3>Une nouvelle astronomie de l'invisible</h3>
+    <p>Au-delà de la traque d'une particule, c'est une manière inédite de cartographier l'Univers qui se dessine : sonder la matière par sa seule gravité, à des échelles que la lumière ne révèle pas.</p>
+    <div class="highlight"><p>"Une ride étrange dans l'espace-temps pourrait être la première empreinte digitale de la matière noire."</p><cite>— ScienceDaily, mai 2026</cite></div>
+    <p>Si la prochaine génération de détecteurs accumule des candidats cohérents là où le modèle du vide échoue, la matière noire cessera d'être un simple terme manquant dans les équations pour devenir un objet d'observation à part entière. La partition est écrite ; il reste à écouter assez de fusions pour entendre, sans ambiguïté, la fausse note de l'invisible.</p>
+  </div>
+</section>
+
+<section class="sources" id="sources">
+  <div class="container">
+    <div class="section-label">Bibliographie</div>
+    <h2>Sources &amp; Références</h2>
+    <ul class="sources-list">
+      <li><a href="https://news.mit.edu/2026/new-way-spot-signs-dark-matter-0512" target="_blank">A new way to spot signs of dark matter</a><div class="src-pub">MIT News — mai 2026</div></li>
+      <li><a href="https://phys.org/news/2026-05-gravitational-colliding-black-holes-dark.html" target="_blank">Gravitational waves from colliding black holes may allow detection of dark matter</a><div class="src-pub">Phys.org — mai 2026</div></li>
+      <li><a href="https://www.sciencedaily.com/releases/2026/05/260518041429.htm" target="_blank">A strange ripple in spacetime could be the first fingerprint of dark matter</a><div class="src-pub">ScienceDaily — mai 2026</div></li>
+      <li><a href="https://arxiv.org/abs/2207.00325" target="_blank">Probing the nature of dark matter via gravitational waves lensed by small dark matter halos</a><div class="src-pub">arXiv:2207.00325</div></li>
+      <li><a href="https://arxiv.org/abs/2502.10758" target="_blank">Gravitational wave lensing: probing Fuzzy Dark Matter with LISA</a><div class="src-pub">arXiv:2502.10758 / JCAP, 2025</div></li>
+      <li><a href="https://arxiv.org/pdf/2210.13436" target="_blank">Microlensing of gravitational waves by dark matter structures</a><div class="src-pub">arXiv:2210.13436</div></li>
+      <li><a href="https://arxiv.org/abs/2509.04538" target="_blank">Identifying Microlensing by Compact Dark Matter through Diffraction Patterns in Gravitational Waves with Machine Learning</a><div class="src-pub">arXiv:2509.04538</div></li>
+      <li><a href="https://iopscience.iop.org/article/10.3847/2041-8213/ac4dfa" target="_blank">Constraints on Compact Dark Matter from Gravitational Wave Microlensing</a><div class="src-pub">The Astrophysical Journal Letters</div></li>
+    </ul>
+  </div>
+</section>
+
+<footer><a href="/dossiers/">← Tous les dossiers</a> · <span style="color:var(--accent)">Vostok</span> · Juin 2026</footer>
+</body>
+</html>
