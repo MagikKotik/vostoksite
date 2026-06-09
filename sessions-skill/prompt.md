@@ -2,6 +2,8 @@
 
 > Colle ce prompt dans `skill-creator` (ou un assistant capable de scaffolder des skills) pour générer les trois skills décrits ci-dessous.
 
+> **Important** : génère directement les 3 skills et package-les, sans lancer de phase d'évaluation/benchmark (pas d'evals, pas de tests comparatifs avec/sans skill).
+
 ---
 
 Crée trois skills qui travaillent ensemble dans un répertoire `sessions/` (à créer s'il n'existe pas). Les sessions actives sont des fichiers `.md` à plat dans ce répertoire ; les sessions archivées sont des `.txt`. Il n'y a pas d'index : la liste des sessions = le contenu du dossier.
