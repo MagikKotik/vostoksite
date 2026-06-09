@@ -4,6 +4,14 @@ Trois skills légers pour donner à Claude une **mémoire de session** : sauvega
 
 ---
 
+## Installation
+
+Dans **Cowork**, tapez `/skill-creator` et joignez le fichier [`prompt.md`](./prompt.md) en pièce jointe de la discussion. skill-creator génère les trois skills `dir`, `load`, `save` à partir du prompt.
+
+Au premier `/save`, le répertoire `sessions/` est créé automatiquement s'il n'existe pas.
+
+---
+
 ## Partie 1 — L'essentiel (pour 80 % des usages)
 
 Trois commandes suffisent au quotidien.
@@ -89,18 +97,3 @@ Pas de réouverture automatique : pour réactiver une session archivée, renomme
 ### Format de stockage « caveman »
 
 Le contenu écrit dans les `.md` est volontairement **dense et télégraphique** (symboles, abréviations, listes compactes) afin d'**économiser des tokens** — ces fichiers ne sont relus que par Claude, pas par un humain. À l'inverse, **les réponses de Claude dans la conversation restent en langage naturel classique** : le style compact ne concerne que le fichier, jamais le dialogue.
-
----
-
-## Installation
-
-Ces skills se génèrent à partir de [`prompt.md`](./prompt.md) :
-
-1. Ouvrez `prompt.md` et copiez son contenu.
-2. Collez-le dans **skill-creator** (ou un assistant capable de scaffolder des skills). Il produira trois skills : `dir`, `load`, `save`.
-3. Installez les skills générés dans votre environnement :
-   - **Claude Code** : placez chaque dossier de skill (contenant son `SKILL.md`) dans votre répertoire de skills, ou empaquetez-les en `.skill`.
-   - **Cowork** : ajoutez les skills via *Settings → Capabilities*, ou importez le fichier `.skill`.
-4. Au premier `/save`, le répertoire `sessions/` est créé automatiquement s'il n'existe pas.
-
-Une fois installés, les trois skills se déclenchent sur `/dir`, `/load`, `/save`.
