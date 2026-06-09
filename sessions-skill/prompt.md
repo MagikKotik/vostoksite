@@ -1,33 +1,33 @@
-# Prompt — créer 3 skills de gestion de sessions (`dir`, `load`, `save`)
+# Prompt — créer le skill unifié `sessions` (`/dir`, `/load`, `/save`)
 
-> Colle ce prompt dans `skill-creator` (ou un assistant capable de scaffolder des skills) pour générer les trois skills décrits ci-dessous.
+> Colle ce prompt dans **skill-creator** (Cowork) en joignant ce fichier `prompt.md` à la discussion.
 
-> **Important** : génère directement les 3 skills et package-les, sans lancer de phase d'évaluation/benchmark (pas d'evals, pas de tests comparatifs avec/sans skill).
+> **Important — à respecter impérativement :**
+> - Crée **UN SEUL skill** (pas trois), nommé `sessions`, qui fournit les trois commandes.
+> - **Ne lance AUCUNE phase d'évaluation / benchmark** (pas d'evals, pas de tests comparatifs avec/sans skill).
+> - **Termine OBLIGATOIREMENT par l'empaquetage** : produis un fichier **`sessions.skill`** unique et **présente-le** à l'utilisateur (carte avec bouton « Save skill ») pour une **installation en un clic**. Ne t'arrête JAMAIS aux dossiers bruts.
+> - Si tu lances des sous-agents, donne-leur des **titres courts et clairs**.
 
 ---
 
-Crée trois skills qui travaillent ensemble dans un répertoire `sessions/` (à créer s'il n'existe pas). Les sessions actives sont des fichiers `.md` à plat dans ce répertoire ; les sessions archivées sont des `.txt`. Il n'y a pas d'index : la liste des sessions = le contenu du dossier.
+Crée un skill unique nommé `sessions` qui fournit trois commandes — `/dir`, `/load`, `/save` — travaillant ensemble dans un répertoire `sessions/` (à créer s'il n'existe pas). Les sessions actives sont des fichiers `.md` à plat dans ce répertoire ; les sessions archivées sont des `.txt`. Il n'y a pas d'index : la liste des sessions = le contenu du dossier.
 
 ---
 
-**Skill `dir`** — `/dir [motif]`
+**Commande `/dir [motif]`**
 Liste le nom de tous les fichiers `.md` de `sessions/`, **sans l'extension**, un par ligne.
 - Sans argument : motif = `*` par défaut (liste tout).
 - Avec argument : filtre, joker `*` supporté. Ex. `/dir co*` → `coach_vie`, `coach_travail`.
 - N'affiche jamais les `.txt` (sessions archivées).
 
----
-
-**Skill `load`** — `/load <motif>`
+**Commande `/load <motif>`**
 Lit le ou les fichiers `.md` de `sessions/` correspondant au motif. Joker `*` supporté.
 - Ex. `/load coach*` → lit `coach_vie.md` **et** `coach_travail.md`.
-- Mémorise le ou les fichiers chargés : `save` les réutilise par défaut.
+- Mémorise le ou les fichiers chargés : `/save` les réutilise par défaut.
 - **Si plusieurs fichiers sont chargés, avertir l'utilisateur** : « plusieurs sessions chargées — sans précision de fichier, le prochain `/save` créera une nouvelle session concaténant ces fichiers + la session en cours ».
 - Le contenu chargé est en style dense/caveman : c'est un **format de mémoire interne**. Après lecture, Claude reprend la conversation en **langage classique** — il ne répond jamais à l'utilisateur en caveman.
 
----
-
-**Skill `save`** — `/save [nom] [--close]`
+**Commande `/save [nom] [--close]`**
 Synthétise la session en cours pour la reprendre plus tard, écrit en `.md` dans `sessions/`.
 - Contenu existant **mis à jour** ; le fichier peut être **entièrement réécrit** selon le contexte.
 - **Cible par défaut** : le ou les fichiers mémorisés au dernier `load`.
