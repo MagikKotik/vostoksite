@@ -1,432 +1,267 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
-  <title>CV – Rudy Burnay</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
-  <style>
-    :root{
-      --fs-base: clamp(11px, 3.2vw, 13px);
-      --fs-title: clamp(12px, 3.6vw, 14px);
-      --fs-hero: clamp(16px, 5vw, 18px);
-      --fs-sub: clamp(12px, 3.7vw, 14px);
-      --fs-small: clamp(10px, 3vw, 12px);
-
-      --ink:#13243a;
-      --muted:#6b7280;
-      --brand:#2f6fdf;
-      --brand2:#00a3ff;
-      --line:#e5e7eb;
-      --chip:#eaf2ff;
-      --chip-ink:#0f172a;
-      --bg:#ffffff;
-      --card:#ffffff;
-      --radius:12px;
-      --pad:10px;
-      --gap:8px;
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%}
-    body{
-      margin:0;
-      background:var(--bg);
-      color:var(--ink);
-      font-family:Inter,system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;
-      font-size:var(--fs-base);
-      line-height:1.35;
-      -webkit-font-smoothing:antialiased;
-      -moz-osx-font-smoothing:grayscale;
-    }
-
-    /* Vertical snap viewport */
-    main#viewport{
-      height:100svh;
-      overflow-y:auto;
-      scroll-snap-type:y mandatory;
-      scroll-behavior:smooth;
-      -webkit-overflow-scrolling:touch;
-      background:var(--bg);
-    }
-    section.panel{
-      min-height:100svh;
-      scroll-snap-align:start;
-      display:flex;
-      flex-direction:column;
-      gap:var(--gap);
-      padding:8px;
-      width:100vw;
-      max-width:420px;
-      margin:0 auto;
-    }
-
-    /* Full-width banner */
-    .hero{
-      position:relative;
-      width:100%;
-      min-height:clamp(120px, 28vh, 160px);
-      border-radius:16px;
-      overflow:hidden;
-      color:#fff;
-      background-image:linear-gradient(0deg, rgba(0,0,0,.55), rgba(0,0,0,.15)), url('https://images.pexels.com/photos/1103970/pexels-photo-1103970.jpeg?auto=compress&cs=tinysrgb&w=1200');
-      background-size:cover;
-      background-position:center;
-      padding:12px;
-    }
-    .hero h1{margin:0 0 2px 0; font-size:var(--fs-hero); font-weight:800;}
-    .hero .subtitle{font-size:var(--fs-sub); font-weight:800; text-shadow:0 1px 2px rgba(0,0,0,.35)}
-    .hero .xp{font-size:var(--fs-small); font-weight:700; opacity:.95}
-    .contacts{display:grid; grid-template-columns:1fr; gap:3px; margin-top:5px; font-size:var(--fs-small)}
-    .contacts i{width:14px; font-size:0.9em}
-    .contacts a{color:#fff; text-decoration:none}
-
-    /* Two columns under banner (kept even on small phones) */
-    .columns{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:var(--gap);
-      width:100%;
-    }
-
-    .card{
-      background:var(--card);
-      border:1px solid var(--line);
-      border-radius:var(--radius);
-      padding:var(--pad);
-      box-shadow:0 1px 2px rgba(0,0,0,.03);
-    }
-
-    .title{
-      font-size:var(--fs-title);
-      font-weight:800;
-      border-bottom:2px solid var(--brand);
-      padding-bottom:6px;
-      margin:0 0 6px 0;
-    }
-
-    .skills{display:flex; flex-wrap:wrap; gap:6px}
-    .chip{
-      font-size:calc(var(--fs-base) * .9);
-      padding:4px 7px;
-      border-radius:999px;
-      background:var(--chip);
-      color:var(--chip-ink);
-      border:1px solid rgba(47,111,223,.18);
-      display:inline-flex; align-items:center; gap:5px;
-      font-weight:700;
-      white-space:nowrap;
-    }
-    .chip i{font-size:.85em}
-    .chip.primary{background:linear-gradient(135deg, var(--brand), var(--brand2)); color:#fff; border:none}
-
-    .list, .edu{margin:0; padding:0; list-style:none}
-    .edu li{margin:5px 0}
-    .list.compact{list-style:disc; padding-left:14px}
-    .list.compact li{margin:3px 0}
-
-    .role{font-weight:800; margin-bottom:1px}
-    .when{color:var(--muted); font-size:var(--fs-small); margin-bottom:4px}
-
-    .sep{height:6px}
-
-    @media (max-width: 360px){
-      :root{ --pad:8px; --gap:6px; }
-      .chip{ padding:3px 6px; gap:4px; }
-      .card{ border-radius:10px; }
-      .contacts i{ width:12px; }
-      .title{ padding-bottom:4px; margin-bottom:5px; }
-      .list.compact{ padding-left:12px; }
-    }
-
-    .hint{
-      text-align:center;
-      font-size:var(--fs-small);
-      color:var(--muted);
-      margin-top:auto;
-      opacity:.8;
-    }
-  
-/* =========  Desktop & grands écrans  ========= */
-@media (min-width: 960px) {
-  main#viewport {
-    height: auto;
-    overflow-y: visible;
-    scroll-snap-type: none;
-  }
-  section.panel {
-    min-height: auto;
-    width: 100%;
-    max-width: 1100px;
-    padding: 24px 20px;
-    margin: 0 auto 28px;
-  }
-  :root{
-    --fs-base: 16px;
-    --fs-title: 20px;
-    --fs-hero: 28px;
-    --fs-sub: 18px;
-    --fs-small: 14px;
-  }
-  .hero{
-    min-height: 240px;
-    padding: 20px;
-    border-radius: 18px;
-    background-position: center;
-  }
-  .columns{
-    display: grid;
-    grid-template-columns: 1.6fr 1fr;
-    gap: 16px;
-    width: 100%;
-    max-width: 1100px;
-    margin: 0 auto;
-  }
-  .card{
-    border-radius: 14px;
-    padding: 16px;
-  }
-  .title{ padding-bottom: 8px; margin-bottom: 10px; }
-  .hint{ display:none; }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vostok — Carnet d'un esprit scientifique</title>
+<meta name="description" content="Vostok — le site personnel de Rudy Burnay : journal de bord, dossiers scientifiques illustrés, CV d'ingénieur .NET et méthode OLL pour Rubik's Cube.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --deep:#020b18; --navy:#061628; --blue:#0d2d4a;
+  --accent:#00b4d8; --bright:#90e0ef; --gold:#f4c542;
+  --white:#e8f4fd; --muted:#8bb8d0; --text:#cce4f0;
+  --line:rgba(0,180,216,.18);
 }
-@media (min-width: 1280px){
-  section.panel,
-  .columns{ max-width: 1200px; }
-  :root{ --fs-hero: 32px; --fs-title: 22px; }
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{background:var(--deep);color:var(--text);font-family:'Inter',sans-serif;font-size:16px;line-height:1.65}
+a{color:var(--accent);text-decoration:none}
+img{display:block;max-width:100%}
+
+/* ---- nav ---- */
+nav{
+  position:sticky;top:0;z-index:10;
+  display:flex;align-items:center;gap:12px;
+  padding:14px 5vw;
+  background:rgba(2,11,24,.85);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line);
 }
+nav .logo{display:flex;align-items:center;gap:10px;color:var(--white)}
+nav .logo svg{width:26px;height:26px}
+nav .logo .word{font-family:'Playfair Display',serif;font-weight:900;font-size:1.3rem;letter-spacing:.06em}
+nav .links{margin-left:auto;display:flex;gap:24px;flex-wrap:wrap}
+nav .links a{font-size:.82rem;font-weight:600;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);transition:color .2s}
+nav .links a:hover{color:var(--accent)}
 
+/* ---- hero ---- */
+.hero{position:relative;isolation:isolate}
+.hero .bg{
+  position:absolute;inset:0;z-index:-1;
+  background:url('_assets/hero-banner.png') center/cover no-repeat, var(--navy);
+}
+.hero .bg::after{
+  content:'';position:absolute;inset:0;
+  background:linear-gradient(to right, rgba(2,11,24,.88) 0%, rgba(2,11,24,.55) 45%, rgba(2,11,24,.25) 75%, rgba(2,11,24,.6) 100%),
+             linear-gradient(to bottom, transparent 60%, var(--deep) 100%);
+}
+.hero-inner{max-width:1180px;margin:0 auto;padding:96px 5vw 110px}
+.site-label{font-size:11px;font-weight:700;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent);margin-bottom:14px}
+.hero h1 .small{
+  display:block;font-family:'Playfair Display',serif;font-weight:700;
+  font-size:clamp(1.2rem,2.6vw,1.8rem);color:var(--bright);margin-bottom:2px;
+}
+.hero h1 .big{
+  display:block;font-family:'Playfair Display',serif;font-weight:900;
+  font-size:clamp(2.8rem,7vw,4.8rem);color:#fff;line-height:1.05;letter-spacing:.04em;
+}
+.hero p{max-width:480px;margin-top:18px;color:var(--text);font-weight:300}
+.hero .btn{
+  display:inline-block;margin-top:26px;padding:12px 28px;border-radius:999px;
+  background:var(--accent);color:var(--deep);font-weight:700;font-size:.9rem;
+  letter-spacing:.5px;transition:background .2s, transform .2s;
+}
+.hero .btn:hover{background:var(--bright);transform:translateY(-2px)}
 
-    /* Discreet company logo badges */
-    .logo-badge{height:2.2em;width:auto;vertical-align:middle;margin-right:10px;opacity:.9;background:#fff;border:1px solid var(--line);border-radius:4px;padding:.2em;}
-    @media (min-width:960px){.logo-badge{height:2.8em;}}
+/* ---- layout ---- */
+.wrap{max-width:1180px;margin:0 auto;padding:56px 5vw 70px;display:grid;grid-template-columns:1fr 320px;gap:42px}
+@media(max-width:920px){.wrap{grid-template-columns:1fr}}
 
+/* ---- journal ---- */
+.col-head{display:flex;align-items:center;gap:12px;margin-bottom:6px}
+.col-head svg{width:22px;height:22px;flex:none}
+h2{font-family:'Playfair Display',serif;font-weight:900;font-size:1.7rem;color:#fff}
+.col-sub{color:var(--muted);font-size:.9rem;margin-bottom:26px}
+.feed{display:flex;flex-direction:column;gap:20px}
+.post-card{
+  display:grid;grid-template-columns:230px 1fr;
+  background:var(--navy);border:1px solid var(--line);border-radius:14px;
+  overflow:hidden;transition:border-color .25s, transform .25s;
+}
+.post-card:hover{border-color:rgba(0,180,216,.45);transform:translateY(-3px)}
+.post-card .pimg{background:var(--blue);min-height:160px}
+.post-card .pimg img{width:100%;height:100%;object-fit:cover}
+.post-card .pbody{padding:18px 22px}
+.tag{
+  display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:1.5px;
+  text-transform:uppercase;color:var(--accent);
+  background:rgba(0,180,216,.12);border-radius:999px;padding:3px 12px;margin-bottom:10px;
+}
+.post-card h3{font-family:'Playfair Display',serif;font-weight:700;font-size:1.25rem;line-height:1.3}
+.post-card h3 a{color:var(--white)}
+.post-card h3 a:hover{color:var(--bright)}
+.post-card p{color:var(--muted);font-size:.92rem;margin-top:8px}
+.post-meta{display:flex;gap:16px;margin-top:12px;font-size:.78rem;color:var(--muted)}
+.post-meta span::before{content:'◦ ';color:var(--accent)}
+@media(max-width:640px){.post-card{grid-template-columns:1fr}.post-card .pimg{aspect-ratio:16/9}}
+.all-posts{
+  align-self:center;margin-top:10px;padding:10px 26px;border-radius:999px;
+  border:1px solid var(--line);color:var(--muted);font-size:.85rem;font-weight:600;
+  transition:all .2s;
+}
+.all-posts:hover{border-color:var(--accent);color:var(--accent)}
+
+/* ---- sidebar ---- */
+aside{display:flex;flex-direction:column;gap:22px}
+.side-card{
+  background:var(--navy);border:1px solid var(--line);border-radius:14px;
+  padding:24px 24px 22px;transition:border-color .25s, transform .25s;
+}
+.side-card:hover{border-color:rgba(0,180,216,.45);transform:translateY(-3px)}
+.side-card .icon{
+  width:46px;height:46px;border-radius:12px;
+  display:flex;align-items:center;justify-content:center;
+  background:rgba(0,180,216,.12);margin-bottom:14px;
+}
+.side-card .icon svg{width:26px;height:26px}
+.side-card h3{font-family:'Playfair Display',serif;font-weight:700;font-size:1.2rem;color:#fff;margin-bottom:8px}
+.side-card p{color:var(--muted);font-size:.88rem}
+.side-card ul{list-style:none;margin:10px 0 4px}
+.side-card li{color:var(--muted);font-size:.85rem;padding:3px 0}
+.side-card li::before{content:'· ';color:var(--accent);font-weight:700}
+.side-card .go{display:inline-block;margin-top:12px;font-size:.84rem;font-weight:600}
+.side-card .go::after{content:' →'}
+.side-card .go:hover{color:var(--bright)}
+
+/* ---- footer ---- */
+footer{
+  border-top:1px solid var(--line);padding:30px 5vw;
+  display:flex;gap:16px;align-items:center;flex-wrap:wrap;justify-content:center;
+  color:var(--muted);font-size:.85rem;
+}
+footer .flogo{font-family:'Playfair Display',serif;font-weight:900;color:var(--white)}
+footer .sep{color:var(--line)}
+footer a{color:var(--muted)}
+footer a:hover{color:var(--accent)}
 </style>
 </head>
 <body>
-  <main id="viewport" aria-label="CV téléphone – défilement vertical par pages">
-    <!-- PAGE 1 : Landing -->
-    <section class="panel" id="page1">
-      <section class="hero" aria-labelledby="name">
-        <h1 id="name">Rudy Burnay</h1>
-        <div class="xp">25 ans d'expérience</div>
-        <div class="subtitle">Développeur Senior C# .NET Core Backend</div>
-        <div class="contacts" aria-label="Coordonnées">
-          <span><i class="fa-solid fa-envelope"></i> <a href="mailto:Rudy.burnay@gmail.com">Rudy.burnay@gmail.com</a></span>
-          <span><i class="fa-solid fa-phone"></i> <a href="tel:+33662520860">06 62 52 08 60</a></span>
+
+<nav>
+  <a class="logo" href="index.html" aria-label="Vostok — accueil">
+    <!-- logo : atome minimaliste -->
+    <svg viewBox="0 0 24 24" fill="none" stroke="#00b4d8" stroke-width="1.4">
+      <circle cx="12" cy="12" r="1.8" fill="#f4c542" stroke="none"/>
+      <ellipse cx="12" cy="12" rx="9.5" ry="4" transform="rotate(0 12 12)"/>
+      <ellipse cx="12" cy="12" rx="9.5" ry="4" transform="rotate(60 12 12)"/>
+      <ellipse cx="12" cy="12" rx="9.5" ry="4" transform="rotate(120 12 12)"/>
+    </svg>
+    <span class="word">Vostok</span>
+  </a>
+  <div class="links">
+    <a href="#journal">Journal</a>
+    <a href="dossiers/index.html">Dossiers</a>
+    <a href="cv/index.html">CV</a>
+    <a href="oll/index.html">OLL</a>
+    <a href="mailto:rudy.burnay@gmail.com">Contact</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="bg"></div>
+  <div class="hero-inner">
+    <div class="site-label">Sciences · Informatique · IA · Échecs · Rubik's Cube</div>
+    <h1>
+      <span class="small">Bienvenue chez</span>
+      <span class="big">VOSTOK</span>
+    </h1>
+    <p>Carnet d'un esprit scientifique : recherches illustrées, ingénierie logicielle, casse-têtes et explorations du quotidien.</p>
+    <a class="btn" href="#journal">Lire le journal</a>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <section id="journal">
+    <div class="col-head">
+      <svg viewBox="0 0 24 24" fill="none" stroke="#00b4d8" stroke-width="1.6">
+        <path d="M5 4h11a2 2 0 0 1 2 2v14H7a2 2 0 0 1-2-2V4z"/>
+        <path d="M18 8h2v10a2 2 0 0 1-2 2"/>
+        <path d="M8.5 8.5h6M8.5 12h6M8.5 15.5h4"/>
+      </svg>
+      <h2>Journal de bord</h2>
+    </div>
+    <div class="col-sub">Réflexions, découvertes et trajectoires en cours.</div>
+    <div class="feed">
+      <!-- vostok:posts -->
+      <article class="post-card">
+        <div class="pimg"><img src="_assets/post-vae.png" alt="Ascension vers le diplôme d'ingénieur" loading="lazy"></div>
+        <div class="pbody">
+          <span class="tag">Parcours</span>
+          <h3><a href="posts/recherche-emploi-vae/index.html">Nouvelle trajectoire : recherche d'emploi &amp; VAE d'ingénieur</a></h3>
+          <p>Après 25 ans à construire du backend .NET, je vise le diplôme d'ingénieur en architecture système par la VAE — et je cherche mon prochain défi.</p>
+          <div class="post-meta"><span>11 juin 2026</span><span>4 min de lecture</span></div>
         </div>
-      </section>
+      </article>
+      <!-- /vostok:posts -->
+    </div>
+  </section>
 
-      <section class="columns" aria-label="Contenu principal en deux colonnes">
-        <!-- LEFT COLUMN -->
-        <div>
-          <div class="card">
-            <h2 class="title">Compétences techniques</h2>
-            <div class="skills" role="list">
-              <span role="listitem" class="chip primary"><i class="fa-solid fa-code"></i> C#</span>
-              <span role="listitem" class="chip primary"><i class="fa-solid fa-cogs"></i> .NET Core</span>
-              <span role="listitem" class="chip primary"><i class="fa-solid fa-network-wired"></i> API</span>
-              <span role="listitem" class="chip primary"><i class="fa-solid fa-database"></i> SQL</span>
-              <span role="listitem" class="chip"><i class="fa-solid fa-exchange-alt"></i> WCF</span>
-              <span role="listitem" class="chip"><i class="fa-solid fa-shield-halved"></i> Entity Framework</span>
-              <span role="listitem" class="chip"><i class="fa-solid fa-cloud"></i> Azure</span>
-              <span role="listitem" class="chip"><i class="fa-solid fa-laptop-code"></i> ASP.NET Core</span>
-              <span role="listitem" class="chip"><i class="fa-solid fa-server"></i> IIS</span>
-              <span role="listitem" class="chip"><i class="fa-solid fa-file-code"></i> XSLT</span>
-              <span role="listitem" class="chip"><i class="fa-solid fa-screwdriver-wrench"></i> CI/CD</span>
-              <span role="listitem" class="chip"><i class="fa-solid fa-code-branch"></i> Azure DevOps</span>
-              <span role="listitem" class="chip"><i class="fa-brands fa-git-alt"></i> GIT</span>
-              <span role="listitem" class="chip"><i class="fa-solid fa-code"></i> Visual Studio</span>
-              <span role="listitem" class="chip"><i class="fa-solid fa-code"></i> VB.NET</span>
-            </div>
-          </div>
-
-          <div class="sep"></div>
-
-
-          <div class="sep"></div>
-
-          <div class="card">
-            <h3 class="title">Formations</h3>
-            <ul class="edu">
-              <li>AZ-900 : Microsoft Azure Fundamentals</li>
-              <li>AZ-204 : Developing Solutions for Microsoft Azure</li>
-              <li>AI-900 : Microsoft Azure AI Fundamentals</li>
-              <li>AI-104 : Microsoft Azure Cognitive</li>
-              <li>Programming in C#</li>
-              <li>Data access .NET solution</li>
-            </ul>
-          </div>
-        </div>
-
-        <!-- RIGHT COLUMN -->
-        <div>
-          <div class="card">
-            <h2 class="title">Expériences récentes</h2>
-
-            <article>
-              <div class="role"><img class="logo-badge" src="./groupetf1_logo.jpeg" alt="Logo TF1" loading="lazy" /> TF1 – Ingénieur d’étude (Août 2021 à Août 2024)</div>
-              <ul class="list compact">
-                <li>Gestion des visiteurs : Programmation de rendez-vous pour faciliter l’aspect de sécurité du bâtiment.</li>
-                <li>Gestion Aviwest : Gestion du prêt de caméras Aviwest.</li>
-                <li>Projet Mulan : Évolution et maintenance.</li>
-                <li>Dalet Pocket : Création d’un client léger pour consulter des informations de Dalet.</li>
-              </ul>
-            </article>
-
-            <hr style="border:none; border-top:1px solid var(--line); margin:8px 0" />
-
-            <article>
-              <div class="role"><img class="logo-badge" src="./canal__logo.jpeg" alt="Logo Canal+" loading="lazy" /> Canal+ – Ingénieur d’étude (Février 2017 à août 2021)</div>
-              <ul class="list compact">
-                <li>VCFilter : API permettant d’enregistrer une box Bytel lors de sa première connexion.</li>
-                <li>Projet TOMI : Ensemble d’applicatifs backend composés d’une API et de plusieurs services WCF.</li>
-                <li>PPL : Architecture complexe permettant de vérifier l’unicité d’utilisation des abonnements.</li>
-              </ul>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <div class="hint">Balaye vers le bas pour la page suivante</div>
-    </section>
-
-    <!-- PAGE 2 : Euro-Information + TF1 détaillé -->
-    <section class="panel" id="page2" aria-label="Expériences professionnelles détaillées">
-      <div class="card">
-        <h2 class="title">Expériences professionnelles détaillées</h2>
-
-        <article>
-          <div class="role"><img class="logo-badge" src="./euro_informations_developpements_eid_logo.jpeg" alt="Logo Euro-Information" loading="lazy" /> Euro-Information – Ingénieur d’étude (2025)</div>
-          <p class="when"><strong>Objectif :</strong> Responsable du bon fonctionnement, suivi et évolution du parc applicatif MFX et MDFI</p>
-          <ul class="list compact">
-            <li><span class="role">MFX</span> : Création d'un outil de montée en charge applicative pour vérifier sa robustesse</li>
-            <li><span class="role">Système multi devise</span> : Développement de MFX en WPF</li>
-            <li><span class="role">MDFI</span> : Aide à la saisie des mapping</li>
-          </ul>
-        </article>
-
-        <hr style="border:none; border-top:1px solid var(--line); margin:8px 0" />
-
-        <article>
-          <div class="role"><img class="logo-badge" src="./groupetf1_logo.jpeg" alt="Logo TF1" loading="lazy" /> TF1 – Ingénieur d’étude (Août 2021 à Août 2024)</div>
-          <p class="when"><strong>Projets :</strong></p>
-          <ul class="list compact">
-            <li><span class="role">Gestion des visiteurs</span> : Programmation de rendez-vous pour faciliter l’aspect de sécurité du bâtiment. Technologies utilisées : ASP .NET Core, Entity Framework (code first), API REST, MVC.</li>
-            <li><span class="role">Gestion Aviwest</span> : Gestion du prêt de caméras Aviwest. Technologies utilisées : Service Windows, API, SQL Server.</li>
-            <li><span class="role">Projet Mulan</span> : Évolution et maintenance. Service Windows consultant l’API de Dalet pour fournir des données au BI. Technologies utilisées : C#, API.</li>
-            <li><span class="role">Dalet Pocket</span> : Création d’un client léger pour consulter des informations de Dalet. Technologies utilisées : ASP.NET, MVC, liaison avec l’API Dalet.</li>
-            <li><span class="role">Alimentation Annuaire</span> : Évolution par la création d’un service et une API pour fournir des photos à l’annuaire. Technologies utilisées : API RESTful, Service Windows, C#, Azure.</li>
-            <li><span class="role">Archivage Naos</span> : Archivage d’anciens médias et consultation via un client léger. Technologies utilisées : Angular, HTML, CSS, C#.</li>
-            <li><span class="role">Audit TrailLog</span> : Génération automatique de rapports issus de Dalet.</li>
-            <li><span class="role">Migration SQL</span> : Migration et modernisation d’un parc applicatif legacy.</li>
-            <li><span class="role">Autres missions</span> : Création de XSLT pour convertir des données de sources tierces vers Dalet, TMA sur un large parc applicatif, migration d’anciens applicatifs vers des technologies modernes.</li>
-          </ul>
-        </article>
+  <aside>
+    <a class="side-card" href="dossiers/index.html">
+      <div class="icon">
+        <!-- flacon de chimie -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="#00b4d8" stroke-width="1.6">
+          <path d="M9.5 3h5M10.5 3v5.2L5.8 17.5A2 2 0 0 0 7.6 20.5h8.8a2 2 0 0 0 1.8-3L13.5 8.2V3"/>
+          <path d="M8 14.5h8" stroke="#f4c542"/>
+          <circle cx="11" cy="17.2" r=".9" fill="#f4c542" stroke="none"/>
+          <circle cx="13.8" cy="18.3" r=".6" fill="#00b4d8" stroke="none"/>
+        </svg>
       </div>
+      <h3>Dossiers</h3>
+      <p>13 enquêtes scientifiques illustrées, pour aller au fond des choses.</p>
+      <ul>
+        <li>Cosmologie &amp; astrophysique</li>
+        <li>IA &amp; neurosciences</li>
+        <li>Biologie &amp; génétique</li>
+        <li>Mathématiques</li>
+      </ul>
+      <span class="go">Explorer les dossiers</span>
+    </a>
 
-      <div class="hint">Balaye pour continuer</div>
-    </section>
-
-    <!-- PAGE 3 : Canal+ + Société Générale -->
-    <section class="panel" id="page3" aria-label="Expériences professionnelles détaillées">
-      <div class="card">
-        <h2 class="title">Expériences professionnelles détaillées</h2>
-
-        <article>
-          <div class="role"><img class="logo-badge" src="./canal__logo.jpeg" alt="Logo Canal+" loading="lazy" /> Canal+ – Ingénieur d’étude (Février 2017 à août 2021)</div>
-          <p class="when"><strong>Projets :</strong></p>
-          <ul class="list compact">
-            <li><span class="role">VCFilter</span> : API permettant d’enregistrer une box Bytel lors de sa première connexion. Technologies utilisées : C#, API, WCF, SQL.</li>
-            <li><span class="role">Projet TOMI</span> : Ensemble d’applicatifs backend composés d’une API et de plusieurs services WCF connectés à l’OMI pour déclarer les box Bytel dans le système Canal+. Technologies utilisées : C#, API, WCF, SQL.</li>
-            <li><span class="role">PPL</span> : Architecture complexe permettant de vérifier l’unicité d’utilisation des abonnements et de collecter des informations en temps réel. Migration de ces systèmes vers de nouveaux serveurs. Technologies utilisées : C#, API, SQL.</li>
-            <li><span class="role">Outils d’assistance</span> : Client léger pour la migration de l’OMI. Technologies utilisées : CI/CD, ElasticSearch, DataLog.</li>
-          </ul>
-        </article>
-
-        <hr style="border:none; border-top:1px solid var(--line); margin:8px 0" />
-
-        <article>
-          <div class="role"><img class="logo-badge" src="./societe_generale_logo.jpeg" alt="Logo Société Générale" loading="lazy" /> Société Générale – Consultant .NET (2013 à 2017)</div>
-          <p class="when"><strong>Projets :</strong></p>
-          <ul class="list compact">
-            <li><span class="role">Projet Atlas</span> : Gestion et facturation interne du parc immobilier. Migration VBA vers C# et VB.NET. Technologies utilisées : C#, VB.NET, SQL Server, Entity Framework.</li>
-            <li><span class="role">Projet Sable</span> : Gestion des clients suspectés de blanchiment. Développement d’un site intranet et de pages web. Technologies utilisées : ASP.NET, MVC, Bootstrap, Oracle.</li>
-          </ul>
-        </article>
+    <a class="side-card" href="cv/index.html">
+      <div class="icon">
+        <!-- parchemin -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="#00b4d8" stroke-width="1.6">
+          <path d="M7 4.5A2.5 2.5 0 0 0 4.5 7v0A2.5 2.5 0 0 0 7 9.5h0V19a1.5 1.5 0 0 0 1.5 1.5h9A2.5 2.5 0 0 0 20 18V7a2.5 2.5 0 0 0-2.5-2.5H7z"/>
+          <path d="M7 4.5A2.5 2.5 0 0 1 9.5 7v2.5H7"/>
+          <path d="M11 9h5.5M11 12.5h5.5M11 16h3.5" stroke="#f4c542"/>
+        </svg>
       </div>
+      <h3>CV</h3>
+      <p>25 ans d'ingénierie logicielle C# / .NET — TF1, Canal+, Euro-Information. Certifié Azure.</p>
+      <span class="go">Consulter mon CV</span>
+    </a>
 
-      <div class="hint">Balaye pour continuer</div>
-    </section>
-
-    <!-- PAGE 4 : Groupama + Natixis + Cardif -->
-    <section class="panel" id="page4" aria-label="Expériences professionnelles détaillées">
-      <div class="card">
-        <h2 class="title">Expériences professionnelles détaillées</h2>
-
-        <article>
-          <div class="role"><img class="logo-badge" src="./groupama_asset_management_logo.jpeg" alt="Logo Groupama" loading="lazy" /> Groupama – AM Ingénieur d’étude et développement (2009 à 2013)</div>
-          <ul class="list compact">
-            <li><span class="role">Création d’une architecture de gestion de batchs</span> : Rapport quotidien et gestion des pannes de batchs. Création d’un système de « météo » des batchs. Technologies utilisées : VBA, VBScript, C#, SQL Server.</li>
-          </ul>
-        </article>
-
-        <hr style="border:none; border-top:1px solid var(--line); margin:8px 0" />
-
-        <article>
-          <div class="role">Natixis – Ingénieur d’étude (2008)</div>
-          <ul class="list compact">
-            <li><span class="role">Maintenance et migration d’applicatifs VBA</span> : Migration d’applicatifs VBA vers C# et VB.NET. Technologies utilisées : Access, Excel, ADO.NET, Framework 3.0.</li>
-          </ul>
-        </article>
-
-        <hr style="border:none; border-top:1px solid var(--line); margin:8px 0" />
-
-        <article>
-          <div class="role"><img class="logo-badge" src="./cardif.jpeg" alt="Logo Cardif" loading="lazy" /> Cardif – Ingénieur d’étude (2007)</div>
-          <ul class="list compact">
-            <li><span class="role">Projet COFFI</span> : Application post-fusion Cardif et Natio-Vie. Architecture et développement applicatif. Technologies utilisées : VBA, Access.</li>
-          </ul>
-        </article>
+    <a class="side-card" href="oll/index.html">
+      <div class="icon">
+        <!-- cube 3D -->
+        <svg viewBox="0 0 24 24" fill="none" stroke="#00b4d8" stroke-width="1.6">
+          <path d="M12 2.8 20 7v10l-8 4.2L4 17V7l8-4.2z"/>
+          <path d="M4 7l8 4.2L20 7M12 11.2V21.2"/>
+          <path d="M8 4.9l8 4.2M16 4.9 8 9.1" stroke="#f4c542" stroke-width="1.1"/>
+        </svg>
       </div>
+      <h3>OLL Rudy-style</h3>
+      <p>Les 57 formules OLL du Rubik's Cube réécrites en notation compacte maison — des blocs qu'on retient enfin.</p>
+      <span class="go">Découvrir la méthode</span>
+    </a>
+  </aside>
 
-      <div class="hint">Balaye pour continuer</div>
-    </section>
+</div>
 
-    <!-- PAGE 5 : Mastercard Belgique + Phillips Mobile + AXA-Assistance -->
-    <section class="panel" id="page5" aria-label="Expériences professionnelles détaillées">
-      <div class="card">
-        <h2 class="title">Expériences professionnelles détaillées</h2>
+<footer>
+  <span class="flogo">Vostok</span>
+  <span class="sep">|</span>
+  <span>Rudy Burnay</span>
+  <span class="sep">|</span>
+  <a href="mailto:rudy.burnay@gmail.com">rudy.burnay@gmail.com</a>
+  <span class="sep">|</span>
+  <a href="cv/index.html">CV en ligne</a>
+</footer>
 
-        <article>
-          <div class="role">Mastercard Belgique – Ingénieur d’étude (2006)</div>
-          <ul class="list compact">
-            <li><span class="role">Projet TPE</span> : Application de gestion internationale des TPE Mastercard. Recueil des besoins, modélisation et déploiement des livrables. Technologies utilisées : VBA, Access, Excel.</li>
-          </ul>
-        </article>
-
-        <hr style="border:none; border-top:1px solid var(--line); margin:8px 0" />
-
-        <article>
-          <div class="role"><img class="logo-badge" src="./philips_logo.jpeg" alt="Logo Phillips Mobile" loading="lazy" /> Phillips Mobile – Ingénieur d’étude (2005)</div>
-          <ul class="list compact">
-            <li><span class="role">Outil de reporting des ventes mobiles</span> : Modélisation de base de données, développement et gestion des statistiques. Technologies utilisées : VBA, Access, Excel.</li>
-          </ul>
-        </article>
-
-        <hr style="border:none; border-top:1px solid var(--line); margin:8px 0" />
-
-        <article>
-          <div class="role">AXA-Assistance Protection – Responsable Informatique (2001 à 2004)</div>
-          <ul class="list compact">
-            <li><span class="role">Amélioration et maintenance des systèmes informatiques</span> : Développement adapté aux besoins utilisateurs. Refonte logicielle, formation du personnel et gestion des achats. Technologies utilisées : VBA, Access, Excel.</li>
-          </ul>
-        </article>
-      </div>
-
-      <div class="hint">Fin • Balaye vers le haut pour remonter</div>
-    </section>
-  </main>
 </body>
 </html>
+                                                                                                                                                                                                       
