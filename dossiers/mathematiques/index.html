@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mathématiques — Vostok Dossiers</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    :root {
+      --deep:   #020b18; --navy: #061628; --blue: #0d2d4a;
+      --accent: #00b4d8; --bright: #90e0ef; --gold: #f4c542;
+      --white:  #e8f4fd; --muted:  #8bb8d0; --text:  #cce4f0;
+    }
+    body { background: var(--deep); color: var(--text); font-family: 'Inter', sans-serif; min-height: 100vh; }
+    .cat-hero { position: relative; height: 44vh; min-height: 280px; overflow: hidden; }
+    .cat-hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+    .cat-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(2,11,24,0.3) 0%, rgba(2,11,24,0.92) 100%); }
+    .cat-hero-content { position: relative; z-index: 2; height: 100%; display: flex; flex-direction: column; justify-content: flex-end; padding: 0 8vw 2.5rem; }
+    .breadcrumb { font-size: 0.78rem; color: var(--muted); margin-bottom: 0.8rem; letter-spacing: 0.04em; }
+    .breadcrumb a { color: var(--accent); text-decoration: none; }
+    .cat-tag { display: inline-block; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: var(--accent); border: 1px solid var(--accent); padding: 3px 10px; border-radius: 2px; margin-bottom: 0.8rem; }
+    .cat-title { font-family: 'Playfair Display', serif; font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 900; color: var(--white); line-height: 1.1; margin-bottom: 0.5rem; }
+    .cat-meta { font-size: 0.82rem; color: var(--muted); }
+    .card { background: var(--navy); border: 1px solid rgba(0,180,216,0.15); border-radius: 12px; overflow: hidden; text-decoration: none; display: flex; flex-direction: column; transition: transform 0.25s, border-color 0.25s, box-shadow 0.25s; }
+    .card:hover { transform: translateY(-5px); border-color: var(--accent); box-shadow: 0 20px 50px rgba(0,180,216,0.12); }
+    .card-img { width: 100%; aspect-ratio: 16/9; object-fit: cover; display: block; transition: transform 0.4s; }
+    .card:hover .card-img { transform: scale(1.04); }
+    .card-img-wrap { overflow: hidden; }
+    .card-body { padding: 24px 22px 28px; flex: 1; display: flex; flex-direction: column; }
+    .card-tag { display: inline-block; background: rgba(0,180,216,0.12); color: var(--accent); font-size: 11px; font-weight: 700; letter-spacing: 1.8px; text-transform: uppercase; padding: 4px 10px; border-radius: 3px; margin-bottom: 14px; }
+    .card h2 { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; color: #fff; line-height: 1.3; margin-bottom: 10px; }
+    .card p { font-size: 14px; color: var(--muted); line-height: 1.7; flex: 1; margin-bottom: 18px; }
+    .card-footer { display: flex; align-items: center; justify-content: space-between; font-size: 12px; color: var(--muted); padding-top: 14px; border-top: 1px solid rgba(0,180,216,0.08); }
+    .card-footer .read { color: var(--accent); font-weight: 600; font-size: 13px; }
+    .card-footer .read::after { content: ' →'; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 26px; padding: 48px 8vw 80px; max-width: 1200px; margin: 0 auto; }
+  </style>
+</head>
+<body>
+<div class="cat-hero">
+  <img class="cat-hero-img" src="https://v3b.fal.media/files/b/0a9dd4f3/K3JpKf1MeGjFS8lABCYhA_SAZiL9Fa.png" alt="Mathématiques" />
+  <div class="cat-hero-overlay"></div>
+  <div class="cat-hero-content">
+    <p class="breadcrumb"><a href="/dossiers/">← Tous les dossiers</a></p>
+    <span class="cat-tag">Trigonométrie · Géométrie · Astronomie</span>
+    <h1 class="cat-title">Mathématiques</h1>
+    <p class="cat-meta">1 article · Démontrer le monde réel avec des fonctions, des angles et des preuves que chacun peut recalculer</p>
+  </div>
+</div>
+<div class="grid">
+  <a class="card" href="/dossiers/mathematiques/terre-ronde-duree-du-jour/">
+    <div class="card-img-wrap">
+      <img class="card-img" src="https://v3b.fal.media/files/b/0a9dd4ea/DUjdsBcNfp63uloo0ltGf_yDHgWNK8.png" alt="La Terre est ronde : la preuve par la durée du jour" />
+    </div>
+    <div class="card-body">
+      <span class="card-tag">Trigonométrie</span>
+      <h2>La Terre est ronde : la preuve par la durée du jour</h2>
+      <p>On construit pas à pas une formule qui calcule la durée du jour à partir de la date et de la latitude. À l'équateur elle donne 12 h constant, à Paris 8 h à 16 h, aux pôles le jour de 6 mois — uniquement si la Terre est une sphère inclinée.</p>
+      <div class="card-footer">
+        <span>Juin 2026</span>
+        <span class="read">Lire le dossier</span>
+      </div>
+    </div>
+  </a>
+</div>
+<footer>
+  <div style="text-align:center; padding:28px; font-size:13px; color:var(--muted); border-top:1px solid rgba(255,255,255,0.05);">
+    <a href="/" style="font-family:'Playfair Display',serif; font-size:1.3rem; color:var(--white); text-decoration:none;">Vostok</a>
+    &nbsp;·&nbsp; <a href="/dossiers/" style="color:var(--accent); text-decoration:none;">Tous les dossiers</a>
+  </div>
+</footer>
+</body>
+</html>

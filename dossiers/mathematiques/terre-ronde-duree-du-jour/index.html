@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>La Terre est ronde : la preuve par la durée du jour — Vostok</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <script>
+    window.MathJax = {
+      tex: { inlineMath: [['\\(', '\\)']], displayMath: [['$$', '$$']] },
+      svg: { fontCache: 'global' }
+    };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" id="MathJax-script" async></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --deep:   #020b18; --navy: #061628; --blue: #0d2d4a;
+      --accent: #00b4d8; --bright: #90e0ef; --gold: #f4c542;
+      --muted:  #8bb8d0; --text: #cce4f0;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--deep); color: var(--text); font-family: 'Inter', sans-serif; font-size: 17px; line-height: 1.8; overflow-x: hidden; }
+
+    /* HERO */
+    .hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; }
+    .hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.5) saturate(1.2); }
+    .hero-gradient { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 35%, var(--deep) 100%); }
+    .hero-content { position: relative; z-index: 2; padding: 0 8vw 7vh; max-width: 940px; }
+    .hero-tag { display: inline-block; background: var(--accent); color: var(--deep); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 14px; border-radius: 3px; margin-bottom: 20px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.6rem, 6vw, 5.2rem); font-weight: 900; line-height: 1.08; color: #fff; margin-bottom: 22px; }
+    .hero h1 span { color: var(--accent); }
+    .hero-sub { font-size: 1.15rem; font-weight: 300; color: var(--bright); max-width: 680px; margin-bottom: 36px; }
+    .hero-meta { display: flex; gap: 28px; flex-wrap: wrap; font-size: 13px; color: var(--muted); font-weight: 500; }
+
+    /* NAV */
+    nav { position: sticky; top: 0; z-index: 100; background: rgba(2,11,24,0.92); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(0,180,216,0.15); padding: 0 8vw; display: flex; align-items: center; gap: 24px; height: 60px; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
+    nav::-webkit-scrollbar { display: none; }
+    nav a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 500; letter-spacing: 0.5px; white-space: nowrap; transition: color 0.2s; }
+    nav a:hover { color: var(--accent); }
+
+    /* LAYOUT */
+    .container { max-width: 880px; margin: 0 auto; padding: 0 8vw; }
+    .section { padding: 84px 0 56px; }
+    .section + .section { border-top: 1px solid rgba(0,180,216,0.1); }
+
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+    h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 3.5vw, 2.7rem); font-weight: 700; color: #fff; margin-bottom: 26px; line-height: 1.25; }
+    h3 { font-family: 'Playfair Display', serif; font-size: 1.45rem; font-weight: 700; color: var(--bright); margin: 42px 0 16px; }
+    p { margin-bottom: 20px; color: var(--text); }
+    strong { color: var(--bright); font-weight: 600; }
+    .lead { font-size: 1.1rem; color: var(--bright); }
+
+    /* IMAGES */
+    .img-wide { width: 100%; max-width: 1180px; margin: 48px auto; display: block; border-radius: 10px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+    .img-wide img { width: 100%; display: block; }
+    .img-caption { text-align: center; font-size: 13px; color: var(--muted); font-style: italic; padding: 12px 20px; background: var(--navy); border-top: 1px solid rgba(0,180,216,0.1); }
+    .img-inline { float: right; margin: 4px 0 28px 36px; width: 44%; border-radius: 8px; overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
+    .img-inline img { width: 100%; display: block; }
+    .img-inline .img-caption { font-size: 12px; padding: 9px 14px; text-align: left; }
+    .clearfix::after { content: ''; display: table; clear: both; }
+
+    /* STATS */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin: 40px 0; }
+    .stat-card { background: var(--navy); border: 1px solid rgba(0,180,216,0.2); border-radius: 10px; padding: 26px 22px; text-align: center; transition: border-color 0.3s, transform 0.3s; }
+    .stat-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 2.3rem; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 8px; }
+    .stat-label { font-size: 13px; color: var(--muted); font-weight: 500; }
+
+    /* HIGHLIGHT */
+    .highlight { background: linear-gradient(135deg, rgba(0,180,216,0.08), rgba(0,180,216,0.02)); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 24px 28px; margin: 36px 0; }
+    .highlight p { margin: 0; color: var(--bright); font-size: 1.05rem; font-style: italic; }
+    .highlight cite { display: block; margin-top: 12px; font-size: 13px; color: var(--muted); font-style: normal; }
+
+    /* FORMULA BLOCK */
+    .formula { background: var(--navy); border: 1px solid rgba(0,180,216,0.22); border-radius: 10px; padding: 18px 24px; margin: 28px 0; overflow-x: auto; text-align: center; }
+    .formula-note { font-size: 13.5px; color: var(--muted); margin: -12px 0 28px; text-align: center; font-style: italic; }
+
+    /* FIGURE (SVG) */
+    .fig { margin: 40px 0; background: var(--navy); border: 1px solid rgba(0,180,216,0.18); border-radius: 12px; padding: 26px 20px 12px; }
+    .fig svg { width: 100%; height: auto; display: block; }
+    .fig-cap { font-size: 13px; color: var(--muted); font-style: italic; text-align: center; padding: 14px 16px 6px; }
+
+    /* CONCEPT CARDS */
+    .concepts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin: 32px 0; }
+    .concept-card { background: var(--navy); border: 1px solid rgba(0,180,216,0.15); border-radius: 10px; padding: 24px; }
+    .concept-icon { font-size: 1.9rem; margin-bottom: 10px; }
+    .concept-card h4 { font-size: 1.05rem; font-weight: 600; color: var(--bright); margin-bottom: 10px; }
+    .concept-card p { font-size: 14px; color: var(--muted); margin: 0; line-height: 1.7; }
+
+    /* TIMELINE / ÉTAPES */
+    .timeline { margin: 40px 0; position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 18px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--accent), transparent); }
+    .tl-item { display: flex; gap: 26px; margin-bottom: 30px; align-items: flex-start; }
+    .tl-dot { width: 38px; height: 38px; min-width: 38px; border-radius: 50%; background: var(--blue); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; color: var(--accent); position: relative; z-index: 1; }
+    .tl-body h4 { font-size: 1.02rem; font-weight: 600; color: var(--bright); margin-bottom: 6px; }
+    .tl-body p { font-size: 14.5px; color: var(--text); margin: 0; line-height: 1.7; }
+
+    /* CALLOUT "calcule toi-même" */
+    .callout { background: linear-gradient(135deg, rgba(244,197,66,0.10), rgba(244,197,66,0.02)); border: 1px solid rgba(244,197,66,0.35); border-radius: 10px; padding: 24px 28px; margin: 34px 0; }
+    .callout h4 { color: var(--gold); font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 12px; }
+    .callout p { margin-bottom: 10px; font-size: 15px; }
+
+    /* SOURCES */
+    .sources { background: var(--navy); border-top: 1px solid rgba(0,180,216,0.15); padding: 60px 0 80px; }
+    .sources-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .sources-list li { padding: 14px 18px; background: var(--blue); border-radius: 7px; border: 1px solid rgba(0,180,216,0.1); font-size: 14px; transition: border-color 0.2s; }
+    .sources-list li:hover { border-color: var(--accent); }
+    .sources-list a { color: var(--accent); text-decoration: none; font-weight: 500; }
+    .sources-list a:hover { text-decoration: underline; }
+    .src-pub { color: var(--muted); font-size: 12px; margin-top: 3px; }
+
+    footer { background: var(--deep); text-align: center; padding: 32px; font-size: 13px; color: var(--muted); border-top: 1px solid rgba(255,255,255,0.05); }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    @media (max-width: 680px) {
+      .img-inline { float: none; width: 100%; margin: 0 0 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<section class="hero">
+  <img class="hero-img" src="https://v3b.fal.media/files/b/0a9dd4ea/DUjdsBcNfp63uloo0ltGf_yDHgWNK8.png" alt="La Terre vue de l'espace, la ligne jour-nuit visible" />
+  <div class="hero-gradient"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Mathématiques · Démonstration</div>
+    <h1>La Terre est <span>ronde</span> : la preuve par la durée du jour</h1>
+    <p class="hero-sub">Pas de photo, pas d'argument d'autorité. Juste une formule, construite pas à pas, qui calcule combien de temps le Soleil reste levé — et qui ne tombe juste que si la Terre est une sphère inclinée qui tourne.</p>
+    <div class="hero-meta">
+      <span>Niveau Terminale</span><span>Trigonométrie</span>
+      <span>Lecture ~15 min</span><span>Juin 2026</span>
+    </div>
+  </div>
+</section>
+
+<nav>
+  <a href="#intro">Le pari</a>
+  <a href="#sinus">La sinusoïde</a>
+  <a href="#annee">L'angle de l'année</a>
+  <a href="#trigo">Sin · Cos · Tan</a>
+  <a href="#decl">La déclinaison</a>
+  <a href="#angle">L'angle horaire</a>
+  <a href="#formule">La formule</a>
+  <a href="#verdict">Le verdict</a>
+  <a href="#sources">Sources</a>
+</nav>
+
+<!-- ───────────────── INTRO ───────────────── -->
+<section class="section" id="intro">
+  <div class="container">
+    <div class="section-label">Le pari</div>
+    <h2>Un endroit où le jour dure toujours 12 heures, un autre où il change sans cesse</h2>
+    <p class="lead">Posons un fait que personne ne conteste, ni les défenseurs d'une Terre ronde, ni ceux d'une Terre plate : la durée du jour — le temps entre le lever et le coucher du Soleil — n'est pas la même partout, ni à toutes les dates.</p>
+    <p>À l'<strong>équateur</strong>, le jour dure environ <strong>12 heures, toute l'année</strong>. Le 21 juin comme le 21 décembre, le Soleil se lève et se couche à peu près aux mêmes heures. À <strong>Paris</strong>, c'est l'inverse : en été le jour s'étire jusqu'à plus de 16 heures, en hiver il se réduit à un peu plus de 8 heures. Vous l'observez vous-même chaque année.</p>
+    <p>La question n'est donc pas « la durée du jour change-t-elle ? » — c'est observable — mais <strong>« quelle forme de la Terre produit exactement ce comportement ? »</strong>. Nous allons construire, brique par brique, une fonction mathématique qui calcule cette durée à partir de seulement deux nombres : le <strong>jour de l'année</strong> \(j\) et la <strong>latitude</strong> \(\varphi\) du lieu. Si cette fonction, bâtie sur l'hypothèse d'une sphère inclinée, recrache les durées réellement mesurées à Paris, à l'équateur et au pôle, alors le débat est tranché par le calcul.</p>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-num">12 h</div><div class="stat-label">Durée du jour à l'équateur, constante toute l'année</div></div>
+      <div class="stat-card"><div class="stat-num">8 h&rarr;16 h</div><div class="stat-label">Amplitude du jour à Paris selon la saison</div></div>
+      <div class="stat-card"><div class="stat-num">23,44°</div><div class="stat-label">Inclinaison de l'axe de rotation de la Terre</div></div>
+      <div class="stat-card"><div class="stat-num">365,25 j</div><div class="stat-label">Durée d'un tour complet autour du Soleil</div></div>
+    </div>
+    <p>Une précision d'honnêteté avant de commencer : on s'adresse ici à un lecteur sceptique, et le scepticisme est une bonne chose <em>quand il mène à vérifier soi-même</em>. C'est exactement ce que permet une formule : vous n'aurez à croire personne. Vous brancherez les nombres dans une calculatrice et vous comparerez le résultat à l'horloge.</p>
+  </div>
+</section>
+
+<div class="img-wide">
+  <img src="https://v3b.fal.media/files/b/0a9dd4f3/K3JpKf1MeGjFS8lABCYhA_SAZiL9Fa.png" alt="Globe terrestre incliné éclairé par le Soleil" />
+  <div class="img-caption">Tout part de là : un globe dont l'axe de rotation est penché de 23,44° par rapport à sa course autour du Soleil. C'est cette inclinaison, et elle seule, qui fabrique les saisons et la variation de la durée du jour.</div>
+</div>
+
+<!-- ───────────────── SINUSOÏDE ───────────────── -->
+<section class="section" id="sinus">
+  <div class="container">
+    <div class="section-label">Brique n°1</div>
+    <h2>Rappel : la sinusoïde, la courbe des choses qui reviennent</h2>
+    <div class="img-inline">
+      <img src="https://v3b.fal.media/files/b/0a9dd4ef/eMiMMai7rigWJv5BzEH0r_e3CQgcUn.png" alt="Lever de soleil sur l'horizon courbe de la Terre" />
+      <div class="img-caption">Le même phénomène — le Soleil qui franchit l'horizon — se répète chaque jour, et sa durée oscille au fil de l'année comme une vague régulière.</div>
+    </div>
+    <p>La durée du jour à Paris monte de l'hiver à l'été, puis redescend, puis remonte, indéfiniment, avec une régularité d'horloge. En mathématiques, la courbe qui décrit ce genre de va-et-vient régulier porte un nom : la <strong>sinusoïde</strong>, le graphe de la fonction <strong>sinus</strong>.</p>
+    <p>Une sinusoïde générale s'écrit ainsi :</p>
+    <div class="formula">$$ f(t) = M + A \times \sin(\omega\, t + \varphi_0) $$</div>
+    <p>Chaque lettre a un rôle concret, et c'est tout ce qu'il faut comprendre :</p>
+    <div class="concepts-grid">
+      <div class="concept-card"><div class="concept-icon">📏</div><h4>M — la valeur moyenne</h4><p>La ligne autour de laquelle la courbe oscille. Pour la durée du jour, ce sera <strong>12 heures</strong> : on passe autant de temps au-dessus qu'en dessous au fil de l'année.</p></div>
+      <div class="concept-card"><div class="concept-icon">📐</div><h4>A — l'amplitude</h4><p>De combien on s'écarte, au maximum, de la moyenne. À l'équateur \(A = 0\) (jamais d'écart : 12 h fixe). À Paris \(A \approx 4\) h (on monte à 16 h, on descend à 8 h).</p></div>
+      <div class="concept-card"><div class="concept-icon">🔁</div><h4>ω — la pulsation</h4><p>La vitesse à laquelle on parcourt le cycle. Elle fixe la <strong>période</strong> : ici, un cycle complet = une année. C'est l'objet de la brique n°2.</p></div>
+      <div class="concept-card"><div class="concept-icon">↔️</div><h4>φ₀ — le déphasage</h4><p>Le réglage horizontal : il décide à quelle date la courbe atteint son sommet. On le calera sur le solstice d'été.</p></div>
+    </div>
+    <p>Pourquoi le sinus précisément, et pas une autre courbe ? Parce que le sinus est <strong>la fonction du mouvement circulaire</strong>. Dès qu'un phénomène vient d'un objet qui tourne — et la Terre tourne, à la fois sur elle-même et autour du Soleil — le sinus apparaît naturellement. C'est le premier indice que la rondeur et la rotation sont au cœur du problème.</p>
+    <div class="highlight"><p>"Le sinus n'est pas une formule abstraite tombée du ciel : c'est littéralement la hauteur d'un point sur un cercle quand on le fait tourner. Là où il y a de la rotation, il y a du sinus."</p><cite>— Principe directeur de l'article</cite></div>
+  </div>
+</section>
+
+<!-- ───────────────── L'ANGLE DE L'ANNÉE ───────────────── -->
+<section class="section" id="annee">
+  <div class="container">
+    <div class="section-label">Brique n°2</div>
+    <h2>Pourquoi 2π / 365,25 transforme un jour en angle</h2>
+    <p>Le sinus ne mange pas des « jours » : il mange des <strong>angles</strong>, mesurés en radians. Il faut donc traduire « nous sommes le 100ᵉ jour de l'année » en un angle. C'est tout le rôle du facteur \( \dfrac{2\pi}{365{,}25} \), et il se comprend en trois temps.</p>
+    <p><strong>Un tour complet = 2π.</strong> En radians, faire un tour entier de cercle correspond à un angle de \(2\pi\) (soit environ 6,283). C'est la définition même du radian : \(2\pi\) radians = 360°. Or une année, c'est exactement cela du point de vue de la Terre — <strong>un tour complet</strong> autour du Soleil, qui la ramène à son point de départ.</p>
+    <p><strong>Une année = 365,25 jours.</strong> La Terre met un peu plus de 365 jours à boucler son orbite — 365,25 précisément (c'est ce quart de jour qui nous oblige à ajouter un 29 février tous les 4 ans). Ce nombre n'est pas choisi : il est mesuré.</p>
+    <p>Pour répartir un tour complet (\(2\pi\)) sur toute l'année (365,25 jours), on partage l'un par l'autre. Chaque jour qui passe fait donc avancer notre angle de :</p>
+    <div class="formula">$$ \omega = \frac{2\pi}{365{,}25} \;\approx\; 0{,}0172 \ \text{radian par jour} $$</div>
+    <p class="formula-note">Un tout petit angle chaque jour… qui, multiplié par 365,25 jours, redonne exactement \(2\pi\) : un tour bouclé.</p>
+    <p>Ainsi, l'expression \( \dfrac{2\pi}{365{,}25}\times j \) convertit le numéro du jour \(j\) en la <strong>position de la Terre sur son orbite</strong>, exprimée comme un angle. Le 1ᵉʳ janvier, l'angle est presque nul ; à la mi-année, on est à mi-tour (\(\pi\)) ; au 31 décembre, on a presque bouclé \(2\pi\). C'est la « grande aiguille » de l'année, et c'est elle qu'on va glisser dans le sinus.</p>
+    <div class="callout">
+      <h4>Le point clé pour un sceptique</h4>
+      <p>Ce facteur \(2\pi/365{,}25\) n'a de sens que parce que la Terre <strong>boucle un cycle fermé</strong>. Une trajectoire qui revient à son point de départ chaque année, c'est la signature d'une orbite — d'un mouvement de rotation. On ne fait ici qu'écrire cette rotation en langage mathématique.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────── TRIGO ───────────────── -->
+<section class="section" id="trigo">
+  <div class="container">
+    <div class="section-label">Brique n°3</div>
+    <h2>Sinus, cosinus, tangente, arccosinus : à quoi sert chacun</h2>
+    <p>Quatre fonctions trigonométriques vont entrer en scène. Plutôt que de les subir, regardons exactement ce que chacune fait — toutes se lisent sur un simple <strong>cercle de rayon 1</strong>, où l'on place un point repéré par un angle.</p>
+    <div class="concepts-grid">
+      <div class="concept-card"><div class="concept-icon">↕️</div><h4>sin(angle)</h4><p>La <strong>hauteur</strong> du point sur le cercle. Vaut 0 à l'horizontale, 1 au sommet. C'est notre mesure de « à quel point on penche vers le haut » — idéale pour décrire une élévation.</p></div>
+      <div class="concept-card"><div class="concept-icon">↔️</div><h4>cos(angle)</h4><p>La <strong>largeur</strong> du point (sa position horizontale). Vaut 1 à droite, 0 en haut, −1 à gauche. Sinus et cosinus sont les deux coordonnées d'un point qui tourne.</p></div>
+      <div class="concept-card"><div class="concept-icon">📈</div><h4>tan(angle) = sin/cos</h4><p>La <strong>pente</strong> associée à l'angle. Elle mesure « combien je monte quand j'avance ». Elle relie une inclinaison à un rapport de longueurs — parfaite pour comparer la latitude et l'inclinaison du Soleil.</p></div>
+      <div class="concept-card"><div class="concept-icon">🔙</div><h4>arccos(valeur)</h4><p>La fonction <strong>inverse</strong> du cosinus : on lui donne un cosinus, elle rend l'angle correspondant. Quand notre équation nous donnera \(\cos(\text{angle})\), c'est arccos qui nous rendra l'angle cherché.</p></div>
+    </div>
+    <p>Retenez surtout le rôle de la <strong>tangente</strong>. Un angle de latitude, un angle d'inclinaison du Soleil : ce sont deux <em>pentes</em>. Et comparer deux pentes, c'est comparer deux tangentes. C'est pour cela que la formule finale fera apparaître \(\tan\varphi\) et \(\tan\delta\) côte à côte : elle confronte la pente du lieu où vous êtes à la pente sous laquelle le Soleil éclaire.</p>
+    <div class="highlight"><p>"Une fois qu'on sait que sinus = hauteur, cosinus = largeur et tangente = pente, la trigonométrie cesse d'être un vocabulaire et devient une boîte à outils géométrique."</p><cite>— Fil conducteur de la démonstration</cite></div>
+  </div>
+</section>
+
+<!-- ───────────────── DÉCLINAISON ───────────────── -->
+<section class="section" id="decl">
+  <div class="container">
+    <div class="section-label">Brique n°4</div>
+    <h2>La déclinaison δ : où le Soleil frappe à la verticale</h2>
+    <p>Voici l'idée physique centrale, et la raison pour laquelle une Terre plate ne peut pas reproduire nos observations. L'axe autour duquel la Terre tourne n'est <strong>pas droit</strong> par rapport à son orbite : il est penché de <strong>23,44°</strong>. Du coup, au fil de l'année, le point de la Terre où le Soleil tape exactement à la verticale se déplace, du tropique Nord au tropique Sud et retour.</p>
+    <p>La latitude où le Soleil est au zénith à midi s'appelle la <strong>déclinaison du Soleil</strong>, notée \(\delta\). C'est une quantité qui oscille lentement sur l'année entre \(+23{,}44°\) (solstice de juin, le Soleil est au plus haut au Nord) et \(-23{,}44°\) (solstice de décembre). Une oscillation régulière, sur un an, entre deux extrêmes opposés : c'est exactement la définition d'une sinusoïde. On réutilise donc les briques 1 et 2 :</p>
+    <div class="formula">$$ \delta(j) = 23{,}44° \times \sin\!\left( \frac{2\pi}{365{,}25}\,(j - 81) \right) $$</div>
+    <p class="formula-note">L'amplitude 23,44° = l'inclinaison de l'axe. Le « −81 » cale le zéro sur l'équinoxe de printemps (≈ 21 mars, 81ᵉ jour), moment où la déclinaison passe par 0 en montant.</p>
+    <p>Décortiquons chaque morceau, car tout y est porteur de sens : l'<strong>amplitude 23,44°</strong> n'est pas réglable, c'est la mesure de l'inclinaison de la Terre ; le facteur <strong>\(2\pi/365{,}25\)</strong> est notre « aiguille de l'année » de la brique 2 ; le décalage <strong>\(-81\)</strong> aligne simplement la courbe sur le calendrier, pour que \(\delta = 0\) tombe bien à l'équinoxe, quand le Soleil est pile au-dessus de l'équateur.</p>
+    <div class="fig">
+      <svg viewBox="0 0 760 440" role="img" aria-label="Schéma : axe incliné et déclinaison solaire">
+        <!-- rayons solaires parallèles -->
+        <g stroke="#f4c542" stroke-width="2.5" marker-end="url(#arrow)">
+          <line x1="20" y1="120" x2="175" y2="120"/>
+          <line x1="20" y1="185" x2="175" y2="185"/>
+          <line x1="20" y1="250" x2="175" y2="250"/>
+          <line x1="20" y1="315" x2="175" y2="315"/>
+        </g>
+        <defs>
+          <marker id="arrow" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L7,3 L0,6 Z" fill="#f4c542"/></marker>
+        </defs>
+        <text x="22" y="100" fill="#f4c542" font-size="15" font-family="Inter">Rayons du Soleil (parallèles)</text>
+        <!-- Terre -->
+        <circle cx="470" cy="230" r="160" fill="#0d2d4a" stroke="#00b4d8" stroke-width="2"/>
+        <!-- côté nuit (droite) -->
+        <path d="M470,70 A160,160 0 0,1 470,390 Z" fill="rgba(2,11,24,0.55)"/>
+        <!-- axe incliné 23.44° -->
+        <line x1="549.5" y1="46.5" x2="390.5" y2="413.5" stroke="#90e0ef" stroke-width="2.5" stroke-dasharray="7 6"/>
+        <circle cx="549.5" cy="46.5" r="5" fill="#90e0ef"/>
+        <text x="558" y="44" fill="#90e0ef" font-size="15" font-family="Inter" font-weight="600">N (axe penché 23,44°)</text>
+        <!-- équateur (perpendiculaire à l'axe) -->
+        <line x1="323" y1="166" x2="617" y2="294" stroke="#cce4f0" stroke-width="2"/>
+        <text x="620" y="300" fill="#cce4f0" font-size="15" font-family="Inter">Équateur</text>
+        <!-- angle delta entre rayon horizontal et équateur, au centre -->
+        <path d="M520,230 A50,50 0 0,0 510.5,210.5" fill="none" stroke="#f4c542" stroke-width="2.5"/>
+        <text x="527" y="216" fill="#f4c542" font-size="17" font-family="Inter" font-weight="700">δ</text>
+        <line x1="470" y1="230" x2="540" y2="230" stroke="#f4c542" stroke-width="1.5" stroke-dasharray="3 3"/>
+        <text x="300" y="425" fill="#8bb8d0" font-size="13.5" font-family="Inter">δ = angle entre les rayons du Soleil et le plan de l'équateur</text>
+      </svg>
+      <div class="fig-cap">Fig. 1 — La déclinaison δ est l'angle sous lequel le Soleil éclaire par rapport à l'équateur. Parce que l'axe est penché, cet angle change au fil de l'année : c'est l'origine des saisons et de la variation du jour.</div>
+    </div>
+    <p>Sur une Terre plate posée sous un Soleil, on pourrait à la rigueur faire varier une « hauteur » du Soleil — mais on ne peut pas faire apparaître une latitude précise (\(\pm 23{,}44°\)) où il tape à la verticale, ni expliquer pourquoi cette latitude se déplace symétriquement de part et d'autre de l'équateur. La déclinaison est une notion qui <strong>n'a de sens que sur une sphère inclinée</strong>. Gardons \(\delta(j)\) de côté : c'est l'ingrédient « date » de notre recette.</p>
+  </div>
+</section>
+
+<!-- ───────────────── ANGLE HORAIRE ───────────────── -->
+<section class="section" id="angle">
+  <div class="container">
+    <div class="section-label">Brique n°5</div>
+    <h2>L'angle horaire H₀ : quelle fraction du tour se passe au soleil</h2>
+    <p>On a la « date » (\(\delta\)). Il manque le « lieu » (la latitude \(\varphi\)), et la façon de les combiner. Chaque jour, votre ville décrit un cercle complet de 360° en 24 heures à cause de la rotation de la Terre. La question « combien de temps le Soleil est-il levé ? » revient à : <strong>quelle portion de ce cercle se déroule au-dessus de l'horizon ?</strong></p>
+    <p>On appelle <strong>angle horaire du coucher</strong>, noté \(H_0\), le demi-arc de jour : l'angle entre le midi solaire (Soleil au plus haut) et l'instant du coucher. La géométrie de la sphère donne une relation remarquablement simple entre cet angle, la latitude \(\varphi\) et la déclinaison \(\delta\) :</p>
+    <div class="formula">$$ \cos H_0 = -\,\tan\varphi \times \tan\delta $$</div>
+    <p>D'où sort cette formule ? De la condition « le Soleil est pile sur l'horizon » (hauteur nulle). En projetant la position du Soleil sur la sphère, sa hauteur s'écrit \( \sin(\text{hauteur}) = \sin\varphi\,\sin\delta + \cos\varphi\,\cos\delta\,\cos H \). Au lever et au coucher, la hauteur vaut 0, donc \(\sin = 0\). En isolant, les sinus et cosinus se regroupent en tangentes et il reste exactement \( \cos H_0 = -\tan\varphi\,\tan\delta \). Vous voyez ici <strong>pourquoi la tangente apparaît</strong> : elle naît du rapport \(\sin/\cos\) quand on compare la pente du lieu (\(\varphi\)) à la pente d'éclairement (\(\delta\)).</p>
+    <div class="fig">
+      <svg viewBox="0 0 760 400" role="img" aria-label="Schéma : angle horaire et arc de jour">
+        <!-- cercle diurne -->
+        <circle cx="380" cy="195" r="150" fill="none" stroke="#00b4d8" stroke-width="2"/>
+        <!-- horizon (sous le centre => jour > 12h) -->
+        <line x1="150" y1="240" x2="610" y2="240" stroke="#cce4f0" stroke-width="2"/>
+        <text x="616" y="245" fill="#cce4f0" font-size="14" font-family="Inter">Horizon</text>
+        <!-- arc de jour (au-dessus de l'horizon) en doré : de l'intersection gauche au sommet à l'intersection droite -->
+        <!-- intersections horizon/cercle : y=240 => dy=45 ; dx=sqrt(150^2-45^2)=143.1 -> x=236.9 et 523.1 -->
+        <path d="M236.9,240 A150,150 0 0,1 523.1,240" fill="rgba(244,197,66,0.16)" stroke="#f4c542" stroke-width="3"/>
+        <!-- nuit en bas -->
+        <path d="M236.9,240 A150,150 0 0,0 523.1,240" fill="rgba(2,11,24,0.5)"/>
+        <!-- centre + verticale midi -->
+        <circle cx="380" cy="195" r="4" fill="#90e0ef"/>
+        <line x1="380" y1="195" x2="380" y2="45" stroke="#90e0ef" stroke-width="1.6" stroke-dasharray="4 4"/>
+        <text x="345" y="38" fill="#90e0ef" font-size="14" font-family="Inter">Midi</text>
+        <line x1="380" y1="195" x2="380" y2="345" stroke="#3a5a72" stroke-width="1.4" stroke-dasharray="4 4"/>
+        <text x="352" y="362" fill="#5e7e96" font-size="13" font-family="Inter">Minuit</text>
+        <!-- rayon vers le coucher (intersection droite) -->
+        <line x1="380" y1="195" x2="523.1" y2="240" stroke="#f4c542" stroke-width="2"/>
+        <!-- arc marquant H0 entre verticale midi et rayon coucher -->
+        <path d="M380,135 A60,60 0 0,0 421,178" fill="none" stroke="#f4c542" stroke-width="2.5"/>
+        <text x="398" y="150" fill="#f4c542" font-size="17" font-family="Inter" font-weight="700">H₀</text>
+        <text x="528" y="232" fill="#f4c542" font-size="13.5" font-family="Inter">Coucher</text>
+        <!-- légende -->
+        <text x="150" y="392" fill="#8bb8d0" font-size="13.5" font-family="Inter">Arc doré = temps passé au-dessus de l'horizon = la journée. Sa demi-ouverture est H₀.</text>
+      </svg>
+      <div class="fig-cap">Fig. 2 — La rotation décrit un cercle complet en 24 h. La part du cercle au-dessus de l'horizon (en doré) est la durée du jour. À l'équateur l'horizon passe par le centre : moitié-moitié, donc 12 h. Plus on monte en latitude, plus l'horizon se décale, et plus l'arc de jour gonfle ou se réduit selon la saison.</div>
+    </div>
+    <p>Reste à transformer cet angle en heures. La Terre tourne de \(360°\) en \(24\) h, soit \(15°\) par heure. Le jour couvre l'arc complet \(2H_0\) (de l'aube au crépuscule, c'est-à-dire deux fois le demi-arc). En radians, comme un tour entier \(2\pi\) correspond à 24 h, l'arc \(2H_0\) correspond à \( \dfrac{2H_0}{2\pi}\times 24 \) heures. On tient notre conversion.</p>
+  </div>
+</section>
+
+<!-- ───────────────── FORMULE FINALE ───────────────── -->
+<section class="section" id="formule">
+  <div class="container">
+    <div class="section-label">L'assemblage</div>
+    <h2>La formule complète, et le test de vérité</h2>
+    <p>On rassemble les cinq briques. L'angle horaire \(H_0\) se récupère avec l'arccosinus (l'inverse du cosinus), puis on le convertit en heures. La durée du jour \(D\), en heures, en fonction du jour \(j\) et de la latitude \(\varphi\), s'écrit :</p>
+    <div class="formula">$$ D(j,\varphi) = \frac{24}{\pi}\,\arccos\!\Big( -\tan\varphi \times \tan\big(\delta(j)\big) \Big) $$</div>
+    <div class="formula">$$ \text{avec}\quad \delta(j) = 23{,}44° \times \sin\!\left( \frac{2\pi}{365{,}25}\,(j-81) \right) $$</div>
+    <p class="formula-note">Le \(24/\pi\) vient de la conversion « arc → heures » : un demi-tour \(\pi\) vaut 12 h, donc l'arc complet \(2H_0\) en radians fois \(24/2\pi = 12/\pi\)… porté au double pour le jour entier donne \(24/\pi\) devant l'angle \(H_0\).</p>
+    <p>Maintenant, le moment de vérité. Cette formule a été bâtie <strong>uniquement</strong> sur l'hypothèse « sphère inclinée qui tourne ». Elle ne contient aucun réglage caché. Testons-la sur les deux lieux du pari.</p>
+
+    <h3>Test n°1 — l'équateur (φ = 0°)</h3>
+    <p>À l'équateur, la latitude vaut 0. Or \( \tan(0°) = 0 \). Le produit \( -\tan\varphi\,\tan\delta \) devient donc \(0\), <em>quelle que soit la date</em>. Et \( \arccos(0) = \dfrac{\pi}{2} \). D'où :</p>
+    <div class="formula">$$ D = \frac{24}{\pi}\times \frac{\pi}{2} = 12 \ \text{heures, toute l'année.} $$</div>
+    <p>La formule prédit donc <strong>exactement</strong> le lieu postulé au début : à l'équateur, le jour dure 12 h, été comme hiver. Pas par hasard — parce que \(\tan(0)=0\) efface complètement l'effet de la saison. C'est précisément ce qu'on observe.</p>
+
+    <h3>Test n°2 — Paris (φ ≈ 48,85°)</h3>
+    <p>À Paris, \( \tan(48{,}85°) \approx 1{,}144 \). Au solstice d'été, \( \delta = +23{,}44° \) et \( \tan(23{,}44°) \approx 0{,}434 \). Alors :</p>
+    <div class="formula">$$ \cos H_0 = -\,1{,}144 \times 0{,}434 \approx -0{,}497 \;\Rightarrow\; H_0 = \arccos(-0{,}497) \approx 119{,}7° $$</div>
+    <p>En heures : \( D = \dfrac{2 \times 119{,}7}{15} \approx 15{,}96 \) h, soit près de <strong>16 heures</strong>. Au solstice d'hiver, \(\delta = -23{,}44°\) inverse le signe, \( \cos H_0 \approx +0{,}497 \), \( H_0 \approx 60{,}3° \) et \( D \approx 8{,}0 \) h. La formule prédit donc un jour qui oscille <strong>de 8 h à 16 h</strong> à Paris.</p>
+    <div class="callout">
+      <h4>Vérifie toi-même, calculatrice en main</h4>
+      <p><strong>1.</strong> Tape \( \tan(48{,}85) \) en degrés → tu obtiens ≈ 1,144.</p>
+      <p><strong>2.</strong> Multiplie par \( \tan(23{,}44) \approx 0{,}434 \) → ≈ 0,497, puis mets un signe moins.</p>
+      <p><strong>3.</strong> Fais \( \arccos(-0{,}497) \) → ≈ 119,7°. Multiplie par 2, divise par 15 → ≈ 15,96 h.</p>
+      <p>Compare à l'horloge : le 21 juin, Paris a un jour mesuré de <strong>16 h 14</strong>. L'écart de ~15 min vient de deux effets réels que notre modèle simplifié néglige : la <strong>réfraction atmosphérique</strong> (l'air courbe la lumière et fait « lever » le Soleil un peu plus tôt) et le <strong>diamètre apparent du Soleil</strong> (on compte le jour dès que son bord apparaît). Le squelette géométrique, lui, est juste.</p>
+    </div>
+
+    <h3>Le graphe qui résume tout</h3>
+    <p>Traçons \(D(j,\varphi)\) sur une année entière, pour trois latitudes. La courbe plate, c'est l'équateur ; la vague ample, c'est Paris ; la vague extrême qui touche presque le jour permanent, c'est le cercle polaire.</p>
+    <div class="fig">
+      <svg viewBox="0 0 800 380" role="img" aria-label="Durée du jour sur l'année pour trois latitudes">
+        <!-- axes -->
+        <line x1="70" y1="40" x2="70" y2="320" stroke="#3a5a72" stroke-width="1.5"/>
+        <line x1="70" y1="320" x2="772" y2="320" stroke="#3a5a72" stroke-width="1.5"/>
+        <!-- gridlines horizontales 0,6,12,18,24h -->
+        <g stroke="#13314a" stroke-width="1">
+          <line x1="70" y1="40" x2="772" y2="40"/>
+          <line x1="70" y1="110" x2="772" y2="110"/>
+          <line x1="70" y1="180" x2="772" y2="180"/>
+          <line x1="70" y1="250" x2="772" y2="250"/>
+        </g>
+        <g fill="#8bb8d0" font-size="12" font-family="Inter" text-anchor="end">
+          <text x="62" y="44">24 h</text><text x="62" y="114">18 h</text>
+          <text x="62" y="184">12 h</text><text x="62" y="254">6 h</text><text x="62" y="324">0 h</text>
+        </g>
+        <!-- mois -->
+        <g fill="#8bb8d0" font-size="11.5" font-family="Inter" text-anchor="middle">
+          <text x="70" y="338">J</text><text x="128.8" y="338">F</text><text x="181.8" y="338">M</text>
+          <text x="240.6" y="338">A</text><text x="297.5" y="338">M</text><text x="356.2" y="338">J</text>
+          <text x="413.1" y="338">J</text><text x="471.9" y="338">A</text><text x="530.6" y="338">S</text>
+          <text x="587.5" y="338">O</text><text x="646.3" y="338">N</text><text x="703.1" y="338">D</text>
+        </g>
+        <!-- ligne 12h repère -->
+        <!-- Équateur : plat à 12h -->
+        <polyline fill="none" stroke="#f4c542" stroke-width="3" points="70,180 760,180"/>
+        <!-- Paris 48.85 -->
+        <polyline fill="none" stroke="#00b4d8" stroke-width="3" points="70.0,225.2 83.3,223.5 96.5,221.1 109.8,218.1 123.1,214.6 136.3,210.6 149.6,206.3 162.9,201.7 176.2,197.0 189.4,192.1 202.7,187.2 216.0,182.2 229.2,177.1 242.5,172.1 255.8,167.2 269.0,162.3 282.3,157.6 295.6,153.1 308.8,148.8 322.1,144.9 335.4,141.4 348.7,138.5 361.9,136.2 375.2,134.6 388.5,133.8 401.7,133.8 415.0,134.7 428.3,136.3 441.5,138.7 454.8,141.6 468.1,145.1 481.3,149.0 494.6,153.3 507.9,157.8 521.2,162.6 534.4,167.4 547.7,172.4 561.0,177.4 574.2,182.4 587.5,187.4 600.8,192.4 614.0,197.3 627.3,202.0 640.6,206.5 653.8,210.8 667.1,214.8 680.4,218.3 693.7,221.3 706.9,223.6 720.2,225.3 733.5,226.1 746.7,226.2 760.0,225.4"/>
+        <!-- Cercle polaire 66.56 -->
+        <polyline fill="none" stroke="#90e0ef" stroke-width="2.5" stroke-dasharray="6 4" points="70.0,301.7 83.3,290.4 96.5,279.2 109.8,268.1 123.1,257.2 136.3,246.4 149.6,235.8 162.9,225.3 176.2,214.9 189.4,204.7 202.7,194.5 216.0,184.3 229.2,174.2 242.5,164.1 255.8,153.9 269.0,143.6 282.3,133.2 295.6,122.7 308.8,112.0 322.1,101.2 335.4,90.3 348.7,79.2 361.9,68.0 375.2,56.7 388.5,45.4 401.7,46.0 415.0,57.3 428.3,68.6 441.5,79.8 454.8,90.9 468.1,101.8 481.3,112.6 494.6,123.3 507.9,133.8 521.2,144.1 534.4,154.4 547.7,164.6 561.0,174.8 574.2,184.9 587.5,195.0 600.8,205.2 614.0,215.5 627.3,225.9 640.6,236.4 653.8,247.0 667.1,257.8 680.4,268.7 693.7,279.8 706.9,291.0 720.2,302.3 733.5,313.6 746.7,315.0 760.0,303.7"/>
+        <!-- légende -->
+        <g font-family="Inter" font-size="13">
+          <rect x="92" y="52" width="22" height="4" fill="#f4c542"/><text x="120" y="59" fill="#cce4f0">Équateur (0°) — 12 h fixe</text>
+          <rect x="92" y="70" width="22" height="4" fill="#00b4d8"/><text x="120" y="77" fill="#cce4f0">Paris (48,85°) — 8 h à 16 h</text>
+          <rect x="92" y="88" width="22" height="4" fill="#90e0ef"/><text x="120" y="95" fill="#cce4f0">Cercle polaire (66,56°) — 0 h à 24 h</text>
+        </g>
+      </svg>
+      <div class="fig-cap">Fig. 3 — Une seule formule, trois latitudes. À l'équateur, une droite parfaitement plate à 12 h. À Paris, une sinusoïde d'amplitude ~4 h. Au cercle polaire, la courbe frôle 24 h en juin et 0 h en décembre. Toutes ces courbes mesurées dans la réalité coïncident avec celles calculées — c'est ça, la preuve.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ───────────────── VERDICT ───────────────── -->
+<section class="section" id="verdict">
+  <div class="container">
+    <div class="section-label">Le verdict</div>
+    <h2>Pourquoi seule une sphère inclinée colle aux mesures</h2>
+    <p>La formule fonctionne. Mais un sceptique averti dira : « peut-être qu'une autre forme donnerait les mêmes nombres ». Voici quatre faits que <strong>seule</strong> la géométrie sphérique prédit, et qu'un disque plat ne peut pas reproduire sans se contredire.</p>
+    <div class="fig">
+      <svg viewBox="0 0 760 320" role="img" aria-label="Comparaison de la répartition jour/nuit">
+        <g font-family="Inter">
+          <!-- Équateur -->
+          <text x="40" y="60" fill="#cce4f0" font-size="14">Équateur</text>
+          <text x="40" y="78" fill="#8bb8d0" font-size="12">toute l'année</text>
+          <rect x="190" y="42" width="285" height="34" fill="#f4c542"/>
+          <rect x="475" y="42" width="285" height="34" fill="#0d2d4a" stroke="#13314a"/>
+          <text x="332" y="64" fill="#020b18" font-size="13" font-weight="700" text-anchor="middle">JOUR 12 h</text>
+          <text x="617" y="64" fill="#8bb8d0" font-size="13" text-anchor="middle">NUIT 12 h</text>
+          <!-- Paris été -->
+          <text x="40" y="150" fill="#cce4f0" font-size="14">Paris</text>
+          <text x="40" y="168" fill="#8bb8d0" font-size="12">21 juin</text>
+          <rect x="190" y="132" width="380" height="34" fill="#f4c542"/>
+          <rect x="570" y="132" width="190" height="34" fill="#0d2d4a" stroke="#13314a"/>
+          <text x="380" y="154" fill="#020b18" font-size="13" font-weight="700" text-anchor="middle">JOUR 16 h</text>
+          <text x="665" y="154" fill="#8bb8d0" font-size="13" text-anchor="middle">NUIT 8 h</text>
+          <!-- Paris hiver -->
+          <text x="40" y="240" fill="#cce4f0" font-size="14">Paris</text>
+          <text x="40" y="258" fill="#8bb8d0" font-size="12">21 déc.</text>
+          <rect x="190" y="222" width="190" height="34" fill="#f4c542"/>
+          <rect x="380" y="222" width="380" height="34" fill="#0d2d4a" stroke="#13314a"/>
+          <text x="285" y="244" fill="#020b18" font-size="13" font-weight="700" text-anchor="middle">JOUR 8 h</text>
+          <text x="570" y="244" fill="#8bb8d0" font-size="13" text-anchor="middle">NUIT 16 h</text>
+          <!-- échelle -->
+          <line x1="190" y1="285" x2="760" y2="285" stroke="#3a5a72"/>
+          <text x="190" y="302" fill="#8bb8d0" font-size="11" text-anchor="middle">0 h</text>
+          <text x="475" y="302" fill="#8bb8d0" font-size="11" text-anchor="middle">12 h</text>
+          <text x="760" y="302" fill="#8bb8d0" font-size="11" text-anchor="middle">24 h</text>
+        </g>
+      </svg>
+      <div class="fig-cap">Fig. 4 — La même journée de 24 h, partagée différemment selon le lieu et la saison. L'équateur reste à 12/12 en permanence ; Paris bascule d'un extrême à l'autre. Ce basculement dépendant de la latitude est la signature d'une sphère.</div>
+    </div>
+    <div class="concepts-grid">
+      <div class="concept-card"><div class="concept-icon">🎯</div><h4>Elle tombe juste sans tricher</h4><p>Bâtie sur la seule géométrie d'une sphère inclinée, la formule prédit les durées réelles à 15 minutes près partout sur Terre. Aucun modèle plat ne fournit une fonction \(D(j,\varphi)\) qui colle aux mesures.</p></div>
+      <div class="concept-card"><div class="concept-icon">🌙</div><h4>Le jour polaire de 6 mois</h4><p>Quand \(|\tan\varphi\,\tan\delta| > 1\), l'arccosinus n'a plus de solution : le Soleil ne se couche pas (24 h) ou ne se lève pas (0 h). C'est le soleil de minuit, observé en Laponie et en Antarctique. Inexplicable sur un disque.</p></div>
+      <div class="concept-card"><div class="concept-icon">🔄</div><h4>Les saisons inversées au Sud</h4><p>Une latitude \(\varphi\) négative (hémisphère Sud) renverse le rôle du signe de \(\delta\) : le jour le plus long de Sydney tombe en décembre. La même formule prédit les deux hémisphères opposés. Un seul disque ne le peut pas.</p></div>
+      <div class="concept-card"><div class="concept-icon">📐</div><h4>L'amplitude grandit avec la latitude</h4><p>Plus on s'éloigne de l'équateur, plus \(\tan\varphi\) est grand, plus l'écart été/hiver se creuse — exactement ce que mesurent les villes du Nord au Sud. La courbe suit la latitude, pas la distance à un centre.</p></div>
+    </div>
+    <h3>Conclusion : le calcul a tranché</h3>
+    <p>Nous n'avons utilisé ni satellite, ni photo, ni serment. Nous avons posé une hypothèse géométrique — une boule penchée qui tourne autour du Soleil — et nous l'avons traduite en une fonction. Cette fonction prédit, sans rien ajuster, qu'il existe un lieu à 12 h constant (l'équateur), un lieu qui oscille de 8 à 16 h (Paris), des lieux où le Soleil disparaît ou ne se couche jamais pendant des mois (les pôles), et des saisons inversées entre les deux hémisphères. <strong>Toutes ces prédictions correspondent à ce que des millions de gens mesurent chaque jour avec une simple horloge.</strong></p>
+    <p>Une théorie n'a pas besoin qu'on y croie : elle a besoin de prédire le réel. Le modèle de la Terre plate ne produit aucune formule capable de reproduire ce tableau. Le modèle de la sphère inclinée le produit en une ligne. Le verdict ne vient pas d'une autorité — il vient de votre calculatrice.</p>
+    <div class="highlight"><p>"Donnez-moi le jour de l'année et votre latitude, je vous dis l'heure du coucher du Soleil. Si je tombe juste à chaque fois, et que je ne le peux qu'en supposant la Terre ronde, alors la Terre est ronde."</p><cite>— L'esprit de la démonstration</cite></div>
+  </div>
+</section>
+
+<section class="sources" id="sources">
+  <div class="container">
+    <div class="section-label">Bibliographie</div>
+    <h2>Sources &amp; Références</h2>
+    <ul class="sources-list">
+      <li><a href="https://en.wikipedia.org/wiki/Sunrise_equation" target="_blank">Sunrise equation — équation du lever/coucher et angle horaire</a><div class="src-pub">Wikipedia</div></li>
+      <li><a href="https://gml.noaa.gov/grad/solcalc/solareqns.PDF" target="_blank">General Solar Position Calculations</a><div class="src-pub">NOAA — Global Monitoring Laboratory</div></li>
+      <li><a href="https://www.bristol.ac.uk/media-library/sites/engineering/engineering-mathematics/documents/modelling/teacher/daylength_t.pdf" target="_blank">The Length of Days — exercice de modélisation</a><div class="src-pub">University of Bristol, Engineering Mathematics</div></li>
+      <li><a href="https://www.omnicalculator.com/physics/sunrise-sunset" target="_blank">Sunrise &amp; Sunset Calculator (formules détaillées)</a><div class="src-pub">Omni Calculator</div></li>
+      <li><a href="https://pvpmc.sandia.gov/modeling-guide/1-weather-design-inputs/sun-position/basic-solar-position-models/" target="_blank">Basic Solar Position Models — déclinaison solaire</a><div class="src-pub">Sandia National Laboratories (PVPMC)</div></li>
+      <li><a href="https://sinovoltaics.com/learning-center/basics/declination-angle/" target="_blank">The Definition and Calculation of the Declination Angle</a><div class="src-pub">Sinovoltaics — Learning Center</div></li>
+      <li><a href="https://www.imcce.fr/newsletter/medias/2024/12/docs/lever_coucher_soleil.pdf" target="_blank">Levers et couchers du Soleil au solstice</a><div class="src-pub">IMCCE — Observatoire de Paris</div></li>
+      <li><a href="https://www.astrolabe-science.fr/duree-du-jour-et-latitude/" target="_blank">Durée du jour et latitude</a><div class="src-pub">Astrolabe Science</div></li>
+    </ul>
+  </div>
+</section>
+
+<footer>
+  <a href="/" style="font-family:'Playfair Display',serif; font-size:1.3rem; color:#fff;">Vostok</a>
+  &nbsp;·&nbsp; <a href="/dossiers/">Tous les dossiers</a> &nbsp;·&nbsp; Juin 2026
+</footer>
+</body>
+</html>
