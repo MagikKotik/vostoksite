@@ -56,6 +56,12 @@ blockquote{
   font-style:italic;color:var(--white);
 }
 strong{color:var(--white)}
+pre{
+  background:var(--navy);border:1px solid var(--line);border-radius:10px;
+  padding:18px 20px;margin:20px 0;overflow-x:auto;
+  font-size:.88rem;line-height:1.6;color:var(--bright);
+}
+code{font-family:'Courier New',monospace}
 .cta{
   margin:36px 0 8px;padding:26px;background:var(--navy);
   border:1px solid var(--line);border-radius:14px;text-align:center;
@@ -90,31 +96,50 @@ footer{
   <a class="back" href="../../index.html#journal">← Retour au journal</a>
 </nav>
 
-<div class="cover"><img src="https://v3b.fal.media/files/b/0a9de0cd/De9FZB85lRwWgbchMDT17_P5PWkqKx.png" alt="Limite de contexte et gestion de sessions Claude"></div>
+<div class="cover"><img src="https://v3b.fal.media/files/b/0a9de0cd/De9FZB85lRwWgbchMDT17_P5PWkqKx.png" alt="Limite de contexte et sessions Claude"></div>
 
 <article>
-  <span class="tag">Productivité</span><span class="date">12 juin 2026 · 3 min de lecture</span>
+  <span class="tag">Productivité</span><span class="date">12 juin 2026 · 5 min de lecture</span>
   <h1>J'ai pété les plombs sur la limite de contexte — voilà comment j'ai résolu ça</h1>
 
   <p class="lead">Si comme moi vous avez pété les plombs devant ce message... vous savez de quoi je parle.</p>
 
   <h2>Le problème : une progression géométrique de tokens</h2>
   <p>Utiliser Claude comme ChatGPT, c'est une mauvaise idée. Chaque message ajoute l'intégralité de la conversation précédente dans le contexte. Ce n'est pas une progression linéaire — c'est géométrique. Ajoutez un modèle premium et la facture explose.</p>
-
-  <p>Au bout de quelques heures de travail sur un projet complexe, vous touchez le plafond. Claude vous dit qu'il ne peut plus continuer. Tout le contexte est perdu. Vous repartez de zéro.</p>
+  <p>Le plafond peut arriver en quelques minutes si vous rechargez une conversation ancienne — le contexte accumulé depuis des semaines est déjà là avant même que vous ayez dit bonjour. Claude vous dit qu'il ne peut plus continuer. Tout le contexte est perdu. Vous repartez de zéro.</p>
 
   <h2>Ma solution : un skill de gestion de sessions</h2>
-  <p>J'ai construit un skill qui crée une vraie notion de session dans Claude. Le principe est simple : vous sauvegardez quand vous voulez, vous rechargez dans une nouvelle tâche. <strong>Claude compresse votre contexte entre les deux</strong> — les informations essentielles sont distillées, le bruit éliminé.</p>
+  <p>J'ai construit un skill qui crée une vraie notion de session dans Claude. Le principe : vous sauvegardez quand vous voulez, vous rechargez dans une nouvelle tâche. <strong>Claude compresse votre contexte entre les deux</strong> — les informations essentielles sont distillées, le bruit éliminé.</p>
 
   <blockquote>Résultat : jusqu'à 90% de tokens en moins par rapport à une conversation continue.</blockquote>
 
+  <h2>Comment ça marche concrètement</h2>
+  <p>Quand vous tapez <code>/sessions save</code>, Claude génère un fichier Markdown ultra-compressé dans votre dossier connecté — état du projet, décisions clés, prochaines étapes. Pas de roman : un résumé technique pensé pour être relu par Claude, pas par vous. Ce qui rend l'approche solide : chaque session repart propre, sans l'historique des essais et erreurs qui gonflent le contexte inutilement.</p>
+  <p>Quand vous tapez <code>/sessions load &lt;nom&gt;</code> dans une nouvelle conversation, Claude lit ce fichier, décompresse le contexte, et vous fait un briefing en français naturel : <em>où on en était, ce qui a été décidé, ce qu'il reste à faire</em>. En 30 secondes, vous êtes de retour dans le bain.</p>
+
+  <h2>La commande /dir et les jokers</h2>
+  <p>Vous pouvez avoir autant de sessions que vous voulez — une par projet, une par sujet. La commande <code>/sessions dir</code> liste toutes vos sessions actives. Et le vrai confort : le wildcard <code>*</code>. Vous ne vous souvenez plus du nom exact ? <code>/sessions load projet*</code> trouve toutes les sessions qui commencent par "projet". <code>/sessions load *site*</code> trouve tout ce qui contient "site". Claude charge ce qui correspond et vous briefera sur chacune.</p>
+  <p>Vous pouvez aussi charger plusieurs sessions en une commande — pratique pour fusionner deux projets liés. Et quand une session est terminée, <code>/sessions save --close</code> l'archive proprement : elle disparaît de vos listes sans être supprimée.</p>
+
+  <h2>Ce que le fichier contient vraiment</h2>
+  <p>Le fichier de session n'est pas lisible au sens humain du terme — c'est volontaire. Claude écrit dans un format télégraphique ultra-compressé en anglais, avec des symboles plutôt que des mots. Quelque chose comme :</p>
+
+<pre><code>## State
+- site v2 ✓ deployed, perf ok
+- login bug mobile ✗ → suspect cookie cfg
+- choice: Tailwind ✓, Bootstrap ✗
+## Next
+- fix login bug
+- ? add newsletter section</code></pre>
+
+  <p>Un fichier de session tient généralement en 20 à 50 lignes, quelle que soit la durée de la conversation originale. C'est ce ratio qui explique les 90% de réduction.</p>
+
   <h2>Comment l'installer</h2>
   <p>Le skill est en téléchargement gratuit — <a href="https://www.vostok.fr/stockage-claude/skills/install.md">lien ICI</a>. Glissez le fichier téléchargé en pièce jointe dans Claude et demandez-lui d'exécuter le prompt. Vous n'aurez qu'à valider en faisant "enregistrer la compétence".</p>
-
   <p>⚠️ Nécessite l'app desktop Claude, en mode Cowork avec un dossier connecté.</p>
 
   <h2>Et vous ?</h2>
-  <p>Comment gérez-vous la limite de contexte ? Des fonctions avancées existent — demandez-les en commentaire.</p>
+  <p>Comment gérez-vous la limite de contexte ?</p>
 
   <div class="cta">
     <p>Téléchargez le skill de sessions gratuitement</p>
