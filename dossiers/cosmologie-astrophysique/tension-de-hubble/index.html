@@ -107,6 +107,13 @@
     }
     .hero-meta span { display: flex; align-items: center; gap: 0.4rem; }
 
+    .podcast-btn { display: inline-flex; align-items: center; gap: 0.45rem; cursor: pointer;
+      background: var(--accent); color: var(--deep); border: none; font-family: inherit;
+      font-size: 0.82rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 0.4rem 0.95rem; border-radius: 999px; transition: background 0.2s, transform 0.1s; }
+    .podcast-btn:hover { background: var(--bright); }
+    .podcast-btn:active { transform: scale(0.97); }
+
     /* ── NAV ── */
     nav {
       position: sticky;
@@ -451,6 +458,7 @@
       <span>🔭 Vostok Science</span>
       <span>📅 Mai 2026</span>
       <span>⏱ 18 min de lecture</span>
+      <button class="podcast-btn" id="podcast-toggle" type="button" aria-label="Écouter l'interview">▶ Écouter l'interview</button>
     </div>
   </div>
 </section>
@@ -853,5 +861,23 @@
   }
 </script>
 
+<script>
+(function(){
+  var seg=["https://v3b.fal.media/files/b/0aa1e5d6/2rQTtqeYPie6j5EpKXXL2_output.mp3","https://v3b.fal.media/files/b/0aa1e5df/PkONdjRGKvzb7cHTmbUb3_output.mp3","https://v3b.fal.media/files/b/0aa1e5e4/r-iHXS23PfcT-N1fJh07z_output.mp3"];
+  var i=0, playing=false;
+  var audio=new Audio(); audio.preload="none"; audio.src=seg[0];
+  var btn=document.getElementById("podcast-toggle");
+  function label(){ btn.textContent = playing ? "⏸ Pause" : "▶ Écouter l'interview"; }
+  audio.addEventListener("ended", function(){
+    i++;
+    if(i<seg.length){ audio.src=seg[i]; audio.play(); }
+    else { i=0; audio.src=seg[0]; playing=false; label(); }
+  });
+  btn.addEventListener("click", function(){
+    if(playing){ audio.pause(); playing=false; } else { audio.play(); playing=true; }
+    label();
+  });
+})();
+</script>
 </body>
 </html>
