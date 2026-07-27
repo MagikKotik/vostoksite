@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>L'Interstitium — Vostok</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --deep:   #020b18; --navy: #061628; --blue: #0d2d4a;
+      --accent: #00b4d8; --bright: #90e0ef; --gold: #f4c542;
+      --muted:  #8bb8d0; --text: #cce4f0;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--deep); color: var(--text); font-family: 'Inter', sans-serif; font-size: 17px; line-height: 1.8; overflow-x: hidden; }
+
+    .hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; }
+    .hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.55) saturate(1.2); }
+    .hero-gradient { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, var(--deep) 100%); }
+    .hero-content { position: relative; z-index: 2; padding: 0 8vw 7vh; max-width: 900px; }
+    .hero-tag { display: inline-block; background: var(--accent); color: var(--deep); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 14px; border-radius: 3px; margin-bottom: 20px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 6vw, 5.5rem); font-weight: 900; line-height: 1.1; color: #fff; margin-bottom: 22px; }
+    .hero h1 span { color: var(--accent); }
+    .hero-sub { font-size: 1.15rem; font-weight: 300; color: var(--bright); max-width: 640px; margin-bottom: 36px; }
+    .hero-meta { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; font-size: 13px; color: var(--muted); font-weight: 500; }
+
+    .podcast-btn { display: inline-flex; align-items: center; gap: 0.45rem; cursor: pointer; background: var(--accent); color: var(--deep); border: none; font-family: inherit; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.4rem 0.95rem; border-radius: 999px; transition: background 0.2s, transform 0.1s; }
+    .podcast-btn:hover { background: var(--bright); }
+    .podcast-btn:active { transform: scale(0.97); }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(2,11,24,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,180,216,0.15);
+      padding: 0 8vw;
+      display: flex; align-items: center;
+      gap: 24px; height: 60px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    nav a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 500; letter-spacing: 0.5px; white-space: nowrap; transition: color 0.2s; }
+    nav a:hover { color: var(--accent); }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 0 8vw; }
+    .section { padding: 90px 0 60px; }
+    .section + .section { border-top: 1px solid rgba(0,180,216,0.1); }
+
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+    h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 3.5vw, 2.8rem); font-weight: 700; color: #fff; margin-bottom: 28px; line-height: 1.25; }
+    h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--bright); margin: 44px 0 16px; }
+    p { margin-bottom: 20px; color: var(--text); }
+    strong { color: var(--bright); font-weight: 600; }
+
+    .img-wide { width: 100%; max-width: 1200px; margin: 48px auto; display: block; border-radius: 10px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+    .img-wide img { width: 100%; display: block; }
+    .img-caption { text-align: center; font-size: 13px; color: var(--muted); font-style: italic; padding: 12px 20px; background: var(--navy); border-top: 1px solid rgba(0,180,216,0.1); }
+    .img-inline { float: right; margin: 4px 0 28px 36px; width: 46%; border-radius: 8px; overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
+    .img-inline img { width: 100%; display: block; }
+    .img-inline .img-caption { font-size: 12px; padding: 9px 14px; text-align: left; }
+    .clearfix::after { content: ''; display: table; clear: both; }
+
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; margin: 40px 0; }
+    .stat-card { background: var(--navy); border: 1px solid rgba(0,180,216,0.2); border-radius: 10px; padding: 26px 22px; text-align: center; transition: border-color 0.3s, transform 0.3s; }
+    .stat-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 8px; }
+    .stat-label { font-size: 13px; color: var(--muted); font-weight: 500; }
+
+    .highlight { background: linear-gradient(135deg, rgba(0,180,216,0.08), rgba(0,180,216,0.02)); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 24px 28px; margin: 36px 0; }
+    .highlight p { margin: 0; color: var(--bright); font-size: 1.05rem; font-style: italic; }
+    .highlight cite { display: block; margin-top: 12px; font-size: 13px; color: var(--muted); font-style: normal; }
+
+    .concepts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin: 36px 0; }
+    .concept-card { background: var(--navy); border: 1px solid rgba(0,180,216,0.15); border-radius: 10px; padding: 24px; }
+    .concept-icon { font-size: 2rem; margin-bottom: 12px; }
+    .concept-card h4 { font-size: 1rem; font-weight: 600; color: var(--bright); margin-bottom: 10px; }
+    .concept-card p { font-size: 14px; color: var(--muted); margin: 0; line-height: 1.7; }
+
+    .timeline { margin: 40px 0; position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 18px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--accent), transparent); }
+    .tl-item { display: flex; gap: 28px; margin-bottom: 36px; align-items: flex-start; }
+    .tl-dot { width: 46px; height: 38px; min-width: 46px; border-radius: 19px; background: var(--blue); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--accent); position: relative; z-index: 1; }
+    .tl-body h4 { font-size: 1rem; font-weight: 600; color: var(--bright); margin-bottom: 6px; }
+    .tl-body p { font-size: 14.5px; color: var(--text); margin: 0; line-height: 1.7; }
+
+    .sources { background: var(--navy); border-top: 1px solid rgba(0,180,216,0.15); padding: 60px 0 80px; }
+    .sources-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .sources-list li { padding: 14px 18px; background: var(--blue); border-radius: 7px; border: 1px solid rgba(0,180,216,0.1); font-size: 14px; transition: border-color 0.2s; }
+    .sources-list li:hover { border-color: var(--accent); }
+    .sources-list a { color: var(--accent); text-decoration: none; font-weight: 500; }
+    .sources-list a:hover { text-decoration: underline; }
+    .src-pub { color: var(--muted); font-size: 12px; margin-top: 3px; }
+
+    footer { background: var(--deep); text-align: center; padding: 32px; font-size: 13px; color: var(--muted); border-top: 1px solid rgba(255,255,255,0.05); }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    @media (max-width: 680px) {
+      .img-inline { float: none; width: 100%; margin: 0 0 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<section class="hero">
+  <img class="hero-img" src="https://v3b.fal.media/files/b/0aa3fcd6/ppLpEE96riJ0IQrO3KqmA_67TDn5O4.png" alt="Coupe microscopique de l'interstitium sous la peau" />
+  <div class="hero-gradient"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Biologie · Anatomie</div>
+    <h1>L'organe que la microscopie avait <span>effacé</span></h1>
+    <p class="hero-sub">Découvert en 2018, l'interstitium est peut-être le plus vaste compartiment liquidien de notre corps. Il nous a échappé un siècle et demi — non par sa rareté, mais à cause de la manière dont nous préparions les tissus pour les observer.</p>
+    <div class="hero-meta">
+      <span>Vostok Science</span><span>Juillet 2026</span>
+      <span>15 min de lecture</span>
+      <button class="podcast-btn" id="podcast-toggle" type="button" aria-label="Écouter l'interview">▶ Écouter l'interview</button>
+    </div>
+  </div>
+</section>
+
+<nav>
+  <a href="#intro">L'oubli</a>
+  <a href="#s2">La découverte</a>
+  <a href="#s3">L'artefact</a>
+  <a href="#s4">Anatomie</a>
+  <a href="#s5">Le fluide</a>
+  <a href="#s6">Organe&nbsp;?</a>
+  <a href="#s7">Implications</a>
+  <a href="#sources">Sources</a>
+</nav>
+
+<section class="section" id="intro">
+  <div class="container">
+    <div class="section-label">Introduction</div>
+    <h2>Un géant anatomique passé sous les radars</h2>
+    <p>En mars 2018, la revue <em>Scientific Reports</em> publie un article au titre volontairement sobre : « Structure et distribution d'un interstitium non reconnu dans les tissus humains ». Derrière la formule prudente, une affirmation vertigineuse — une structure anatomique majeure, présente sous la peau, autour des vaisseaux, le long du tube digestif, aurait été ignorée par des générations d'anatomistes. Pas une molécule rare ni un organite microscopique : un réseau continu de cavités remplies de fluide, potentiellement <strong>le plus vaste compartiment liquidien du corps</strong>.</p>
+    <p>Le paradoxe est presque comique. Ce n'est pas que l'interstitium était introuvable : il était partout, et c'est justement pour cela qu'on ne le voyait plus. La médecine le regardait chaque jour sur ses lames de microscope — mais mort, vidé, effondré. On avait sous les yeux le cadavre du tissu et l'on en tirait des conclusions sur le vivant.</p>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-num">2018</div><div class="stat-label">Année de la description formelle</div></div>
+      <div class="stat-card"><div class="stat-num">~20 %</div><div class="stat-label">du poids du corps en fluide interstitiel</div></div>
+      <div class="stat-card"><div class="stat-num">10,5 L</div><div class="stat-label">de fluide, contre 3,5 L de plasma sanguin</div></div>
+      <div class="stat-card"><div class="stat-num">~3,8 Mds</div><div class="stat-label">de vues en ligne pour l'annonce</div></div>
+    </div>
+    <p>L'histoire de l'interstitium n'est pas seulement celle d'une pièce ajoutée à l'atlas d'anatomie. C'est une leçon d'épistémologie : la démonstration que nos instruments ne se contentent pas de révéler le réel — ils le mettent en forme, et parfois ils en effacent des pans entiers sans que personne ne s'en aperçoive.</p>
+  </div>
+</section>
+
+<section class="section" id="s2">
+  <div class="container">
+    <div class="section-label">La découverte accidentelle</div>
+    <h2>Une sonde laser dans un canal biliaire</h2>
+    <div class="img-inline">
+      <img src="https://v3b.fal.media/files/b/0aa3fd02/W79Ty5nPYMJwurcP-Ff29_VW3t4rZ5.png" alt="Endomicroscopie confocale révélant un réseau en nid d'abeille" />
+      <div class="img-caption">L'endomicroscopie confocale par sonde laser observe le tissu vivant, en place et jamais déshydraté — révélant un motif en nid d'abeille absent de tout manuel.</div>
+    </div>
+    <p>La trouvaille n'était pas cherchée. Deux endoscopistes, <strong>Petros Benias</strong> et <strong>David Carr-Locke</strong>, examinaient le canal biliaire d'un patient à la recherche d'une extension cancéreuse. Leur instrument : une sonde d'endomicroscopie confocale par laser, une technique qui illumine le tissu vivant directement à l'intérieur du corps, sans le prélever ni le fixer. C'est là toute la différence — ils regardaient un tissu <em>intact et hydraté</em>, tel qu'il fonctionne réellement.</p>
+    <p>Sur l'écran apparaît un motif déconcertant : un réseau de cavités interconnectées, dessinant une résille en nid d'abeille qui ne correspondait à aucune structure décrite dans la littérature. Intrigués, ils font appel à un pathologiste, <strong>Neil Theise</strong>, de la faculté de médecine de l'université de New York. Ensemble, ils comprennent qu'ils ne regardent pas un artefact : ils regardent quelque chose que personne n'avait jamais nommé.</p>
+    <div class="highlight"><p>« Les mêmes structures qui apparaissent comme des espaces ouverts remplis de fluide dans le tissu vivant se présentaient comme de simples fentes sur les lames préparées de façon classique. »</p><cite>— Benias, Carr-Locke, Theise et al., <em>Scientific Reports</em>, 2018</cite></div>
+    <p class="clearfix">Pour confirmer, l'équipe congèle rapidement des échantillons afin de piéger le fluide avant qu'il ne s'évacue. Le résultat est sans appel : les « fentes » des lames classiques étaient en réalité des chambres, écrasées par la préparation. Restait à comprendre pourquoi un tel espace avait pu rester invisible pendant plus d'un siècle.</p>
+  </div>
+</section>
+
+<div class="img-wide">
+  <img src="https://v3b.fal.media/files/b/0aa3fd04/T6cKfjlERXNuUD8KIWhW3_MMEaRVUn.png" alt="Comparaison lame histologique sèche et tissu vivant hydraté" />
+  <div class="img-caption">À gauche, la lame d'histologie classique : le tissu déshydraté s'effondre en fentes que l'on prenait pour des artefacts. À droite, le même tissu vivant et hydraté : des chambres ouvertes remplies de fluide, soutenues par des faisceaux de collagène.</div>
+</div>
+
+<section class="section" id="s3">
+  <div class="container">
+    <div class="section-label">L'artefact qui l'a caché</div>
+    <h2>Cent cinquante ans d'un geste qui vidait la preuve</h2>
+    <p>La coupable est une routine de laboratoire vieille d'un siècle et demi, apprise à tout étudiant en médecine. Pour observer un tissu au microscope, on le <strong>fixe</strong>, on le <strong>déshydrate</strong>, puis on l'enrobe dans la paraffine avant de le trancher en fines lamelles. Ce protocole a rendu d'immenses services — mais il a un effet collatéral fatal pour l'interstitium : il chasse l'eau.</p>
+    <p>Or l'interstitium n'est structurellement rien d'autre qu'un espace maintenu ouvert par la pression du fluide qu'il contient. Retirez le liquide, et l'échafaudage de collagène qui délimitait les chambres s'affaisse sur lui-même. Il ne reste plus, sur la lame, qu'un enchevêtrement de fibres denses striées de <em>fentes</em>. Pendant des décennies, on a enseigné aux pathologistes à interpréter ces fentes comme un simple dommage de préparation — un artefact, quelque chose à ignorer.</p>
+    <div class="highlight"><p>Le procédé qui rendait le tissu observable était précisément celui qui en détruisait la caractéristique la plus importante : son architecture liquide.</p></div>
+    <p>C'est ce renversement qui donne à l'affaire sa portée philosophique. L'interstitium n'a pas été raté par manque de puissance optique ou par négligence : il a été <strong>systématiquement effacé par la méthode même censée le révéler</strong>. On voyait une maison une fois les murs abattus et les pièces vidées de leur air — impossible, dans ces conditions, de deviner qu'il y avait eu des volumes habitables. Le tissu vivant, lui, n'avait jamais menti ; c'est notre façon de le préparer à l'observation qui mentait pour lui.</p>
+  </div>
+</section>
+
+<section class="section" id="s4">
+  <div class="container">
+    <div class="section-label">Anatomie d'un réseau</div>
+    <h2>Des câbles de collagène et des poches d'eau</h2>
+    <div class="img-inline">
+      <img src="https://v3b.fal.media/files/b/0aa3fd06/JiwNVX7mI07mWwSrrkdwE_1R17fXSB.png" alt="Macrophotographie des faisceaux de collagène et du fluide interstitiel" />
+      <div class="img-caption">Le maillage : d'épais faisceaux de collagène, tendus comme des câbles, ménagent des espaces ouverts où circule le fluide interstitiel.</div>
+    </div>
+    <p>Structurellement, l'interstitium tient en trois éléments. D'abord les <strong>espaces</strong> eux-mêmes : des compartiments qui se dilatent, se déforment et se déplacent selon le volume de fluide. Ensuite le <strong>fluide interstitiel</strong> qui les remplit et transporte protéines, électrolytes, nutriments et déchets entre le sang et les cellules. Enfin l'échafaudage : un maillage souple de <strong>collagène et d'élastine</strong> qui maintient l'ensemble.</p>
+    <p>La répartition surprend par son ampleur. On retrouve ce réseau sous la muqueuse de tout le tube digestif, dans la paroi de la vessie, autour des artères et des voies aériennes, dans le derme, dans les fascias qui enveloppent les muscles. Loin d'être un organe localisé, c'est une infrastructure diffuse qui traverse le corps entier et connecte des régions que l'on croyait séparées.</p>
+    <h3>Un amortisseur hydraulique</h3>
+    <p>Cette architecture a une fonction mécanique évidente. Le collagène offre une résistance à la traction de l'ordre d'un sixième de celle de l'acier, tandis que l'élastine restitue au tissu son ressort après compression. L'interstitium se comporte alors comme un <strong>amortisseur</strong> : un coussin d'eau structuré par des câbles, qui encaisse les chocs et les étirements du quotidien et protège les organes de la déchirure quand le corps bouge, se plie ou reçoit un impact.</p>
+    <p class="clearfix">Détail décisif pour la suite : ces espaces ne sont pas entièrement tapissés par une paroi cellulaire continue comme le sont les vaisseaux sanguins. Ce sont des cavités <em>ouvertes</em>. Un fluide — et, on le verra, une cellule — peut y circuler bien plus librement que dans un vaisseau clos.</p>
+  </div>
+</section>
+
+<section class="section" id="s5">
+  <div class="container">
+    <div class="section-label">Le troisième espace liquidien</div>
+    <h2>Là où naît la lymphe</h2>
+    <p>Si l'interstitium fascine les physiologistes, c'est par le volume qu'il représente. Le fluide interstitiel constitue environ <strong>vingt pour cent du poids corporel</strong> : sur les quatorze litres de liquide extracellulaire d'un adulte, près de dix litres et demi baignent l'interstitium, contre seulement trois litres et demi de plasma dans les vaisseaux sanguins. Il y a, littéralement, bien plus d'eau <em>autour</em> de nos cellules que dans notre circulation sanguine.</p>
+    <p>Ce réservoir n'est pas statique. En vingt-quatre heures, l'équivalent de la totalité du plasma du corps transite par cet espace, échangeant en permanence avec le sang à travers la paroi des capillaires. C'est cette dynamique qui vaut à l'interstitium le surnom de <strong>« troisième système circulatoire »</strong>, aux côtés du sang et de la lymphe — dont il est d'ailleurs la source.</p>
+    <div class="concepts-grid">
+      <div class="concept-card"><div class="concept-icon">💧</div><h4>Dix litres et demi</h4><p>Le fluide interstitiel pèse près de 20 % du corps — trois fois le volume du plasma sanguin.</p></div>
+      <div class="concept-card"><div class="concept-icon">🔄</div><h4>Transit total en 24 h</h4><p>En une journée, l'équivalent de tout le plasma du corps traverse ce compartiment.</p></div>
+      <div class="concept-card"><div class="concept-icon">🌊</div><h4>Source de la lymphe</h4><p>Ces espaces pré-lymphatiques alimentent les vaisseaux lymphatiques puis les ganglions.</p></div>
+      <div class="concept-card"><div class="concept-icon">🧪</div><h4>Un ultrafiltrat</h4><p>Sa composition est proche du plasma mais pauvre en grosses protéines, retenues par les capillaires.</p></div>
+    </div>
+    <p>Cette position d'amont a une conséquence immunitaire directe. C'est dans le fluide interstitiel que sont collectés les antigènes et les signaux inflammatoires, avant leur acheminement vers les ganglions où s'orchestre la réponse immunitaire. L'interstitium n'est pas un simple remplissage passif entre les organes : c'est un carrefour de communication et de surveillance à l'échelle du corps entier.</p>
+  </div>
+</section>
+
+<section class="section" id="s6">
+  <div class="container">
+    <div class="section-label">Organe ou système&nbsp;?</div>
+    <h2>La querelle de définition</h2>
+    <p>L'annonce de 2018 a déclenché un raz-de-marée médiatique — près de quatre milliards de vues en ligne, des milliers d'articles — et, dans son sillage, une controverse scientifique tenace. Le mot qui fâche n'est pas « interstitium », admis par tous, mais « <strong>organe</strong> ». Beaucoup de chercheurs, tout en reconnaissant l'importance de la structure, refusent de lui accorder ce statut.</p>
+    <div class="highlight"><p>« C'est un système, pas un organe. »</p><cite>— Neil Theise, pathologiste (NYU Langone), coauteur de l'étude</cite></div>
+    <p>La prudence a deux motifs. Le premier est technique : couper du tissu <em>frais</em>, comme l'a fait l'équipe, peut aussi engendrer des artefacts — des déchirures, des espaces élargis artificiellement — mais dans l'autre sens cette fois. Certains critiques rappellent qu'un espace observé n'est pas nécessairement un espace fonctionnel aux dimensions exactes mesurées. Le second motif est sémantique : la notion d'organe suppose une fonction bien délimitée et une frontière nette, ce que l'interstitium n'a pas. Il est diffus, continu, réparti dans presque tout le corps.</p>
+    <p>Au fond, la découverte rouvre une question ancienne : qu'est-ce qui fait un organe ? Une fonction ? Une frontière ? Une origine embryonnaire commune ? L'interstitium résiste à ces cases, et c'est peut-être là son intérêt le plus profond. Mais qu'on l'appelle organe, système ou tissu, un point ne fait plus débat : ses implications cliniques sont bien réelles.</p>
+  </div>
+</section>
+
+<div class="img-wide">
+  <img src="https://v3b.fal.media/files/b/0aa3fd09/0_n9BdDGpg75IwDExWcO6_FEMwMih8.png" alt="Comment le cancer se propage à travers l'interstitium vers les ganglions" />
+  <div class="img-caption">L'autoroute du cancer : sous l'effet de la pression du fluide, cellules tumorales et liquide s'échappent par les canaux de l'interstitium vers les vaisseaux lymphatiques, puis vers les ganglions.</div>
+</div>
+
+<section class="section" id="s7">
+  <div class="container">
+    <div class="section-label">Ce que ça change</div>
+    <h2>Du cancer à la fibrose</h2>
+    <p>La première implication est oncologique, et elle était déjà pressentie lors de la découverte. Quand une tumeur envahit cette couche gorgée de liquide, elle gagne une voie de dissémination. Les tumeurs solides développent une <strong>pression interstitielle élevée</strong> : le fluide y est refoulé, puis s'échappe vers les vaisseaux lymphatiques voisins en emportant des cellules cancéreuses jusqu'aux ganglions. Dans le mélanome, on observe même que ce flux vers les ganglions <em>augmente avant</em> l'arrivée des cellules métastatiques — comme si l'interstitium préparait le terrain.</p>
+    <div class="highlight"><p>Comprendre l'interstitium, c'est cartographier la porte par laquelle le cancer quitte sa tumeur d'origine — et peut-être apprendre à la refermer.</p><cite>— d'après <em>Frontiers in Oncology</em>, sur le fluide interstitiel tumoral</cite></div>
+    <p>Le second front est celui de la <strong>fibrose</strong>. Les travaux récents en font un terrain d'étude privilégié du fluide interstitiel : en 2025, une analyse protéomique du liquide interstitiel pulmonaire a suivi, étape par étape, la progression de la fibrose. Surtout, la lecture <strong>mécanobiologique</strong> s'impose : la rigidité croissante de la matrice n'est plus vue comme une simple conséquence de la maladie, mais comme un <em>moteur</em> de son aggravation. Les cellules « sentent » la raideur de leur environnement et s'emballent — la mécanique du tissu pilote sa biologie.</p>
+    <h3>Une piste plus spéculative</h3>
+    <p>Reste une hypothèse séduisante, encore incertaine : cet espace continu et gorgé de fluide pourrait servir de <strong>voie de signalisation à l'échelle du corps entier</strong>, reliant des régions que l'anatomie classique traitait comme indépendantes. Certains chercheurs y voient une piste pour éclairer de vieilles énigmes de la physiologie. À manier avec prudence — mais la seule existence de la question dit à quel point la carte de notre propre corps reste incomplète.</p>
+    <h3>Chronologie d'une reconnaissance</h3>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot">2018</div><div class="tl-body"><h4>La description formelle</h4><p>Benias, Carr-Locke et Theise publient l'interstitium dans <em>Scientific Reports</em>. L'annonce fait le tour du monde.</p></div></div>
+      <div class="tl-item"><div class="tl-dot">2019<br>2021</div><div class="tl-body"><h4>Débat et cartographie</h4><p>La communauté débat du statut d'« organe » et étend la description à d'autres localisations du corps.</p></div></div>
+      <div class="tl-item"><div class="tl-dot">2022<br>2024</div><div class="tl-body"><h4>Le lien avec la métastase</h4><p>Le rôle de la pression interstitielle dans la dissémination lymphatique des tumeurs est mieux caractérisé.</p></div></div>
+      <div class="tl-item"><div class="tl-dot">2025</div><div class="tl-body"><h4>Protéomique de la fibrose</h4><p>Le fluide interstitiel pulmonaire est analysé stade par stade dans la fibrose (<em>Scientific Reports</em>).</p></div></div>
+      <div class="tl-item"><div class="tl-dot">2026</div><div class="tl-body"><h4>Le tournant mécanobiologique</h4><p>La rigidité de la matrice s'impose comme moteur — et non simple témoin — de la fibrose pulmonaire.</p></div></div>
+    </div>
+    <p class="clearfix">L'interstitium n'a pas ajouté un organe à la liste : il a rappelé que l'anatomie, la plus ancienne des sciences médicales, n'est pas close. Ce que nous ne voyons pas dépend d'abord de la manière dont nous choisissons de regarder — et il aura suffi d'observer le tissu vivant, hydraté, plutôt que sa dépouille sur une lame, pour faire réapparaître dix litres d'un corps que nous croyions entièrement cartographié.</p>
+  </div>
+</section>
+
+<section class="sources" id="sources">
+  <div class="container">
+    <div class="section-label">Bibliographie</div>
+    <h2>Sources &amp; Références</h2>
+    <ul class="sources-list">
+      <li><a href="https://www.nature.com/articles/s41598-018-23062-6" target="_blank">Structure and Distribution of an Unrecognized Interstitium in Human Tissues</a><div class="src-pub">Benias, Carr-Locke, Theise et al. — Scientific Reports, 2018</div></li>
+      <li><a href="https://www.scientificamerican.com/article/meet-your-interstitium-a-newfound-organ/" target="_blank">Meet Your Interstitium, a Newfound "Organ"</a><div class="src-pub">Scientific American, 2018</div></li>
+      <li><a href="https://nyulangone.org/news/nyu-school-medicine-pathologist-uncovers-potential-new-organ-setting-fiery-debate" target="_blank">An NYU Pathologist Uncovers a Potential New Organ, Setting Off a Fiery Debate</a><div class="src-pub">NYU Langone News</div></li>
+      <li><a href="https://www.the-scientist.com/interstitium-a-network-of-living-spaces-supports-anatomical-interconnectedness-71803" target="_blank">Interstitium: A Network of Living Spaces Supports Anatomical Interconnectedness</a><div class="src-pub">The Scientist</div></li>
+      <li><a href="https://my.clevelandclinic.org/health/body/interstitium" target="_blank">What Is the Interstitium?</a><div class="src-pub">Cleveland Clinic</div></li>
+      <li><a href="https://www.sciencedaily.com/releases/2018/03/180327093954.htm" target="_blank">Newfound "organ" had been missed by standard method for visualizing anatomy</a><div class="src-pub">ScienceDaily, mars 2018</div></li>
+      <li><a href="https://www.frontiersin.org/journals/oncology/articles/10.3389/fonc.2015.00115/full" target="_blank">Tumor Interstitial Fluid: Formation, Characterization, and Clinical Implications</a><div class="src-pub">Frontiers in Oncology</div></li>
+      <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC7674635/" target="_blank">A Modern View of the Interstitial Space in Health and Disease</a><div class="src-pub">Frontiers in Veterinary Science / PMC</div></li>
+      <li><a href="https://www.nature.com/articles/s41598-025-98569-w" target="_blank">Differential proteomics of interstitial fluid in the progression of pulmonary fibrosis</a><div class="src-pub">Scientific Reports, 2025</div></li>
+      <li><a href="https://www.cell.com/iscience/fulltext/S2589-0042(26)00710-8" target="_blank">Idiopathic pulmonary fibrosis from a multiscale mechanobiology perspective</a><div class="src-pub">iScience, 2026</div></li>
+    </ul>
+  </div>
+</section>
+
+<footer><a href="/dossiers/">Vostok</a> · Dossiers · Juillet 2026</footer>
+
+<script>
+(function(){
+  var seg=[
+    "https://v3b.fal.media/files/b/0aa3fd11/GSKgPG75OOeF5QaW2Ov-m_output.mp3",
+    "https://v3b.fal.media/files/b/0aa3fd16/9h3e4_wis4keZZ6bO7QMJ_output.mp3",
+    "https://v3b.fal.media/files/b/0aa3fd1b/LtysPUAInBCzwS_pjIoGx_output.mp3"
+  ];
+  var i=0, playing=false;
+  var audio=new Audio(); audio.preload="none"; audio.src=seg[0];
+  var btn=document.getElementById("podcast-toggle");
+  function label(){ btn.textContent = playing ? "⏸ Pause" : "▶ Écouter l'interview"; }
+  audio.addEventListener("ended", function(){
+    i++;
+    if(i<seg.length){ audio.src=seg[i]; audio.play(); }
+    else { i=0; audio.src=seg[0]; playing=false; label(); }
+  });
+  btn.addEventListener("click", function(){
+    if(playing){ audio.pause(); playing=false; } else { audio.play(); playing=true; }
+    label();
+  });
+})();
+</script>
+</body>
+</html>
