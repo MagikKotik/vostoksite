@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Le Rebond — Étoiles de Planck et la mort quantique des trous noirs — Vostok</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --deep:   #020b18; --navy: #061628; --blue: #0d2d4a;
+      --accent: #00b4d8; --bright: #90e0ef; --gold: #f4c542;
+      --muted:  #8bb8d0; --text: #cce4f0;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--deep); color: var(--text); font-family: 'Inter', sans-serif; font-size: 17px; line-height: 1.8; overflow-x: hidden; }
+
+    /* ── HERO ── */
+    .hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; }
+    .hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.55) saturate(1.2); }
+    .hero-gradient { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, var(--deep) 100%); }
+    .hero-content { position: relative; z-index: 2; padding: 0 8vw 7vh; max-width: 900px; }
+    .hero-tag { display: inline-block; background: var(--accent); color: var(--deep); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 14px; border-radius: 3px; margin-bottom: 20px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 6vw, 5.5rem); font-weight: 900; line-height: 1.1; color: #fff; margin-bottom: 22px; }
+    .hero h1 span { color: var(--accent); }
+    .hero-sub { font-size: 1.15rem; font-weight: 300; color: var(--bright); max-width: 640px; margin-bottom: 36px; }
+    .hero-meta { display: flex; gap: 28px; flex-wrap: wrap; align-items: center; font-size: 13px; color: var(--muted); font-weight: 500; }
+    .podcast-btn { display: inline-flex; align-items: center; gap: 0.45rem; cursor: pointer;
+      background: var(--accent); color: var(--deep); border: none; font-family: inherit;
+      font-size: 0.82rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase;
+      padding: 0.4rem 0.95rem; border-radius: 999px; transition: background 0.2s, transform 0.1s; }
+    .podcast-btn:hover { background: var(--bright); }
+    .podcast-btn:active { transform: scale(0.97); }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(2,11,24,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,180,216,0.15);
+      padding: 0 8vw;
+      display: flex; align-items: center;
+      gap: 24px; height: 60px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    nav a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 500; letter-spacing: 0.5px; white-space: nowrap; transition: color 0.2s; }
+    nav a:hover { color: var(--accent); }
+
+    /* ── LAYOUT ── */
+    .container { max-width: 900px; margin: 0 auto; padding: 0 8vw; }
+    .section { padding: 90px 0 60px; }
+    .section + .section { border-top: 1px solid rgba(0,180,216,0.1); }
+
+    /* ── TITRES ── */
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+    h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 3.5vw, 2.8rem); font-weight: 700; color: #fff; margin-bottom: 28px; line-height: 1.25; }
+    h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--bright); margin: 44px 0 16px; }
+    p { margin-bottom: 20px; color: var(--text); }
+    strong { color: var(--bright); font-weight: 600; }
+
+    /* ── IMAGES ── */
+    .img-wide { width: 100%; max-width: 1200px; margin: 48px auto; display: block; border-radius: 10px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+    .img-wide img { width: 100%; display: block; }
+    .img-caption { text-align: center; font-size: 13px; color: var(--muted); font-style: italic; padding: 12px 20px; background: var(--navy); border-top: 1px solid rgba(0,180,216,0.1); }
+    .img-inline { float: right; margin: 4px 0 28px 36px; width: 46%; border-radius: 8px; overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
+    .img-inline img { width: 100%; display: block; }
+    .img-inline .img-caption { font-size: 12px; padding: 9px 14px; text-align: left; }
+    .clearfix::after { content: ''; display: table; clear: both; }
+
+    /* ── STATS ── */
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; margin: 40px 0; }
+    .stat-card { background: var(--navy); border: 1px solid rgba(0,180,216,0.2); border-radius: 10px; padding: 26px 22px; text-align: center; transition: border-color 0.3s, transform 0.3s; }
+    .stat-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 8px; }
+    .stat-label { font-size: 13px; color: var(--muted); font-weight: 500; }
+
+    /* ── HIGHLIGHT ── */
+    .highlight { background: linear-gradient(135deg, rgba(0,180,216,0.08), rgba(0,180,216,0.02)); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 24px 28px; margin: 36px 0; }
+    .highlight p { margin: 0; color: var(--bright); font-size: 1.05rem; font-style: italic; }
+    .highlight cite { display: block; margin-top: 12px; font-size: 13px; color: var(--muted); font-style: normal; }
+
+    /* ── CONCEPTS ── */
+    .concepts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin: 36px 0; }
+    .concept-card { background: var(--navy); border: 1px solid rgba(0,180,216,0.15); border-radius: 10px; padding: 24px; }
+    .concept-icon { font-size: 2rem; margin-bottom: 12px; }
+    .concept-card h4 { font-size: 1rem; font-weight: 600; color: var(--bright); margin-bottom: 10px; }
+    .concept-card p { font-size: 14px; color: var(--muted); margin: 0; line-height: 1.7; }
+
+    /* ── TIMELINE ── */
+    .timeline { margin: 40px 0; position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 18px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--accent), transparent); }
+    .tl-item { display: flex; gap: 28px; margin-bottom: 36px; align-items: flex-start; }
+    .tl-dot { width: 38px; height: 38px; min-width: 38px; border-radius: 50%; background: var(--blue); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--accent); position: relative; z-index: 1; }
+    .tl-body h4 { font-size: 1rem; font-weight: 600; color: var(--bright); margin-bottom: 6px; }
+    .tl-body p { font-size: 14.5px; color: var(--text); margin: 0; line-height: 1.7; }
+
+    /* ── SOURCES ── */
+    .sources { background: var(--navy); border-top: 1px solid rgba(0,180,216,0.15); padding: 60px 0 80px; }
+    .sources-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .sources-list li { padding: 14px 18px; background: var(--blue); border-radius: 7px; border: 1px solid rgba(0,180,216,0.1); font-size: 14px; transition: border-color 0.2s; }
+    .sources-list li:hover { border-color: var(--accent); }
+    .sources-list a { color: var(--accent); text-decoration: none; font-weight: 500; }
+    .sources-list a:hover { text-decoration: underline; }
+    .src-pub { color: var(--muted); font-size: 12px; margin-top: 3px; }
+
+    /* ── FOOTER ── */
+    footer { background: var(--deep); text-align: center; padding: 32px; font-size: 13px; color: var(--muted); border-top: 1px solid rgba(255,255,255,0.05); }
+    footer a { color: var(--accent); text-decoration: none; }
+    footer span { color: var(--accent); }
+
+    @media (max-width: 680px) {
+      .img-inline { float: none; width: 100%; margin: 0 0 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<section class="hero">
+  <img class="hero-img" src="https://v3b.fal.media/files/b/0aa4584c/n-i7pNVn51KgCroBp_fyC_9uDPNuWp.png" alt="Étoile massive s'effondrant en trou noir, cœur de lumière quantique résistant à l'effondrement" />
+  <div class="hero-gradient"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Cosmologie · Physique quantique</div>
+    <h1>Le <span>Rebond</span> — Étoiles de Planck et la mort quantique des trous noirs</h1>
+    <p class="hero-sub">Et si, au cœur des trous noirs, il n'y avait pas de singularité mais un ultime rempart quantique — et un rebond qui ressemble étrangement à un Big Bang ?</p>
+    <div class="hero-meta">
+      <span>Cosmologie &amp; Physique quantique</span>
+      <span>30 juillet 2026</span>
+      <span>12 min de lecture</span>
+      <button class="podcast-btn" id="podcast-toggle" type="button" aria-label="Écouter l'interview">▶ Écouter l'interview</button>
+    </div>
+  </div>
+</section>
+
+<nav>
+  <a href="#intro">La balle qui rebondit</a>
+  <a href="#s2">Les remparts</a>
+  <a href="#s3">L'effondrement</a>
+  <a href="#s4">L'étoile de Planck</a>
+  <a href="#s5">Le rebond</a>
+  <a href="#s6">Le Grand Rebond</a>
+  <a href="#s7">Deux visiteurs</a>
+  <a href="#sources">Sources</a>
+</nav>
+
+<section class="section" id="intro">
+  <div class="container">
+    <div class="section-label">L'incompressibilité, fil rouge de l'univers</div>
+    <h2>Une balle rebondit parce que rien ne veut être écrasé</h2>
+    <p>Une balle qui frappe le sol ne le traverse pas : les électrons de sa surface et ceux du sol se repoussent électriquement, et cette répulsion la renvoie vers le haut. Ce geste banal cache une loi profonde de la matière. À chaque échelle de l'univers, une force veille et <strong>résiste à la compression</strong>. Tant qu'elle tient, la structure existe. Le jour où elle cède, l'objet s'effondre — jusqu'au rempart suivant.</p>
+    <p>Les étoiles obéissent à cette même logique, en plus brutal. Une étoile vivante tient grâce à la chaleur de sa fusion nucléaire, qui pousse vers l'extérieur et compense exactement sa propre gravité. Quand le carburant s'épuise, la gravité l'emporte et l'astre s'effondre — mais de nouveaux remparts, purement quantiques, l'attendent en chemin. La question qui traverse cet article est simple à énoncer, vertigineuse à résoudre : <strong>jusqu'où peut-on comprimer la matière avant que quelque chose ne dise stop ?</strong></p>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-num">1,4</div><div class="stat-label">masse solaire — limite de Chandrasekhar (naines blanches)</div></div>
+      <div class="stat-card"><div class="stat-num">2–3</div><div class="stat-label">masses solaires — limite d'Oppenheimer-Volkoff (étoiles à neutrons)</div></div>
+      <div class="stat-card"><div class="stat-num">10<sup>96</sup></div><div class="stat-label">kg/m³ — ordre de la densité de Planck</div></div>
+      <div class="stat-card"><div class="stat-num">2014</div><div class="stat-label">l'hypothèse de l'étoile de Planck (Rovelli &amp; Vidotto)</div></div>
+    </div>
+    <p>La réponse classique — celle de la relativité générale d'Einstein — est glaçante : au-delà d'une certaine masse, plus rien ne tient, et la matière s'effondre en un point de densité infinie, la <strong>singularité</strong>. Mais un infini, en physique, n'est jamais une réponse : c'est un panneau qui signale que la théorie a atteint sa limite. Depuis une dizaine d'années, une autre issue est prise au sérieux. Elle porte un nom : l'étoile de Planck.</p>
+  </div>
+</section>
+
+<section class="section" id="s2">
+  <div class="container">
+    <div class="section-label">Les remparts quantiques</div>
+    <h2>Naines blanches, étoiles à neutrons : la dégénérescence</h2>
+    <div class="img-inline">
+      <img src="https://v3b.fal.media/files/b/0aa45814/ha1EX61EGMbFE0e0v8sRm_neJe7DIa.png" alt="Naine blanche, étoile ultra-dense de la taille de la Terre" />
+      <div class="img-caption">Une naine blanche : la masse du Soleil comprimée à la taille de la Terre, tenue par la seule pression de dégénérescence des électrons.</div>
+    </div>
+    <p>Quand une étoile de masse modeste meurt, son cœur s'effondre jusqu'à ce qu'un rempart quantique surgisse : la <strong>pression de dégénérescence des électrons</strong>. Elle ne vient d'aucune force au sens classique, mais du principe d'exclusion de Pauli — deux électrons refusent d'occuper le même état quantique. Serrez-les, et ils ripostent d'autant plus violemment. Le résultat est une naine blanche : un astre de la taille de la Terre pesant autant que le Soleil, où une cuillerée de matière compterait en tonnes.</p>
+    <p>Mais ce rempart a une limite, calculée dès 1930 par Subrahmanyan Chandrasekhar : <strong>environ une fois et demie la masse du Soleil</strong>. Au-delà, les électrons, devenus relativistes, ne suffisent plus. Ils sont littéralement enfoncés dans les protons, fusionnant en neutrons. L'effondrement reprend jusqu'au rempart d'après : la <strong>pression de dégénérescence des neutrons</strong>. Naît alors une étoile à neutrons, une ville de vingt kilomètres de diamètre plus lourde que notre Soleil, où la même cuillerée pèserait des milliards de tonnes.</p>
+    <div class="highlight"><p>La pression de dégénérescence n'est pas une force répulsive ordinaire : c'est le refus quantique de deux fermions d'occuper le même état. C'est elle qui tient debout la matière la plus dense de l'univers observable.</p><cite>— Principe d'exclusion de Pauli, fondement des étoiles compactes</cite></div>
+    <p class="clearfix">On devine la suite : il existe encore une limite au-dessus. Et cette fois, l'histoire ne connaît plus de rempart de secours.</p>
+  </div>
+</section>
+
+<div class="img-wide">
+  <img src="https://v3b.fal.media/files/b/0aa45819/xCvi9YhdrGcWzZsAh3s2C_3ccaVuau.png" alt="Étoile à neutrons, sphère ultra-dense aux champs magnétiques intenses" />
+  <div class="img-caption">Une étoile à neutrons : dernier objet stable connu avant le trou noir. Au-delà de sa masse critique, aucune force répertoriée ne peut soutenir l'astre.</div>
+</div>
+
+<section class="section" id="s3">
+  <div class="container">
+    <div class="section-label">Quand la gravité gagne définitivement</div>
+    <h2>Au-delà d'Oppenheimer-Volkoff : le spectre de la singularité</h2>
+    <p>La limite des étoiles à neutrons porte le nom de <strong>Tolman, Oppenheimer et Volkoff</strong> — la limite TOV, établie dès 1939 et estimée aujourd'hui entre <strong>2,2 et 2,9 masses solaires</strong>. C'est une frontière d'un genre nouveau : contrairement à Chandrasekhar, qui relève encore d'une physique quasi newtonienne, elle est purement relativiste. Dans un astre aussi compact, la pression elle-même pèse : elle contribue à l'énergie, donc à la gravité, et finit par précipiter l'effondrement qu'elle était censée combattre.</p>
+    <h3>Plus aucune force connue ne tient</h3>
+    <p>Passé ce seuil, aucune des interactions répertoriées — ni la pression des neutrons, ni les forces nucléaires — ne peut soutenir l'astre. La gravité l'emporte sans partage, et c'est précisément là que se forme un trou noir. Les équations d'Einstein, poussées jusqu'au bout, prédisent alors leur fameuse singularité : un point de courbure et de densité infinies. Le problème est qu'à cet endroit précis, la relativité générale <strong>ignore complètement la physique quantique</strong> — alors même qu'on y entasse une masse colossale dans un volume minuscule, le domaine par excellence où les deux théories devraient dialoguer.</p>
+    <div class="concepts-grid">
+      <div class="concept-card"><div class="concept-icon">⚪</div><h4>Naine blanche</h4><p>Tenue par la dégénérescence des électrons. Plafond : ~1,4 M☉ (Chandrasekhar).</p></div>
+      <div class="concept-card"><div class="concept-icon">🔵</div><h4>Étoile à neutrons</h4><p>Tenue par la dégénérescence des neutrons. Plafond : ~2 à 3 M☉ (Oppenheimer-Volkoff).</p></div>
+      <div class="concept-card"><div class="concept-icon">⚫</div><h4>Trou noir</h4><p>Aucune force connue ne résiste. La relativité générale annonce une singularité.</p></div>
+      <div class="concept-card"><div class="concept-icon">✨</div><h4>Étoile de Planck ?</h4><p>Un ultime rempart, non plus fait de matière mais de la géométrie même de l'espace.</p></div>
+    </div>
+    <p>C'est ce trou dans la théorie que veut combler la <strong>gravité quantique</strong>. Le hic : nous n'en avons pas encore de version complète et vérifiée. Mais nous en avons des candidates sérieuses. L'une d'elles, la gravité quantique à boucles, propose au cœur du trou noir autre chose qu'un infini.</p>
+    <div class="highlight"><p>Sous la limite d'Oppenheimer-Volkoff, aucune force connue n'arrête l'effondrement gravitationnel : la relativité générale, seule, mène tout droit à la singularité — un infini qui signale surtout les limites de la théorie.</p><cite>— d'après la limite de Tolman-Oppenheimer-Volkoff (1939)</cite></div>
+  </div>
+</section>
+
+<div class="img-wide">
+  <img src="https://v3b.fal.media/files/b/0aa4581e/NiWQ5PQcRy6odKXmG-578_Iyq9B0ce.png" alt="Étoile de Planck, sphère d'énergie quantique-gravitationnelle au cœur d'un trou noir" />
+  <div class="img-caption">L'étoile de Planck : au cœur du trou noir, la matière atteint la densité de Planck et la granularité même de l'espace-temps se met à résister.</div>
+</div>
+
+<section class="section" id="s4">
+  <div class="container">
+    <div class="section-label">Une répulsion venue de l'espace lui-même</div>
+    <h2>L'étoile de Planck, l'ultime rempart</h2>
+    <p>L'idée est formulée en <strong>2014 par Carlo Rovelli et Francesca Vidotto</strong>, dans le cadre de la gravité quantique à boucles. Dans cette théorie, l'espace-temps n'est pas un tissu lisse et continu : il est <strong>granulaire</strong>, fait de grains élémentaires indivisibles. Il existe un volume minimal, une aire minimale, en dessous desquels il n'y a tout simplement plus rien à subdiviser. L'espace a une texture, et cette texture a une maille.</p>
+    <p>La conséquence est spectaculaire. Lorsque la matière en effondrement atteint la <strong>densité de Planck</strong> — la densité maximale qui ait un sens physique, un nombre à faire pâlir toute intuition — la structure discrète de l'espace-temps oppose une résistance. Une pression répulsive apparaît, non pas parce qu'une nouvelle force entre en scène, mais parce qu'<strong>il n'y a littéralement plus de place géométrique</strong> pour comprimer davantage. C'est une pression de dégénérescence, mais cette fois de l'espace lui-même. Elle stoppe l'effondrement <em>avant</em> la singularité.</p>
+    <h3>Ni Planckien en taille, ni éternel</h3>
+    <p>Un malentendu à lever d'emblée : l'étoile de Planck n'a rien de « Planckien » par ses dimensions. La densité de Planck étant atteinte pour une énergie colossale, la répulsion s'enclenche à une taille encore bien supérieure à la longueur de Planck — petite, certes, mais pas infiniment petite. Surtout, ce n'est <strong>pas un état stable et permanent</strong>. C'est le point de compression maximale, l'instant où la balle touche le sol. Ce qui s'effondre atteint son plancher — et, comme toute balle, s'apprête à rebondir.</p>
+    <p class="clearfix">Ce détail change tout. Car il transforme le trou noir, objet réputé définitif, en simple étape d'un cycle. Reste à comprendre pourquoi, si ce rebond existe, nous ne l'avons jamais vu.</p>
+  </div>
+</section>
+
+<section class="section" id="s5">
+  <div class="container">
+    <div class="section-label">Un rebond au ralenti cosmique</div>
+    <h2>Le rebond, le trou blanc et l'information sauvée</h2>
+    <div class="img-inline">
+      <img src="https://v3b.fal.media/files/b/0aa45833/DEO7ALuRDwjrAEe-kZp48_mfA2xEKT.png" alt="Trou blanc, l'inverse d'un trou noir, expulsant matière et énergie" />
+      <div class="img-caption">Un trou blanc : l'image miroir du trou noir. Là où l'un avale, l'autre recrache la matière et l'information accumulées.</div>
+    </div>
+    <p>Dans le modèle de Rovelli et Vidotto, une fois la compression maximale atteinte, la dynamique s'inverse : la matière <strong>rebondit</strong> et ressort par ce qu'on appelle un <strong>trou blanc</strong>, l'exact opposé d'un trou noir. Là où le trou noir engloutit tout, le trou blanc restitue. Et ce processus, du point de vue de la matière qui tombe, est presque instantané — une affaire de fractions de seconde en temps propre.</p>
+    <p>Alors pourquoi voit-on des trous noirs parfaitement tranquilles, et jamais rebondir ? À cause de l'effet le plus contre-intuitif de toute l'histoire : la <strong>dilatation gravitationnelle du temps</strong>. Près d'un trou noir, le temps s'écoule à une lenteur extrême vue de l'extérieur. Ce rebond éclair, mesuré en millisecondes du côté de la matière, s'étire pour nous sur des milliards — voire des milliards de milliards — d'années. Autrement dit : <strong>le trou noir est peut-être déjà en train de rebondir, et nous le regardons en ultra-ralenti.</strong> De notre poste d'observation, il paraît figé, éternel, silencieux.</p>
+    <h3>Un remède au paradoxe de l'information</h3>
+    <p>Ce scénario offre une prime théorique de taille. La physique quantique interdit que l'information soit définitivement détruite ; or un trou noir qui s'évapore lentement, à la Hawking, semble justement l'effacer — c'est le fameux <strong>paradoxe de l'information</strong>. Si la matière et l'information finissent par ressortir par un trou blanc au terme du rebond, le paradoxe se dissout : rien n'est perdu, tout est seulement rendu avec un retard cosmique. C'est d'ailleurs cette vertu qui a valu à l'hypothèse un tel intérêt.</p>
+    <p class="clearfix">Reste une résonance troublante. Un point de densité maximale, suivi d'une expansion explosive vers l'extérieur… cela ne rappelle-t-il pas quelque chose de beaucoup plus vaste ?</p>
+  </div>
+</section>
+
+<div class="img-wide">
+  <img src="https://v3b.fal.media/files/b/0aa45829/sLM_x7_S1Toej6Kn8FJIf_im9wccaC.png" alt="Le Grand Rebond cosmologique, un univers qui s'effondre puis rebondit" />
+  <div class="img-caption">Le Grand Rebond : appliquée à l'univers entier, la même physique remplace le Big Bang par le rebond d'un cosmos antérieur.</div>
+</div>
+
+<section class="section" id="s6">
+  <div class="container">
+    <div class="section-label">Du trou noir à l'univers entier</div>
+    <h2>Le Grand Rebond : un Big Bang qui n'était pas le début</h2>
+    <p>La même mathématique, appliquée non plus à une étoile mais à l'univers dans son ensemble, donne la <strong>cosmologie quantique à boucles</strong> et son résultat phare : le <strong>Grand Rebond</strong>. La singularité initiale du Big Bang — cet instant zéro de densité infinie que personne ne sait décrire — y est remplacée par un rebond. Notre Big Bang ne serait pas un commencement surgi du néant, mais le sursaut d'un <strong>univers antérieur en train de s'effondrer</strong>, parvenu à la densité de Planck puis retourné comme un gant. L'intuition d'un rebond, née au fond des trous noirs, s'étend ainsi à la naissance du cosmos.</p>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot">1930</div><div class="tl-body"><h4>La limite de Chandrasekhar</h4><p>Chandrasekhar montre qu'une naine blanche ne peut dépasser ~1,4 masse solaire : le premier plafond quantique de la matière.</p></div></div>
+      <div class="tl-item"><div class="tl-dot">1939</div><div class="tl-body"><h4>La limite d'Oppenheimer-Volkoff</h4><p>Oppenheimer et Volkoff établissent le plafond des étoiles à neutrons : au-delà, la relativité générale ne connaît plus d'issue que le trou noir.</p></div></div>
+      <div class="tl-item"><div class="tl-dot">1974</div><div class="tl-body"><h4>L'évaporation de Hawking</h4><p>Hawking montre que les trous noirs rayonnent et s'évaporent lentement — semant le paradoxe de l'information que l'étoile de Planck prétend résoudre.</p></div></div>
+      <div class="tl-item"><div class="tl-dot">2014</div><div class="tl-body"><h4>L'étoile de Planck</h4><p>Rovelli et Vidotto proposent qu'une répulsion quantique-gravitationnelle stoppe l'effondrement à la densité de Planck, remplaçant la singularité par un rebond.</p></div></div>
+      <div class="tl-item"><div class="tl-dot">2024</div><div class="tl-body"><h4>Effet tunnel et modèles récents</h4><p>Les travaux sur la transition trou noir–trou blanc par effet tunnel quantique affinent la durée du rebond et ses signatures potentiellement observables.</p></div></div>
+    </div>
+    <h3>Une théorie parmi d'autres</h3>
+    <p class="clearfix">Il faut le dire nettement : la gravité quantique à boucles n'est pas une vérité établie, mais <strong>une candidate</strong> à la description de la gravité quantique, en concurrence notamment avec la théorie des cordes. L'étoile de Planck reste une hypothèse — belle, cohérente, mais ni prouvée ni observée. Sa force est ailleurs : contrairement à bien des spéculations, elle prétend déboucher un jour sur des prédictions <strong>testables</strong>.</p>
+  </div>
+</section>
+
+<section class="section" id="s7">
+  <div class="container">
+    <div class="section-label">Deux visiteurs qui prolongent l'histoire</div>
+    <h2>Le tremblement de l'électron et le proton fou</h2>
+    <div class="img-inline">
+      <img src="https://v3b.fal.media/files/b/0aa4582e/ij-wAalJUtaneRggeC5Dp_qIvDG8e6.png" alt="Rayon cosmique d'ultra-haute énergie frappant l'atmosphère terrestre" />
+      <div class="img-caption">Un rayon cosmique d'ultra-haute énergie déclenchant une gerbe atmosphérique : un seul proton, l'énergie d'une balle de baseball.</div>
+    </div>
+    <p>Deux phénomènes, en apparence étrangers à notre récit, l'éclairent par la bande. Le premier plonge à l'échelle de la particule ; le second nous tombe littéralement du ciel. Tous deux rappellent que la question de la compression et celle des extrêmes énergétiques se rejoignent.</p>
+    <h3>Le Zitterbewegung : quand l'électron tremble</h3>
+    <p>D'où vient, au fond, toute cette « résistance à la compression » ? Des <strong>fermions</strong>, les particules de matière. L'équation de Dirac leur prête une propriété stupéfiante : le <strong>Zitterbewegung</strong>, le « mouvement de tremblement ». Un électron ne se déplace pas sagement ; il frétille en permanence, à une fréquence de l'ordre de <strong>10²¹ fois par seconde</strong>, sur une amplitude minuscule, à cause de l'interférence entre ses composantes d'énergie positive et négative. Attention toutefois au mirage de l'unification facile : ce tremblement n'est <strong>pas</strong> le rebond de Planck. Il se produit en espace plat, sans gravité, à une échelle des milliards de milliards de fois plus grande que l'échelle de Planck. Le vrai lien est plus subtil et plus beau : c'est le principe d'exclusion de ces mêmes fermions qui tient debout naines blanches et étoiles à neutrons. <strong>Le champ de matière est la source de presque tous les remparts de notre échelle</strong> — jusqu'au dernier, où c'est la géométrie de l'espace qui prend le relais.</p>
+    <h3>La particule Oh-My-God : un proton venu d'ailleurs</h3>
+    <p>Le 15 octobre 1991, le détecteur Fly's Eye, dans l'Utah, enregistre un événement stupéfiant : un unique proton portant une énergie de <strong>3,2 × 10²⁰ électronvolts</strong>, soit l'énergie cinétique d'une balle de baseball lancée à la main — une cinquantaine de joules concentrés dans une seule particule. Sa vitesse était si proche de celle de la lumière que, sur une année de course contre un photon, elle n'aurait perdu que quelques milliardièmes de seconde. On l'a baptisée la particule <strong>Oh-My-God</strong>. En 2021, le réseau Telescope Array en détectait une cousine tout aussi inexplicable, la particule <strong>Amaterasu</strong>.</p>
+    <h3>Un trou noir qui « se soulage » ? Presque</h3>
+    <p>Ces rayons cosmiques d'ultra-haute énergie posent une énigme : au-delà d'un certain seuil, la <strong>coupure GZK</strong>, un proton devrait être freiné par la lumière fossile de l'univers sur une centaine de millions d'années-lumière. Leur source devait donc être cosmiquement proche — mais on n'en voit pas d'évidente. L'explication dominante n'est pas exotique : d'immenses <strong>accélérateurs cosmiques</strong>, tels les jets de trous noirs supermassifs, catapultent ces particules. Mais l'idée d'un trou noir « émetteur » a une part de vérité — à condition de la retourner. Un trou noir rayonne bien des particules, par l'effet Hawking ; sauf qu'un trou noir <strong>massif est glacial et quasi muet</strong>. C'est en maigrissant, en s'évaporant, qu'il devient brûlant, pour finir dans un flash de particules ultra-énergétiques. Un trou noir primordial, né avec l'univers, pourrait achever cette évaporation aujourd'hui même — bouclant la boucle avec l'explosion finale que le modèle de l'étoile de Planck laisse entrevoir.</p>
+    <div class="highlight"><p>La singularité du Big Bang est robustement remplacée par un grand rebond, conséquence directe de la discrétude de la géométrie quantique.</p><cite>— d'après A. Ashtekar &amp; P. Singh, Loop Quantum Cosmology</cite></div>
+    <p>De la balle qui rebondit sur le sol jusqu'à ce proton venu d'un trou noir mourant, c'est chaque fois la même question, posée à une échelle différente. La singularité demeure l'hypothèse la plus admise ; l'étoile de Planck, elle, propose un univers qui, décidément, préfère rebondir plutôt que sombrer dans l'infini. Reste à l'observer — et là, tout commencerait vraiment.</p>
+  </div>
+</section>
+
+<section class="sources" id="sources">
+  <div class="container">
+    <div class="section-label">Bibliographie</div>
+    <h2>Sources &amp; Références</h2>
+    <ul class="sources-list">
+      <li><a href="https://arxiv.org/abs/1401.6562" target="_blank">Rovelli &amp; Vidotto — « Planck Stars »</a><div class="src-pub">arXiv:1401.6562 (2014) — l'article fondateur de l'hypothèse</div></li>
+      <li><a href="https://physics.aps.org/articles/v11/127" target="_blank">Black Hole Evolution Traced Out with Loop Quantum Gravity</a><div class="src-pub">Physics — American Physical Society (2018)</div></li>
+      <li><a href="https://arxiv.org/pdf/2411.18116" target="_blank">Black hole tunneling in loop quantum gravity</a><div class="src-pub">arXiv:2411.18116 (2024) — transition trou noir–trou blanc</div></li>
+      <li><a href="https://arxiv.org/abs/2304.05426" target="_blank">Ashtekar &amp; Singh — Loop Quantum Cosmology: Singularity Resolution</a><div class="src-pub">arXiv:2304.05426 — le Grand Rebond cosmologique</div></li>
+      <li><a href="https://en.wikipedia.org/wiki/Tolman%E2%80%93Oppenheimer%E2%80%93Volkoff_limit" target="_blank">Tolman–Oppenheimer–Volkoff limit</a><div class="src-pub">Wikipedia — la limite de masse des étoiles à neutrons</div></li>
+      <li><a href="https://en.wikipedia.org/wiki/Oh-My-God_particle" target="_blank">Oh-My-God particle</a><div class="src-pub">Wikipedia — le rayon cosmique de 1991</div></li>
+      <li><a href="https://en.wikipedia.org/wiki/Greisen%E2%80%93Zatsepin%E2%80%93Kuzmin_limit" target="_blank">Greisen–Zatsepin–Kuzmin (GZK) limit</a><div class="src-pub">Wikipedia — la coupure en énergie des rayons cosmiques</div></li>
+      <li><a href="https://www.sciencedaily.com/releases/2023/11/231123164708.htm" target="_blank">Telescope Array detects second highest-energy cosmic ray ever</a><div class="src-pub">ScienceDaily (2023) — la particule Amaterasu</div></li>
+      <li><a href="https://arxiv.org/pdf/0805.0478" target="_blank">Zitterbewegung (trembling motion) of electrons</a><div class="src-pub">arXiv:0805.0478 — le tremblement prédit par l'équation de Dirac</div></li>
+    </ul>
+  </div>
+</section>
+
+<footer><a href="/dossiers/">← Tous les dossiers</a> · <span>Vostok</span> · 30 juillet 2026</footer>
+
+<script>
+(function(){
+  var seg=[
+    "https://v3b.fal.media/files/b/0aa45879/obPSL-vPv7ZE5mti_U0Rd_output.mp3",
+    "https://v3b.fal.media/files/b/0aa4587d/caggqBqPsRoGGX9bmz47N_output.mp3",
+    "https://v3b.fal.media/files/b/0aa45880/rutMNCiJWAiULn2ICbYKy_output.mp3",
+    "https://v3b.fal.media/files/b/0aa45893/lbYORAEoBuXAp0gcrAPfr_output.mp3",
+    "https://v3b.fal.media/files/b/0aa45887/kmbmP3vhFMTMvttZxu8Ut_output.mp3",
+    "https://v3b.fal.media/files/b/0aa4588a/pUkC4o0oIMg9JYpzL_vM__output.mp3",
+    "https://v3b.fal.media/files/b/0aa4586e/oV_-m-UOdsBFfKaXbUvwV_output.mp3"
+  ];
+  var i=0, playing=false;
+  var audio=new Audio(); audio.preload="none"; audio.src=seg[0];
+  var btn=document.getElementById("podcast-toggle");
+  function label(){ btn.textContent = playing ? "⏸ Pause" : "▶ Écouter l'interview"; }
+  audio.addEventListener("ended", function(){
+    i++;
+    if(i<seg.length){ audio.src=seg[i]; audio.play(); }
+    else { i=0; audio.src=seg[0]; playing=false; label(); }
+  });
+  btn.addEventListener("click", function(){
+    if(playing){ audio.pause(); playing=false; } else { audio.play(); playing=true; }
+    label();
+  });
+})();
+</script>
+</body>
+</html>
