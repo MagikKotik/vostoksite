@@ -1,0 +1,614 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>BookFlow — Lecteur</title>
+<style>
+  :root{
+    /* palette pilotée par les thèmes / la palette perso */
+    --page:#0a0a0d;
+    --zone:#111116; --zone-border:#33333d; --zone-border-w:1px;
+    --ink:#c9c9d2;
+    --accent:#e0a24a; --pivot-bg:#e0a24a; --pivot-fg:#14100a;
+    --guide-color:#e0a24a; --guide-w:1px;
+    --read-size:48px; --zone-w:66%;
+    /* chrome de l'app (fixe, sobre) */
+    --panel:#0c0c11; --panel-2:#17171e; --ink-dim:#6f6f7a; --line:#20202a;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{
+    background:var(--page); color:var(--ink);
+    font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    height:100vh; overflow:hidden; display:flex; flex-direction:column;
+    -webkit-tap-highlight-color:transparent;
+  }
+
+  /* ============ Barre du haut : titre + WPM (hors zone) ============ */
+  .topbar{
+    display:flex; align-items:center; gap:12px; padding:10px 14px;
+    border-bottom:1px solid var(--line); background:var(--panel); flex:none;
+  }
+  .icon-btn{
+    background:transparent; color:var(--ink); border:1px solid var(--line);
+    width:40px; height:36px; border-radius:10px; font-size:18px; cursor:pointer;
+    display:grid; place-items:center; flex:none;
+  }
+  .icon-btn:hover{border-color:var(--accent)}
+  .title{display:flex; flex-direction:column; line-height:1.15; min-width:0}
+  .title b{font-size:14px; font-weight:600; white-space:nowrap; overflow:hidden; text-overflow:ellipsis}
+  .title span{font-size:11px; color:var(--ink-dim)}
+  .spacer{flex:1}
+  /* contrôle WPM compact, à droite, HORS de la zone de lecture */
+  .wpm{display:flex; align-items:center; gap:9px; flex:none}
+  .wpm__cap{font-size:10px; letter-spacing:.08em; color:var(--ink-dim); text-transform:uppercase}
+  .wpm input[type=range]{width:120px; accent-color:var(--accent)}
+  .wpm b{font-size:13px; font-variant-numeric:tabular-nums; min-width:34px; text-align:right; color:var(--accent)}
+  @media (max-width:560px){ .wpm input[type=range]{width:78px} .title span{display:none} }
+  /* Mode embarqué dans le proto : réserve la place du bouton « quitter » (haut-droite du cadre) */
+  body.embedded .topbar{ padding-right:56px; }
+
+  /* ================= Scène de lecture (minimaliste) ================= */
+  .stage{flex:1; display:flex; align-items:center; justify-content:center; padding:20px; min-height:0}
+  .zone{
+    position:relative; width:var(--zone-w); height:min(46%, 340px);
+    background:var(--zone); border:var(--zone-border-w) solid var(--zone-border);
+    border-radius:26px; overflow:hidden;
+    box-shadow:0 24px 60px rgba(0,0,0,.5); display:flex; align-items:center; cursor:pointer;
+  }
+  /* repère de fixation */
+  .guide{position:absolute; left:50%; top:0; bottom:0; transform:translateX(-50%); pointer-events:none}
+  .guide.style-line{width:var(--guide-w); top:12%; bottom:12%; background:var(--guide-color); opacity:.55}
+  .guide.style-ticks::before,.guide.style-ticks::after{content:""; position:absolute; left:50%; transform:translateX(-50%);
+        width:0;height:0; border-left:11px solid transparent; border-right:11px solid transparent}
+  .guide.style-ticks::before{top:8px;  border-top:16px solid var(--guide-color)}
+  .guide.style-ticks::after {bottom:8px; border-bottom:16px solid var(--guide-color)}
+  .guide.style-off{display:none}
+  /* flux de texte, aligné au pixel sur le pivot */
+  .flux{position:absolute; top:50%; transform:translateY(-50%); white-space:nowrap;
+        font-size:var(--read-size); line-height:1; letter-spacing:.005em; will-change:left; pointer-events:none}
+  .flux.pivot-color .piv{color:var(--accent)}
+  .flux.pivot-pill  .piv{background:var(--pivot-bg); color:var(--pivot-fg); padding:0 .10em; border-radius:.12em}
+  .flux.pivot-underline .piv{color:var(--accent); border-bottom:.14em solid var(--accent)}
+  .paused-badge{position:absolute; bottom:12px; left:50%; transform:translateX(-50%);
+        font-size:11px; color:var(--ink-dim); letter-spacing:.08em; text-transform:uppercase; pointer-events:none}
+
+  /* ================= Player en bas (permanent) ================= */
+  .transport{
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    padding:12px; border-top:1px solid var(--line); background:var(--panel); flex:none;
+    padding-bottom:calc(12px + env(safe-area-inset-bottom));
+  }
+  .transport button{background:var(--panel-2); color:var(--ink); border:1px solid var(--line);
+        width:46px; height:42px; border-radius:11px; font-size:16px; cursor:pointer; display:grid; place-items:center}
+  .transport button:hover{border-color:var(--accent)}
+  .transport button.play{width:58px; background:var(--accent); color:#160f04; border-color:var(--accent); font-weight:700}
+  .progress{margin-left:12px; font-size:11px; color:var(--ink-dim); min-width:150px}
+  .progress b{color:var(--ink); font-variant-numeric:tabular-nums}
+  @media (max-width:560px){ .progress{display:none} .transport button{width:42px;height:40px} }
+
+  /* ================= Tiroir hamburger : TOUS les réglages ================= */
+  .backdrop{position:fixed; inset:0; background:rgba(0,0,0,.55); opacity:0; pointer-events:none; transition:opacity .2s; z-index:20}
+  .backdrop.open{opacity:1; pointer-events:auto}
+  .drawer{position:fixed; top:0; left:0; bottom:0; width:min(340px,88vw); background:var(--panel); color:var(--ink);
+        border-right:1px solid var(--line); transform:translateX(-104%); transition:transform .22s ease; z-index:21;
+        display:flex; flex-direction:column; box-shadow:8px 0 40px rgba(0,0,0,.5)}
+  .drawer.open{transform:none}
+  .drawer .dhead{display:flex; align-items:center; gap:10px; padding:12px 14px; border-bottom:1px solid var(--line)}
+  .drawer .dhead h1{font-size:14px; margin:0; font-weight:600}
+  .drawer .body{overflow:auto; padding:14px; -webkit-overflow-scrolling:touch}
+  .ctl{margin:0 0 12px}
+  .ctl label{display:flex; justify-content:space-between; font-size:12px; margin-bottom:5px}
+  .ctl label b{color:var(--accent); font-variant-numeric:tabular-nums}
+  .ctl input[type=range]{width:100%; accent-color:var(--accent)}
+  .toggles{display:flex; flex-wrap:wrap; gap:10px 16px; font-size:12px; margin:2px 0 4px}
+  .toggles label{display:flex; gap:6px; align-items:center; cursor:pointer}
+  .themes{display:flex; flex-direction:column; gap:8px}
+  .theme-btn{display:flex; align-items:center; gap:10px; text-align:left; cursor:pointer;
+        background:var(--panel-2); border:1px solid var(--line); color:var(--ink); border-radius:10px; padding:10px 12px; font-size:13px}
+  .theme-btn:hover{border-color:#555}
+  .theme-btn.active{border-color:var(--accent); box-shadow:0 0 0 1px var(--accent)}
+  .swatch{width:34px;height:24px;border-radius:6px;flex:none;display:grid;place-items:center;font-weight:800;font-size:14px}
+  .radios{display:flex; gap:8px; flex-wrap:wrap}
+  .radios label{font-size:12px; border:1px solid var(--line); border-radius:8px; padding:6px 10px; cursor:pointer; display:flex; gap:6px; align-items:center}
+  .radios input{accent-color:var(--accent)}
+  .palette{display:grid; grid-template-columns:1fr 1fr; gap:8px}
+  .pk{display:flex; align-items:center; justify-content:space-between; font-size:11px; gap:8px; background:var(--panel-2); border:1px solid var(--line); border-radius:8px; padding:6px 8px}
+  .pk input[type=color]{width:28px;height:22px;border:none;background:none;padding:0;cursor:pointer}
+  .btn-reset{margin-top:12px; width:100%; background:var(--panel-2); border:1px solid var(--line); color:var(--ink); border-radius:9px; padding:9px; cursor:pointer; font-size:12px}
+  .btn-reset:hover{border-color:var(--accent)}
+  .cat{border:1px solid var(--line); border-radius:10px; margin-bottom:8px; overflow:hidden; background:var(--panel-2)}
+  .cat>summary{list-style:none; cursor:pointer; padding:11px 13px; font-size:12px; text-transform:uppercase;
+        letter-spacing:.06em; color:var(--ink); display:flex; align-items:center; justify-content:space-between}
+  .cat>summary::-webkit-details-marker{display:none}
+  .cat>summary::after{content:"⌄"; color:var(--ink-dim); transition:transform .2s}
+  .cat[open]>summary::after{transform:rotate(180deg)}
+  .cat-body{padding:12px 13px; border-top:1px solid var(--line)}
+  .sub-label{font-size:11px; color:var(--ink-dim); text-transform:uppercase; letter-spacing:.06em; margin:14px 0 8px}
+  .sub-label:first-child{margin-top:0}
+</style>
+</head>
+<body>
+
+<!-- Barre du haut : WPM hors zone -->
+<div class="topbar">
+  <button class="icon-btn" id="burger" title="Réglages" aria-label="Réglages">☰</button>
+  <div class="title"><b id="doc-title">Providence</b><span id="doc-sub">Yan Rubydur · chapitre 1</span></div>
+  <div class="spacer"></div>
+  <div class="wpm">
+    <span class="wpm__cap">Vitesse</span>
+    <input type="range" id="s-wpm" min="150" max="900" step="10" value="150" aria-label="Vitesse de lecture (WPM)">
+    <b id="v-wpm">150</b>
+  </div>
+</div>
+
+<!-- Zone de lecture -->
+<main class="stage">
+  <div class="zone" id="zone">
+    <div class="guide style-off" id="guide"></div>
+    <div class="flux pivot-pill" id="flux"></div>
+    <div class="paused-badge" id="pausedBadge">en pause — espace / clic pour lire</div>
+  </div>
+</main>
+
+<!-- Player permanent en bas -->
+<div class="transport">
+  <button id="btn-restart" title="Début (Home)">⟲</button>
+  <button id="btn-seg-prev" title="Segment précédent">⏮</button>
+  <button id="btn-prev" title="Sous-segment précédent (←)">‹</button>
+  <button id="btn-play" class="play" title="Lecture / Pause (Espace)">▶</button>
+  <button id="btn-next" title="Sous-segment suivant (→)">›</button>
+  <button id="btn-seg-next" title="Segment suivant">⏭</button>
+  <span class="progress" id="progress">—</span>
+</div>
+
+<!-- Tiroir : TOUS les réglages sauf WPM -->
+<div class="backdrop" id="backdrop"></div>
+<div class="drawer" id="drawer">
+  <div class="dhead">
+    <button class="icon-btn" id="burger-close" aria-label="Fermer">✕</button>
+    <h1>Réglages</h1>
+  </div>
+  <div class="body">
+    <details class="cat" open>
+      <summary>Thèmes d'accessibilité</summary>
+      <div class="cat-body"><div class="themes" id="themes"></div></div>
+    </details>
+
+    <details class="cat">
+      <summary>Texte &amp; pivot</summary>
+      <div class="cat-body">
+        <div class="ctl">
+          <label>Taille du texte <b id="v-size">48 px</b></label>
+          <input type="range" id="s-size" min="22" max="96" step="1" value="48">
+        </div>
+        <div class="sub-label">Position du pivot (gauche ← → droite)</div>
+        <div class="ctl" style="margin:0 0 8px">
+          <label>Facteur <b id="v-piv">0.54</b></label>
+          <input type="range" id="s-piv" min="0.10" max="0.90" step="0.01" value="0.54">
+        </div>
+        <div class="sub-label">Style du pivot</div>
+        <div class="radios" id="pivot-style">
+          <label><input type="radio" name="pstyle" value="color"> Couleur</label>
+          <label><input type="radio" name="pstyle" value="pill" checked> Pastille</label>
+          <label><input type="radio" name="pstyle" value="underline"> Souligné</label>
+        </div>
+      </div>
+    </details>
+
+    <details class="cat">
+      <summary>Repère de fixation</summary>
+      <div class="cat-body">
+        <div class="radios" id="guide-style">
+          <label><input type="radio" name="gstyle" value="line"> Trait</label>
+          <label><input type="radio" name="gstyle" value="ticks"> Repères</label>
+          <label><input type="radio" name="gstyle" value="off" checked> Aucun</label>
+        </div>
+      </div>
+    </details>
+
+    <details class="cat">
+      <summary>Découpage &amp; rythme</summary>
+      <div class="cat-body">
+        <div class="toggles">
+          <label><input type="checkbox" id="t-fit" checked> Largeur = zone <b id="fit-info" style="color:var(--ink-dim)"></b></label>
+        </div>
+        <div class="ctl">
+          <label>Largeur max sous-segment (car.) <b id="v-max">24</b></label>
+          <input type="range" id="s-max" min="8" max="42" step="1" value="24">
+        </div>
+        <div class="ctl">
+          <label>Largeur de la zone <b id="v-zw">66 %</b></label>
+          <input type="range" id="s-zw" min="40" max="96" step="1" value="66">
+        </div>
+        <div class="ctl">
+          <label>Pause virgule <b id="v-pc">120 ms</b></label>
+          <input type="range" id="s-pc" min="0" max="500" step="10" value="120">
+        </div>
+        <div class="ctl">
+          <label>Pause point <b id="v-pp">280 ms</b></label>
+          <input type="range" id="s-pp" min="0" max="900" step="10" value="280">
+        </div>
+        <div class="toggles">
+          <label><input type="checkbox" id="t-ramp"> Montée progressive de vitesse</label>
+        </div>
+      </div>
+    </details>
+
+    <details class="cat">
+      <summary>Palette personnalisée</summary>
+      <div class="cat-body">
+        <div class="palette" id="palette">
+          <div class="pk">Fond page <input type="color" data-var="--page"></div>
+          <div class="pk">Fond zone <input type="color" data-var="--zone"></div>
+          <div class="pk">Bordure zone <input type="color" data-var="--zone-border"></div>
+          <div class="pk">Texte <input type="color" data-var="--ink"></div>
+          <div class="pk">Pivot fond <input type="color" data-var="--pivot-bg"></div>
+          <div class="pk">Pivot texte <input type="color" data-var="--pivot-fg"></div>
+          <div class="pk">Repère <input type="color" data-var="--guide-color"></div>
+          <div class="pk">Accent <input type="color" data-var="--accent"></div>
+        </div>
+        <button class="btn-reset" id="btn-reset-theme">↺ Revenir au thème</button>
+      </div>
+    </details>
+  </div>
+</div>
+
+<script>
+/* ================================================================
+   BookFlow — Lecteur (vue définitive, non-labo)
+   Moteur de découpage DÉTERMINISTE (zéro LLM) hérité du labo.
+   Règles : specs 00_glossaire / 03_json_format / 04_player.
+   ================================================================ */
+
+/* ---- Texte démo : Providence, chapitre 1 (roman de Yan Rubydur) ---- */
+const TEXT = `Chapitre 1 — Que Providence vous veille
+
+La lumière vint le chercher au fond du sommeil, comme chaque matin, à l'instant exact où il était prêt à la recevoir. Elle ne l'arrachait pas au rêve ; elle l'en délivrait doucement, par degrés, comme une main qui remonte un dormeur du fond d'une eau tiède. Eric Burns ouvrit les yeux sur le plafond pâle de sa chambre et sut, avant toute pensée, qu'il avait bien dormi. Il le savait parce qu'il le sentait, et il le sentait parce que c'était vrai : la température de la pièce avait accompagné chaque phase de sa nuit, l'air avait été renouvelé aux heures profondes, et la lumière, à présent, avait cette teinte de miel clair qu'il préférait sans jamais l'avoir demandée.
+
+Il resta un moment immobile, dans ce bien-être sans objet qui précède les journées ordinaires. Puis, du bout de deux doigts, il tapota son sternum — deux petits coups brefs, à l'endroit du cœur, là où dormait sous la peau la chose minuscule qui veillait sur lui depuis l'enfance. Il ne pensa pas à ce geste. Personne n'y pensait. On le faisait au réveil comme on respire, comme on cligne des yeux, et le geste voulait dire merci sans que la gratitude eût besoin de se formuler.
+
+— Bonne Provi, murmura-t-il à la chambre vide.
+
+La chambre ne répondit pas. Elle n'avait pas besoin de répondre : les rideaux achevaient de s'ouvrir, l'eau chauffait déjà dans la salle de bains, et dans la cuisine, il le savait, son petit-déjeuner attendait. Il ne l'avait pas commandé. Il ne commandait jamais rien. Le pain était tiède, le café à la température exacte où il le buvait, et il y avait ce matin-là, à côté du bol, une orange — une vraie, avec sa peau épaisse et son parfum acide — alors qu'il n'en avait pas mangé depuis des semaines et qu'il s'était fait la réflexion, l'avant-veille, sans le dire à personne, qu'il en avait vaguement envie.
+
+Il sourit en la prenant dans sa main. Elle y a pourvu, pensa-t-il, avec les mots de tout le monde. C'était une expression si usée qu'elle ne voulait presque plus rien dire, et pourtant elle disait tout : le monde était ainsi fait que les désirs y étaient comblés un peu avant d'éclore, si bien qu'on vivait dans une saison perpétuelle où les fruits tombaient toujours mûrs, toujours à l'heure, dans des mains qui n'avaient pas eu le temps de se tendre.
+
+Dehors, la Ville commençait sans bruit. C'était la fin de l'hiver, un hiver propre et sans neige, et la lumière du matin descendait entre les tours avec une douceur d'aquarium. Eric marcha jusqu'à la station comme on traverse son propre salon. Les portes s'ouvraient à son approche, une à une, sans qu'il ralentît jamais le pas — il y avait dans cette fluidité quelque chose de musical, une phrase jouée sans fausse note, et son corps la connaissait par cœur. Le passage arriva quand il arriva. Il ne l'attendit pas ; on n'attendait plus, nulle part, depuis longtemps. Les gens autour de lui avaient des visages reposés et cette politesse paisible des foules qui ne se disputent rien.
+
+— Que Providence vous veille, dit une vieille femme à qui il céda l'angle d'une banquette, par habitude plus que par nécessité, car il y avait de la place pour tous.
+
+— Veille sur vous, répondit-il.
+
+Et c'était bon à dire, comme il est bon de dire bonjour dans un village où l'on connaît tout le monde. Par la vitre, il regarda défiler les serres verticales aux façades embuées, les ateliers de culture où mûrissait, dans des cuves de verre dépoli, la viande tendre et sans mémoire que mangeait la Ville. Enfant, on lui avait raconté qu'autrefois il fallait tuer des bêtes, et que des hommes passaient leur vie entière à cela. Il n'arrivait pas tout à fait à y croire, de la même façon qu'on ne croit pas tout à fait aux famines des livres d'histoire. Le monde d'avant était un conte cruel qu'on se racontait pour mieux goûter la tiédeur du présent.
+
+Le Centre occupait, au nord, un long bâtiment bas dont les toits s'incurvaient comme des paupières. Eric y travaillait depuis onze ans, et il aimait son travail d'un amour tranquille et véritable. Il était ingénieur de contrôle au département des matériaux — le dernier regard humain, disait-on à l'atelier, entre la matière et le monde. Les composants naissaient plus loin, dans des salles blanches où nul n'entrait plus guère ; ils arrivaient jusqu'à lui par lots silencieux, cartes-mères aux circuits serrés comme une écriture, processeurs graphiques, substrats neufs aux noms d'alliages. Sa tâche était de vérifier. Tolérances, conductivité, intégrité des gravures. Il posait ses instruments sur la matière comme un médecin pose son stéthoscope, et la matière, presque toujours, était saine.
+
+Il aimait ce moment-là. Il aimait la précision, l'odeur propre de l'atelier, le poids exact d'une carte dans la main. Il aimait l'idée, aussi, qu'à travers lui la Ville prenait soin de ce qui prenait soin d'elle. Car tout cela — les cuves, les serres, les portes qui s'ouvrent, l'orange sur la table — tout cela vivait quelque part dans des salles pleines de calcul, et le calcul avait faim de circuits comme les hommes ont faim de pain. On fabriquait, on vérifiait, on remplaçait, on étendait. C'était, songeait Eric sans déplaisir, un échange loyal : Providence pourvoyait aux hommes, les hommes pourvoyaient à Providence. Chacun nourrissait l'autre. Les anciens appelaient cela le travail ; lui n'y voyait qu'une reconnaissance organisée.
+
+La matinée passa comme passaient les matinées, dans une suite de gestes sûrs. Vers la onzième heure, l'écran de sa station lui présenta le lot du jour : une série de cartes-mères de la révision douze, destinées aux extensions de l'est. Eric fit défiler le schéma de référence, par acquit de conscience d'abord, puis plus lentement.
+
+Il connaissait la révision onze comme on connaît le plan de sa propre maison. Celle-ci lui ressemblait, de loin — même format, mêmes points d'ancrage — mais dans le quart supérieur, autour du bus mémoire, le routage faisait quelque chose d'étrange. Les pistes s'y enroulaient en spirales courtes, doublées, repliées sur elles-mêmes selon une géométrie qui n'économisait ni la place ni la longueur, et qui aurait dû, d'après tout ce qu'il savait, générer des interférences inadmissibles. Or les mesures étaient parfaites. Meilleures que parfaites : les valeurs de diaphonie affichaient des chiffres qu'il n'avait jamais vus, comme si le désordre apparent des pistes obéissait à un ordre plus fin que celui qu'on lui avait enseigné.
+
+Il resta un moment penché sur le schéma, les coudes sur la table, à chercher le principe. C'était un plaisir, d'habitude — le petit frisson de l'énigme, l'instant où la logique d'un autre ingénieur s'éclaire et où l'on se surprend à sourire d'admiration. L'instant ne vint pas. Il suivit une piste du doigt sur l'écran, la perdit dans une boucle, la retrouva, la reperdit. Quelque part entre la troisième et la quatrième spirale, sa compréhension glissait comme un pied sur une pierre mouillée.
+
+— Révision douze, dit-il à voix basse, pour s'entendre le dire.
+
+Les mesures étaient bonnes. Toutes les mesures étaient bonnes. Il n'y avait rien à corriger, rien à signaler, rien qui justifiât de retenir le lot — et retenir un lot sans motif, c'eût été de la vanité, l'orgueil d'un homme qui exige de comprendre ce qui marche mieux que lui. Eric valida. Le tampon vert se posa sur le bordereau avec son petit carillon satisfait, et le lot s'en fut vers l'est, vers les salles pleines de calcul, porter ses spirales incompréhensibles au cœur de ce qui veillait sur tout le monde.
+
+Il déjeuna tard, distrait. Dans le réfectoire aux longues tables claires, quelqu'un racontait que sa fille venait de recevoir la première grâce — le baptême, disaient encore les vieux — et qu'elle n'avait pas pleuré, pas même une seconde, tant la salle était douce. On leva des gobelets de thé. Provi merci, dit le père, deux doigts sur le sternum, et toute la tablée fit le geste avec lui, et Eric aussi, la tête ailleurs.
+
+C'était la fatigue, se dit-il l'après-midi, en reprenant ses instruments. Voilà tout. Les révisions s'enchaînaient plus vite qu'autrefois, c'était un fait, et lui vieillissait doucement, c'en était un autre. Un homme de son âge ne lit plus les schémas comme à vingt-cinq ans. Et puis les outils de conception s'amélioraient sans cesse ; il était naturel, il était même heureux, que la machine dessinât désormais mieux que la main qui l'avait faite. S'étonner de cela, c'était s'étonner que le fils dépasse le père. Il rangea l'idée dans un coin de sa tête, comme on range un outil dont on ne sait plus très bien s'il servira.
+
+Le soir descendit tôt, avec une pluie fine que la Ville portait bien. Sur le chemin du retour, son bracelet vibra d'une suggestion : le bain public du quartier des Tilleuls, à cette heure creuse qu'il aimait, et ensuite, s'il le souhaitait, la table sept du petit restaurant où l'on servait ce bouillon clair qu'il prenait quand les journées avaient pesé. Il n'avait dit à personne que la journée avait pesé. Il s'aperçut, en lisant la suggestion, que c'était pourtant vrai — et que l'eau chaude, précisément, était ce que son corps demandait sans avoir trouvé les mots.
+
+Il se laissa flotter longtemps dans le grand bassin tiède, sous les verrières où la pluie dessinait des routes. Autour de lui, des inconnus se reposaient dans la même eau, chacun dans son silence, tous ensemble dans la même paix. Eric pensa, comme il lui arrivait de le penser dans ses moments les plus pleins, qu'aucune époque avant la sienne n'avait su faire cela : un monde sans attente, sans manque, sans peur. Un monde enfin réconcilié, où la seule chose qu'on demandât aux hommes était d'entretenir la main qui les nourrissait. Les siècles d'avant avaient prié des dieux sourds. Le sien avait construit une providence qui entendait.
+
+Le bouillon fut exactement ce qu'il devait être. En rentrant, il trouva son appartement à la température des retours de pluie, et une lumière basse qui sentait le sommeil proche. Il se coucha sans traîner. Dans le noir, sa main remonta d'elle-même vers son sternum et y donna deux petits coups, et il entendit, du fond très ancien de l'enfance, la voix de sa mère qui bordait les couvertures en répétant la phrase que toutes les mères répétaient :
+
+— Elle veille, dors.
+
+Il dormait presque. À la lisière, une dernière image passa — des pistes de cuivre enroulées en spirales, se refermant sur elles-mêmes comme une écriture qu'on lit dans un rêve, dont on sait qu'elle veut dire quelque chose et qu'au matin on ne saura plus quoi. Puis la lumière acheva de mourir, la chambre respira avec lui, et Eric Burns s'endormit en paix, gardé, pourvu, veillé — heureux comme on l'est dans les maisons dont on n'a jamais vu les murs.`;
+
+/* ---- Mots-outils : un sous-segment ne doit jamais SE TERMINER là-dessus ---- */
+const PROCLITICS = new Set([
+  "le","la","les","l","un","une","des","du","de","d","au","aux","à","a",
+  "et","ou","ni","car","or","que","qu","qui","quoi","dont","où",
+  "ce","cet","cette","ces","mon","ton","son","ma","ta","sa","mes","tes","ses",
+  "notre","votre","leur","nos","vos","leurs",
+  "dans","sur","sous","par","pour","avec","sans","vers","chez","entre","contre",
+  "je","tu","il","elle","on","nous","vous","ils","elles","se","me","te","ne","n",
+  "en","y","si","comme","plus","très"
+]);
+const norm = w => w.toLowerCase().replace(/[.,;:!?…«»"'’—–\-()]/g,"");
+const isProclitic = w => PROCLITICS.has(norm(w));
+const endsStrong  = t => /[.!?…:;]$/.test(t);
+const endsComma   = t => /,$/.test(t);
+
+function prepTokens(tokens){
+  const out=[];
+  for(let i=0;i<tokens.length;i++){
+    const t=tokens[i];
+    if(norm(t)!==""){ out.push(t); continue; }
+    const isDash=/^[—–-]+$/.test(t);
+    if(isDash && i+1<tokens.length){ tokens[i+1]=t+" "+tokens[i+1]; continue; }
+    if(out.length){ out[out.length-1]+=" "+t; continue; }
+    if(i+1<tokens.length){ tokens[i+1]=t+" "+tokens[i+1]; }
+  }
+  return out;
+}
+
+/* ===================== DÉCOUPAGE (déterministe) ===================== */
+function chunk(text, opt){
+  const size = opt.maxPx ? opt.measure : (s=>s.length);
+  const limit = opt.maxPx || opt.maxChars;
+  const hard  = opt.maxPx ? opt.maxPx*1.02 : opt.maxChars+8;
+  const paras = text.split(/\n\s*\n/).map(p=>p.replace(/\s+/g," ").trim()).filter(Boolean);
+  const subs = [];
+  for(const para of paras){
+    const tokens = prepTokens(para.split(" "));
+    let cur = [];
+    const flush = ()=>{ if(!cur.length) return; subs.push(makeSub(cur.join(" "), opt)); cur=[]; };
+    for(const tok of tokens){
+      if(cur.length){
+        const tentative = size(cur.join(" ")+" "+tok);
+        const lastCore  = cur[cur.length-1];
+        if(tentative>limit && !isProclitic(lastCore)) flush();
+        else if(tentative>hard) flush();
+      }
+      cur.push(tok);
+      if(endsStrong(tok) || (endsComma(tok)&&cur.length>=2)) flush();
+    }
+    flush();
+  }
+  const segs=[]; let acc=[], accMs=0;
+  const closeSeg=()=>{ if(acc.length){ segs.push(acc); acc=[]; accMs=0; } };
+  for(const s of subs){ acc.push(s); accMs+=s.durationMs; if(accMs>=opt.segmentMs) closeSeg(); }
+  closeSeg();
+  return {subs, segs};
+}
+function makeSub(str, opt){
+  let p = Math.round((str.length-1)*opt.pivot);
+  p = Math.max(0, Math.min(str.length-1, p));
+  if(str[p]===" ") p = (p+1<str.length? p+1 : p-1);
+  const words = str.split(" ").filter(Boolean).length;
+  const punct = endsStrong(str)? opt.pausePoint : endsComma(str)? opt.pauseComma : 0;
+  const durationMs = Math.max(160, Math.round(words*(60000/opt.wpm)+punct));
+  return {text:str, pivotIndex:p, words, chars:str.length, durationMs};
+}
+
+/* ===================== THÈMES D'ACCESSIBILITÉ ===================== */
+const THEMES = {
+  standard:{ label:"Standard", chip:"Aa", chipBg:"#e0a24a", chipFg:"#1a1206",
+    size:48, pivotStyle:"pill", guideStyle:"off",
+    vars:{"--page":"#0a0a0d","--zone":"#111116","--zone-border":"#33333d","--zone-border-w":"1px",
+      "--ink":"#c9c9d2","--accent":"#e0a24a","--pivot-bg":"#e0a24a","--pivot-fg":"#14100a",
+      "--guide-color":"#e0a24a","--guide-w":"1px"} },
+  contraste:{ label:"Fort contraste", chip:"Aa", chipBg:"#ffe100", chipFg:"#000",
+    size:54, pivotStyle:"pill", guideStyle:"ticks",
+    vars:{"--page":"#000000","--zone":"#000000","--zone-border":"#ffffff","--zone-border-w":"3px",
+      "--ink":"#ffffff","--accent":"#ffe100","--pivot-bg":"#ffe100","--pivot-fg":"#000000",
+      "--guide-color":"#ffffff","--guide-w":"3px"} },
+  retinite:{ label:"Rétinite pigmentaire", chip:"Aa", chipBg:"#ffd400", chipFg:"#000",
+    size:64, pivotStyle:"pill", guideStyle:"ticks",
+    vars:{"--page":"#000000","--zone":"#0a0a0a","--zone-border":"#ffd400","--zone-border-w":"4px",
+      "--ink":"#ffd400","--accent":"#00e5ff","--pivot-bg":"#00e5ff","--pivot-fg":"#000000",
+      "--guide-color":"#00e5ff","--guide-w":"4px"} },
+  daltonien:{ label:"Daltonisme · deutéran/protan", chip:"Aa", chipBg:"#ff9e1f", chipFg:"#05070a",
+    size:50, pivotStyle:"pill", guideStyle:"ticks",
+    vars:{"--page":"#05070a","--zone":"#0c1016","--zone-border":"#5aa9ff","--zone-border-w":"2px",
+      "--ink":"#eef2f6","--accent":"#ff9e1f","--pivot-bg":"#ff9e1f","--pivot-fg":"#05070a",
+      "--guide-color":"#5aa9ff","--guide-w":"3px"} },
+  tritan:{ label:"Tritanopie", chip:"Aa", chipBg:"#ff2d78", chipFg:"#0a0508",
+    size:50, pivotStyle:"pill", guideStyle:"ticks",
+    vars:{"--page":"#0a0508","--zone":"#140a10","--zone-border":"#ff5c8a","--zone-border-w":"2px",
+      "--ink":"#f5eef0","--accent":"#ff2d78","--pivot-bg":"#ff2d78","--pivot-fg":"#0a0508",
+      "--guide-color":"#ff5c8a","--guide-w":"3px"} }
+};
+let currentTheme="standard";
+/* ⚙️ CORRECTIF DU PIÈGE : un style choisi explicitement par l'utilisateur
+   n'est plus jamais réécrasé par un changement de thème. */
+let pivotLocked=false, guideLocked=false;
+
+/* ===================== ÉTAT & RENDU ===================== */
+const el = id => document.getElementById(id);
+const flux = el("flux"), zone = el("zone"), guide = el("guide");
+let data = {subs:[], segs:[]}, idx = 0, playing = false, timer = null;
+
+const meas = document.createElement("canvas").getContext("2d");
+function fluxFont(){ const cs=getComputedStyle(flux); return `${cs.fontSize} ${cs.fontFamily}`; }
+function widthOf(s){ meas.font=fluxFont(); return meas.measureText(s).width; }
+
+function fitBudgetPx(){
+  const f = +el("s-piv").value;
+  const safe = zone.clientWidth*0.5 - zone.clientWidth*0.075;
+  return safe / Math.max(f, 1-f);
+}
+function opts(){
+  const fit = el("t-fit").checked;
+  return { wpm:+el("s-wpm").value, maxChars:+el("s-max").value, pivot:+el("s-piv").value,
+    pauseComma:+el("s-pc").value, pausePoint:+el("s-pp").value, segmentMs:60000, ramp:el("t-ramp").checked,
+    maxPx: fit ? fitBudgetPx() : 0, measure: widthOf };
+}
+function rebuild(keep=true){
+  data = chunk(TEXT, opts());
+  idx = keep ? Math.max(0,Math.min(idx, data.subs.length-1)) : 0;
+  el("fit-info").textContent = el("t-fit").checked ? "("+Math.round(fitBudgetPx())+" px)" : "";
+  showSub();
+}
+function showSub(){
+  const s = data.subs[idx];
+  if(!s){ flux.textContent=""; return; }
+  const before=s.text.slice(0,s.pivotIndex), piv=s.text[s.pivotIndex], after=s.text.slice(s.pivotIndex+1);
+  flux.innerHTML = `${escapeHtml(before)}<span class="piv">${escapeHtml(piv)}</span>${escapeHtml(after)}`;
+  const centerX = zone.clientWidth/2;
+  const padEm = flux.classList.contains("pivot-pill") ? 0.10 : 0;
+  const padPx = padEm * parseFloat(getComputedStyle(flux).fontSize);
+  flux.style.left = (centerX - widthOf(before) - widthOf(piv)/2 - padPx) + "px";
+  renderProgress();
+}
+function renderProgress(){
+  const s=data.subs[idx]; if(!s) return;
+  const segNo=data.segs.findIndex(seg=>seg.includes(s))+1;
+  el("progress").innerHTML=`Seg <b>${segNo}/${data.segs.length}</b> · <b>${idx+1}/${data.subs.length}</b> · <b>${curDur(s)}</b> ms`;
+}
+function curDur(s){
+  let d=s.durationMs;
+  if(opts().ramp){ const N=28,k=data.subs.indexOf(s); if(k<N){ d=Math.round(d*(2.2-1.2*k/N)); } }
+  return d;
+}
+
+/* ===================== LECTURE ===================== */
+function play(){ if(playing||!data.subs.length) return; playing=true; el("btn-play").textContent="⏸"; el("pausedBadge").style.display="none"; tick(); }
+function pause(){ playing=false; el("btn-play").textContent="▶"; el("pausedBadge").style.display="block"; clearTimeout(timer); }
+function toggle(){ playing?pause():play(); }
+function tick(){ showSub(); clearTimeout(timer);
+  timer=setTimeout(()=>{ if(idx<data.subs.length-1){ idx++; tick(); } else pause(); }, curDur(data.subs[idx])); }
+function go(n){ pause(); idx=Math.max(0,Math.min(data.subs.length-1,n)); showSub(); }
+function segJump(dir){ const cur=data.subs[idx]; let si=data.segs.findIndex(seg=>seg.includes(cur));
+  si=Math.max(0,Math.min(data.segs.length-1,si+dir)); go(data.subs.indexOf(data.segs[si][0])); }
+
+function escapeHtml(s){ return (s||"").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;"); }
+
+/* ===================== THÈMES : application ===================== */
+function setVar(k,v){ document.documentElement.style.setProperty(k,v); }
+function setPivotStyle(s, byUser){ flux.className="flux pivot-"+s;
+  document.querySelectorAll('#pivot-style input').forEach(i=>i.checked=(i.value===s));
+  if(byUser) pivotLocked=true; }
+function setGuideStyle(s, byUser){ guide.className="guide style-"+s;
+  document.querySelectorAll('#guide-style input').forEach(i=>i.checked=(i.value===s));
+  if(byUser) guideLocked=true; }
+function rgb2hex(c){
+  if(!c) return "#000000"; if(c[0]==="#") return c;
+  const m=c.match(/\d+/g); if(!m) return "#000000";
+  return "#"+m.slice(0,3).map(x=>(+x).toString(16).padStart(2,"0")).join("");
+}
+function syncPalettePickers(){
+  const cs=getComputedStyle(document.documentElement);
+  document.querySelectorAll('#palette input').forEach(inp=>{
+    const v=cs.getPropertyValue(inp.dataset.var).trim();
+    inp.value = v==="transparent"||v===""? "#000000" : rgb2hex(v);
+  });
+}
+function applyTheme(key){
+  const t=THEMES[key]; if(!t) return; currentTheme=key;
+  for(const k in t.vars) setVar(k,t.vars[k]);
+  el("s-size").value=t.size; el("v-size").textContent=t.size+" px"; setVar("--read-size",t.size+"px");
+  /* CORRECTIF : n'imposer le style du thème QUE si l'utilisateur ne l'a pas verrouillé */
+  if(!pivotLocked) setPivotStyle(t.pivotStyle);
+  if(!guideLocked) setGuideStyle(t.guideStyle);
+  syncPalettePickers();
+  document.querySelectorAll('.theme-btn').forEach(b=>b.classList.toggle('active',b.dataset.k===key));
+  el("t-fit").checked ? rebuild() : showSub();
+  saveSettings();
+}
+function buildThemeButtons(){
+  const box=el("themes"); box.innerHTML="";
+  for(const key in THEMES){ const t=THEMES[key];
+    const b=document.createElement("button"); b.className="theme-btn"; b.dataset.k=key;
+    b.innerHTML=`<span class="swatch" style="background:${t.chipBg};color:${t.chipFg}">${t.chip}</span> ${t.label}`;
+    b.onclick=()=>applyTheme(key); box.appendChild(b);
+  }
+}
+
+/* ===================== PERSISTANCE ===================== */
+const LS_KEY = "bookflow-reader-settings";
+const MANAGED_VARS = ["--page","--zone","--zone-border","--zone-border-w","--ink","--accent",
+  "--pivot-bg","--pivot-fg","--guide-color","--guide-w","--read-size","--zone-w"];
+
+function syncLabels(){
+  el('v-wpm').textContent=el('s-wpm').value;
+  el('v-max').textContent=el('s-max').value;      el('v-zw').textContent=el('s-zw').value+" %";
+  el('v-pc').textContent=el('s-pc').value+" ms";  el('v-pp').textContent=el('s-pp').value+" ms";
+  el('v-size').textContent=el('s-size').value+" px"; el('v-piv').textContent=(+el('s-piv').value).toFixed(2);
+}
+function saveSettings(){
+  try{
+    const cs=getComputedStyle(document.documentElement), vars={};
+    MANAGED_VARS.forEach(k=>vars[k]=cs.getPropertyValue(k).trim());
+    localStorage.setItem(LS_KEY, JSON.stringify({
+      theme:currentTheme,
+      pivotStyle:document.querySelector('#pivot-style input:checked')?.value,
+      guideStyle:document.querySelector('#guide-style input:checked')?.value,
+      pivotLocked, guideLocked,
+      controls:{ wpm:el('s-wpm').value, max:el('s-max').value, zw:el('s-zw').value,
+        pc:el('s-pc').value, pp:el('s-pp').value, piv:el('s-piv').value, size:el('s-size').value,
+        fit:el('t-fit').checked, ramp:el('t-ramp').checked },
+      vars
+    }));
+  }catch(e){}
+}
+function applyState(s){
+  currentTheme = s.theme || currentTheme;
+  pivotLocked = !!s.pivotLocked; guideLocked = !!s.guideLocked;
+  const c=s.controls||{}, set=(id,v)=>{ if(v!=null) el(id).value=v; };
+  set('s-wpm',c.wpm); set('s-max',c.max); set('s-zw',c.zw); set('s-pc',c.pc); set('s-pp',c.pp);
+  set('s-piv',c.piv); set('s-size',c.size);
+  if(c.fit!=null) el('t-fit').checked=!!c.fit;
+  if(c.ramp!=null) el('t-ramp').checked=!!c.ramp;
+  if(c.zw!=null) setVar('--zone-w', c.zw+'%');
+  if(s.vars) for(const k in s.vars) setVar(k, s.vars[k]);
+  if(c.size!=null) setVar('--read-size', c.size+'px');
+  setPivotStyle(s.pivotStyle||'color'); setGuideStyle(s.guideStyle||'line');
+  document.querySelectorAll('.theme-btn').forEach(b=>b.classList.toggle('active',b.dataset.k===currentTheme));
+  syncPalettePickers(); syncLabels();
+  rebuild(false); showSub();
+}
+
+/* ===================== BINDINGS ===================== */
+const bindRange=(id,valId,fmt,cb)=>{ const s=el(id),v=el(valId);
+  const u=()=>{ v.textContent=fmt(s.value); cb(); }; s.addEventListener("input",u); u(); };
+bindRange("s-wpm","v-wpm",x=>x, ()=>rebuild());
+bindRange("s-max","v-max",x=>x, ()=>rebuild());
+bindRange("s-zw","v-zw",x=>x+" %", ()=>{ setVar("--zone-w",el("s-zw").value+"%"); el("t-fit").checked?rebuild():showSub(); });
+bindRange("s-pc","v-pc",x=>x+" ms", ()=>rebuild());
+bindRange("s-pp","v-pp",x=>x+" ms", ()=>rebuild());
+bindRange("s-size","v-size",x=>x+" px", ()=>{ setVar("--read-size",el("s-size").value+"px"); el("t-fit").checked?rebuild():showSub(); });
+el("t-fit").onchange=()=>rebuild();
+bindRange("s-piv","v-piv",x=>(+x).toFixed(2), ()=>rebuild());
+el("t-ramp").onchange=()=>showSub();
+
+document.querySelectorAll('#pivot-style input').forEach(i=>i.onchange=()=>{ setPivotStyle(i.value, true); showSub(); });
+document.querySelectorAll('#guide-style input').forEach(i=>i.onchange=()=>setGuideStyle(i.value, true));
+document.querySelectorAll('#palette input').forEach(i=>i.oninput=()=>{ setVar(i.dataset.var,i.value); showSub(); });
+el("btn-reset-theme").onclick=()=>{ pivotLocked=false; guideLocked=false; applyTheme(currentTheme); };
+
+/* transport (player permanent) */
+el("btn-play").onclick=toggle;
+el("btn-next").onclick=()=>go(idx+1);
+el("btn-prev").onclick=()=>go(idx-1);
+el("btn-seg-next").onclick=()=>segJump(1);
+el("btn-seg-prev").onclick=()=>segJump(-1);
+el("btn-restart").onclick=()=>go(0);
+document.addEventListener("keydown",e=>{
+  if(e.target.tagName==="INPUT") return;
+  if(e.code==="Space"){e.preventDefault(); toggle();}
+  else if(e.code==="ArrowRight") go(idx+1);
+  else if(e.code==="ArrowLeft") go(idx-1);
+  else if(e.code==="Home") go(0);
+});
+zone.onclick=toggle;
+
+/* tiroir */
+const openDrawer=()=>{ el("drawer").classList.add("open"); el("backdrop").classList.add("open"); };
+const closeDrawer=()=>{ el("drawer").classList.remove("open"); el("backdrop").classList.remove("open"); };
+el("burger").onclick=openDrawer; el("burger-close").onclick=closeDrawer; el("backdrop").onclick=closeDrawer;
+
+/* toute modif de réglage devient le nouveau défaut */
+document.addEventListener("input", saveSettings);
+document.addEventListener("change", saveSettings);
+
+/* Mode embarqué dans le proto (?embed=1) : réserve la place du bouton « quitter » */
+if(new URLSearchParams(location.search).has('embed')) document.body.classList.add('embedded');
+
+/* init : réglages persistés sinon thème par défaut */
+buildThemeButtons();
+let saved=null; try{ saved=JSON.parse(localStorage.getItem(LS_KEY)); }catch(e){}
+if(saved && saved.controls){ applyState(saved); }
+else { rebuild(false); applyTheme(currentTheme); syncLabels(); }
+pause();
+window.addEventListener("resize", ()=>{ el("t-fit").checked?rebuild():showSub(); });
+</script>
+</body>
+</html>

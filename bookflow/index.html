@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>BookFlow — le doigt virtuel de la lecture</title>
+  <link rel="stylesheet" href="css/style.css?v=4" />
+  <style>
+    .vostok-back{position:fixed;top:14px;left:16px;z-index:100;color:#8bb8d0;
+      font:600 13px system-ui,-apple-system,sans-serif;text-decoration:none;letter-spacing:.5px;opacity:.75}
+    .vostok-back:hover{opacity:1;color:#00b4d8}
+    @media(max-width:520px){.vostok-back{display:none}}
+  </style>
+</head>
+<body>
+  <a class="vostok-back" href="../index.html">← vostok.fr</a>
+  <!-- Cadre téléphone (retiré automatiquement sur petit écran) -->
+  <div class="device">
+    <div class="device__notch"></div>
+    <div id="app" class="app">
+
+      <!-- ================= ACCUEIL ================= -->
+      <section id="view-home" class="view view--home is-active">
+        <header class="topbar" id="topbar">
+          <div class="topbar__row">
+            <div class="logo">BOOK<span>FLOW</span></div>
+            <div class="topbar__right">
+              <button class="icon-btn" id="btn-search" aria-label="Rechercher">
+                <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M15.5 14h-.79l-.28-.27a6.5 6.5 0 1 0-.7.7l.27.28v.79l5 4.99L20.49 19zm-6 0A4.5 4.5 0 1 1 14 9.5 4.5 4.5 0 0 1 9.5 14"/></svg>
+              </button>
+              <div class="bell"><span class="bell__dot">1</span>
+                <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M12 22a2 2 0 0 0 2-2h-4a2 2 0 0 0 2 2m6-6v-5a6 6 0 0 0-5-5.91V4a1 1 0 0 0-2 0v1.09A6 6 0 0 0 6 11v5l-2 2v1h16v-1z"/></svg>
+              </div>
+              <div class="avatar" title="Profil de Rudy"></div>
+            </div>
+          </div>
+          <nav class="tabs">
+            <button class="tab is-active">Accueil</button>
+            <button class="tab">Catégories</button>
+            <button class="tab tab--more">Ma bibliothèque
+              <svg viewBox="0 0 24 24" width="14" height="14"><path fill="currentColor" d="M7 10l5 5 5-5z"/></svg>
+            </button>
+          </nav>
+        </header>
+
+        <div class="scroll" id="home-scroll">
+          <div class="hero" id="hero">
+            <div class="hero__img" id="hero-img"></div>
+            <div class="hero__shade"></div>
+            <div class="hero__content">
+              <div class="hero__logo" id="hero-title"></div>
+              <div class="hero__meta" id="hero-meta"></div>
+              <div class="hero__actions">
+                <button class="btn btn--play" id="hero-play">
+                  <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M8 5v14l11-7z"/></svg> Lire
+                </button>
+                <button class="btn btn--ghost" id="hero-info">
+                  <svg viewBox="0 0 24 24" width="18" height="18"><path fill="currentColor" d="M11 7h2v2h-2zm0 4h2v6h-2zm1-9a10 10 0 1 0 0 20 10 10 0 0 0 0-20"/></svg> Plus d'infos
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div id="rows"></div>
+          <div class="footer-space"></div>
+        </div>
+      </section>
+
+      <!-- ================= DÉTAIL ================= -->
+      <section id="view-detail" class="view view--detail">
+        <div class="scroll" id="detail-scroll">
+          <div class="detail__top">
+            <div class="detail__backdrop" id="detail-backdrop"></div>
+            <div class="detail__shade"></div>
+            <button class="round-btn detail__back" id="detail-back" aria-label="Retour">
+              <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M15.4 7.4 14 6l-6 6 6 6 1.4-1.4L10.8 12z"/></svg>
+            </button>
+            <div class="detail__cover" id="detail-cover"></div>
+          </div>
+
+          <div class="detail__body">
+            <h1 class="detail__title" id="detail-title"></h1>
+            <div class="detail__sub" id="detail-sub"></div>
+            <div class="detail__tags" id="detail-tags"></div>
+
+            <button class="btn btn--play btn--block" id="detail-cta">
+              <svg viewBox="0 0 24 24" width="20" height="20"><path fill="currentColor" d="M5 20h14v-2H5zM19 9h-4V3H9v6H5l7 7z"/></svg>
+              <span id="detail-cta-label">Télécharger</span>
+            </button>
+
+            <p class="detail__desc" id="detail-desc"></p>
+
+            <div class="detail__grid" id="detail-grid"></div>
+
+            <div class="detail__section-title">Du même univers</div>
+            <div class="row__track row__track--wrap" id="detail-more"></div>
+            <div class="footer-space"></div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= PLAYER (lecteur intégré, cadre en paysage) ================= -->
+      <section id="view-player" class="view view--player">
+        <iframe id="player-frame" title="Lecteur BookFlow" src="about:blank"></iframe>
+        <!-- Jaquette qui remplit l'écran jusqu'au premier tap, puis révèle le lecteur -->
+        <img class="player__cover" id="reading-cover" alt="" hidden>
+        <button class="round-btn player__back" id="player-back" aria-label="Quitter">
+          <svg viewBox="0 0 24 24" width="22" height="22"><path fill="currentColor" d="M15.4 7.4 14 6l-6 6 6 6 1.4-1.4L10.8 12z"/></svg>
+        </button>
+      </section>
+
+    </div>
+  </div>
+
+  <script src="js/data.js?v=4"></script>
+  <script src="js/app.js?v=4"></script>
+</body>
+</html>
