@@ -21,7 +21,10 @@
   body{
     background:var(--page); color:var(--ink);
     font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
-    height:100vh; overflow:hidden; display:flex; flex-direction:column;
+    /* dvh = « dynamic viewport height » : la mise en page épouse la zone RÉELLEMENT
+       visible, barre d'adresse repliée ou non. Sans ça (100vh figé), le player du bas
+       passe derrière la barre d'adresse mobile et devient invisible. 100vh = repli. */
+    height:100vh; height:100dvh; overflow:hidden; display:flex; flex-direction:column;
     -webkit-tap-highlight-color:transparent;
   }
 
