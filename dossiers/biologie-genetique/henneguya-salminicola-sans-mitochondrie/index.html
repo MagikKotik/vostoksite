@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Henneguya salminicola — Vostok</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --deep:   #020b18; --navy: #061628; --blue: #0d2d4a;
+      --accent: #00b4d8; --bright: #90e0ef; --gold: #f4c542;
+      --muted:  #8bb8d0; --text: #cce4f0;
+    }
+    html { scroll-behavior: smooth; }
+    body { background: var(--deep); color: var(--text); font-family: 'Inter', sans-serif; font-size: 17px; line-height: 1.8; overflow-x: hidden; }
+
+    .hero { position: relative; min-height: 100vh; display: flex; flex-direction: column; justify-content: flex-end; overflow: hidden; }
+    .hero-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: brightness(0.6) saturate(1.2); }
+    .hero-gradient { position: absolute; inset: 0; background: linear-gradient(to bottom, transparent 40%, var(--deep) 100%); }
+    .hero-content { position: relative; z-index: 2; padding: 0 8vw 7vh; max-width: 940px; }
+    .hero-tag { display: inline-block; background: var(--accent); color: var(--deep); font-size: 11px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; padding: 5px 14px; border-radius: 3px; margin-bottom: 20px; }
+    .hero h1 { font-family: 'Playfair Display', serif; font-size: clamp(2.8rem, 6vw, 5.5rem); font-weight: 900; line-height: 1.1; color: #fff; margin-bottom: 22px; }
+    .hero h1 span { color: var(--accent); }
+    .hero-sub { font-size: 1.15rem; font-weight: 300; color: var(--bright); max-width: 680px; margin-bottom: 36px; }
+    .hero-meta { display: flex; align-items: center; gap: 28px; flex-wrap: wrap; font-size: 13px; color: var(--muted); font-weight: 500; }
+
+    .podcast-btn { display: inline-flex; align-items: center; gap: 0.45rem; cursor: pointer; background: var(--accent); color: var(--deep); border: none; font-family: inherit; font-size: 0.82rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; padding: 0.4rem 0.95rem; border-radius: 999px; transition: background 0.2s, transform 0.1s; }
+    .podcast-btn:hover { background: var(--bright); }
+    .podcast-btn:active { transform: scale(0.97); }
+
+    nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(2,11,24,0.92);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(0,180,216,0.15);
+      padding: 0 8vw;
+      display: flex; align-items: center;
+      gap: 24px; height: 60px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    nav::-webkit-scrollbar { display: none; }
+    nav a { color: var(--muted); text-decoration: none; font-size: 13px; font-weight: 500; letter-spacing: 0.5px; white-space: nowrap; transition: color 0.2s; }
+    nav a:hover { color: var(--accent); }
+
+    .container { max-width: 900px; margin: 0 auto; padding: 0 8vw; }
+    .section { padding: 90px 0 60px; }
+    .section + .section { border-top: 1px solid rgba(0,180,216,0.1); }
+
+    .section-label { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
+    h2 { font-family: 'Playfair Display', serif; font-size: clamp(1.9rem, 3.5vw, 2.8rem); font-weight: 700; color: #fff; margin-bottom: 28px; line-height: 1.25; }
+    h3 { font-family: 'Playfair Display', serif; font-size: 1.5rem; font-weight: 700; color: var(--bright); margin: 44px 0 16px; }
+    p { margin-bottom: 20px; color: var(--text); }
+    strong { color: var(--bright); font-weight: 600; }
+    em.term { color: var(--gold); font-style: italic; }
+    a.inline { color: var(--accent); text-decoration: none; border-bottom: 1px solid rgba(0,180,216,0.3); }
+    a.inline:hover { border-color: var(--accent); }
+
+    .img-wide { width: 100%; max-width: 1200px; margin: 48px auto; display: block; border-radius: 10px; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.5); }
+    .img-wide img { width: 100%; display: block; }
+    .img-caption { text-align: center; font-size: 13px; color: var(--muted); font-style: italic; padding: 12px 20px; background: var(--navy); border-top: 1px solid rgba(0,180,216,0.1); }
+    .img-inline { float: right; margin: 4px 0 28px 36px; width: 46%; border-radius: 8px; overflow: hidden; box-shadow: 0 12px 40px rgba(0,0,0,0.5); }
+    .img-inline img { width: 100%; display: block; }
+    .img-inline .img-caption { font-size: 12px; padding: 9px 14px; text-align: left; }
+    .clearfix::after { content: ''; display: table; clear: both; }
+
+    .stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(190px, 1fr)); gap: 16px; margin: 40px 0; }
+    .stat-card { background: var(--navy); border: 1px solid rgba(0,180,216,0.2); border-radius: 10px; padding: 26px 22px; text-align: center; transition: border-color 0.3s, transform 0.3s; }
+    .stat-card:hover { border-color: var(--accent); transform: translateY(-3px); }
+    .stat-num { font-family: 'Playfair Display', serif; font-size: 2.5rem; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 8px; }
+    .stat-label { font-size: 13px; color: var(--muted); font-weight: 500; }
+
+    .highlight { background: linear-gradient(135deg, rgba(0,180,216,0.08), rgba(0,180,216,0.02)); border-left: 4px solid var(--accent); border-radius: 0 8px 8px 0; padding: 24px 28px; margin: 36px 0; }
+    .highlight p { margin: 0; color: var(--bright); font-size: 1.05rem; font-style: italic; }
+    .highlight cite { display: block; margin-top: 12px; font-size: 13px; color: var(--muted); font-style: normal; }
+
+    .concepts-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; margin: 36px 0; }
+    .concept-card { background: var(--navy); border: 1px solid rgba(0,180,216,0.15); border-radius: 10px; padding: 24px; }
+    .concept-icon { font-size: 2rem; margin-bottom: 12px; }
+    .concept-card h4 { font-size: 1rem; font-weight: 600; color: var(--bright); margin-bottom: 10px; }
+    .concept-card p { font-size: 14px; color: var(--muted); margin: 0; line-height: 1.7; }
+
+    /* Grand livre de la perte : gardé / perdu */
+    .ledger { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 40px 0; }
+    .ledger-col { background: var(--navy); border: 1px solid rgba(0,180,216,0.15); border-radius: 10px; padding: 24px 26px; }
+    .ledger-col.kept { border-top: 3px solid var(--accent); }
+    .ledger-col.lost { border-top: 3px solid #c65b5b; }
+    .ledger-col h4 { font-size: 0.82rem; letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 16px; font-weight: 700; }
+    .ledger-col.kept h4 { color: var(--accent); }
+    .ledger-col.lost h4 { color: #e08a8a; }
+    .ledger-col ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+    .ledger-col li { font-size: 14px; line-height: 1.55; padding-left: 20px; position: relative; color: var(--text); }
+    .ledger-col.kept li::before { content: '+'; position: absolute; left: 0; color: var(--accent); font-weight: 700; }
+    .ledger-col.lost li::before { content: '\2212'; position: absolute; left: 0; color: #e08a8a; font-weight: 700; }
+    .ledger-col li b { color: var(--bright); font-weight: 600; }
+
+    /* Continuum mitochondrie -> MRO */
+    .continuum { margin: 40px 0 12px; }
+    .continuum-track { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; position: relative; }
+    .cstage { background: var(--navy); border: 1px solid rgba(0,180,216,0.18); border-radius: 9px; padding: 16px 14px; text-align: center; position: relative; }
+    .cstage.here { border-color: var(--gold); background: linear-gradient(135deg, rgba(244,197,66,0.10), rgba(6,22,40,0.6)); }
+    .cstage .cs-num { font-size: 10px; letter-spacing: 1px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; }
+    .cstage .cs-name { font-family: 'Playfair Display', serif; font-size: 1rem; color: #fff; line-height: 1.25; margin-bottom: 8px; }
+    .cstage .cs-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+    .cstage.here .cs-name { color: var(--gold); }
+    .continuum-axis { display: flex; justify-content: space-between; margin-top: 14px; font-size: 11.5px; color: var(--muted); letter-spacing: 0.5px; }
+    .continuum-axis span::before { content: '◀ '; color: var(--accent); }
+    .continuum-axis span:last-child::before { content: ''; }
+    .continuum-axis span:last-child::after { content: ' ▶'; color: var(--accent); }
+    @media (max-width: 760px) { .continuum-track { grid-template-columns: 1fr 1fr; } .ledger { grid-template-columns: 1fr; } }
+
+    .timeline { margin: 40px 0; position: relative; }
+    .timeline::before { content: ''; position: absolute; left: 18px; top: 0; bottom: 0; width: 2px; background: linear-gradient(to bottom, var(--accent), transparent); }
+    .tl-item { display: flex; gap: 28px; margin-bottom: 36px; align-items: flex-start; }
+    .tl-dot { width: 52px; height: 40px; min-width: 52px; border-radius: 20px; background: var(--blue); border: 2px solid var(--accent); display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; color: var(--accent); position: relative; z-index: 1; text-align: center; line-height: 1.1; }
+    .tl-body h4 { font-size: 1rem; font-weight: 600; color: var(--bright); margin-bottom: 6px; }
+    .tl-body p { font-size: 14.5px; color: var(--text); margin: 0; line-height: 1.7; }
+
+    .sources { background: var(--navy); border-top: 1px solid rgba(0,180,216,0.15); padding: 60px 0 80px; }
+    .sources-list { list-style: none; display: flex; flex-direction: column; gap: 12px; }
+    .sources-list li { padding: 14px 18px; background: var(--blue); border-radius: 7px; border: 1px solid rgba(0,180,216,0.1); font-size: 14px; transition: border-color 0.2s; }
+    .sources-list li:hover { border-color: var(--accent); }
+    .sources-list a { color: var(--accent); text-decoration: none; font-weight: 500; }
+    .sources-list a:hover { text-decoration: underline; }
+    .src-pub { color: var(--muted); font-size: 12px; margin-top: 3px; }
+
+    footer { background: var(--deep); text-align: center; padding: 32px; font-size: 13px; color: var(--muted); border-top: 1px solid rgba(255,255,255,0.05); }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    @media (max-width: 680px) {
+      .img-inline { float: none; width: 100%; margin: 0 0 24px; }
+    }
+  </style>
+</head>
+<body>
+
+<section class="hero">
+  <img class="hero-img" src="https://v3b.fal.media/files/b/0aa4984b/Io6cwgShVoAic1kJDB37y_ss0vlsZz.png" alt="Spore de Henneguya salminicola avec ses deux capsules polaires, dans le muscle du saumon" />
+  <div class="hero-gradient"></div>
+  <div class="hero-content">
+    <div class="hero-tag">Biologie · Évolution · Épistémologie</div>
+    <h1>L'animal qui a désappris à <span>respirer</span></h1>
+    <p class="hero-sub">Henneguya salminicola est le premier animal connu dépourvu de génome mitochondrial. Au-delà de la curiosité, ce parasite de dix cellules est un cas-limite qui met à l'épreuve nos concepts les plus solides : ce qu'est un animal, ce qu'est une mitochondrie, et ce que « perdre » veut dire en évolution.</p>
+    <div class="hero-meta">
+      <span>Vostok Science</span><span>Août 2026</span>
+      <span>22 min de lecture</span>
+      <button class="podcast-btn" id="podcast-toggle" type="button" aria-label="Écouter l'interview">▶ Écouter l'interview</button>
+    </div>
+  </div>
+</section>
+
+<nav>
+  <a href="#intro">Le cas-limite</a>
+  <a href="#s2">La micro-méduse</a>
+  <a href="#s3">Prouver une absence</a>
+  <a href="#s4">Anatomie de la perte</a>
+  <a href="#s5">Le continuum</a>
+  <a href="#s6">Adaptatif ou neutre&nbsp;?</a>
+  <a href="#s7">Dollo &amp; contingence</a>
+  <a href="#s8">Qu'est-ce qu'un animal&nbsp;?</a>
+  <a href="#sources">Sources</a>
+</nav>
+
+<section class="section" id="intro">
+  <div class="container">
+    <div class="section-label">Le cas-limite</div>
+    <h2>Un contre-exemple, pas une anecdote</h2>
+    <p>Le 24 février 2020, l'équipe de <strong>Dayana Yahalomi</strong> et <strong>Dorothée Huchon</strong> (université de Tel-Aviv) publie dans <em>PNAS</em> un résultat qui se laisse résumer en une phrase brutale : <em>Henneguya salminicola</em>, parasite microscopique du muscle du saumon, ne possède <strong>aucun génome mitochondrial</strong>, et a par conséquent perdu la capacité de respiration aérobie. La presse a retenu le trophée — « le premier animal qui n'a pas besoin d'oxygène ». Mais pour qui s'intéresse à la <em>structure</em> de l'explication évolutive, l'intérêt du cas n'est pas là. Il est dans le fait qu'un tel organisme <strong>ne devrait pas exister</strong> selon la manière dont nous formulions habituellement nos nécessités biologiques.</p>
+    <p>Un contre-exemple bien choisi vaut mieux qu'une théorie : il révèle en creux ce que la théorie tenait pour acquis sans le formuler. <em>H. salminicola</em> agit ici comme un réactif conceptuel. Il oblige à distinguer trois choses que le langage courant confond volontiers — ce qui est <strong>universellement observé</strong>, ce qui est <strong>fonctionnellement nécessaire</strong>, et ce qui est <strong>historiquement contingent</strong>. La respiration aérobie chez les animaux relevait, croyait-on, des deux premières catégories. Ce parasite la fait basculer dans la troisième.</p>
+    <div class="stats-grid">
+      <div class="stat-card"><div class="stat-num">2020</div><div class="stat-label">Description dans <em>PNAS</em> (Yahalomi, Huchon <em>et al.</em>)</div></div>
+      <div class="stat-card"><div class="stat-num">0</div><div class="stat-label">gène mitochondrial dans l'assemblage du génome</div></div>
+      <div class="stat-card"><div class="stat-num">22 Mb</div><div class="stat-label">plus petit génome myxozoaire connu — parmi les plus petits du règne animal</div></div>
+      <div class="stat-card"><div class="stat-num">1<sup>er</sup></div><div class="stat-label">animal rejoignant un club jusque-là 100&nbsp;% protiste</div></div>
+    </div>
+    <p>La thèse que défend cet article : loin d'être un accident bizarre, <em>H. salminicola</em> illustre proprement une idée que la biologie évolutive du XXI<sup>e</sup> siècle a eu du mal à intégrer — <strong>la perte est un mode d'évolution à part entière</strong>, aussi créateur, aussi informatif et souvent aussi irréversible que le gain. Reste à savoir de quelle <em>sorte</em> de perte il s'agit ici. C'est là que le cas devient épineux.</p>
+  </div>
+</section>
+
+<section class="section" id="s2">
+  <div class="container">
+    <div class="section-label">L'organisme</div>
+    <h2>Une méduse réduite à l'os</h2>
+    <div class="img-inline">
+      <img src="https://v3b.fal.media/files/b/0aa4986c/i_KCI2xF5XHTdcOmB45n5_DxQwgknA.png" alt="Muscle de saumon atteint de la maladie tapioca, criblé de kystes blancs" />
+      <div class="img-caption">La « maladie tapioca » : le muscle du saumon se creuse de poches laiteuses bourrées de spores. Bénigne pour l'humain, désastreuse pour l'aquaculture — et longtemps la seule raison pour laquelle on s'intéressait à ce parasite.</div>
+    </div>
+    <p>Il faut situer l'animal avant de discuter de ce qu'il a perdu, car sa nature même est déjà une petite révolution taxonomique. <em>Henneguya salminicola</em> appartient aux <strong>Myxozoa</strong>, un groupe de plus de deux mille espèces de parasites microscopiques que la zoologie a longtemps rangés parmi les protozoaires — de simples « unicellulaires » compliqués. La phylogénomique a tranché autrement : les myxozoaires sont des <strong>cnidaires</strong>, groupe frère des Medusozoa, nichés à l'intérieur du même embranchement que les méduses, les hydres et les anémones. Ce ne sont pas des cousins lointains des méduses ; ce <em>sont</em> des méduses, au sens cladistique — mais des méduses ayant subi la plus radicale des cures d'amaigrissement du règne animal.</p>
+    <p>L'ampleur de la réduction se lit dans le génome. Les génomes myxozoaires s'échelonnent d'environ vingt-deux à cent quatre-vingts millions de paires de bases, quand un cnidaire libre dépasse les deux cent cinquante millions ; les plus compacts d'entre eux — autour de vingt-deux millions, chez <em>Kudoa</em> — comptent parmi les <strong>plus petits génomes animaux connus</strong>. Celui de <em>H. salminicola</em>, séquencé ici à haute couverture, avoisine les soixante millions. Cette compaction générale du groupe s'accompagne d'une amputation développementale spectaculaire : les <strong>gènes Hox</strong>, ce cœur régulateur qui organise l'axe corporel de presque tous les animaux, sont <em>absents</em> chez les Myxozoa. On a affaire à des métazoaires qui ont jeté par-dessus bord une partie de la boîte à outils que l'on croyait définitoire de l'animalité.</p>
+    <p class="clearfix">Et pourtant, la filiation cnidaire n'a rien d'une abstraction statistique. Les spores myxozoaires portent des <strong>capsules polaires</strong> — de minuscules organites qui, sous stimulus, dévaginent un filament pour ancrer le parasite dans son hôte. Or ces capsules sont <strong>homologues des nématocystes</strong>, les cellules urticantes des méduses : mêmes protéines de structure (minicollagènes, nématogalectines), même mécanisme d'éjection sous pression. L'arme de chasse de la méduse pélagique s'est reconvertie, chez le parasite, en crampon d'infection. Voilà l'organisme : un cnidaire qui a perdu la nage, le corps, les Hox — mais qui a conservé le harpon ancestral, désormais retourné vers l'intérieur d'un poisson.</p>
+    <h3>Le contexte trivial d'une anomalie majeure</h3>
+    <p>Cet hôte, c'est le saumon, dont <em>H. salminicola</em> colonise la musculature. L'infection y forme des kystes blanchâtres : la <strong>« maladie tapioca »</strong>, ou <em>milky flesh</em>, qui liquéfie post-mortem la chair et la rend invendable. Inoffensive pour le consommateur, elle représente une plaie économique pour l'aquaculture — et c'est à ce titre, très prosaïque, que le parasite était étudié. L'anomalie biologique la plus renversante de la décennie se cachait dans un problème de contrôle qualité du saumon fumé.</p>
+  </div>
+</section>
+
+<div class="img-wide">
+  <img src="https://v3b.fal.media/files/b/0aa4985f/HCau_sdJrH1-gIyN7MzoS_dudZhIBB.png" alt="Dégradé évolutif d'une méduse vers une spore microscopique" />
+  <div class="img-caption">La grande simplification. Des cnidaires libres (à gauche) aux myxozoaires parasites (à droite), l'évolution a procédé par soustraction : perte de la nage, du corps complexe, des gènes Hox — et, au terme de la lignée qui nous occupe, de la respiration elle-même. La flèche du dessin est trompeuse : rien n'oblige l'évolution à « avancer » vers la complexité.</div>
+</div>
+
+<section class="section" id="s3">
+  <div class="container">
+    <div class="section-label">Épistémologie de la preuve</div>
+    <h2>Comment démontre-t-on une absence&nbsp;?</h2>
+    <p>Affirmer qu'une structure <em>n'existe pas</em> est logiquement plus coûteux qu'affirmer son existence. Une présence se prouve par une seule observation positive ; une absence exige que l'on ait cherché correctement, partout où il fallait, avec un instrument capable de détecter la chose si elle était là. L'échec à trouver un génome mitochondrial pourrait n'être qu'un défaut de couverture de séquençage, un biais d'assemblage, une contamination masquant le signal. La force de l'étude de 2020 tient précisément à la manière dont elle <strong>désamorce ces objections</strong>, et non au résultat brut.</p>
+    <p>Premier verrou, le <strong>séquençage profond</strong>, appliqué en parallèle à une espèce apparentée, <em>Myxobolus squamalis</em>, avec exactement les mêmes protocoles d'assemblage et d'annotation. Chez cette dernière, le génome mitochondrial ressort proprement, gènes attendus à l'appui. Chez <em>H. salminicola</em>, rien n'émerge. Le point crucial n'est pas l'absence en soi, mais le <strong>contraste sous protocole identique</strong> : la même méthode voit un génome mitochondrial chez l'un et ne voit rien chez l'autre. Et l'objection paresseuse — « vous n'avez pas assez séquencé » — tombe d'elle-même : l'assemblage d'<em>H. salminicola</em> est en réalité <strong>plus complet et mieux couvert</strong> (couverture 311×) que celui du témoin, qui, lui, livre son génome mitochondrial sans difficulté. On ne rate pas par pénurie de données ce que l'on trouve chez le voisin avec moins de données encore.</p>
+    <div class="img-inline">
+      <img src="https://v3b.fal.media/files/b/0aa4985b/lmbVKrLA9Ah-ja2BeIL09_Vkarwjg7.png" alt="Fluorescence DAPI : cellule avec foyers d'ADN mitochondrial, et cellule sans" />
+      <div class="img-caption">Le témoin qui verrouille tout. En fluorescence DAPI, l'espèce apparentée montre une nuée de foyers d'ADN mitochondrial autour du noyau (à g.) ; <em>H. salminicola</em> ne montre que le noyau, nu (à d.).</div>
+    </div>
+    <p>Second verrou, une méthode <strong>orthogonale</strong> : la microscopie de fluorescence. Le marquage au <strong>DAPI</strong>, qui se fixe sur l'ADN double brin, révèle chez <em>M. squamalis</em> une constellation de petits foyers cytoplasmiques autour du noyau — les nucléoïdes mitochondriaux, ces amas d'ADN logés dans les mitochondries. Chez <em>H. salminicola</em>, le noyau brille seul ; aucun foyer périnucléaire. Le point épistémologique est décisif : deux techniques qui ne partagent <em>ni leurs sources d'erreur ni leurs présupposés</em> — l'une bioinformatique, l'autre optique — convergent vers la même conclusion. Une erreur systématique commune aux deux est hautement improbable.</p>
+    <div class="highlight"><p>« La respiration aérobie était réputée universelle chez les animaux — nous confirmons aujourd'hui que ce n'est pas le cas. »</p><cite>— Dorothée Huchon, université de Tel-Aviv, coautrice de l'étude (<em>PNAS</em>, 2020)</cite></div>
+    <p class="clearfix">On tient là un petit cas d'école de <strong>robustesse</strong> au sens de Wimsatt : une conclusion à laquelle on accède par des voies indépendantes est d'autant plus fiable qu'elle ne dépend d'aucune d'elles en particulier. Ce n'est pas « on n'a pas trouvé le génome » ; c'est « deux détecteurs sans défaut commun s'accordent à ne rien détecter là où un troisième organisme, lui, produit un signal franc ». L'absence est établie.</p>
+  </div>
+</section>
+
+<section class="section" id="s4">
+  <div class="container">
+    <div class="section-label">Anatomie de la perte</div>
+    <h2>Ce qui est parti, ce qui est resté</h2>
+    <div class="img-inline">
+      <img src="https://v3b.fal.media/files/b/0aa49856/KPPdvauAkKSjdYDryE-2A_yPICX7qP.png" alt="Organite dérivé de mitochondrie aux crêtes atrophiées, entouré de mitochondries normales dorées" />
+      <div class="img-caption">L'organite survivant. La microscopie électronique révèle un compartiment dérivé de la mitochondrie (au centre, pâle) aux crêtes raréfiées — mais, fait inattendu chez un organite anaérobie, non disparues — là où une mitochondrie fonctionnelle (en or) empile ces replis qui portent la chaîne respiratoire.</div>
+    </div>
+    <p>La perte n'est ni totale ni aveugle : sa <em>sélectivité</em> est ce qui la rend interprétable. Une mitochondrie ordinaire fonctionne grâce à une coopération entre deux génomes — le sien, minuscule, et celui du noyau, qui code l'écrasante majorité des protéines mitochondriales, dont les enzymes chargées de répliquer et de transcrire l'ADN mitochondrial lui-même. <em>H. salminicola</em> n'a pas seulement effacé le petit génome circulaire : il a aussi perdu, à l'état de gènes absents ou de <strong>pseudogènes</strong>, la quasi-totalité de la <strong>machinerie nucléaire d'entretien</strong> de ce génome. La polymérase de l'ADN mitochondrial, l'appareil de transcription : congédiés en même temps que leur substrat.</p>
+    <p>Mais l'inventaire des gènes <em>conservés</em> est tout aussi éloquent, et c'est lui qui oriente les hypothèses métaboliques. Le tableau ci-dessous résume ce que l'étude a lu dans le génome.</p>
+    <div class="ledger">
+      <div class="ledger-col kept">
+        <h4>Conservé</h4>
+        <ul>
+          <li><b>Complexe II</b> (succinate déshydrogénase) — charnière du cycle de Krebs, réversible en fumarate réductase</li>
+          <li><b>Sous-unité F<sub>1</sub></b> de l'ATP synthase — le rotor catalytique</li>
+          <li><b>~51 gènes</b> de voies métaboliques mitochondriales diverses (acides aminés, glucides, nucléotides)</li>
+          <li><b>Gènes des crêtes</b> (DNAJC11, MTX1) — d'où un organite qui garde, fait rare, ses crêtes</li>
+        </ul>
+      </div>
+      <div class="ledger-col lost">
+        <h4>Perdu / pseudogénisé</h4>
+        <ul>
+          <li><b>Le génome mitochondrial</b> en entier</li>
+          <li><b>Complexes I, III, IV</b> — la chaîne de transport d'électrons à terminaison oxygène</li>
+          <li><b>Le canal protonique F<sub>o</sub></b> de l'ATP synthase (complexe V)</li>
+          <li><b>Réplication &amp; transcription de l'ADNmt</b> — polymérase et appareil associé, absents ou à l'état de pseudogènes</li>
+        </ul>
+      </div>
+    </div>
+    <p>Deux lectures se dégagent de ce partage. D'abord, ce qui reste n'est pas un bric-à-brac aléatoire : l'organite conserve une cinquantaine de gènes de voies métaboliques variées et « remplit encore diverses fonctions », selon les auteurs — un complexe II charnière du cycle de Krebs, la sous-unité F<sub>1</sub> de l'ATP synthase. Prudence, toutefois : l'étude ne trouve <em>aucune</em> hydrogénase ni gène d'origine procaryote — cet organite <strong>n'est donc pas un hydrogénosome</strong>. Plus troublant encore, les enzymes anaérobies caractéristiques des protistes (oxydase alternative, pyruvate-formate lyase, pyruvate-ferrédoxine oxydoréductase) y font <em>également</em> défaut, et l'accepteur final d'électrons reste inconnu. L'organite pourrait donc emprunter une <strong>voie anaérobie inédite</strong> : la façon exacte dont il produit son énergie demeure une question ouverte. Ensuite, la présence de <strong>pseudogènes</strong> plutôt que d'une absence pure a une valeur chronologique. La polymérase de l'ADN mitochondrial, par exemple, n'y subsiste qu'à l'état de <em>fossile moléculaire</em> : criblée de trois codons-stop prématurés, et non exprimée. Sa persistance date la perte et atteste qu'elle est survenue par dégradation graduelle, non par excision instantanée.</p>
+    <p class="clearfix">Reste l'organite lui-même. La microscopie électronique montre des <strong>organites dérivés de la mitochondrie</strong> (MRO, <em>mitochondrion-related organelles</em>) à double membrane et aux <strong>crêtes raréfiées mais bien présentes</strong> — présence d'autant plus notable que ces replis, où s'ancre normalement la chaîne respiratoire, disparaissent d'ordinaire chez les organites anaérobies. Le compartiment survit, avec une part de son architecture ; sa fonction respiratoire, non. Ce détail ultrastructural n'est pas anecdotique : il place <em>H. salminicola</em> sur une échelle bien connue des microbiologistes, celle des organites de la « famille mitochondriale ». C'est cette échelle qu'il faut maintenant déplier.</p>
+  </div>
+</section>
+
+<section class="section" id="s5">
+  <div class="container">
+    <div class="section-label">Le continuum</div>
+    <h2>Quand cesse-t-on d'appeler cela une mitochondrie&nbsp;?</h2>
+    <p>La mitochondrie n'est pas une catégorie nette mais l'extrémité aérobie d'un <strong>continuum</strong>. Miklós Müller et ses collègues, dans leur synthèse de 2012, ont ordonné la « famille mitochondriale » en cinq classes fonctionnelles, selon l'accepteur d'électrons utilisé et le degré de démantèlement de la chaîne respiratoire — de la mitochondrie canonique jusqu'au <strong>mitosome</strong>, organite si réduit qu'il ne produit plus d'ATP du tout et ne conserve, en pratique, que la biogénèse des centres Fe-S.</p>
+    <div class="continuum">
+      <div class="continuum-track">
+        <div class="cstage"><div class="cs-num">Classe 1</div><div class="cs-name">Mitochondrie aérobie</div><div class="cs-desc">O₂ comme accepteur terminal ; chaîne respiratoire complète.</div></div>
+        <div class="cstage"><div class="cs-num">Classe 2</div><div class="cs-name">Mitochondrie anaérobie</div><div class="cs-desc">Accepteur endogène (fumarate) ; respiration sans oxygène.</div></div>
+        <div class="cstage"><div class="cs-num">Classe 3</div><div class="cs-name">Hydrogénosome</div><div class="cs-desc">Produit de l'ATP + H₂ ; plus de chaîne à O₂.</div></div>
+        <div class="cstage"><div class="cs-num">Classe 4</div><div class="cs-name">Transition</div><div class="cs-desc">ATP résiduel, génome perdu, fonctions minimales.</div></div>
+        <div class="cstage"><div class="cs-num">Classe 5</div><div class="cs-name">Mitosome</div><div class="cs-desc">Aucun ATP ; ne reste que la biogénèse Fe-S.</div></div>
+      </div>
+      <div class="continuum-axis"><span>Dépendance à l'oxygène</span><span>Réduction de l'organite</span></div>
+    </div>
+    <p>Sur cette échelle, <em>H. salminicola</em> se range du côté réduit, anaérobie — mais à une position <strong>atypique</strong>, que les auteurs qualifient d'organite anaérobie « d'un type nouveau ». Il n'est pas un mitosome (il garde des voies métaboliques et ses crêtes), et pas davantage un hydrogénosome (aucune hydrogénase, aucun gène d'origine procaryote). Son analogue le plus proche connu n'est même pas un cousin animal, mais le MRO de l'apicomplexe <em>Cryptosporidium muris</em> — qui a lui aussi perdu les complexes I, III et IV, conservé une oxydase alternative, et gardé ses crêtes. Or ces transitions vers l'anaérobiose comptent parmi les cas de <strong>convergence</strong> les mieux documentés de la biologie cellulaire : hydrogénosomes et mitosomes sont apparus <em>indépendamment</em>, de nombreuses fois, dans des lignées sans parenté proche. La « solution anaérobie » est un attracteur accessible du paysage évolutif eucaryote — et <em>H. salminicola</em> en est la première occurrence <strong>animale</strong>.</p>
+    <p>Ce statut atypique déplace la question sur un terrain <em>définitionnel</em>, et c'est ici que le cas devient piquant. Si l'organite ne respire plus et n'a plus de génome, est-ce encore une « mitochondrie » ? Les auteurs, eux, tranchent par la <strong>fonction</strong> : puisqu'une mitochondrie se définit par l'usage de l'oxygène comme accepteur d'électrons — et, d'ordinaire, par la présence d'un génome —, ils refusent le mot et parlent d'un <em>organite dérivé de la mitochondrie</em>, non d'une mitochondrie véritable. Le terme même de « MRO » est un compromis lexical : il concède l'<strong>homologie</strong> (« dérivé de… ») tout en niant l'<strong>identité</strong> fonctionnelle. La descendance ne suffit pas à conserver le nom ; encore faut-il que la fonction demeure.</p>
+    <p>On notera l'asymétrie, savoureuse pour qui s'intéresse aux critères d'identité. Pour classer l'<em>organisme</em>, la communauté s'en remet à la <strong>généalogie</strong> : un myxozoaire est un « animal », un « cnidaire », par sa seule ascendance, quels que soient ses caractères perdus. Pour nommer l'<em>organite</em>, elle s'en remet à la <strong>fonction</strong> : ce n'est plus une « mitochondrie » dès lors qu'elle cesse de respirer. Le même article applique donc, à deux niveaux emboîtés du même être, deux critères d'identité opposés — l'un historique, l'autre fonctionnel. <em>H. salminicola</em> ne met pas seulement à l'épreuve nos catégories : il révèle que nous n'en mobilisons pas <em>une</em>, mais plusieurs, selon l'objet, sans toujours nous en aviser.</p>
+  </div>
+</section>
+
+<div class="img-wide">
+  <img src="https://v3b.fal.media/files/b/0aa498fc/bWMSGbOYFNxPvPdq8dW-i_EVlv4QTX.png" alt="Hélice d'ADN dont plusieurs gènes s'effritent en poussière, quelques-uns encore intacts" />
+  <div class="img-caption">Le génome comme registre de pertes. Les pseudogènes — segments désactivés mais encore lisibles — sont des fossiles moléculaires : ils datent l'extinction d'une fonction et racontent si elle s'est éteinte d'un coup ou par érosion. Chez <em>H. salminicola</em>, ils entourent la respiration disparue.</div>
+</div>
+
+<section class="section" id="s6">
+  <div class="container">
+    <div class="section-label">La question qui divise</div>
+    <h2>Perte adaptative, ou perte neutre&nbsp;?</h2>
+    <p>Nous voici au cœur du problème, celui qui intéresse le philosophe de l'évolution bien plus que le trophée médiatique. Que <em>H. salminicola</em> ait perdu la respiration aérobie, c'est un fait. <em>Pourquoi</em> l'a-t-il perdue est une question à laquelle on ne peut pas répondre par la simple observation de la perte — et c'est précisément ce qui la rend intéressante. Deux régimes explicatifs s'affrontent, et les distinguer empiriquement est notoirement ardu.</p>
+    <h3>L'hypothèse adaptative</h3>
+    <p>Première lecture : la perte est une <strong>adaptation</strong>. Maintenir une chaîne respiratoire et un génome mitochondrial coûte cher — réplication, réparation, gestion du stress oxydatif. Un parasite immergé dans les tissus richement pourvus de son hôte pourrait <em>gagner</em> à s'en défaire, soit en économisant les coûts de fabrication (hypothèse du <em>streamlining</em>, du « corps allégé »), soit en externalisant sa fourniture énergétique sur l'hôte lui-même. Cette dernière idée porte un nom : l'<strong>hypothèse de la Reine Noire</strong> (Morris, Lenski &amp; Zinser, 2012). Une fonction coûteuse mais fournie « gratuitement » par l'environnement — ici, un hôte débordant d'ATP et de métabolites — cesse d'être sélectionnée et finit perdue, car les individus qui s'en dispensent laissent plus de descendants. La perte, dans ce cadre, est <em>pour</em> quelque chose.</p>
+    <h3>L'hypothèse neutre</h3>
+    <p>Seconde lecture, plus subtile : la perte n'est <em>pour</em> rien. <em>H. salminicola</em> prolifère dans le <strong>muscle blanc</strong> du saumon — un tissu au métabolisme anaérobie — et son hôte invertébré présumé, un annélide, vit lui aussi en milieu volontiers anoxique : dans ses deux hôtes, l'oxygène fait défaut. Dès lors que la niche rend la respiration aérobie <strong>superflue sans rendre avantageux de la supprimer</strong>, la sélection cesse simplement de la maintenir. La fonction se dégrade alors par dérive et accumulation de mutations, sans qu'aucun avantage ne pilote l'affaire. C'est le domaine de l'<strong>évolution neutre constructive</strong> (Stoltzfus, 1999 ; Gray, Lukeš, Archibald, Keeling &amp; Doolittle, 2010) et, pour un génome non recombinant comme l'ADN mitochondrial, du <strong>cliquet de Muller</strong> : les mutations délétères s'y accumulent sans mécanisme de purge, chaque tour de cliquet interdisant le retour en arrière. La perte, ici, est une conséquence tolérée, pas une solution retenue.</p>
+    <div class="highlight"><p>Distinguer « la fonction a été perdue parce que s'en défaire était avantageux » de « la fonction a été perdue parce que la garder n'était plus nécessaire » exige de reconstruire un régime de sélection passé — ce que ni la séquence, ni la morphologie, ne livrent directement.</p></div>
+    <p>Fait notable, les auteurs de l'étude eux-mêmes refusent de trancher. Ils avancent l'argument adaptatif — le coût énergétique d'un gène est plus élevé dans un petit génome, si bien que se défaire du génome mitochondrial et de ses gènes associés « pourrait être avantageux » pour un organisme vivant en anaérobiose — mais ajoutent, dans la même page, que « la perte de gènes inutiles par simple dérive ne peut être exclue ». Que les découvreurs, au contact le plus direct des données, laissent la question ouverte en dit long : l'indétermination n'est pas un défaut de notre lecture, elle est dans l'objet.</p>
+    <p>Le piège, ici, est l'<strong>adaptationnisme</strong> au sens où Gould et Lewontin l'ont critiqué dans leur essai sur les tympans de San Marco : la tentation de lire toute caractéristique comme une solution optimale à un problème, et donc de raconter, pour la respiration perdue, une « histoire à dormir debout » (<em>just-so story</em>) qui la justifie après coup. Le cas de <em>H. salminicola</em> ne tranche pas de lui-même. Le jeu de gènes conservés — un métabolisme anaérobie apparemment fonctionnel — est <em>compatible</em> avec une perte adaptative pilotée par l'économie énergétique ; mais il est tout aussi compatible avec une perte neutre survenue dans une niche où l'oxygène ne manquait de toute façon jamais assez pour que la respiration compte. La signature moléculaire sous-détermine l'histoire sélective.</p>
+    <p>C'est en cela que le parasite est un bon objet philosophique : il rend palpable la différence entre <em>observer une perte</em> et <em>expliquer une perte</em>. Trancher demanderait ce qu'on n'a pas encore — une mesure du métabolisme du parasite <em>in situ</em>, une estimation de la pression partielle d'oxygène dans son microhabitat, une phylogénie fine datant chaque étape de la dégradation. Sans quoi le « pourquoi » reste une hypothèse, et l'honnêteté consiste à le dire.</p>
+  </div>
+</section>
+
+<section class="section" id="s7">
+  <div class="container">
+    <div class="section-label">Irréversibilité</div>
+    <h2>Une porte qui ne se rouvre pas</h2>
+    <p>Quel que soit le régime — adaptatif ou neutre — qui a effacé la respiration, un trait de ce cas est peu discutable : la perte est vraisemblablement <strong>irréversible</strong>. On touche ici à la <strong>loi de Dollo</strong> (1893), la vieille intuition selon laquelle un organisme ne retourne jamais exactement à un état ancestral qu'il a quitté. Reformulée en termes moléculaires, elle devient une affaire de probabilités et de dépendances : ré-acquérir une respiration aérobie fonctionnelle supposerait de reconstituer <em>simultanément</em> un génome mitochondrial disparu, la machinerie de sa réplication elle aussi effacée, et les complexes respiratoires démantelés — chacun inutile sans les autres. La combinatoire d'un tel retour est astronomiquement défavorable.</p>
+    <p>C'est exactement la logique du <strong>cliquet</strong> que décrivent Gray, Lukeš et leurs collègues : non pas une barrière physique, mais un biais dans la distribution des mutations futures. Il existe infiniment plus de chemins qui éloignent de l'état ancestral que de chemins qui y ramènent. Une fois le premier verrou franchi — le génome perdu — chaque perte ultérieure « presuppose » et stabilise les précédentes. Le système ne se rouvre pas parce que la clé, littéralement, a été détruite avec la serrure.</p>
+    <div class="img-inline">
+      <img src="https://v3b.fal.media/files/b/0aa499e3/gW1mDo-q8MNUPmsyTxT02_fiKXMjhp.png" alt="Visualisation moléculaire de CRISPR-Cas9 coupant un brin d'ADN, le segment excisé s'éloignant dans le noir" />
+      <div class="img-caption">La coupe sans retour. Un segment d'ADN excisé s'éloigne sans jamais se réinsérer : image de l'irréversible. De même, le génome mitochondrial d'<em>H. salminicola</em>, effacé en même temps que la machinerie qui le copiait, ne se reconstitue pas — le cliquet de Dollo dans sa version moléculaire.</div>
+    </div>
+    <p>Reste une tension que le lecteur attentif aura vue venir. D'un côté, l'irréversibilité inscrit <em>H. salminicola</em> dans le camp de la <strong>contingence</strong> chère à Gould : un accident gelé, une bifurcation qu'on ne rejouerait pas à l'identique si l'on « repassait la bande » de l'évolution. De l'autre, la <strong>convergence</strong> massive des transitions vers l'anaérobiose — ces dizaines d'origines indépendantes d'hydrogénosomes et de mitosomes — plaide pour un <strong>attracteur</strong>, une destination vers laquelle certaines lignées, placées dans les bonnes conditions, glissent presque inévitablement. Contingence de la <em>trajectoire</em>, nécessité de la <em>destination</em> : les deux ne se contredisent pas.</p>
+    <p class="clearfix">La façon propre de tenir les deux bouts est de distinguer les échelles. Qu'<em>une</em> lignée de cnidaires en particulier — celle des myxozoaires parasites du saumon — ait franchi ce seuil relève de la contingence historique ; qu'un eucaryote poussé dans une niche durablement pauvre en oxygène <em>tende</em> à réduire son organite respiratoire relève, statistiquement, de la quasi-nécessité. <em>H. salminicola</em> est un tirage particulier d'un processus général et répétable. C'est peut-être la leçon la plus fine du cas : la contingence et la loi ne s'excluent pas, elles opèrent à des niveaux différents du même arbre.</p>
+  </div>
+</section>
+
+<section class="section" id="s8">
+  <div class="container">
+    <div class="section-label">Ontologie</div>
+    <h2>Qu'est-ce qu'un animal, au juste&nbsp;?</h2>
+    <p>Reste la question que le cas pose à bas bruit, et qui est peut-être la plus dérangeante : en quel sens <em>H. salminicola</em> est-il un « animal » ? Il n'a pas de gènes Hox, pas de plan corporel reconnaissable, quelques cellules pour tout organisme, pas de respiration aérobie, et il passe l'essentiel de son existence dissous dans les tissus d'un autre. Presque tous les traits que l'on citerait spontanément pour définir un animal lui manquent. Ce qui le range parmi les Metazoa n'est aucun de ces traits : c'est sa <strong>position dans l'arbre</strong>, sa descendance à partir de l'ancêtre commun des animaux.</p>
+    <p>C'est le triomphe — et l'inconfort — de la définition <strong>cladistique</strong>. « Animal » n'y désigne pas un ensemble de propriétés (respirer, se mouvoir, avoir des tissus organisés) mais une <em>généalogie</em>. Un myxozoaire est un animal au même titre qu'une baleine, parce qu'il partage avec elle un ancêtre que les éponges n'ont pas. Cette conception, purement historique, a un immense mérite de rigueur : elle résiste aux contre-exemples. Mais elle a un coût — elle vide le mot « animal » de tout contenu <em>organisationnel</em>. Le concept ne dit plus rien de ce qu'un animal <em>fait</em> ou <em>est</em> ; il dit seulement d'où il vient. <em>H. salminicola</em> est le rappel le plus net que ces deux manières de découper le vivant — par l'ascendance ou par l'organisation — peuvent diverger jusqu'à l'absurde apparent.</p>
+    <div class="img-wide">
+      <img src="https://v3b.fal.media/files/b/0aa498f5/BTMwgtnIJr2EqLc1DRReS_j9ybtCoR.png" alt="Bassin anoxique hypersalin au fond de l'océan, bordé de croûte de sel" />
+      <div class="img-caption">Bassin hypersalin anoxique profond. C'est dans un tel milieu — L'Atalante, en Méditerranée — que Danovaro et ses collègues ont cru observer, en 2010, des animaux (des loricifères) accomplissant tout leur cycle sans oxygène. Une revendication d'un autre ordre de preuve que celle de <em>H. salminicola</em> — et restée contestée.</div>
+    </div>
+    <h3>Deux standards de preuve pour « vivre sans oxygène »</h3>
+    <p>Il vaut la peine de comparer <em>H. salminicola</em> à l'autre grand candidat au titre d'« animal anaérobie » : les <strong>loricifères</strong> décrits par Roberto Danovaro et son équipe en 2010, dans les sédiments anoxiques hypersalins du bassin de L'Atalante, à plus de trois mille mètres sous la Méditerranée. L'équipe y voyait des métazoaires accomplissant l'intégralité de leur cycle en anoxie permanente, pourvus d'organites de type hydrogénosome à la place des mitochondries. Mais la revendication a été <strong>contestée</strong> (Bernhard <em>et al.</em>, 2015), notamment sur la difficulté d'exclure une contamination par des individus venus de couches oxygénées ou déjà morts.</p>
+    <p>La comparaison est instructive sur le plan épistémologique, car les deux cas ne prouvent pas la même chose avec la même solidité. Le cas des loricifères est une revendication <strong>écologique et physiologique</strong> — « ces organismes vivent et se reproduisent sans oxygène » — difficile à établir hors de tout doute sur le terrain, et effectivement restée en débat. Le cas de <em>H. salminicola</em> est une affirmation <strong>génomique</strong> — « cet organisme n'a plus l'appareil génétique de la respiration aérobie » — vérifiable au laboratoire, reproductible, verrouillée par un témoin. Ce n'est pas que l'un soit vrai et l'autre faux ; c'est qu'ils ne se situent pas au même niveau d'inférence, et n'exigent pas le même type de preuve. Le génome offrait ici une prise que l'écologie de terrain ne pouvait pas donner.</p>
+    <h3>Ce que le cas ouvre</h3>
+    <p>Enfin, la portée déborde la zoologie. Que l'adaptation à l'anaérobiose, longtemps tenue pour l'apanage des microbes, ait aussi émergé chez un <strong>animal pluricellulaire</strong> desserre un lien que l'on posait volontiers entre oxygène et vie complexe. Pour l'<strong>astrobiologie</strong>, ce n'est pas un détail : cela élargit l'espace des environnements où une vie animale — au sens généalogique, faute de mieux — reste concevable. Non pas que <em>H. salminicola</em> soit un modèle d'exobiote ; mais il démontre que la contrainte « oxygène » est moins rigide qu'on ne le croyait à ce niveau d'organisation.</p>
+    <div class="concepts-grid">
+      <div class="concept-card"><div class="concept-icon">🧬</div><h4>Évoluer par soustraction</h4><p>Le parasitisme relâche la sélection ; les fonctions coûteuses et devenues superflues finissent érodées, parfois jusqu'à la respiration.</p></div>
+      <div class="concept-card"><div class="concept-icon">🔬</div><h4>Prouver une absence</h4><p>Séquençage + fluorescence DAPI, sans source d'erreur commune, verrouillés par le témoin <em>M. squamalis</em>.</p></div>
+      <div class="concept-card"><div class="concept-icon">🔒</div><h4>Cliquet de Dollo</h4><p>Génome et machinerie effacés ensemble : le retour à la respiration est combinatoirement inaccessible.</p></div>
+      <div class="concept-card"><div class="concept-icon">🌳</div><h4>Animal, mais lequel&nbsp;?</h4><p>Membre des Metazoa par sa seule généalogie — la définition cladistique triomphe et se vide à la fois.</p></div>
+    </div>
+    <h3>Une trajectoire en quelques repères</h3>
+    <div class="timeline">
+      <div class="tl-item"><div class="tl-dot">~600<br>Ma</div><div class="tl-body"><h4>L'ancêtre cnidaire</h4><p>Les cnidaires libres — méduses, anémones — plongent au Précambrien, dotés de nématocystes urticants.</p></div></div>
+      <div class="tl-item"><div class="tl-dot">Myxozoa</div><div class="tl-body"><h4>La bascule parasitaire</h4><p>Une lignée sœur des Medusozoa se réduit à l'extrême : perte des Hox, corps de quelques cellules, cycle parasitaire.</p></div></div>
+      <div class="tl-item"><div class="tl-dot">2015</div><div class="tl-body"><h4>Des cnidaires, par le génome</h4><p>Chang, Cartwright <em>et al.</em> confirment l'affiliation cnidaire et documentent des génomes parmi les plus petits du règne animal.</p></div></div>
+      <div class="tl-item"><div class="tl-dot">2020</div><div class="tl-body"><h4>Le génome mitochondrial manquant</h4><p>Yahalomi &amp; Huchon montrent l'absence de génome mitochondrial et de respiration aérobie chez <em>H. salminicola</em>.</p></div></div>
+      <div class="tl-item"><div class="tl-dot">apr.</div><div class="tl-body"><h4>Les questions ouvertes</h4><p>Nature exacte du métabolisme énergétique, régime sélectif de la perte, portée astrobiologique : chantiers en cours.</p></div></div>
+    </div>
+    <p class="clearfix">Un parasite de dix cellules, tapi dans la chair d'un saumon, aura suffi à faire vaciller une certitude aussi vieille que la zoologie. Non en ajoutant une fonction inédite au catalogue du vivant, mais en démontrant qu'une fonction jugée indispensable pouvait être <em>soustraite</em> — et que la vie animale continue au-delà, dans un espace conceptuel que nous n'avions pas pris la peine de baliser. Les meilleurs contre-exemples ne réfutent pas nos théories ; ils nous forcent à écrire enfin les prémisses que nous n'avions jamais énoncées.</p>
+  </div>
+</section>
+
+<section class="sources" id="sources">
+  <div class="container">
+    <div class="section-label">Bibliographie</div>
+    <h2>Sources &amp; Références</h2>
+    <ul class="sources-list">
+      <li><a href="https://www.pnas.org/doi/10.1073/pnas.1909907117" target="_blank">A cnidarian parasite of salmon (Myxozoa: Henneguya) lacks a mitochondrial genome</a><div class="src-pub">Yahalomi, Atkinson, Neuhof, Chang, Philippe, Cartwright, Bartholomew, Huchon — PNAS, 2020</div></li>
+      <li><a href="https://pubmed.ncbi.nlm.nih.gov/32094163/" target="_blank">Notice PubMed de l'étude PNAS (résumé, métadonnées, gènes conservés/perdus)</a><div class="src-pub">PubMed / NCBI</div></li>
+      <li><a href="https://datadryad.org/dataset/doi:10.5061/dryad.v15dv41sm" target="_blank">Jeu de données : An animal without a mitochondrial genome</a><div class="src-pub">Dryad Digital Repository</div></li>
+      <li><a href="https://www.pnas.org/doi/10.1073/pnas.1511468112" target="_blank">Genomic insights into the evolutionary origin of Myxozoa within Cnidaria</a><div class="src-pub">Chang, Neuhof, Rubinstein, Cartwright, Huchon <em>et al.</em> — PNAS, 2015 (réduction du génome, perte des Hox)</div></li>
+      <li><a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC4195985/" target="_blank">Diversity and evolution of myxozoan minicollagens and nematogalectins</a><div class="src-pub">BMC Evolutionary Biology / PMC — homologie capsule polaire / nématocyste</div></li>
+      <li><a href="https://journals.asm.org/doi/full/10.1128/mmbr.05024-11" target="_blank">Biochemistry and Evolution of Anaerobic Energy Metabolism in Eukaryotes</a><div class="src-pub">Müller, Mentel, van Hellemond, Henze, Embley, Tielens, Martin — MMBR, 2012 (les 5 classes de MRO)</div></li>
+      <li><a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC4571565/" target="_blank">Diversity and origins of anaerobic metabolism in mitochondria and related organelles</a><div class="src-pub">Stairs, Leger, Roger — Phil. Trans. R. Soc. B / PMC (hydrogénosomes, mitosomes, Fe-S)</div></li>
+      <li><a href="https://www.science.org/doi/10.1126/science.1198594" target="_blank">Irremediable Complexity?</a><div class="src-pub">Gray, Lukeš, Archibald, Keeling, Doolittle — Science, 2010 (évolution neutre constructive)</div></li>
+      <li><a href="https://iubmb.onlinelibrary.wiley.com/doi/abs/10.1002/iub.489" target="_blank">How a neutral evolutionary ratchet can build cellular complexity</a><div class="src-pub">Lukeš, Archibald, Keeling, Doolittle, Gray — IUBMB Life, 2011</div></li>
+      <li><a href="https://mbio.asm.org/content/3/2/e00036-12" target="_blank">The Black Queen Hypothesis: Evolution of Dependencies through Adaptive Gene Loss</a><div class="src-pub">Morris, Lenski, Zinser — mBio, 2012 (perte adaptative de fonctions fournies par le milieu)</div></li>
+      <li><a href="https://bmcbiol.biomedcentral.com/articles/10.1186/s12915-016-0263-4" target="_blank">The challenge of proving the existence of metazoan life in permanently anoxic deep-sea sediments</a><div class="src-pub">Bernhard <em>et al.</em> — BMC Biology, 2016 (mise en cause des loricifères anaérobies)</div></li>
+      <li><a href="https://www.sciencedaily.com/releases/2020/02/200225114408.htm" target="_blank">Unique non-oxygen breathing animal discovered (communiqué université de Tel-Aviv)</a><div class="src-pub">ScienceDaily / AFTAU, février 2020</div></li>
+    </ul>
+  </div>
+</section>
+
+<footer><a href="/dossiers/">Vostok</a> · Dossiers · Août 2026</footer>
+
+<script>
+(function(){
+  var seg=[
+    "audio/podcast-1.mp3",
+    "audio/podcast-2.mp3",
+    "audio/podcast-3.mp3",
+    "audio/podcast-4.mp3",
+    "audio/podcast-5.mp3"
+  ];
+  var i=0, playing=false;
+  var audio=new Audio(); audio.preload="none"; audio.src=seg[0];
+  var btn=document.getElementById("podcast-toggle");
+  function label(){ btn.textContent = playing ? "⏸ Pause" : "▶ Écouter l'interview"; }
+  audio.addEventListener("ended", function(){
+    i++;
+    if(i<seg.length){ audio.src=seg[i]; audio.play(); }
+    else { i=0; audio.src=seg[0]; playing=false; label(); }
+  });
+  btn.addEventListener("click", function(){
+    if(playing){ audio.pause(); playing=false; } else { audio.play(); playing=true; }
+    label();
+  });
+})();
+</script>
+</body>
+</html>
