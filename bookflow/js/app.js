@@ -164,7 +164,7 @@ function openPlayer(){
 
   // (Re)charge le lecteur à neuf dans l'iframe
   const frame = document.getElementById('player-frame');
-  const readerSrc = 'reader.html?embed=1&v=5';
+  const readerSrc = 'reader.html?embed=1&v=6';
   if (frame.getAttribute('src') !== readerSrc) frame.src = readerSrc;
   else if (frame.contentWindow) frame.contentWindow.location.reload();
 
@@ -175,12 +175,27 @@ function openPlayer(){
   const probe = new Image();
   probe.onload = () => { cover.src = coverUrl(b); cover.hidden = false; };
   probe.src = coverUrl(b);
-  cover.onclick = () => cover.classList.add('dismissed');   // 1er tap : la jaquette s'efface → lecteur
+  // 1er tap : la jaquette s'efface → lecteur. On en profite pour passer la page en
+  // PLEIN ÉCRAN (API Fullscreen) : masque la barre du navigateur, y compris le
+  // navigateur intégré LinkedIn (Chrome Custom Tabs). Doit partir de ce geste
+  // utilisateur direct, sinon le navigateur refuse la demande.
+  cover.onclick = () => { enterFullscreen(); cover.classList.add('dismissed'); };
 
   document.querySelector('.device').classList.add('landscape'); // cadre → paysage (« tél. tourné »)
   show('view-player');
 }
+function enterFullscreen(){
+  const el = document.documentElement;
+  const req = el.requestFullscreen || el.webkitRequestFullscreen || el.msRequestFullscreen;
+  if (req){ try{ const r = req.call(el); if (r && r.catch) r.catch(()=>{}); }catch(e){} }
+}
+function exitFullscreen(){
+  if (!(document.fullscreenElement || document.webkitFullscreenElement)) return;
+  const ex = document.exitFullscreen || document.webkitExitFullscreen || document.msExitFullscreen;
+  if (ex){ try{ ex.call(document); }catch(e){} }
+}
 document.getElementById('player-back').onclick = () => {
+  exitFullscreen();
   document.querySelector('.device').classList.remove('landscape');
   show('view-detail');
 };
