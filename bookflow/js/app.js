@@ -164,7 +164,7 @@ function openPlayer(){
 
   // (Re)charge le lecteur à neuf dans l'iframe
   const frame = document.getElementById('player-frame');
-  const readerSrc = 'reader.html?embed=1&v=4';
+  const readerSrc = 'reader.html?embed=1&v=5';
   if (frame.getAttribute('src') !== readerSrc) frame.src = readerSrc;
   else if (frame.contentWindow) frame.contentWindow.location.reload();
 

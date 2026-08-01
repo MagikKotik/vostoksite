@@ -17,7 +17,11 @@ body{
   background:#000;
   color:var(--txt);
   display:flex;align-items:center;justify-content:center;
-  min-height:100vh;
+  /* dvh : le body épouse la zone visible. Sinon (100vh figé) il est plus haut que
+     l'écran et centre le device en le décalant sous la barre d'adresse mobile
+     → le player du bas sort du champ. Les deux lignes = fallback 100vh puis 100dvh. */
+  height:100vh; height:100dvh;
+  min-height:100vh; min-height:100dvh;
   overflow:hidden;
   -webkit-font-smoothing:antialiased;
 }
