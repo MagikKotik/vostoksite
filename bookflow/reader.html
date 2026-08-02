@@ -12,7 +12,7 @@
     --ink:#c9c9d2;
     --accent:#e0a24a; --pivot-bg:#e0a24a; --pivot-fg:#14100a;
     --guide-color:#e0a24a; --guide-w:1px;
-    --read-size:48px; --zone-w:66%;
+    --read-size:48px; --zone-w:66%; --zone-h:46%;
     /* chrome de l'app (fixe, sobre) */
     --panel:#0c0c11; --panel-2:#17171e; --ink-dim:#6f6f7a; --line:#20202a;
   }
@@ -55,11 +55,16 @@
   /* ================= Scène de lecture (minimaliste) ================= */
   .stage{flex:1; display:flex; align-items:center; justify-content:center; padding:20px; min-height:0}
   .zone{
-    position:relative; width:var(--zone-w); height:min(46%, 340px);
+    position:relative; width:var(--zone-w); height:var(--zone-h);
     background:var(--zone); border:var(--zone-border-w) solid var(--zone-border);
     border-radius:26px; overflow:hidden;
     box-shadow:0 24px 60px rgba(0,0,0,.5); display:flex; align-items:center; cursor:pointer;
+    /* Les gestes (pincement, glissé de bord) sont gérés en JS : on retire au
+       navigateur le scroll/zoom natif pour les doigts qui partent d'ici. */
+    touch-action:none;
   }
+  /* pendant un redimensionnement : la bordure s'allume, on voit ce qu'on tire */
+  .zone.resizing{ border-color:var(--accent); }
   /* repère de fixation */
   .guide{position:absolute; left:50%; top:0; bottom:0; transform:translateX(-50%); pointer-events:none}
   .guide.style-line{width:var(--guide-w); top:12%; bottom:12%; background:var(--guide-color); opacity:.55}
@@ -141,13 +146,13 @@
   <div class="spacer"></div>
   <div class="wpm">
     <span class="wpm__cap">Vitesse</span>
-    <input type="range" id="s-wpm" min="150" max="900" step="10" value="150" aria-label="Vitesse de lecture (WPM)">
-    <b id="v-wpm">150</b>
+    <input type="range" id="s-wpm" min="50" max="500" step="10" value="50" aria-label="Vitesse de lecture (WPM)">
+    <b id="v-wpm">50</b>
   </div>
 </div>
 
 <!-- Zone de lecture -->
-<main class="stage">
+<main class="stage" id="stage">
   <div class="zone" id="zone">
     <div class="guide style-off" id="guide"></div>
     <div class="flux pivot-pill" id="flux"></div>
@@ -224,6 +229,10 @@
         <div class="ctl">
           <label>Largeur de la zone <b id="v-zw">66 %</b></label>
           <input type="range" id="s-zw" min="40" max="96" step="1" value="66">
+        </div>
+        <div class="ctl">
+          <label>Hauteur de la zone <b id="v-zh">46 %</b></label>
+          <input type="range" id="s-zh" min="20" max="92" step="1" value="46">
         </div>
         <div class="ctl">
           <label>Pause virgule <b id="v-pc">120 ms</b></label>
@@ -518,11 +527,16 @@ function buildThemeButtons(){
 /* ===================== PERSISTANCE ===================== */
 const LS_KEY = "bookflow-reader-settings";
 const MANAGED_VARS = ["--page","--zone","--zone-border","--zone-border-w","--ink","--accent",
-  "--pivot-bg","--pivot-fg","--guide-color","--guide-w","--read-size","--zone-w"];
+  "--pivot-bg","--pivot-fg","--guide-color","--guide-w","--read-size","--zone-w","--zone-h"];
+/* Version des défauts d'usine. Incrémentée quand un défaut change : les réglages
+   déjà persistés chez l'utilisateur adoptent le nouveau défaut sans perdre le
+   reste (thème, palette). v2 = WPM par défaut 150 → 50. */
+const DEFAULTS_VERSION = 2;
 
 function syncLabels(){
   el('v-wpm').textContent=el('s-wpm').value;
   el('v-max').textContent=el('s-max').value;      el('v-zw').textContent=el('s-zw').value+" %";
+  el('v-zh').textContent=el('s-zh').value+" %";
   el('v-pc').textContent=el('s-pc').value+" ms";  el('v-pp').textContent=el('s-pp').value+" ms";
   el('v-size').textContent=el('s-size').value+" px"; el('v-piv').textContent=(+el('s-piv').value).toFixed(2);
 }
@@ -531,11 +545,13 @@ function saveSettings(){
     const cs=getComputedStyle(document.documentElement), vars={};
     MANAGED_VARS.forEach(k=>vars[k]=cs.getPropertyValue(k).trim());
     localStorage.setItem(LS_KEY, JSON.stringify({
+      dv:DEFAULTS_VERSION,
       theme:currentTheme,
       pivotStyle:document.querySelector('#pivot-style input:checked')?.value,
       guideStyle:document.querySelector('#guide-style input:checked')?.value,
       pivotLocked, guideLocked,
       controls:{ wpm:el('s-wpm').value, max:el('s-max').value, zw:el('s-zw').value,
+        zh:el('s-zh').value,
         pc:el('s-pc').value, pp:el('s-pp').value, piv:el('s-piv').value, size:el('s-size').value,
         fit:el('t-fit').checked, ramp:el('t-ramp').checked },
       vars
@@ -546,17 +562,24 @@ function applyState(s){
   currentTheme = s.theme || currentTheme;
   pivotLocked = !!s.pivotLocked; guideLocked = !!s.guideLocked;
   const c=s.controls||{}, set=(id,v)=>{ if(v!=null) el(id).value=v; };
-  set('s-wpm',c.wpm); set('s-max',c.max); set('s-zw',c.zw); set('s-pc',c.pc); set('s-pp',c.pp);
+  set('s-wpm',c.wpm); set('s-max',c.max); set('s-zw',c.zw); set('s-zh',c.zh);
+  set('s-pc',c.pc); set('s-pp',c.pp);
   set('s-piv',c.piv); set('s-size',c.size);
+  /* Réglages enregistrés avant un changement de défaut : on réaligne les valeurs
+     concernées sur le défaut d'usine (`defaultValue` = attribut value du HTML). */
+  const migrate = (s.dv||1) < DEFAULTS_VERSION;
+  if(migrate) el('s-wpm').value = el('s-wpm').defaultValue;
   if(c.fit!=null) el('t-fit').checked=!!c.fit;
   if(c.ramp!=null) el('t-ramp').checked=!!c.ramp;
   if(c.zw!=null) setVar('--zone-w', c.zw+'%');
+  if(c.zh!=null) setVar('--zone-h', c.zh+'%');
   if(s.vars) for(const k in s.vars) setVar(k, s.vars[k]);
   if(c.size!=null) setVar('--read-size', c.size+'px');
   setPivotStyle(s.pivotStyle||'color'); setGuideStyle(s.guideStyle||'line');
   document.querySelectorAll('.theme-btn').forEach(b=>b.classList.toggle('active',b.dataset.k===currentTheme));
   syncPalettePickers(); syncLabels();
   rebuild(false); showSub();
+  if(migrate) saveSettings();
 }
 
 /* ===================== BINDINGS ===================== */
@@ -565,6 +588,9 @@ const bindRange=(id,valId,fmt,cb)=>{ const s=el(id),v=el(valId);
 bindRange("s-wpm","v-wpm",x=>x, ()=>rebuild());
 bindRange("s-max","v-max",x=>x, ()=>rebuild());
 bindRange("s-zw","v-zw",x=>x+" %", ()=>{ setVar("--zone-w",el("s-zw").value+"%"); el("t-fit").checked?rebuild():showSub(); });
+/* La hauteur n'entre pas dans le budget de découpe (seule la largeur compte) :
+   pas de rebuild, un simple recentrage suffit. */
+bindRange("s-zh","v-zh",x=>x+" %", ()=>{ setVar("--zone-h",el("s-zh").value+"%"); showSub(); });
 bindRange("s-pc","v-pc",x=>x+" ms", ()=>rebuild());
 bindRange("s-pp","v-pp",x=>x+" ms", ()=>rebuild());
 bindRange("s-size","v-size",x=>x+" px", ()=>{ setVar("--read-size",el("s-size").value+"px"); el("t-fit").checked?rebuild():showSub(); });
@@ -591,7 +617,138 @@ document.addEventListener("keydown",e=>{
   else if(e.code==="ArrowLeft") go(idx-1);
   else if(e.code==="Home") go(0);
 });
-zone.onclick=toggle;
+/* ===================== GESTES (tactile + souris) =====================
+   Deux gestes usuels qui pilotent des réglages DÉJÀ existants — donc les
+   curseurs du ☰ suivent, et la persistance marche sans rien ajouter :
+     · glisser un BORD de la zone      → largeur (--zone-w) / hauteur (--zone-h)
+     · pincer à deux doigts sur le texte → taille du texte (--read-size)
+
+   Trois précautions qui font tout marcher :
+   1. Pendant le geste on ne touche QUE les variables CSS. Le redécoupage
+      (~500 sous-segments mesurés au pixel) n'a lieu qu'au RELÂCHEMENT.
+   2. Un geste avale le clic qui le suit, sinon chaque pincement basculerait
+      la lecture en pause (la zone entière est un bouton play/pause).
+   3. `touch-action:none` sur la zone (CSS) + interception des évènements
+      `gesture*` de Safari : sans ça, le navigateur zoome la page à la place. */
+const stage = el("stage");
+const EDGE = 22;        // épaisseur de la bande de préhension le long des bords, en px
+const MOVE_TOL = 6;     // en deçà de ce déplacement, c'est un tap, pas un geste
+
+const pointers = new Map();
+let gesture = null;         // geste en cours : {type:"resize"|"pinch", …}
+let gestureMoved = false;   // un geste a bougé → annule le clic qui suit
+let wheelTimer = null;
+
+const clamp = (v,a,b)=>Math.max(a,Math.min(b,v));
+const dist = (a,b)=>Math.hypot(a.clientX-b.clientX, a.clientY-b.clientY);
+const fluxPx = ()=>parseFloat(getComputedStyle(flux).fontSize);
+
+/* Dimensions utiles de la scène (hors padding) : les % de la zone s'y rapportent. */
+function stageBox(){
+  const cs = getComputedStyle(stage);
+  return { w: stage.clientWidth  - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight),
+           h: stage.clientHeight - parseFloat(cs.paddingTop)  - parseFloat(cs.paddingBottom) };
+}
+/* Écrit une valeur en gardant curseur + libellé + variable CSS synchronisés. */
+function setCtl(id, valId, v, unit, cssVar){
+  const s = el(id); v = clamp(Math.round(v), +s.min, +s.max);
+  s.value = v; el(valId).textContent = v + " " + unit; setVar(cssVar, v + unit.trim());
+  return v;
+}
+const setZoneW = v => setCtl("s-zw","v-zw", v, "%",  "--zone-w");
+const setZoneH = v => setCtl("s-zh","v-zh", v, "%",  "--zone-h");
+const setSize  = v => setCtl("s-size","v-size", v, "px", "--read-size");
+
+/* Quel bord est sous le doigt ? {x:-1|0|1, y:-1|0|1} — 0 = pas un bord. */
+function edgeAt(ev){
+  const r = zone.getBoundingClientRect();
+  const dx = ev.clientX - r.left, dy = ev.clientY - r.top;
+  if(dx < -EDGE || dy < -EDGE || dx > r.width + EDGE || dy > r.height + EDGE) return {x:0,y:0};
+  return { x: dx <= EDGE ? -1 : dx >= r.width  - EDGE ? 1 : 0,
+           y: dy <= EDGE ? -1 : dy >= r.height - EDGE ? 1 : 0 };
+}
+/* Fin de geste : c'est ICI qu'on paie le redécoupage, une seule fois. */
+function commitGesture(){
+  zone.classList.remove("resizing");
+  gesture = null;
+  el("t-fit").checked ? rebuild() : showSub();
+  saveSettings();
+}
+
+zone.addEventListener("pointerdown", ev=>{
+  if(pointers.size === 0) gestureMoved = false;   // nouvelle séquence de gestes
+  pointers.set(ev.pointerId, ev);
+
+  if(pointers.size === 2){                        // deux doigts → pincement
+    const [a,b] = [...pointers.values()];
+    const d = dist(a,b);
+    if(d > 0) gesture = { type:"pinch", d0:d, size0:fluxPx() };
+    return;
+  }
+  const e = edgeAt(ev);
+  if(e.x || e.y){                                 // un doigt sur un bord → redimensionnement
+    const box = stageBox();
+    gesture = { type:"resize", edge:e, x0:ev.clientX, y0:ev.clientY,
+                w0:+el("s-zw").value, h0:+el("s-zh").value, box };
+    zone.classList.add("resizing");
+  }
+});
+
+/* Le suivi vit sur window : le doigt peut sortir de la zone sans casser le geste. */
+window.addEventListener("pointermove", ev=>{
+  if(!pointers.has(ev.pointerId)) return;
+  pointers.set(ev.pointerId, ev);
+  if(!gesture) return;
+
+  if(gesture.type === "pinch"){
+    if(pointers.size < 2) return;
+    const [a,b] = [...pointers.values()], d = dist(a,b);
+    if(!gestureMoved && Math.abs(d - gesture.d0) < MOVE_TOL) return;
+    gestureMoved = true;
+    setSize(gesture.size0 * (d / gesture.d0));
+  } else {
+    const dx = ev.clientX - gesture.x0, dy = ev.clientY - gesture.y0;
+    if(!gestureMoved && Math.hypot(dx,dy) < MOVE_TOL) return;
+    gestureMoved = true;
+    /* La zone est CENTRÉE : déplacer un bord de d px change la dimension de 2d px. */
+    if(gesture.edge.x) setZoneW(gesture.w0 + gesture.edge.x * dx * 2 / gesture.box.w * 100);
+    if(gesture.edge.y) setZoneH(gesture.h0 + gesture.edge.y * dy * 2 / gesture.box.h * 100);
+  }
+  showSub();   // recentrage immédiat sur le pivot ; pas de redécoupage ici
+});
+
+const endPointer = ev=>{
+  if(!pointers.delete(ev.pointerId)) return;
+  if(pointers.size === 0 && gesture){ gestureMoved ? commitGesture() : (gesture=null, zone.classList.remove("resizing")); }
+};
+window.addEventListener("pointerup", endPointer);
+window.addEventListener("pointercancel", endPointer);
+
+/* Curseur souris : indique le bord attrapable avant même de cliquer. */
+zone.addEventListener("pointermove", ev=>{
+  if(gesture || ev.pointerType !== "mouse") return;
+  const e = edgeAt(ev);
+  zone.style.cursor = (e.x && e.y) ? (e.x === e.y ? "nwse-resize" : "nesw-resize")
+                    : e.x ? "ew-resize" : e.y ? "ns-resize" : "pointer";
+});
+
+/* Trackpad / molette : Ctrl+molette = équivalent PC du pincement. */
+zone.addEventListener("wheel", ev=>{
+  if(!ev.ctrlKey) return;
+  ev.preventDefault();
+  setSize(fluxPx() - ev.deltaY * 0.5);
+  showSub();
+  clearTimeout(wheelTimer);
+  wheelTimer = setTimeout(()=>{ el("t-fit").checked ? rebuild() : showSub(); saveSettings(); }, 220);
+}, {passive:false});
+
+/* Safari/iOS ignore touch-action pour le zoom de page : il faut refuser ses
+   évènements propriétaires, sinon le pincement zoome la page entière. */
+["gesturestart","gesturechange","gestureend"].forEach(t=>
+  document.addEventListener(t, e=>e.preventDefault(), {passive:false}));
+
+/* Tap sur la zone = play/pause — sauf s'il conclut un geste. */
+zone.onclick = ()=>{ if(!gestureMoved) toggle(); };
 
 /* tiroir */
 const openDrawer=()=>{ el("drawer").classList.add("open"); el("backdrop").classList.add("open"); };
