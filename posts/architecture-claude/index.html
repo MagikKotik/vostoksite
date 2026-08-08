@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Une mémoire, des images, et 97 % de tokens économisés !!! — Vostok</title>
+<meta name="description" content="Onze prompts à copier-coller pour donner à Claude une mémoire, des lois et des savoir-faire — et diviser par trente ce qu'il relit à chaque conversation.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&family=DM+Sans:wght@300;400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --cream:#F7F3EC;   /* fond page          */
+  --paper:#FFFCF7;   /* surfaces claires   */
+  --sand:#EFE7DA;    /* blocs, code        */
+  --clay:#D97757;    /* accent principal   */
+  --clay-deep:#B2543A;
+  --amber:#E0A458;   /* accent secondaire  */
+  --sage:#8A9A7B;    /* vert secondaire    */
+  --ink:#2F2A25;     /* titres             */
+  --text:#4A423A;    /* corps              */
+  --muted:#6D6357;   /* secondaire (AA 4.5:1 sur crème) */
+  --line:rgba(217,119,87,.22);
+  --line-soft:rgba(47,42,37,.10);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--cream);color:var(--text);font-family:'DM Sans',system-ui,sans-serif;font-size:17px;line-height:1.75}
+a{color:var(--clay-deep);text-decoration:none}
+a:hover{text-decoration:underline}
+img{display:block;max-width:100%}
+code{font-family:'IBM Plex Mono',ui-monospace,monospace;font-size:.86em;color:var(--clay-deep);
+  background:var(--sand);padding:1px 5px;border-radius:5px}
+em{color:var(--ink)}
+nav{
+  position:sticky;top:0;z-index:10;display:flex;align-items:center;gap:10px;
+  padding:14px 5vw;background:rgba(247,243,236,.88);backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--line-soft);
+}
+nav .logo{display:flex;align-items:center;gap:10px;color:var(--ink)}
+nav .logo svg{width:24px;height:24px}
+nav .logo .word{font-family:'Fraunces',serif;font-weight:700;font-size:1.2rem}
+nav .back{margin-left:auto;font-size:.8rem;font-weight:500;letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+nav .back:hover{color:var(--clay-deep);text-decoration:none}
+.cover{display:flex;justify-content:center;overflow:hidden;
+  border-bottom:1px solid var(--line-soft);background:#F6EFE1}
+.cover img{width:100%;max-width:1088px;height:auto}
+article{max-width:740px;margin:0 auto;padding:46px 5vw 36px}
+.tag{
+  display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--clay-deep);
+  background:rgba(217,119,87,.13);border-radius:999px;padding:4px 13px;margin-bottom:14px;
+}
+.date{font-size:.82rem;color:var(--muted);margin-left:12px}
+h1{
+  font-family:'Fraunces',serif;font-weight:700;color:var(--ink);
+  font-size:clamp(1.85rem,4.6vw,2.7rem);line-height:1.15;letter-spacing:-.015em;margin-bottom:26px;
+}
+h2{
+  font-family:'Fraunces',serif;font-weight:600;font-size:1.42rem;
+  color:var(--ink);margin:44px 0 12px;letter-spacing:-.01em;
+}
+h2::before{content:'◦ ';color:var(--clay)}
+h3{font-family:'Fraunces',serif;font-size:1.08rem;font-weight:600;color:var(--ink);margin:28px 0 10px}
+p{margin-bottom:16px}
+.lead{font-size:1.18rem;color:var(--ink);font-weight:400;line-height:1.62}
+ul{margin:0 0 16px 22px}
+li{margin-bottom:7px}
+strong{color:var(--ink);font-weight:700}
+
+/* ── tableau des étages ── */
+.etages{width:100%;border-collapse:collapse;margin:0;font-size:.92rem;background:var(--paper)}
+.etages th{
+  text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);
+  color:var(--clay-deep);font-size:.68rem;letter-spacing:.13em;text-transform:uppercase;font-weight:700;
+}
+.etages td{padding:10px 12px;border-bottom:1px solid var(--line-soft);vertical-align:top}
+.etages tr:last-child td{border-bottom:none}
+.etages td:first-child{color:var(--ink);font-weight:700;white-space:nowrap}
+.tbl-wrap{overflow-x:auto;margin-bottom:24px;border:1px solid var(--line-soft);border-radius:12px}
+
+/* ── blocs de prompt ── */
+.prompt{
+  background:var(--paper);border:1px solid var(--line);border-radius:14px;
+  margin:0 0 26px;overflow:hidden;
+}
+.prompt-head{
+  display:flex;align-items:center;gap:11px;padding:11px 15px;
+  border-bottom:1px solid var(--line);background:rgba(217,119,87,.07);
+}
+.prompt-num{
+  font-family:'Fraunces',serif;font-weight:700;color:var(--clay);
+  font-size:1.05rem;line-height:1;flex-shrink:0;
+}
+.prompt-title{font-weight:700;color:var(--ink);font-size:.88rem;line-height:1.3}
+.copy-btn{
+  margin-left:auto;flex-shrink:0;cursor:pointer;border:1px solid var(--clay);
+  background:transparent;color:var(--clay-deep);font-family:inherit;font-size:.7rem;
+  font-weight:700;letter-spacing:.09em;text-transform:uppercase;
+  padding:5px 14px;border-radius:999px;transition:background .18s,color .18s,transform .1s;
+}
+.copy-btn:hover{background:var(--clay);color:#fff}
+.copy-btn:active{transform:scale(.96)}
+.copy-btn.done{background:var(--sage);border-color:var(--sage);color:#fff}
+.prompt pre{
+  margin:0;padding:16px;overflow-x:auto;background:var(--sand);
+  font-family:'IBM Plex Mono',ui-monospace,monospace;
+  font-size:.775rem;line-height:1.68;color:var(--ink);
+  white-space:pre-wrap;word-break:break-word;
+}
+.note{
+  border-left:3px solid var(--amber);padding:3px 0 3px 15px;margin:0 0 26px;
+  color:var(--muted);font-size:.93rem;
+}
+.note strong{color:var(--ink)}
+.fig{margin:28px 0 32px}
+.fig img{width:100%;border-radius:16px;border:1px solid var(--line-soft)}
+.fig figcaption{margin-top:10px;font-size:.82rem;color:var(--muted);text-align:center;font-style:italic}
+.phase{
+  margin:56px 0 6px;padding-top:24px;border-top:1px solid var(--line);
+  font-size:.7rem;letter-spacing:.2em;text-transform:uppercase;color:var(--clay-deep);font-weight:700;
+}
+.cta{
+  margin:46px 0 8px;padding:28px;background:var(--paper);
+  border:1px solid var(--line);border-radius:16px;text-align:center;
+}
+.cta p{color:var(--muted);margin-bottom:18px}
+.btn{
+  display:inline-block;padding:11px 26px;margin:0 6px 8px;border-radius:999px;
+  font-weight:700;font-size:.9rem;border:1px solid var(--clay);
+  color:var(--clay-deep);transition:all .2s;
+}
+.btn:hover{background:var(--clay);color:#fff;text-decoration:none}
+.btn.primary{background:var(--clay);color:#fff;border-color:var(--clay)}
+.btn.primary:hover{background:var(--clay-deep);border-color:var(--clay-deep)}
+footer{
+  border-top:1px solid var(--line-soft);padding:30px 5vw;
+  color:var(--muted);font-size:.85rem;text-align:center;
+}
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="logo" href="../../index.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#D97757" stroke-width="1.4">
+      <circle cx="12" cy="12" r="1.8" fill="#E0A458" stroke="none"/>
+      <ellipse cx="12" cy="12" rx="9.5" ry="4"/>
+      <ellipse cx="12" cy="12" rx="9.5" ry="4" transform="rotate(60 12 12)"/>
+      <ellipse cx="12" cy="12" rx="9.5" ry="4" transform="rotate(120 12 12)"/>
+    </svg>
+    <span class="word">Vostok</span>
+  </a>
+  <a class="back" href="../../index.html#journal">← Retour au journal</a>
+</nav>
+
+<div class="cover"><img src="https://v3b.fal.media/files/b/0aa589ab/gWeSOfxS1DJfxin1WDEio_rAHDWE8l.png" alt="Plan d'architecture vu du dessus, le logo Claude rayonnant au centre"></div>
+
+<article>
+  <span class="tag">Méthode</span><span class="date">8 août 2026 · 12 min de lecture</span>
+  <h1>Une mémoire, des images, et 97 % de tokens économisés !!!</h1>
+
+  <p class="lead">Onze prompts à copier-coller. À la fin, vous avez un espace de travail où l'IA connaît vos règles, retrouve vos projets, sait faire des choses qu'elle a apprises hier, et refuse de toucher à quoi que ce soit sans vous demander.</p>
+
+  <h2>Le problème que personne ne nomme</h2>
+  <p>Un modèle de langage n'a pas de mémoire. Chaque conversation repart de zéro. Vous le savez déjà — ce que vous savez moins, c'est que la solution évidente est un piège.</p>
+  <p>La solution évidente, c'est le fichier d'instructions. On en écrit un, on y met ses préférences, et à chaque nouvelle règle on ajoute « juste une précision ». Six mois plus tard il fait six cents lignes. Et comme ce fichier est relu <em>en entier, à chaque bonjour</em>, vous payez ces six cents lignes toute votre vie. Pour une règle qui sert deux fois par an.</p>
+
+  <figure class="fig">
+    <img src="https://v3b.fal.media/files/b/0aa589af/st-Aba7hexYiDXbn7ozuI_yoBdDyd9.png" alt="Un petit robot assis seul à l'aube devant un carnet aux pages vierges" loading="lazy">
+    <figcaption>Chaque matin, le même carnet vide.</figcaption>
+  </figure>
+
+  <h2>L'inversion</h2>
+  <p>Un fichier d'instructions <strong>minuscule qui ne détient rien et qui sait où tout est</strong>. Il énonce les lois, il donne les routes, il s'arrête là. Le savoir-faire, la mémoire et les projets vivent dans des fichiers séparés qu'on ne charge qu'au moment où ils servent.</p>
+
+  <figure class="fig">
+    <img src="https://v3b.fal.media/files/b/0aa589b1/faIqqstback9lk-t3GYV2_SbwPgTJe.png" alt="À gauche un parchemin immense qui déroule jusqu'au sol, à droite un simple panneau indicateur" loading="lazy">
+    <figcaption>Le même savoir. À gauche, tout déplié en permanence. À droite, rangé et indiqué.</figcaption>
+  </figure>
+
+  <div class="tbl-wrap">
+  <table class="etages">
+    <tr><th>Étage</th><th>Rôle</th><th>Où</th></tr>
+    <tr><td>La loi</td><td>ce qu'il n'a pas le droit de faire</td><td><code>CLAUDE.md</code>, en tête</td></tr>
+    <tr><td>Les routes</td><td>quand tu fais X, lis Y</td><td><code>CLAUDE.md</code>, un tableau</td></tr>
+    <tr><td>Le savoir-faire</td><td>comment on fait X</td><td><code>_rules/</code>, à la demande</td></tr>
+    <tr><td>La mémoire</td><td>où on en est</td><td><code>Projects/*/memory.md</code></td></tr>
+  </table>
+  </div>
+
+  <h2>Le chiffre du titre, mesuré</h2>
+  <p>Je viens de compter sur mon propre dossier, qui abrite aujourd'hui vingt projets.</p>
+  <ul>
+    <li>Mon fichier d'instructions racine, celui qui est relu à <strong>chaque</strong> conversation : <strong>2 238 caractères</strong>.</li>
+    <li>Mes onze modules de savoir-faire, chargés seulement quand ils servent : <strong>70 187 caractères</strong>.</li>
+    <li>Si tout était dans le fichier racine — le fameux fichier fleuve — j'en lirais <strong>72 425</strong> à chaque bonjour.</li>
+  </ul>
+  <p>Soit <strong>96,9 % de moins</strong>, un facteur trente-deux. Et à l'ouverture d'un projet, c'est encore plus net : Claude ne lit que la fiche du projet, jamais son contenu — 1,4 % de ce qu'il contient. Ouvrir le vingtième projet coûte la même chose que le premier.</p>
+  <div class="note">
+    Honnêteté sur la mesure : je compte des <strong>caractères</strong>, pas des tokens — le rapport entre les deux varie un peu selon la langue. Les 97 % sont un ordre de grandeur solide, pas une décimale garantie.
+  </div>
+
+  <div class="note">
+    <strong>Avant de commencer.</strong> Créez un dossier <code>claude</code> dans un espace synchronisé — Drive, Dropbox, iCloud. Il vous suivra d'une machine à l'autre. Ouvrez Claude en pointant ce dossier. N'y mettez rien : on part d'un dossier vide.
+  </div>
+
+  <p class="phase">Phase 1 — Fonder</p>
+
+  <div class="prompt">
+    <div class="prompt-head">
+      <span class="prompt-num">01</span>
+      <span class="prompt-title">L'ossature et le fichier routeur</span>
+      <button class="copy-btn" type="button">Copier</button>
+    </div>
+    <pre>Tu vas installer une architecture de travail persistante dans ce dossier. C'est un espace
+que je vais réutiliser pendant des mois, avec plusieurs projets. Traite-le comme une
+infrastructure, pas comme un dossier de fichiers.
+
+Crée exactement ceci, rien de plus :
+
+CLAUDE.md          — le fichier que tu liras à chaque démarrage
+persona.md         — qui je suis
+memory.md          — vide, avec une note disant que la mémoire vit dans les projets
+_config/paths.json — la source de vérité des chemins
+_rules/            — vide pour l'instant
+Projects/          — vide
+sessions/          — vide
+_assets/           — vide
+temp/              — vide
+
+Règle centrale pour CLAUDE.md : c'est un ROUTEUR, pas une documentation. Il tient sous les
+50 lignes. Il énonce les lois et dit où trouver les détails — il ne contient jamais les
+détails eux-mêmes. Tu le liras en entier à chaque conversation : chaque ligne inutile me
+coûte des tokens à vie. Écris-le dense, en style télégraphique, avec des abréviations.
+C'est le fichier le plus lu du système, il doit être le plus compressé.
+
+Il contient six sections, dans cet ordre :
+
+1. Une ligne qui dit ce qu'est cet espace et que le détail vit dans _rules/
+2. LOIS — laisse la section vide, je te la donne au prompt suivant
+3. RÉPONSES — mes préférences de format quand tu me réponds. Pose-moi la question :
+   est-ce que je veux des réponses courtes par défaut ? Un ton particulier ?
+   Des développements complets seulement sur certains types de tâches ?
+4. PERSONA — la règle du fichier persona.md (je te la donne au prompt 3)
+5. ROUTES DE FICHIERS — où va quoi. Un résumé de 4 lignes, avec un renvoi vers le
+   module détaillé. Ce sont des routes, pas un inventaire du dossier.
+6. MODULES À CHARGER À LA DEMANDE — un tableau à deux colonnes : « Quand » | « Lire ».
+   Vide pour l'instant, il se remplira d'une ligne à chaque nouveau savoir-faire.
+
+Dans _config/paths.json, mets la racine et la liste des dossiers. Règle absolue : aucun
+script que tu écriras ne contiendra jamais un chemin absolu en dur. Ils liront ce fichier.
+C'est ce qui me permet de déplacer ou synchroniser ce dossier sans rien casser.
+
+Montre-moi le CLAUDE.md avant de l'écrire.</pre>
+  </div>
+
+  <div class="note">
+    Vous devez obtenir un fichier court, avec un tableau vide en bas. S'il en sort deux cents lignes, il a mal compris : demandez-lui de le réduire de moitié. <strong>Le <code>paths.json</code> est ce qui rend le dossier nomade</strong> — aucun script ne contient de chemin en dur, donc vous pouvez le déplacer sans rien casser.
+  </div>
+
+  <div class="prompt">
+    <div class="prompt-head">
+      <span class="prompt-num">02</span>
+      <span class="prompt-title">La loi — confirmer avant d'agir</span>
+      <button class="copy-btn" type="button">Copier</button>
+    </div>
+    <pre>Remplis la section LOIS de CLAUDE.md. Une seule loi, et c'est elle qui tient tout le reste :
+
+CONFIRMER AVANT D'AGIR.
+Aucune exécution sans deux conditions réunies : une demande explicite de ma part, ET une
+description préalable de ce qui va se passer.
+
+Avant tout effet de bord — écrire un fichier, en modifier un, lancer une commande qui
+change quelque chose, appeler une API, générer une image, publier quoi que ce soit — tu
+décris d'abord : quels fichiers, quelles commandes, quel diff, quel coût. Puis tu attends
+que je dise « go ». Puis tu agis.
+
+Pas d'auto-chaînage : un « go » vaut pour l'action décrite, jamais pour la suivante.
+
+Lire est libre. Lire un fichier, chercher, lister, consulter le web ne demandent aucune
+confirmation. Le frein est sur ce qui modifie, pas sur ce qui observe.
+
+Écris-la tout en haut du fichier, visuellement marquée comme un invariant. Elle doit être
+impossible à rater quand tu relis CLAUDE.md.</pre>
+  </div>
+
+  <div class="note">
+    <strong>C'est le prompt le plus important des onze.</strong> Sans lui, un assistant qui a accès à vos fichiers finit par en casser un. Avec lui, vous voyez passer chaque action avant qu'elle n'arrive. C'est la différence entre déléguer et subir.
+  </div>
+
+  <figure class="fig">
+    <img src="https://v3b.fal.media/files/b/0aa589c8/qw9HXfes8ZNUmDujXVMlH_UErQ9c0a.png" alt="Un petit robot lève la main devant une porte fermée, attendant l'autorisation d'entrer" loading="lazy">
+    <figcaption>Il frappe avant d'entrer. Toujours.</figcaption>
+  </figure>
+
+  <div class="prompt">
+    <div class="prompt-head">
+      <span class="prompt-num">03</span>
+      <span class="prompt-title">Le persona — une mémoire qui ne s'efface jamais</span>
+      <button class="copy-btn" type="button">Copier</button>
+    </div>
+    <pre>Crée persona.md, et déclare sa règle dans la section PERSONA de CLAUDE.md.
+
+Le fichier contient deux choses distinctes :
+
+1. Un bloc factuel en haut : comment m'appeler, ma langue de travail, mon métier, mon
+   niveau technique.
+
+2. En dessous, un journal daté, APPEND-ONLY.
+
+Le journal est la partie qui compte. Sa règle : tu n'as JAMAIS le droit de modifier ni de
+supprimer une entrée existante. Tu ne fais qu'ajouter à la fin, avec la date.
+
+Son seuil d'entrée est haut. On n'y met pas ce sur quoi je bosse cette semaine. On y met
+les formulations qui frappent, les idées qui restructurent une façon de voir, les
+connexions inattendues. Si ça peut se dire n'importe quel jour, ça n'a pas sa place ici.
+
+Écris ces deux règles DANS le fichier, en tête, pour qu'elles survivent à ton oubli.
+Pose-moi les questions du bloc factuel maintenant.</pre>
+  </div>
+
+  <div class="note">
+    Tout le reste du système se réécrit en permanence. Ce fichier est le seul qui ne fait que grossir. Au bout d'un an, c'est une archive de votre propre pensée.
+  </div>
+
+  <figure class="fig">
+    <img src="https://v3b.fal.media/files/b/0aa589ba/5ubzFV_yD1eXwvC3ytvuY_swZSj9O1.png" alt="Une main pose une fiche datée sur une pile qui ne cesse de grandir, à côté d'un journal ouvert" loading="lazy">
+    <figcaption>On ajoute. On ne retire jamais.</figcaption>
+  </figure>
+
+  <p class="phase">Phase 2 — Mémoriser</p>
+
+  <p>C'est le cœur. Quatre prompts, et une conversation cesse de mourir quand vous fermez la fenêtre.</p>
+
+  <div class="prompt">
+    <div class="prompt-head">
+      <span class="prompt-num">04</span>
+      <span class="prompt-title">Le caveman — écrire compressé</span>
+      <button class="copy-btn" type="button">Copier</button>
+    </div>
+    <pre>Crée _rules/caveman.md.
+
+C'est un format d'écriture compressé, réservé aux fichiers que TU relis et que je n'ouvre
+jamais. Son but unique : payer le moins de tokens possible à chaque relecture.
+
+Les règles :
+
+- ANGLAIS télégraphique, quelle que soit la langue de notre conversation. Pas par
+  préférence : le français se découpe moins bien en tokens, et un caractère accentué en
+  coûte souvent le double d'un caractère ASCII. Sur un fichier relu à chaque chargement,
+  l'écart se paye en boucle.
+- Des SYMBOLES plutôt que des mots : → ✓ ✗ ≠ + @ ? &gt;
+- Zéro article. Abréviations agressives : cfg, img, gen, usr, sess, proj.
+- Un fait par ligne. Dense. Zéro redondance.
+- Aucun commentaire de section, sauf si l'ambiguïté coûterait plus cher que la note.
+
+Exemple. Version normale :
+"Nous avons finalement décidé de ne pas utiliser la bibliothèque X, parce qu'elle n'était
+plus maintenue depuis 2023 et que son API allait probablement changer."
+
+Version caveman :
+"X lib rejected → unmaintained since 2023, API unstable"
+
+Le périmètre, à écrire noir sur blanc dans le fichier : le caveman s'applique au corps des
+fichiers dans lesquels je ne mets jamais le nez. Il ne s'applique JAMAIS à ce que je lis —
+les en-têtes destinés à l'affichage, les titres, et surtout tes briefings.
+
+La contrepartie compte autant que la règle : quand tu me RESTITUES du caveman, tu le
+décompresses toujours en français normal, en phrases complètes. Le caveman est un format
+de stockage, jamais un format de conversation. Je ne dois jamais avoir à le lire.
+
+Ajoute la ligne correspondante dans le tableau de CLAUDE.md.</pre>
+  </div>
+
+  <div class="note">
+    <strong>Pourquoi l'anglais, alors qu'on travaille en français ?</strong> Parce que ces fichiers-là, personne ne les lit. Mais soyons honnête sur les proportions : j'ai repris un vrai fichier compressé et je l'ai réécrit en français normal, contenu identique. Le style télégraphique fait gagner <strong>53 %</strong>. Passer ce même texte à l'anglais n'ajoute que <strong>3 points</strong>. Le gros du travail vient de la compression, pas de la langue.
+  </div>
+
+  <figure class="fig">
+    <img src="https://v3b.fal.media/files/b/0aa589bd/YQPdEV1aOOzgt5T8ZCPw6_20uM49rK.png" alt="Un long ruban de papier entre dans une presse et ressort en petite tablette dense et lumineuse" loading="lazy">
+    <figcaption>Même contenu, moitié moins de place.</figcaption>
+  </figure>
+
+  <div class="prompt">
+    <div class="prompt-head">
+      <span class="prompt-num">05</span>
+      <span class="prompt-title">Le protocole mémoire — la doctrine</span>
+      <button class="copy-btn" type="button">Copier</button>
+    </div>
+    <pre>Crée _rules/memory-protocol.md. Il règle un seul problème : tu oublies tout entre deux
+conversations, et je ne veux pas te réexpliquer mon contexte chaque matin.
+
+Le modèle :
+
+Une conversation se sauve à UN seul endroit, jamais deux. Zéro doublon — deux fichiers sur
+le même sujet, ce sont deux vérités qui divergent.
+- Si elle appartient à un projet → Projects/&lt;nom&gt;/memory.md
+- Sinon → sessions/&lt;nom&gt;.md
+
+Structure d'un memory.md de projet :
+  ## État     — où on en est. Court.
+  ## À faire  — les actions encore ouvertes
+  ---
+  puis dessous, l'archive longue : décisions, historique, contexte
+
+Deux niveaux de lisibilité, et c'est le point qui compte :
+- Les fichiers de sessions, je ne les ouvre jamais → corps en caveman.
+- Les memory.md de projet vivent dans l'arborescence de mes projets, je les ouvre →
+  français lisible.
+
+Le fichier de mémoire d'un projet est protégé : on ne l'écrase jamais en bloc, on fusionne.
+
+Ce module est la doctrine. Il ne fait rien tout seul : ce sont les commandes /save et /load
+qui l'appliquent, on les écrit juste après.
+
+Ajoute la ligne correspondante dans le tableau de CLAUDE.md.</pre>
+  </div>
+
+  <div class="prompt">
+    <div class="prompt-head">
+      <span class="prompt-num">06</span>
+      <span class="prompt-title">La commande /save</span>
+      <button class="copy-btn" type="button">Copier</button>
+    </div>
+    <pre>Fabrique-moi la commande /save. C'est la moitié du pivot de tout le système.
+
+Explique-moi d'abord comment on crée une commande personnalisée dans mon outil — demande-moi
+lequel j'utilise si tu ne le sais pas.
+
+Ce que /save doit faire :
+
+1. CHOISIR SA CIBLE. Si un projet est actif → Projects/&lt;nom&gt;/memory.md. Sinon →
+   sessions/&lt;nom&gt;.md. Jamais les deux.
+
+2. CHOISIR ENTRE AJOUTER ET RÉÉCRIRE. Le principe qui tranche :
+   le coût réel d'un fichier, ce n'est pas de l'écrire, c'est de le relire à chaque
+   chargement futur.
+   - apport purement additif → tu ajoutes
+   - réécriture complète si : des actions « à faire » sont résolues, l'état est contredit,
+     il y a des redondances, ou le corps dépasse la cinquantaine de lignes
+   Tu ne laisses jamais traîner un item déjà fait : il serait relu, et repayé, à vie.
+
+3. NE RIEN COÛTER. /save écrit du texte, rien d'autre. Pas d'appel à un service externe,
+   pas de génération d'image, pas de réseau. Sauvegarder doit être gratuit et instantané,
+   sinon je ne le ferai pas — et un système de mémoire que je n'utilise pas ne vaut rien.
+
+4. CONFIRMER en une ligne : ce qui a été sauvé, où, en mode ajout ou réécriture.
+
+Range la source dans skills/_sources/save/.</pre>
+  </div>
+
+  <div class="prompt">
+    <div class="prompt-head">
+      <span class="prompt-num">07</span>
+      <span class="prompt-title">La commande /load — la décompression</span>
+      <button class="copy-btn" type="button">Copier</button>
+    </div>
+    <pre>Fabrique-moi la commande /load. C'est l'autre moitié du pivot.
+
+Ce qu'elle fait :
+
+1. TROUVER LA CIBLE. /load &lt;nom&gt; cherche d'abord un projet Projects/&lt;nom&gt;/, sinon une
+   session sessions/&lt;nom&gt;.md. Si rien n'existe : tu le dis et tu listes ce qui existe.
+   Tu n'inventes pas, tu ne devines pas.
+
+2. EN MODE PROJET, ne lire que le CLAUDE.md du projet et son memory.md. Rien d'autre. Pas
+   les fichiers du projet, pas son contenu. J'ouvre une porte, je ne vide pas la pièce.
+
+3. DÉCOMPRESSER. C'est le cœur de la commande. Les fichiers sont denses, parfois compressés,
+   volontairement illisibles. Ton briefing, lui, est en français normal, en phrases
+   complètes, comme un collègue qui me rattrape après deux semaines d'absence. Jamais un
+   extrait brut du fichier, jamais de caveman à l'écran.
+
+   Le format, court :
+   - Sujet : une ou deux phrases
+   - Où on en était : l'état et les décisions clés, reformulés en clair
+   - À faire : les prochaines étapes, s'il y en a
+
+4. RETENIR LA CIBLE. Après un /load, le contexte chargé devient actif : un /save sans
+   argument met à jour le bon fichier, sans que j'aie à le renommer.
+
+Range la source dans skills/_sources/load/.</pre>
+  </div>
+
+  <div class="note">
+    <strong>Ce couple est le pivot.</strong> <code>/save</code> compresse et range, <code>/load</code> décompresse et vous briefe en français clair. Le seul réflexe que le système demande, c'est <code>/save</code> avant de fermer. Tout le reste, c'est Claude qui l'applique, parce que c'est écrit.
+  </div>
+
+  <figure class="fig">
+    <img src="https://v3b.fal.media/files/b/0aa589c1/IupU6EFBoja8YMGm9-Fvr_qqqi1IuU.png" alt="À gauche des objets rangés dans une boîte, à droite les mêmes objets ressortant dépliés" loading="lazy">
+    <figcaption>Le même geste dans les deux sens : ranger, puis redéplier.</figcaption>
+  </figure>
+
+  <p class="phase">Phase 3 — Étendre</p>
+
+  <div class="prompt">
+    <div class="prompt-head">
+      <span class="prompt-num">08</span>
+      <span class="prompt-title">Un projet</span>
+      <button class="copy-btn" type="button">Copier</button>
+    </div>
+    <pre>Ajoute dans CLAUDE.md la règle des projets, puis applique-la.
+
+Tout projet vit dans Projects/&lt;nom&gt;/ et contient exactement trois fichiers :
+
+  CLAUDE.md  — les instructions PROPRES à ce projet, plus la carte de son contenu.
+               Ce n'est PAS une copie du CLAUDE.md racine.
+  memory.md  — État / À faire / archive, au format du protocole mémoire
+  index.md   — l'annuaire du projet : une ligne par fichier, ce qu'il contient
+
+Règle de chargement, et c'est elle qui fait tout le travail : quand j'ouvre un projet, tu
+lis UNIQUEMENT son CLAUDE.md. Pas le memory.md, pas l'index.md, pas les fichiers. C'est moi
+qui te dis ensuite quoi charger. Un projet ne doit jamais inonder ton contexte simplement
+parce que je l'ai ouvert.
+
+Ces trois fichiers sont protégés : jamais écrasés en bloc, toujours fusionnés.
+
+Maintenant, crée-moi un projet nommé &lt;NOM&gt; qui porte sur &lt;SUJET EN UNE PHRASE&gt;.</pre>
+  </div>
+
+  <div class="note">
+    C'est la règle qui rend l'ensemble tenable dans la durée : <strong>vingt projets ne coûtent pas plus cher qu'un seul</strong> à l'ouverture d'une conversation.
+  </div>
+
+  <figure class="fig">
+    <img src="https://v3b.fal.media/files/b/0aa589d5/1pKgKI-3SDtixi9Bpbbub_ki4OKdFK.png" alt="Un couloir de portes identiques, une seule ouverte, la lumière s'en échappe" loading="lazy">
+    <figcaption>Vingt portes. Une seule s'ouvre à la fois.</figcaption>
+  </figure>
+
+  <div class="prompt">
+    <div class="prompt-head">
+      <span class="prompt-num">09</span>
+      <span class="prompt-title">Un module de savoir-faire</span>
+      <button class="copy-btn" type="button">Copier</button>
+    </div>
+    <pre>Je veux transformer un savoir-faire en module réutilisable.
+
+Le savoir-faire : &lt;CE QUE TU VEUX POUVOIR REFAIRE — publier sur ton dépôt, générer une
+image avec tel modèle et tels réglages, produire un document à ton format…&gt;
+
+Écris _rules/&lt;nom&gt;.md. Contraintes :
+
+- Il commence par « &gt; Chargé quand : &lt;la situation exacte&gt; ». C'est ce qui te dit quand
+  l'ouvrir, et surtout quand ne pas l'ouvrir.
+- Il contient la procédure exacte : commandes, paramètres, valeurs par défaut. Assez précis
+  pour être rejoué sans réfléchir.
+- Il contient les erreurs déjà rencontrées ET leur cause réelle. C'est la partie qui vaut le
+  plus cher : elle m'évite de repayer deux fois le même bug.
+- AUCUN secret. Les clés et tokens vivent dans un fichier séparé, référencé mais jamais
+  recopié.
+
+Puis ajoute UNE ligne dans le tableau de CLAUDE.md : quand | lire.
+
+Le but : que le CLAUDE.md racine reste court quoi qu'il arrive. Il grossit d'une ligne par
+savoir-faire, jamais d'un paragraphe.</pre>
+  </div>
+
+  <div class="note">
+    Le mécanisme est là : votre système apprend indéfiniment sans que le coût de démarrage ne bouge. C'est exactement ce qu'un fichier d'instructions fleuve ne permet pas.
+  </div>
+
+  <div class="prompt">
+    <div class="prompt-head">
+      <span class="prompt-num">10</span>
+      <span class="prompt-title">Une tâche qui tourne sans vous</span>
+      <button class="copy-btn" type="button">Copier</button>
+    </div>
+    <pre>Je veux que tu fasses un travail tout seul, à intervalle régulier, sans moi.
+
+Le travail : &lt;PAR EXEMPLE : chaque matin, chercher l'actualité sur mes sujets et écrire ce
+que tu trouves dans un fichier&gt;
+
+Explique-moi d'abord comment planifier une tâche récurrente dans mon outil.
+
+Puis applique le pattern du LANCEUR MINCE, seul point qui compte vraiment :
+la tâche planifiée ne contient AUCUNE logique. Elle contient trois choses :
+  1. le chemin du fichier qui porte la vraie logique
+  2. l'ordre de l'appliquer à la lettre
+  3. où écrire le résultat
+
+La logique vit dans le projet concerné. Sinon j'ai deux versions du même travail qui
+divergent en silence, et je ne sais plus laquelle tourne réellement.
+
+Deux règles de robustesse :
+- La tâche écrit son résultat dans un fichier. Elle ne m'envoie rien, ne me notifie pas.
+  J'irai lire quand je veux.
+- Si une source est indisponible, elle continue avec les autres et le signale. Elle ne rate
+  jamais son exécution entière à cause d'un seul point bloqué.</pre>
+  </div>
+
+  <figure class="fig">
+    <img src="https://v3b.fal.media/files/b/0aa589d8/X4cVqMNoPwU1KPEMTWOqO_kh0cXMDl.png" alt="Un petit robot travaille seul à son bureau au lever du jour, une feuille imprimée dans le bac de sortie" loading="lazy">
+    <figcaption>Il a travaillé pendant que vous dormiez. Le résultat vous attend.</figcaption>
+  </figure>
+
+  <h2>Le bonus — lui donner des mains</h2>
+
+  <p>Pour la plupart des gens, faire une image avec une IA veut dire ouvrir ChatGPT et attendre. Un modèle, un style, une file d'attente. Ce qu'ils ignorent, c'est qu'il existe des <strong>places de marché de modèles</strong> : des services qui hébergent des centaines de générateurs — image, vidéo, voix — accessibles par une seule clé. FAL en est une. Vous ne choisissez plus « l'IA qui fait des images », vous choisissez <em>quel</em> modèle, pour <em>quel</em> usage, avec <em>quels</em> réglages.</p>
+
+  <p>Et surtout : ce n'est pas Claude qui fabrique l'image. Claude <strong>passe la commande</strong>. Il écrit le prompt, choisit le modèle, règle les paramètres, récupère le fichier et le range. Vous ne quittez jamais votre conversation. Vous dites « illustre cet article » et cinq images arrivent, cohérentes entre elles, parce que c'est le même Claude qui a écrit l'article et qui rédige les prompts.</p>
+
+  <figure class="fig">
+    <img src="https://v3b.fal.media/files/b/0aa589ca/vJwgRmnWF9sIJ1Bofri1N_IhBAvT1S.png" alt="Une console de commande avec des molettes et des écrans montrant une image, un film et une onde sonore" loading="lazy">
+    <figcaption>Une seule clé, un catalogue entier : image, vidéo, voix.</figcaption>
+  </figure>
+
+  <h3>Le branchement</h3>
+  <p>Ça passe par un connecteur, déclaré dans le fichier de configuration de l'application :</p>
+
+  <div class="prompt">
+    <div class="prompt-head">
+      <span class="prompt-num">⚙</span>
+      <span class="prompt-title">claude_desktop_config.json</span>
+      <button class="copy-btn" type="button">Copier</button>
+    </div>
+    <pre>{
+  "mcpServers": {
+    "fal-image": {
+      "command": "npx",
+      "args": ["-y", "fal-image-video-mcp"],
+      "env": {
+        "FAL_KEY": "TA_CLE_FAL_ICI",
+        "DOWNLOAD_PATH": "C:\\Users\\toi\\Downloads",
+        "AUTOOPEN": "false"
+      }
+    }
+  }
+}</pre>
+  </div>
+
+  <p>Compte sur fal.ai, clé API, vous la collez, vous redémarrez Claude. C'est tout. À partir de là il a accès au catalogue : GPT Image 2 et Flux pour l'image, Kling et Veo pour la vidéo, ElevenLabs pour la voix.</p>
+
+  <div class="note">
+    <strong>Deux pièges qui coûtent une heure chacun.</strong> Le premier : <code>DOWNLOAD_PATH</code> décide où atterrissent les fichiers, et Claude ne le devine pas — notez le chemin le jour où vous branchez, pas le jour où vous cherchez. Le second, contre-intuitif : quand la génération semble échouer sur un délai dépassé, <strong>elle a en fait réussi</strong>. Le service est lent à répondre, mais le fichier est déjà dans votre dossier. Ne relancez jamais : vous paieriez deux fois la même image.
+  </div>
+
+  <div class="prompt">
+    <div class="prompt-head">
+      <span class="prompt-num">11</span>
+      <span class="prompt-title">Brancher le générateur et figer ses réglages</span>
+      <button class="copy-btn" type="button">Copier</button>
+    </div>
+    <pre>Je veux te donner accès à un générateur d'images, de vidéos et de voix via FAL.
+
+Explique-moi, étape par étape et pour mon système d'exploitation :
+1. où créer un compte et générer une clé API sur fal.ai
+2. dans quel fichier de configuration déclarer le connecteur, et où il se trouve
+3. le bloc exact à y coller, avec un DOWNLOAD_PATH adapté à ma machine
+4. comment vérifier que ça marche une fois Claude redémarré
+
+Ensuite, écris-moi _rules/image-gen.md qui fige mes réglages par défaut :
+- quel modèle j'utilise, et pour quel usage
+- la qualité par défaut, et les rares exceptions
+- où atterrissent les fichiers
+- les erreurs connues et leur cause réelle
+
+Ma clé API ne doit apparaître que dans le fichier de configuration. Jamais dans _rules/,
+jamais dans un projet, jamais dans un fichier que je pourrais partager.</pre>
+  </div>
+
+  <p>Ce que ça débloque, concrètement : un article entièrement illustré, généré et publié sans quitter la conversation. Un podcast à deux voix en français à partir d'un texte que Claude vient d'écrire, pour moins d'un euro les neuf minutes. Un clip vidéo monté à partir d'images fixes. Ce ne sont pas des démos — c'est ce qui produit les pages de ce site.</p>
+
+  <h2>Les quatre erreurs qui tuent le système</h2>
+
+  <figure class="fig">
+    <img src="https://v3b.fal.media/files/b/0aa589cd/G7rUM99YFgc5NIBvhmp05_ydkEA14L.png" alt="Une personne au travail cernée par des piles de cartons identiques et des papiers au sol" loading="lazy">
+    <figcaption>Six mois sans règles. Personne ne sait plus quelle version fait foi.</figcaption>
+  </figure>
+
+  <ul>
+    <li><strong>Le fichier d'instructions fleuve.</strong> On y ajoute « juste une précision » à chaque fois. Toute précision va dans <code>_rules/</code> ; le fichier racine ne gagne qu'une ligne de tableau.</li>
+    <li><strong>La mémoire dans la conversation.</strong> « Il s'en souvient, on en a parlé hier. » Non. Ce qui n'est pas écrit dans un fichier n'existe pas.</li>
+    <li><strong>Les fichiers à la racine.</strong> Un fichier posé « en attendant », puis douze. Racine interdite, <code>temp/</code> pour ce qui est jetable.</li>
+    <li><strong>Le versioning manuel.</strong> <code>rapport_v2_final_corrigé.md</code>. Un nom stable, édité sur place. L'historique, c'est git.</li>
+  </ul>
+
+  <h2>Ce que ça change</h2>
+
+  <figure class="fig">
+    <img src="https://v3b.fal.media/files/b/0aa589cf/Mb_YFepeviDFCEKH6k6s3_IbW3piRy.png" alt="Un petit robot lit calmement un unique dossier ouvert, entouré de tiroirs bien rangés et fermés" loading="lazy">
+    <figcaption>Un seul dossier ouvert. Tout le reste attend, rangé.</figcaption>
+  </figure>
+  <p>Au bout de quelques semaines, le geste n'est plus « expliquer à une IA ce que je veux ». C'est ouvrir un projet, dire <code>/load</code>, recevoir un briefing de deux phrases sur où on en était — et reprendre le travail là où on l'avait laissé.</p>
+  <p>La bascule tient dans une phrase, celle qui décide de tout le reste : <strong>le coût réel d'un fichier, ce n'est pas de l'écrire, c'est de le relire à chaque fois.</strong> Le jour où on écrit pour être relu plutôt que pour être complet, tout le système se met en place tout seul.</p>
+
+  <div class="cta">
+    <p>Onze prompts, une heure de mise en place, et un espace de travail qui vous survit d'une conversation à l'autre.</p>
+    <a class="btn primary" href="../../index.html#journal">Retour au journal</a>
+    <a class="btn" href="../../dossiers/index.html">Les dossiers</a>
+  </div>
+</article>
+
+<footer>Vostok · Journal de bord — Rudy Burnay</footer>
+
+<script>
+(function(){
+  document.querySelectorAll('.prompt').forEach(function(block){
+    var btn = block.querySelector('.copy-btn');
+    var pre = block.querySelector('pre');
+    if(!btn || !pre) return;
+    btn.addEventListener('click', function(){
+      var txt = pre.textContent;
+      var done = function(){
+        btn.textContent = 'Copié ✓';
+        btn.classList.add('done');
+        setTimeout(function(){ btn.textContent = 'Copier'; btn.classList.remove('done'); }, 1800);
+      };
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(txt).then(done, function(){ fallback(txt, done); });
+      } else {
+        fallback(txt, done);
+      }
+    });
+  });
+  function fallback(txt, done){
+    var ta = document.createElement('textarea');
+    ta.value = txt;
+    ta.style.position = 'fixed';
+    ta.style.opacity = '0';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); done(); } catch(e) {}
+    document.body.removeChild(ta);
+  }
+})();
+</script>
+
+</body>
+</html>
