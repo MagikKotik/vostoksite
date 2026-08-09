@@ -146,8 +146,8 @@
   <div class="spacer"></div>
   <div class="wpm">
     <span class="wpm__cap">Vitesse</span>
-    <input type="range" id="s-wpm" min="50" max="500" step="10" value="50" aria-label="Vitesse de lecture (WPM)">
-    <b id="v-wpm">50</b>
+    <input type="range" id="s-wpm" min="50" max="500" step="10" value="100" aria-label="Vitesse de lecture (WPM)">
+    <b id="v-wpm">100</b>
   </div>
 </div>
 
@@ -530,8 +530,11 @@ const MANAGED_VARS = ["--page","--zone","--zone-border","--zone-border-w","--ink
   "--pivot-bg","--pivot-fg","--guide-color","--guide-w","--read-size","--zone-w","--zone-h"];
 /* Version des défauts d'usine. Incrémentée quand un défaut change : les réglages
    déjà persistés chez l'utilisateur adoptent le nouveau défaut sans perdre le
-   reste (thème, palette). v2 = WPM par défaut 150 → 50. */
-const DEFAULTS_VERSION = 2;
+   reste (tailles, styles de pivot/repères).
+   v2 = WPM par défaut 150 → 50.
+   v3 = WPM par défaut 50 → 100, ET thème par défaut forcé à « standard »
+        (la palette perso enregistrée est alors écartée au profit du thème). */
+const DEFAULTS_VERSION = 3;
 
 function syncLabels(){
   el('v-wpm').textContent=el('s-wpm').value;
@@ -559,27 +562,31 @@ function saveSettings(){
   }catch(e){}
 }
 function applyState(s){
-  currentTheme = s.theme || currentTheme;
-  pivotLocked = !!s.pivotLocked; guideLocked = !!s.guideLocked;
+  /* Réglages enregistrés avant un changement de défaut : on réaligne les valeurs
+     concernées sur le défaut d'usine (`defaultValue` = attribut value du HTML).
+     Depuis la v3 la remise à zéro couvre AUSSI le thème : on repart de
+     « standard », donc on ignore la palette enregistrée et les verrous de style. */
+  const migrate = (s.dv||1) < DEFAULTS_VERSION;
+  currentTheme = migrate ? 'standard' : (s.theme || currentTheme);
+  pivotLocked = !migrate && !!s.pivotLocked;
+  guideLocked = !migrate && !!s.guideLocked;
   const c=s.controls||{}, set=(id,v)=>{ if(v!=null) el(id).value=v; };
   set('s-wpm',c.wpm); set('s-max',c.max); set('s-zw',c.zw); set('s-zh',c.zh);
   set('s-pc',c.pc); set('s-pp',c.pp);
   set('s-piv',c.piv); set('s-size',c.size);
-  /* Réglages enregistrés avant un changement de défaut : on réaligne les valeurs
-     concernées sur le défaut d'usine (`defaultValue` = attribut value du HTML). */
-  const migrate = (s.dv||1) < DEFAULTS_VERSION;
   if(migrate) el('s-wpm').value = el('s-wpm').defaultValue;
   if(c.fit!=null) el('t-fit').checked=!!c.fit;
   if(c.ramp!=null) el('t-ramp').checked=!!c.ramp;
   if(c.zw!=null) setVar('--zone-w', c.zw+'%');
   if(c.zh!=null) setVar('--zone-h', c.zh+'%');
-  if(s.vars) for(const k in s.vars) setVar(k, s.vars[k]);
-  if(c.size!=null) setVar('--read-size', c.size+'px');
+  if(s.vars && !migrate) for(const k in s.vars) setVar(k, s.vars[k]);
+  if(c.size!=null && !migrate) setVar('--read-size', c.size+'px');
   setPivotStyle(s.pivotStyle||'color'); setGuideStyle(s.guideStyle||'line');
   document.querySelectorAll('.theme-btn').forEach(b=>b.classList.toggle('active',b.dataset.k===currentTheme));
   syncPalettePickers(); syncLabels();
   rebuild(false); showSub();
-  if(migrate) saveSettings();
+  /* applyTheme se charge du rendu ET de la réécriture du localStorage. */
+  if(migrate) applyTheme('standard');
 }
 
 /* ===================== BINDINGS ===================== */
