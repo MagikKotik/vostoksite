@@ -154,6 +154,45 @@ tbody tr:hover{background:#231a14}
 .diff i.on{background:var(--ember)}
 .count{font-family:var(--mono);font-size:.8rem;color:var(--muted);margin-top:10px}
 
+/* MODES + SIMULATEUR */
+.modes{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-bottom:16px;border:1px solid var(--line);max-width:560px}
+.modes button{font-family:var(--display);font-size:1.05rem;letter-spacing:.04em;background:var(--stone);color:var(--muted);border:0;padding:12px 16px;cursor:pointer;text-align:left}
+.modes button+button{border-left:1px solid var(--line)}
+.modes button small{display:block;font-family:var(--mono);font-size:.66rem;letter-spacing:.06em;color:var(--faint);margin-top:2px}
+.modes button[aria-pressed="true"]{background:linear-gradient(180deg,#3a2614,#241810);color:var(--unique);box-shadow:inset 0 -2px 0 var(--unique)}
+.modes button[aria-pressed="true"] small{color:var(--gold)}
+.sim{border:1px solid #6b3d1a;background:linear-gradient(180deg,rgba(224,138,60,.06),transparent 60%),var(--stone);padding:18px;margin-bottom:16px}
+.sim-head{display:flex;flex-wrap:wrap;justify-content:space-between;gap:10px 20px;align-items:center;margin-bottom:14px}
+.sim-head p{font-size:.98rem;color:var(--muted);max-width:52ch}
+.sim-actions{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.toggle{font-family:var(--mono);font-size:.76rem;color:var(--text);display:flex;gap:8px;align-items:center;cursor:pointer}
+.toggle input{accent-color:var(--unique);width:16px;height:16px}
+.ghost{font-family:var(--mono);font-size:.74rem;background:transparent;color:var(--muted);border:1px solid var(--line);padding:7px 10px;cursor:pointer}
+.ghost:hover{color:#e0806a;border-color:#5a2a1e}
+.inv{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:8px}
+.inv-sep{grid-column:1/-1;font-family:var(--mono);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:var(--gold);margin-top:6px}
+.inv-sep.b{color:var(--ember)}
+.slotr{display:grid;grid-template-columns:34px 1fr;align-items:center;gap:8px;background:var(--stone-2);border:1px solid var(--line);padding:6px 8px}
+.slotr.has{border-color:#6b3d1a;background:#2a1c12}
+.slotr img{width:34px}
+.slotr .nm{font-family:var(--display);font-size:.9rem;color:var(--text)}
+.slotr.new .nm{color:var(--unique)}
+.stepper{display:flex;align-items:center;gap:2px;margin-top:3px}
+.stepper button{width:24px;height:24px;background:var(--ground);color:var(--gold);border:1px solid var(--line);cursor:pointer;font-family:var(--mono);font-size:.9rem;line-height:1;padding:0}
+.stepper input{width:40px;height:24px;background:var(--ground);color:var(--text);border:1px solid var(--line);text-align:center;font-family:var(--mono);font-size:.8rem;-moz-appearance:textfield;padding:0}
+.stepper input::-webkit-outer-spin-button,.stepper input::-webkit-inner-spin-button{-webkit-appearance:none;margin:0}
+.sim-sum{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:14px;font-family:var(--mono);font-size:.78rem;color:var(--muted)}
+.sim-sum b{color:var(--text)}
+.st{display:inline-block;margin-top:8px;font-family:var(--mono);font-size:.7rem;padding:3px 8px;letter-spacing:.04em}
+.st.fab{background:rgba(159,191,122,.14);color:#b9d894;border:1px solid #4d6634}
+.st.near{background:rgba(212,162,90,.12);color:var(--gold);border:1px solid #6b5020}
+.st.far{color:var(--faint);border:1px solid var(--line)}
+.hint{font-family:var(--mono);font-size:.66rem;color:var(--muted);margin-top:6px;line-height:1.5}
+.hint .g{color:#8fc3d8}
+tbody tr.dim{opacity:.42}
+tbody tr.dim:hover{opacity:.8}
+tr.grp-row td{background:var(--stone-2);font-family:var(--mono);font-size:.68rem;letter-spacing:.14em;text-transform:uppercase;color:var(--gold);padding:8px 14px}
+
 /* MATRIX */
 .matrix td,.matrix th{padding:8px 6px;text-align:center;font-family:var(--mono);font-size:.78rem}
 .matrix th.rw,.matrix td.rw{text-align:left;font-family:var(--display);font-size:.88rem;color:var(--text);white-space:nowrap;padding-inline:12px;position:sticky;left:0;background:inherit;z-index:1}
@@ -320,6 +359,21 @@ footer li{margin:.2rem 0}
     <div class="eyebrow">Tableau d'application n°1</div>
     <h2>Les dix-neuf mots runiques</h2>
     <p class="prose" style="color:var(--muted)">Filtre par emplacement ou par classe. Tous les mots runiques ont des affixes fixes, et huit d'entre eux portent en plus un pouvoir unique (encadré orange). Les valeurs exactes dépendent de la base et peuvent bouger avec les correctifs.</p>
+  </div>
+  <div class="modes" role="group" aria-label="Mode d'affichage">
+    <button type="button" id="m-explo" data-mode="explo" aria-pressed="true">Explorateur<small>Parcourir les 19 recettes</small></button>
+    <button type="button" id="m-sim" data-mode="sim" aria-pressed="false">Simulateur<small>Ce que tes runes permettent</small></button>
+  </div>
+  <div class="sim" id="simPanel" hidden>
+    <div class="sim-head">
+      <p>Indique combien tu as de chaque rune. L'inventaire reste enregistré dans ton navigateur.</p>
+      <div class="sim-actions">
+        <label class="toggle"><input type="checkbox" id="sim-up"> Compter les améliorations du Cube</label>
+        <button type="button" id="sim-reset" class="ghost">Vider l'inventaire</button>
+      </div>
+    </div>
+    <div class="inv" id="inv"></div>
+    <div class="sim-sum" id="simSum" aria-live="polite"></div>
   </div>
   <div class="filters" role="group" aria-label="Filtres">
     <button type="button" id="f-all" data-slot="all" aria-pressed="true">Tout</button>
@@ -550,6 +604,68 @@ function upgTable(seg,title){
 document.getElementById("upgA").innerHTML=upgTable(SEG_A,"Échelle 1 · Tir → Sol");
 document.getElementById("upgB").innerHTML=upgTable(SEG_B,"Échelle 2 · Mal → Jah");
 
+// ── Simulateur : inventaire mémorisé dans le navigateur ──
+const KEY="vostok-d4s15-inventaire";
+const PREV={};[SEG_A,SEG_B].forEach(s=>s.forEach((r,i)=>{if(i)PREV[r]=s[i-1]}));
+let inv={},useUp=false,mode="explo";
+LADDER.forEach(r=>inv[r]=0);
+try{const s=JSON.parse(localStorage.getItem(KEY)||"null");if(s){LADDER.forEach(r=>inv[r]=Math.max(0,parseInt(s.inv?.[r])||0));useUp=!!s.up;if(s.mode==="sim")mode="sim";}}catch(e){}
+function save(){try{localStorage.setItem(KEY,JSON.stringify({inv,up:useUp,mode}))}catch(e){}}
+
+// Nombre de r obtenable en fondant tout ce qui est en dessous dans son échelle
+function avail(r,work){const p=PREV[r];return work[r]+(p?Math.floor(avail(p,work)/UP[r][0]):0)}
+// Produit n exemplaires de r à partir des runes inférieures (appelé seulement si c'est possible)
+function produce(r,n,work,steps){
+  const p=PREV[r],k=UP[r][0];let m=n*k;
+  const take=Math.min(work[p],m);work[p]-=take;m-=take;
+  if(m>0)produce(p,m,work,steps);
+  steps.push({from:p,to:r,n,k,gem:UP[r][1]});
+}
+// Tente une fabrication. Renvoie les runes manquantes (au niveau de la recette) et les améliorations utilisées
+function craftOne(w,work){
+  const need={};w.r.forEach(r=>need[r]=(need[r]||0)+1);
+  const order=Object.keys(need).sort((a,b)=>rank(b)-rank(a));
+  const missing={},steps=[];
+  for(const r of order){
+    let d=need[r];const use=Math.min(work[r],d);work[r]-=use;d-=use;
+    if(d>0&&useUp&&PREV[r]){const t=Math.min(d,Math.floor(avail(PREV[r],work)/UP[r][0]));if(t>0){produce(r,t,work,steps);d-=t;}}
+    if(d>0)missing[r]=d;
+  }
+  return{missing,steps};
+}
+function evaluate(w){
+  const work={...inv};let copies=0,first=null;
+  while(copies<99){const res=craftOne(w,work);if(!first)first=res;if(Object.keys(res.missing).length)break;copies++;}
+  const miss=Object.values(first.missing).reduce((a,b)=>a+b,0);
+  return{copies,missing:first.missing,miss,steps:copies?first.steps:[],status:copies?"fab":miss<=2?"near":"far"};
+}
+
+function renderInv(){
+  const cell=r=>`<div class="slotr ${NEW.has(r)?"new":"old"}${inv[r]?" has":""}">${img(r)}<div><div class="nm">${cap(r)}</div>
+    <div class="stepper"><button type="button" data-r="${r}" data-d="-1" aria-label="Retirer une ${cap(r)}">−</button><input type="number" min="0" max="999" inputmode="numeric" id="inv-${r}" value="${inv[r]}" aria-label="Nombre de ${cap(r)}"><button type="button" data-r="${r}" data-d="1" aria-label="Ajouter une ${cap(r)}">+</button></div></div></div>`;
+  document.getElementById("inv").innerHTML=
+    `<div class="inv-sep">Échelle 1 · Tir → Sol</div>`+SEG_A.map(cell).join("")+
+    `<div class="inv-sep b">Échelle 2 · Mal → Jah</div>`+SEG_B.map(cell).join("");
+}
+function setInv(r,v){inv[r]=Math.max(0,Math.min(999,parseInt(v)||0));const el=document.getElementById("inv-"+r);if(el&&+el.value!==inv[r])el.value=inv[r];el?.closest(".slotr").classList.toggle("has",inv[r]>0);save();renderRW();}
+document.getElementById("inv").addEventListener("click",e=>{const b=e.target.closest("button[data-r]");if(b)setInv(b.dataset.r,inv[b.dataset.r]+ +b.dataset.d)});
+document.getElementById("inv").addEventListener("input",e=>{if(e.target.id?.startsWith("inv-"))setInv(e.target.id.slice(4),e.target.value)});
+const upBox=document.getElementById("sim-up");upBox.checked=useUp;
+upBox.addEventListener("change",()=>{useUp=upBox.checked;save();renderRW()});
+document.getElementById("sim-reset").addEventListener("click",()=>{LADDER.forEach(r=>inv[r]=0);renderInv();save();renderRW()});
+function setMode(m){mode=m;document.querySelectorAll("[data-mode]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.mode===m));document.getElementById("simPanel").hidden=m!=="sim";save();renderRW();}
+document.querySelectorAll("[data-mode]").forEach(b=>b.addEventListener("click",()=>setMode(b.dataset.mode)));
+
+function simCell(e){
+  if(e.status==="fab"){
+    let h=`<span class="st fab">✓ Fabricable${e.copies>1?` ×${e.copies}`:""}</span>`;
+    if(e.steps.length)h+=`<div class="hint">Cube : ${e.steps.map(s=>`${s.n*s.k} ${cap(s.from)} → ${s.n} ${cap(s.to)}${s.gem?` <span class="g">+ ${s.n} ${s.gem}</span>`:""}`).join(" · ")}</div>`;
+    return h;
+  }
+  const m=Object.entries(e.missing).map(([r,n])=>`${n} ${cap(r)}`).join(", ");
+  return e.status==="near"?`<span class="st near">Il manque ${m}</span>`:`<span class="st far">Manque ${m}</span>`;
+}
+
 // Tableau des mots runiques
 const state={slot:"all",sb:false,pw:false,sort:false};
 function renderRW(){
@@ -557,12 +673,18 @@ function renderRW(){
   if(state.sb) rows=rows.filter(w=>w.sb===1);
   if(state.pw) rows=rows.filter(w=>w.pw);
   if(state.sort) rows=[...rows].sort((a,b)=>a.top-b.top||a.r.length-b.r.length);
+  const sim=mode==="sim";
+  const ORDER={fab:0,near:1,far:2},GRP={fab:"Fabricable maintenant",near:"À une ou deux runes",far:"Hors de portée"};
+  if(sim){rows=rows.map(w=>({...w,ev:evaluate(w)})).sort((a,b)=>ORDER[a.ev.status]-ORDER[b.ev.status]||a.ev.miss-b.ev.miss||a.top-b.top);}
   const slotName={torse:"Torse",casque:"Casque","1m":"Arme 1 main","2m":"Arme 2 mains",mg:"Main gauche"};
+  let lastGrp=null;
   document.getElementById("rwBody").innerHTML=rows.map(w=>{
     const lvl=Math.ceil(w.top/LADDER.length*8);
     const sbTag=w.sb===1?'<span class="tag">Spiritborn OK</span>':w.sb===0?'<span class="tag no">Pas de Spiritborn</span>':'<span class="tag">Spiritborn ?</span>';
-    return `<tr>
-     <td><span class="rw-name">${w.fr}</span><span class="rw-en">${w.en}</span></td>
+    let pre="";
+    if(sim&&w.ev.status!==lastGrp){lastGrp=w.ev.status;pre=`<tr class="grp-row"><td colspan="4">${GRP[lastGrp]}</td></tr>`;}
+    return `${pre}<tr${sim&&w.ev.status==="far"?' class="dim"':""}>
+     <td><span class="rw-name">${w.fr}</span><span class="rw-en">${w.en}</span>${sim?simCell(w.ev):""}</td>
      <td><div class="seq">${w.r.map(r=>`<span>${img(r)}${cap(r)}</span>`).join("")}</div>
        <div class="diff" title="Rune la plus rare : ${cap(LADDER[w.top-1])} (#${w.top})">${Array.from({length:8},(_,i)=>`<i class="${i<lvl?"on":""}"></i>`).join("")}</div></td>
      <td><div class="slot">${slotName[w.slot]}</div><div class="bases">${w.b}</div>${sbTag}</td>
@@ -570,6 +692,10 @@ function renderRW(){
   }).join("");
   const n=rows.length,s=n>1?"s":"";
   document.getElementById("rwCount").textContent=`${n} mot${s} runique${s} affiché${s} · la barre rouge indique la rareté de la rune la plus haute de la recette`;
+  if(sim){
+    const c=k=>rows.filter(w=>w.ev.status===k).length, tot=LADDER.reduce((a,r)=>a+inv[r],0);
+    document.getElementById("simSum").innerHTML=`<span><b>${tot}</b> rune${tot>1?"s":""} en stock</span><span><b>${c("fab")}</b> fabricable${c("fab")>1?"s":""}</span><span><b>${c("near")}</b> à une ou deux runes</span>${useUp?"<span>Améliorations comptées · gemmes non comptées</span>":""}`;
+  }
 }
 document.querySelectorAll(".filters button").forEach(b=>b.addEventListener("click",()=>{
   if(b.dataset.slot){state.slot=b.dataset.slot;document.querySelectorAll("[data-slot]").forEach(x=>x.setAttribute("aria-pressed",x===b))}
@@ -578,7 +704,8 @@ document.querySelectorAll(".filters button").forEach(b=>b.addEventListener("clic
   if(b.dataset.sort){state.sort=!state.sort;b.setAttribute("aria-pressed",state.sort)}
   renderRW();
 }));
-renderRW();
+renderInv();
+setMode(mode);
 
 // Matrice
 (function(){
