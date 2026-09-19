@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Jeux — Vostok</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: #020b18; color: #cce4f0; font-family: 'Inter', sans-serif; min-height: 100vh; }
+    :root {
+      --deep: #020b18; --navy: #061628; --blue: #0d2d4a;
+      --accent: #00b4d8; --bright: #90e0ef; --gold: #f4c542;
+      --white: #e8f4fd; --muted: #8bb8d0; --text: #cce4f0;
+    }
+
+    /* ── HEADER ── */
+    header {
+      padding: 56px 8vw 44px;
+      border-bottom: 1px solid rgba(0,180,216,0.12);
+      display: flex; align-items: flex-end; justify-content: space-between; flex-wrap: wrap; gap: 1rem;
+    }
+    .site-label { font-size: 11px; font-weight: 700; letter-spacing: 2.5px; text-transform: uppercase; color: var(--accent); margin-bottom: 12px; }
+    header h1 { font-family: 'Playfair Display', serif; font-size: clamp(2rem, 4vw, 3rem); font-weight: 900; color: #fff; line-height: 1.1; }
+    header p { font-size: 0.95rem; font-weight: 300; color: var(--muted); margin-top: 8px; }
+    .header-count { font-size: 0.8rem; color: var(--muted); text-align: right; }
+    .header-count strong { display: block; font-family: 'Playfair Display', serif; font-size: 2.2rem; color: var(--accent); font-weight: 900; line-height: 1; }
+
+    /* ── BANDEAUX ── */
+    .bandeaux { padding: 48px 0 80px; }
+
+    .bandeau {
+      display: block;
+      text-decoration: none;
+      position: relative;
+      height: 260px;
+      overflow: hidden;
+      border-bottom: 1px solid rgba(0,180,216,0.08);
+      transition: border-color 0.3s;
+    }
+    .bandeau:first-child { border-top: 1px solid rgba(0,180,216,0.08); }
+    .bandeau:hover { border-color: rgba(0,180,216,0.35); }
+
+    .bandeau-img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease, filter 0.4s ease;
+      filter: brightness(0.55) saturate(0.9);
+    }
+    .bandeau:hover .bandeau-img {
+      transform: scale(1.04);
+      filter: brightness(0.65) saturate(1.1);
+    }
+
+    /* Gradient : image visible à gauche, dark à droite */
+    .bandeau-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(
+        90deg,
+        rgba(2,11,24,0.05) 0%,
+        rgba(2,11,24,0.45) 38%,
+        rgba(2,11,24,0.92) 65%,
+        rgba(2,11,24,0.98) 100%
+      );
+    }
+
+    .bandeau-content {
+      position: relative; z-index: 2;
+      height: 100%;
+      display: flex; align-items: center;
+      padding: 0 8vw;
+      justify-content: flex-end;
+    }
+    .bandeau-text { max-width: 520px; }
+
+    .bandeau-tag {
+      display: inline-block;
+      font-size: 0.68rem; font-weight: 700; letter-spacing: 0.18em;
+      text-transform: uppercase; color: var(--accent);
+      border: 1px solid rgba(0,180,216,0.5);
+      padding: 3px 10px; border-radius: 2px;
+      margin-bottom: 0.7rem;
+      transition: background 0.3s, color 0.3s;
+    }
+    .bandeau:hover .bandeau-tag { background: var(--accent); color: #020b18; }
+
+    .bandeau-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.4rem, 2.5vw, 2.1rem);
+      font-weight: 900; color: var(--white);
+      line-height: 1.15; margin-bottom: 0.6rem;
+    }
+    .bandeau-desc {
+      font-size: 0.88rem; color: var(--muted);
+      line-height: 1.6; margin-bottom: 1rem;
+    }
+    .bandeau-meta {
+      display: flex; align-items: center; gap: 1.2rem;
+      font-size: 0.8rem;
+    }
+    .bandeau-count {
+      background: rgba(0,180,216,0.12);
+      color: var(--accent); font-weight: 600;
+      padding: 3px 10px; border-radius: 20px;
+      font-size: 0.75rem;
+    }
+    .bandeau-arrow {
+      color: var(--muted); font-size: 0.82rem;
+      transition: color 0.3s, transform 0.3s;
+    }
+    .bandeau:hover .bandeau-arrow { color: var(--accent); transform: translateX(4px); }
+
+    /* Empty badge */
+    .bandeau-soon {
+      font-size: 0.72rem; font-style: italic;
+      color: rgba(139,184,208,0.5);
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center; padding: 28px;
+      font-size: 13px; color: var(--muted);
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    @media (max-width: 640px) {
+      .bandeau { height: 200px; }
+      .bandeau-overlay { background: linear-gradient(to bottom, rgba(2,11,24,0.3) 0%, rgba(2,11,24,0.95) 60%); }
+      .bandeau-content { align-items: flex-end; padding-bottom: 1.5rem; justify-content: flex-start; }
+      .bandeau-text { max-width: 100%; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div>
+    <div class="site-label">Vostok — Jeux</div>
+    <h1>Jeux</h1>
+    <p>Mécaniques cachées, guides de fond &amp; tableaux d'application.</p>
+  </div>
+  <div class="header-count">
+    <strong>1</strong>
+    article publié<br>dans 1 catégorie
+  </div>
+</header>
+
+<div class="bandeaux">
+
+  <!-- ── SAISON 15 ── -->
+  <a class="bandeau" href="/jeux/saison-15/">
+    <img class="bandeau-img" src="/jeux/saison-15/runes-mots-runiques/img/hero.webp" alt="Les dix-neuf mots runiques saison 15" />
+    <div class="bandeau-overlay"></div>
+    <div class="bandeau-content">
+      <div class="bandeau-text">
+        <span class="bandeau-tag">Diablo IV · Runes · Cube horadrique</span>
+        <h2 class="bandeau-title">Les dix-neuf mots runiques saison 15</h2>
+        <p class="bandeau-desc">Les runes de Diablo II reviennent dans le Cube horadrique : douze pierres, deux échelles d'amélioration et dix-neuf recettes à fabriquer sur une base blanche.</p>
+        <div class="bandeau-meta">
+          <span class="bandeau-count">1 article</span>
+          <span class="bandeau-arrow">Explorer la catégorie →</span>
+        </div>
+      </div>
+    </div>
+  </a>
+
+</div>
+
+<footer>
+  <a href="/">Vostok</a> · Jeux
+</footer>
+
+</body>
+</html>
