@@ -1,0 +1,626 @@
+<!DOCTYPE html><html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Apocalypse — Démoniste (S15) · Diablo IV</title><meta name="description" content="Le build Apocalypse du Démoniste en saison 15 : pourquoi il fonctionne, mot-clé par mot-clé. Arbre, équipement, panoplie, parangon, en VF officielle."><style>
+:root{
+  color-scheme:dark;
+  --bg:#121317; --surface:#17181d; --surface-2:#1d1e24; --surface-3:#24262d;
+  --line:#33353f; --line-2:#444757;
+  --on-bg:#f2f3f5; --on-bg-2:rgba(242,243,245,.72); --on-bg-3:rgba(242,243,245,.5);
+  --accent:#d1a781; --gold:#d98c3c; --violet:#8182de;
+  --mult:#e0913f; --mult-bg:rgba(217,140,60,.12); --mult-line:rgba(217,140,60,.45);
+  --ga:#e8b34a;
+  --sp-1:.25rem; --sp-2:.5rem; --sp-3:.75rem; --sp-4:1rem; --sp-5:1.5rem;
+  --sp-6:2rem; --sp-7:3rem; --sp-8:4.5rem;
+  --r-1:4px; --r-2:8px; --r-3:14px;
+  --fs-1:.75rem; --fs-2:.8125rem; --fs-3:.875rem; --fs-4:1rem;
+  --fs-5:1.125rem; --fs-6:1.375rem; --fs-7:1.75rem; --fs-8:2.5rem;
+  --max:1180px;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0; background:var(--bg); color:var(--on-bg);
+  font:400 var(--fs-4)/1.65 "Roboto","Segoe UI",system-ui,sans-serif; overflow-x:hidden}
+img{max-width:100%; height:auto}
+body *{min-width:0}
+p,li,dd,dt,td,th,h1,h2,h3,h4,h5{overflow-wrap:break-word}
+h1,h2,h3,h4,h5{line-height:1.2; margin:0; font-weight:500}
+p{margin:0 0 var(--sp-4)}
+a{color:var(--accent)}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+:focus-visible{outline:2px solid var(--accent); outline-offset:3px; border-radius:var(--r-1)}
+.wrap{max-width:var(--max); margin:0 auto; padding:0 var(--sp-4)}
+
+.hero{position:relative; min-height:clamp(320px,46vw,520px); display:flex; align-items:flex-end;
+  border-bottom:1px solid var(--line)}
+.hero-img{position:absolute; inset:0; width:100%; height:100%; object-fit:cover;
+  object-position:70% 40%}
+.hero::after{content:""; position:absolute; inset:0;
+  background:linear-gradient(100deg,var(--bg) 4%,rgba(18,19,23,.86) 34%,rgba(18,19,23,.15) 72%,rgba(18,19,23,.5))}
+.hero-in{position:relative; z-index:1; padding:var(--sp-7) 0 var(--sp-6); width:100%}
+.eyebrow{font-size:var(--fs-2); letter-spacing:.18em; text-transform:uppercase;
+  color:var(--accent); margin:0 0 var(--sp-3)}
+.hero h1{font-size:clamp(2rem,5.5vw,var(--fs-8)); font-weight:600; letter-spacing:-.02em;
+  max-width:16ch; text-wrap:balance}
+.hero .lede{margin:var(--sp-4) 0 var(--sp-5); font-size:var(--fs-5); color:var(--on-bg-2);
+  max-width:46ch}
+.meta{display:flex; flex-wrap:wrap; gap:var(--sp-2) var(--sp-5); list-style:none; padding:0;
+  margin:0; font-size:var(--fs-2)}
+.meta b{display:block; color:var(--on-bg-3); font-weight:400; letter-spacing:.1em;
+  text-transform:uppercase; font-size:var(--fs-1)}
+.meta span{color:var(--on-bg)}
+
+section{padding:var(--sp-8) 0; border-bottom:1px solid var(--line)}
+section:last-of-type{border-bottom:0}
+.s-h{margin:0 0 var(--sp-6); max-width:62ch}
+.s-h .num{font-size:var(--fs-1); letter-spacing:.2em; color:var(--gold); display:block;
+  margin-bottom:var(--sp-2)}
+.s-h h2{font-size:clamp(1.5rem,3.4vw,var(--fs-7)); letter-spacing:-.01em}
+.s-h p{margin:var(--sp-3) 0 0; color:var(--on-bg-2)}
+.prose{max-width:68ch}
+.prose h3{font-size:var(--fs-6); margin:var(--sp-7) 0 var(--sp-3); color:var(--on-bg)}
+.prose h3:first-child{margin-top:0}
+.prose p{color:var(--on-bg-2)}
+.prose b,.prose strong{color:var(--on-bg); font-weight:500}
+.prose .key{color:var(--accent); font-weight:500}
+.fig{margin:var(--sp-6) 0; border:1px solid var(--line); border-radius:var(--r-3);
+  overflow:hidden; background:var(--surface)}
+.fig img{display:block; width:100%}
+.fig figcaption{padding:var(--sp-3) var(--sp-4); font-size:var(--fs-2); color:var(--on-bg-3);
+  border-top:1px solid var(--line)}
+.callout{border-left:2px solid var(--gold); background:var(--surface);
+  padding:var(--sp-4) var(--sp-5); border-radius:0 var(--r-2) var(--r-2) 0; margin:var(--sp-5) 0}
+.callout p:last-child{margin:0}
+.callout.big{border-left-color:var(--accent)}
+.callout .lbl{font-size:var(--fs-1); letter-spacing:.16em; text-transform:uppercase;
+  color:var(--gold); margin:0 0 var(--sp-2)}
+.callout.big .lbl{color:var(--accent)}
+
+.xm{display:inline-block; font-size:.75em; font-weight:700; color:var(--mult);
+  background:var(--mult-bg); border:1px solid var(--mult-line); border-radius:var(--r-1);
+  padding:0 .3em; vertical-align:.12em; letter-spacing:-.04em}
+.tr{color:var(--violet); font-size:.7em; vertical-align:.5em; cursor:help; font-weight:700}
+
+.t-scroll{overflow-x:auto; margin:var(--sp-5) 0}
+.t-scroll:focus-visible{outline:2px solid var(--accent); outline-offset:2px}
+.chain{width:100%; min-width:270px; border-collapse:collapse; margin:var(--sp-5) 0; font-size:var(--fs-3)}
+.chain caption{text-align:left; color:var(--on-bg-3); font-size:var(--fs-2);
+  padding-bottom:var(--sp-3)}
+.chain th,.chain td{text-align:left; padding:var(--sp-3); border-bottom:1px solid var(--line);
+  vertical-align:top}
+.chain thead th{font-size:var(--fs-1); letter-spacing:.12em; text-transform:uppercase;
+  color:var(--on-bg-3); font-weight:400; border-bottom-color:var(--line-2)}
+.chain tbody th{font-weight:500; color:var(--on-bg); width:34%}
+.chain td.src{color:var(--on-bg-3); width:20%; font-size:var(--fs-2)}
+.chain td.val{color:var(--mult); font-variant-numeric:tabular-nums}
+.chain tr.add td.val{color:var(--on-bg-3)}
+.chain tr.hero-row th{color:var(--accent)}
+.chain tr.hero-row td.val{font-weight:700}
+.chain.myth td.val{color:var(--on-bg-2)}
+.chain.myth td.val b{color:var(--gold)}
+.chain .why{color:var(--on-bg-3); font-size:var(--fs-2)}
+
+.sk-grid{display:grid; gap:var(--sp-4);
+  grid-template-columns:repeat(auto-fill,minmax(min(310px,100%),1fr))}
+.sk{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-3);
+  padding:var(--sp-5)}
+.sk-h{display:flex; gap:var(--sp-4); align-items:flex-start; margin-bottom:var(--sp-4);
+  padding-bottom:var(--sp-4); border-bottom:1px solid var(--line)}
+.sk-ic{border-radius:50%; border:1px solid var(--line-2); flex:none}
+.sk-cat{margin:0; font-size:var(--fs-1); letter-spacing:.16em; text-transform:uppercase;
+  color:var(--gold)}
+.sk h3{font-size:var(--fs-5); margin:var(--sp-1) 0}
+.sk-rk{margin:0; font-size:var(--fs-2); color:var(--on-bg-3)}
+.sk-base{font-size:var(--fs-2); color:var(--on-bg-3); font-style:italic;
+  margin:0 0 var(--sp-4); padding-bottom:var(--sp-3); border-bottom:1px dashed var(--line)}
+.sk-mods{margin:0}
+.sk-mods dt{font-size:var(--fs-3); font-weight:500; color:var(--accent); margin-top:var(--sp-3)}
+.sk-mods dt:first-child{margin-top:0}
+.sk-mods dd{margin:var(--sp-1) 0 0; font-size:var(--fs-2); color:var(--on-bg-2); line-height:1.55}
+
+.gi-grid{display:grid; gap:var(--sp-4);
+  grid-template-columns:repeat(auto-fill,minmax(min(330px,100%),1fr))}
+.gi{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-3);
+  padding:var(--sp-5); display:flex; flex-direction:column}
+.gi.unique{border-color:rgba(217,140,60,.4)}
+.gi-h{display:flex; gap:var(--sp-4); align-items:flex-start; margin-bottom:var(--sp-4)}
+.gi-ic{border-radius:var(--r-2); border:1px solid var(--line-2); background:var(--surface-3);
+  flex:none}
+.gi-slot{margin:0; font-size:var(--fs-1); letter-spacing:.14em; text-transform:uppercase;
+  color:var(--on-bg-3); display:flex; align-items:center; gap:var(--sp-2)}
+.gi-slot img{opacity:.55}
+.gi h3{font-size:var(--fs-5); margin:var(--sp-1) 0}
+.gi-kind{margin:0; font-size:var(--fs-2); color:var(--accent)}
+.gi.unique .gi-kind{color:var(--gold)}
+.gi-pow{font-size:var(--fs-3); color:var(--on-bg-2); background:var(--surface-2);
+  border:1px solid var(--line); border-radius:var(--r-2); padding:var(--sp-3) var(--sp-4);
+  margin:0 0 var(--sp-4)}
+.gi-pow.mult{border-color:var(--mult-line); background:var(--mult-bg)}
+.gi-pow b{color:var(--on-bg)}
+.gi-t{width:100%; border-collapse:collapse; font-size:var(--fs-2); margin-top:auto}
+.gi-t th{text-align:left; font-weight:400; color:var(--on-bg-2); padding:var(--sp-2) 0;
+  border-bottom:1px solid var(--line)}
+.gi-t td{text-align:right; padding:var(--sp-2) 0; border-bottom:1px solid var(--line); width:28px}
+.gi-t tr.ga th{color:var(--ga)}
+.gi-t tr.tmp td{width:auto; text-align:left; color:var(--on-bg-3); font-size:var(--fs-1);
+  border-bottom:0; padding-top:var(--sp-3); line-height:1.5}
+.gi-t tr.tmp .lbl{display:block; color:var(--accent); letter-spacing:.14em;
+  text-transform:uppercase; margin-bottom:2px}
+.gi-sock{list-style:none; margin:var(--sp-4) 0 0; padding:var(--sp-3) 0 0; display:flex;
+  flex-wrap:wrap; gap:var(--sp-3); border-top:1px solid var(--line)}
+.gi-sock li{display:flex; align-items:center; gap:var(--sp-2); font-size:var(--fs-2);
+  color:var(--on-bg-2); background:var(--surface-2); border:1px solid var(--line);
+  border-radius:100px; padding:3px var(--sp-3) 3px 3px}
+
+.rune-grid,.sp-grid{display:grid; gap:var(--sp-3);
+  grid-template-columns:repeat(auto-fill,minmax(min(265px,100%),1fr))}
+.rn,.sp{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-3);
+  padding:var(--sp-4)}
+.rn.rare{border-color:rgba(129,130,222,.3)}
+.rn header,.sp header{display:flex; gap:var(--sp-3); align-items:center; margin-bottom:var(--sp-3)}
+.rn h4,.sp h4{font-size:var(--fs-4)}
+.rn header p,.sp header p{margin:0; font-size:var(--fs-1); color:var(--on-bg-3)}
+.rn>p,.sp>p{margin:0; font-size:var(--fs-2); color:var(--on-bg-2)}
+.sp.mult{border-color:var(--mult-line);
+  background:linear-gradient(var(--mult-bg),var(--mult-bg)),var(--surface)}
+.rw{display:grid; gap:var(--sp-4);
+  grid-template-columns:repeat(auto-fit,minmax(min(300px,100%),1fr)); margin-top:var(--sp-5)}
+.rw-i{border-left:2px solid var(--accent); padding:var(--sp-3) var(--sp-4);
+  background:var(--surface)}
+.rw-i h4{font-size:var(--fs-4); margin-bottom:var(--sp-2)}
+.rw-i small{color:var(--on-bg-3); font-weight:400}
+.rw-i p{margin:0; font-size:var(--fs-3); color:var(--on-bg-2)}
+
+.charm-row{list-style:none; display:flex; flex-wrap:wrap; gap:var(--sp-3); padding:0;
+  margin:0 0 var(--sp-5)}
+.charm-row li{display:flex; align-items:center; gap:var(--sp-2); background:var(--surface);
+  border:1px solid var(--line); border-radius:100px; padding:4px var(--sp-4) 4px 4px;
+  font-size:var(--fs-2)}
+.charm-row b{color:var(--on-bg)}
+.charm-row span{color:var(--on-bg-3)}
+.set-grid{display:grid; gap:var(--sp-4);
+  grid-template-columns:repeat(auto-fit,minmax(min(330px,100%),1fr))}
+.set{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-3);
+  padding:var(--sp-5)}
+.set header{display:flex; gap:var(--sp-3); align-items:center; margin-bottom:var(--sp-4)}
+.set h4{font-size:var(--fs-5)}
+.set header p{margin:0; font-size:var(--fs-2); color:var(--on-bg-3)}
+.set dl{margin:0; display:grid; grid-template-columns:auto 1fr; gap:var(--sp-2) var(--sp-3)}
+.set dt{font-variant-numeric:tabular-nums; font-weight:500}
+.set dt.on{color:var(--gold)} .set dt.off{color:var(--on-bg-3)}
+.set dd{margin:0; font-size:var(--fs-2)}
+.set dd.on{color:var(--on-bg-2)} .set dd.off{color:var(--on-bg-3); opacity:.55}
+.set dd.key{color:var(--on-bg); background:var(--mult-bg); border:1px solid var(--mult-line);
+  border-radius:var(--r-2); padding:var(--sp-2) var(--sp-3)}
+.set-uni{font-size:var(--fs-2); color:var(--on-bg-2); margin:0 0 var(--sp-3)}
+.set-uni.seal{margin:0; padding-top:var(--sp-3); border-top:1px solid var(--line);
+  color:var(--on-bg-3)}
+.set-uni b{color:var(--accent)}
+
+.pb-grid{display:grid; gap:var(--sp-4);
+  grid-template-columns:repeat(auto-fill,minmax(min(340px,100%),1fr))}
+.pb{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-3);
+  padding:var(--sp-5)}
+.pb header{display:flex; gap:var(--sp-3); align-items:center; margin-bottom:var(--sp-3)}
+.pb-n{width:28px; height:28px; flex:none; display:grid; place-items:center; border-radius:50%;
+  background:var(--surface-3); border:1px solid var(--line-2); font-size:var(--fs-2);
+  color:var(--accent)}
+.pb h4{font-size:var(--fs-5)}
+.pb header p{margin:0; font-size:var(--fs-1); color:var(--on-bg-3)}
+.pb-gl{font-size:var(--fs-3); margin:0 0 var(--sp-2); color:var(--on-bg-2)}
+.pb-gk{font-size:var(--fs-1); letter-spacing:.14em; text-transform:uppercase;
+  color:var(--on-bg-3)}
+.pb-gl b{color:var(--accent)}
+.pb-lv{color:var(--on-bg-3); font-size:var(--fs-2)}
+.pb-g{font-size:var(--fs-2); color:var(--on-bg-3); margin:0 0 var(--sp-4)}
+.pb-g b{color:var(--on-bg-2)}
+.pb-g.note{font-style:italic}
+.nd{display:flex; gap:var(--sp-3); align-items:flex-start; padding:var(--sp-3);
+  border-radius:var(--r-2); margin-bottom:var(--sp-3); background:var(--mult-bg);
+  border:1px solid var(--mult-line)}
+.nd img{flex:none; border-radius:50%}
+.nd h5{font-size:var(--fs-3); color:var(--gold); margin-bottom:2px}
+.nd p{margin:0; font-size:var(--fs-2); color:var(--on-bg-2)}
+.nd-lbl{font-size:var(--fs-1); letter-spacing:.14em; text-transform:uppercase; color:var(--ga);
+  margin:0 0 var(--sp-2)}
+.nd-r{list-style:none; padding:0; margin:0; display:grid; gap:var(--sp-2)}
+.nd-r li{display:flex; align-items:center; gap:var(--sp-2); font-size:var(--fs-2);
+  color:var(--on-bg-2)}
+.nd-r img{flex:none; border-radius:50%; border:1px solid var(--ga); opacity:.9}
+.nd-r b{font-weight:500}
+.nd-r span{margin-left:auto; color:var(--on-bg-3); font-size:var(--fs-1); text-align:right}
+
+.misc{display:grid; gap:var(--sp-4);
+  grid-template-columns:repeat(auto-fill,minmax(min(280px,100%),1fr))}
+.mc{background:var(--surface); border:1px solid var(--line); border-radius:var(--r-3);
+  padding:var(--sp-5)}
+.mc h4{font-size:var(--fs-1); letter-spacing:.16em; text-transform:uppercase; color:var(--gold);
+  margin-bottom:var(--sp-3)}
+.mc .big{font-size:var(--fs-5); color:var(--on-bg); margin:0 0 var(--sp-3)}
+.mc p{font-size:var(--fs-2); color:var(--on-bg-2)}
+.mc b{color:var(--on-bg)}
+.tags{list-style:none; padding:0; margin:0; display:flex; flex-wrap:wrap; gap:var(--sp-2)}
+.tags li{font-size:var(--fs-2); background:var(--surface-2); border:1px solid var(--line);
+  border-radius:100px; padding:2px var(--sp-3); color:var(--on-bg-2)}
+.tags.sm li{font-size:var(--fs-1)}
+
+.patch{max-width:72ch}
+.patch h3{font-size:var(--fs-5); margin:var(--sp-5) 0 var(--sp-3)}
+.patch ul{margin:0; padding-left:var(--sp-5)}
+.patch li{font-size:var(--fs-3); color:var(--on-bg-2); margin-bottom:var(--sp-2)}
+.patch li b{color:var(--on-bg)}
+
+footer{padding:var(--sp-7) 0 var(--sp-8); color:var(--on-bg-3); font-size:var(--fs-2)}
+footer h2{font-size:var(--fs-1); letter-spacing:.16em; text-transform:uppercase;
+  color:var(--gold); margin-bottom:var(--sp-3)}
+footer ul{list-style:none; padding:0; margin:0 0 var(--sp-4)}
+footer li{margin-bottom:var(--sp-2)}
+.legend{display:flex; flex-wrap:wrap; gap:var(--sp-4); padding-top:var(--sp-4);
+  border-top:1px solid var(--line)}
+.legend span{display:flex; align-items:center; gap:var(--sp-2)}
+
+@media (max-width:640px){
+  :root{--sp-8:2.75rem; --sp-7:2rem}
+  .hero-in{padding-top:var(--sp-6)}
+  .chain td.src{display:none}
+  .chain tbody th{width:auto}
+  .nd-r span{display:none}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation-duration:.01ms !important; transition-duration:.01ms !important;
+    scroll-behavior:auto !important}
+}
+.mini{margin:0 0 var(--sp-4); padding-left:var(--sp-5); color:var(--on-bg-2)}.mini li{margin-bottom:var(--sp-3)}.mini.big li{margin-bottom:var(--sp-4)}.pb-g.note{color:var(--on-bg-3); font-size:var(--fs-2); border-left:2px solid var(--line-2); padding-left:var(--sp-3)}.gi-pow.second{background:var(--surface-3); border-style:dashed}.mc .why{color:var(--on-bg-3); font-size:var(--fs-2); margin-top:var(--sp-3)}.patch .why{color:var(--on-bg-3); font-size:var(--fs-2); margin-top:var(--sp-4)}.fine{margin-top:var(--sp-4); font-size:var(--fs-1); color:var(--on-bg-3)}.mono{font-family:ui-monospace,Menlo,Consolas,monospace; font-size:.9em}.bc{margin:0 0 var(--sp-3);font-size:var(--fs-2)}.bc a{color:var(--accent);text-decoration:none}.bc a:hover{text-decoration:underline}</style></head><body><header class="hero"><img class="hero-img" src="img/hero.webp" alt="" width="1920" height="1088"><div class="hero-in"><div class="wrap"><p class="bc"><a href="/jeux/build/">← Tous les builds</a></p><p class="eyebrow">Diablo IV · Saison 15 · Démoniste</p><h1>Apocalypse</h1><p class="lede">Un ultime à long temps de recharge devient la seule compétence qui compte, parce que deux lignes écrites ailleurs changent ce qu’il <em>est</em>.</p><ul class="meta"><li><b>Auteur</b><span>Rob2628</span></li><li><b>Mis à jour</b><span>14 septembre 2026</span></li><li><b>Variante</b><span>Standard — la seule publiée</span></li><li><b>Parangon</b><span>319 cases · 322 points</span></li><li><b>Éclat d’âme</b><span>Ritualiste · Fragment brûlant</span></li></ul></div></div></header><main><section id="moteur"><div class="wrap"><div class="s-h"><span class="num">01</span><h2>Le moteur</h2><p>Pourquoi ce build frappe beaucoup plus fort que la somme de ses morceaux — et pourquoi rien, dans les infobulles prises une à une, ne le laisse deviner.</p></div><div class="prose">
+<h3>Le premier mot : <span class="key">flammes infernales</span></h3>
+
+<p>Regardez les cinq améliorations majeures prises dans l’arbre : <b>Déluge
+incessant</b>, <b>Fouets à chaîne</b>, <b>Aura de chaînes</b>, <b>Sceau de
+lave</b>, <b>Aura de flammes infernales</b>. Elles n’ont rien en commun — l’une
+change une trajectoire, l’autre une portée, la troisième transforme un totem en
+aura. Mais quatre d’entre elles s’ouvrent sur exactement la même proposition :</p>
+
+<div class="callout"><p class="lbl">Quatre fois la même phrase</p>
+<p>Bombardement · Chaînes d’ombre · Sombre geôle · Sceau de subversion
+<b>devient une compétence de flammes infernales</b>.</p></div>
+
+<p>Ce n’est pas cosmétique. Bombardement est nativement une compétence de
+<b>démonologie</b> ; Chaînes d’ombre, Sombre geôle et Sceau de subversion sont
+des compétences des <b>abîmes</b>. Quatre conversions plus tard, la barre ne
+contient plus une seule compétence offensive qui ne soit pas de flammes
+infernales — Apocalypse et Sceau de chaos l’étant déjà de naissance.</p>
+
+<p>Pourquoi dépenser cinq améliorations majeures pour un changement d’étiquette ?
+À cause de la sixième.</p>
+
+<div class="callout big"><p class="lbl">Annihilation — amélioration majeure d’Apocalypse</p>
+<p>Apocalypse provoque une explosion de flammes infernales avec au moins
+20 cumuls. <b>Les coups des compétences de flammes infernales génèrent jusqu’à
+100 cumuls</b>, chaque cumul augmentant la taille et les dégâts de l’explosion de
+<b>40 %</b>.</p></div>
+
+<p>Voilà le moteur, en une ligne. Annihilation ne demande pas des compétences
+puissantes : elle demande des <b>coups de flammes infernales</b>, et elle en
+réclame cent. Une barre panachée en produirait deux sources ; une barre
+intégralement convertie en produit six. Les cinq conversions de l’arbre ne sont
+pas cinq bonus indépendants — c’est un seul et même bonus, écrit cinq fois.</p>
+
+<h3>Le second mot : <span class="key">sceau</span></h3>
+
+<p>Les <b>Mains de brise-monde</b> ajoutent une phrase plus lourde encore, et
+elle est reléguée en fin de texte, après un long paragraphe de chiffres :</p>
+
+<div class="callout"><p class="lbl">Mains de brise-monde — dernière ligne</p>
+<p>Apocalypse est désormais également <b>une compétence de sceau</b>.</p></div>
+
+<p>Les compétences de sceau, dit le jeu, « créent de redoutables zones de
+rituel ». Apocalypse n’en crée pas : elle trace un signe qui explose deux
+secondes plus tard. Peu importe — l’étiquette suffit, et trois systèmes
+entièrement distincts se mettent à la payer d’un coup.</p>
+
+<ul class="mini">
+<li>La <b>Carapace de décret de la chair</b> donne un multiplicateur séparé
+    de <b>+70 à 90 %</b> aux compétences de sceau. Apocalypse vient d’en devenir
+    une.</li>
+<li>Le palier <b>2 pièces</b> du <b>Rite de l’Anonyme</b> démarre son rituel de
+    60 secondes dès qu’une compétence de sceau est lancée : <b>+100 %</b>, qui
+    monte jusqu’à <b>+200 %</b> à mesure que le compte à rebours s’épuise.</li>
+<li>Le palier <b>5 pièces</b> — celui qui change la nature du build — fait qu’une
+    compétence de sceau <b>crée désormais toutes les compétences de sceau de base
+    à la fois</b>, et inflige <b>+200 %</b> aux cibles prises dedans,
+    <b>doublé</b> quand la puissance intérieure est déchaînée.</li>
+</ul>
+
+<h3>Trois sceaux à un rang sur quinze</h3>
+
+<p>C’est la ligne la plus absurde de la fiche, et c’est celle qui explique tout
+le reste. <b>Sceau d’invocations</b>, <b>Sceau de subversion</b> et <b>Sceau de
+chaos</b> sont alloués chacun à <b>1/15</b>, avec leurs améliorations — et deux
+des trois ne figurent même pas sur la barre de compétences.</p>
+
+<p>Relisez le palier 5 : la panoplie crée « toutes les compétences de sceau de
+base ». <b>Toutes celles que vous avez allouées.</b> Un rang suffit à les faire
+exister ; les quatorze rangs suivants n’augmenteraient que des dégâts directs
+dont personne ne se soucie ici. Trois points d’arbre achètent donc le droit de
+poser <b>trois zones de rituel par incantation au lieu d’une</b> — et chacune des
+trois compte comme un sceau de base pour le ×200 %.</p>
+
+<p>Les améliorations majeures prises sur ces trois compétences fantômes se lisent
+alors autrement. <b>Sceau de lave</b> convertit Sceau de subversion en flammes
+infernales, ce qui le branche sur Annihilation. <b>Aura de flammes infernales</b>
+fait que Sceau de chaos se pose <em>autour de vous</em> plutôt qu’au sol — c’est
+ce qui garantit que vous serez dedans quand Apocalypse partira. <b>Frénésie
+affamée</b> ajoute deux démons au Sceau d’invocations : autant de corps
+supplémentaires pour nourrir le compteur dont il va être question dans un
+instant.</p>
+
+<h3>La boucle, une fois les deux mots emboîtés</h3>
+
+<p>Le pouvoir chiffré des Mains de brise-monde est le plus gros multiplicateur
+d’objet de la fiche — <b>jusqu’à +290 à 350 %</b> — mais il arrive assorti de
+deux conditions qui paraissent rédhibitoires : Apocalypse doit être lancée
+<b>à l’intérieur de Sceau de chaos</b>, et le bonus est proportionnel au
+<b>nombre de victimes que ce sceau a emmagasiné</b>.</p>
+
+<p>Or Apocalypse <em>est</em> un sceau, précisément à cause de ces gants. Ce qui
+ferme le circuit :</p>
+
+<div class="callout big"><p class="lbl">La boucle</p>
+<p>Sceau de subversion est lancé &rarr; le palier 5 pose <b>les trois sceaux de
+base</b>, dont Sceau de chaos, autour de vous &rarr; Apocalypse part à
+l’intérieur et touche son plafond &rarr; Apocalypse étant elle-même un sceau,
+elle <b>relance le rituel</b> du palier 2 et <b>repose les trois zones</b> pour
+le cycle suivant.</p></div>
+
+<p>La condition la plus contraignante de l’objet est satisfaite par la panoplie
+que cet objet débloque. C’est exactement le genre de circularité qu’aucune
+infobulle ne signale, parce qu’aucune des deux pièces ne mentionne l’autre.</p>
+
+<h3>Le compteur de victimes, et les quatre façons de le remplir</h3>
+
+<p>Reste la seconde condition : le bonus dépend des <b>victimes emmagasinées</b>
+par Sceau de chaos. Contre un boss isolé, il n’y a pas de victimes — et c’est
+précisément là que le build est censé briller. Quatre pièces répondent à cette
+objection, aucune n’en parle.</p>
+
+<ol class="mini">
+<li><b>Carapace de décret de la chair</b> : « les sceaux actifs bénéficient de
+    <b>1 victime chaque seconde</b> et les victimes non utilisées sont conservées
+    lorsqu’ils expirent ». Un compteur qui monte tout seul, et qui ne se vide
+    pas entre deux cycles.</li>
+<li><b>Incantations instables</b>, amélioration mineure de Sceau de chaos :
+    utiliser une compétence renforcée par Instabilité à l’intérieur du sceau
+    « est comptabilisé comme la mort de <b>3 victimes</b> ».</li>
+<li><b>Ritualisme</b>, nœud légendaire de parangon : « les démons majeurs
+    comptent désormais pour <b>10 victimes</b> quand ils meurent à l’intérieur
+    d’un sceau ».</li>
+<li>Et, accessoirement, les victimes réelles.</li>
+</ol>
+
+<p>La troisième ligne est celle qui sort <b>Invocation de Valloch</b> du rôle de
+figurant. Ce n’est pas une compétence de dégâts : c’est un démon majeur qu’on
+lance sur temps de recharge pour qu’il meure dans un sceau et y dépose dix
+victimes. La deuxième ligne, elle, ne devient intéressante qu’à la condition que
+vos compétences soient renforcées par Instabilité <em>en permanence</em> — ce
+qui nous amène au troisième mot-clé.</p>
+
+<h3>Instabilité, et le fragment qui la rend permanente</h3>
+
+<p>Le mot-clé <b>Instabilité</b>, tel que le jeu le définit, est un effet
+aléatoire : « renforce de manière aléatoire les compétences de flammes infernales
+lorsque vous attaquez avec elles ; les compétences renforcées infligent
+<b>+50 %</b> de dégâts lors de leur prochaine utilisation ». Aléatoire, donc
+impossible à bâtir dessus.</p>
+
+<p>Le <b>Fragment brûlant</b>, greffé sur l’éclat de ritualiste, supprime le
+hasard :</p>
+
+<div class="callout"><p class="lbl">Fragment brûlant</p>
+<p>Les compétences occultes de flammes infernales sont <b>toujours renforcées</b>
+et consomment <b>4 % de votre maximum de points de vie</b>. L’instabilité peut
+désormais se cumuler <b>jusqu’à 3 fois</b>, ce qui augmente les dégâts des
+compétences renforcées et le montant de points de vie qu’elles consomment de 1 %
+par cumul.</p></div>
+
+<p>« Toujours renforcées » transforme trois lignes ailleurs sur la fiche. Le
+multiplicateur de la <b>Flamme dévorante de Moloch</b> — <b>+20 à 30 % par
+compétence renforcée par Instabilité dont vous disposez</b> — cesse d’être une
+loterie pour devenir un nombre fixe et maximal, puisque toutes les compétences
+occultes de flammes infernales de la barre le sont. Le glyphe <b>Entropie</b>
+paie sur le même mot-clé, additif et multiplicatif. Le glyphe <b>Forge
+infernale</b> y ajoute son seuil. Et les <b>Incantations instables</b> voient
+chacune de vos utilisations valoir trois victimes dans le compteur des gants.</p>
+
+<p>Le prix est écrit noir sur blanc : chaque compétence renforcée coûte 4 à 7 %
+du maximum de points de vie. C’est la raison d’être de l’<b>Éclat des abîmes de
+Péché</b> (+50 % de vie maximale) et de l’<b>Aspect d’immortalité</b> que
+l’auteur pose en prérequis dans ses notes. Dans ce build, la barre de vie est une
+barre de ressource.</p>
+
+<h3>Accablement : une statistique défensive convertie en dégâts</h3>
+
+<p>Trois emplacements — arme, gants, anneau 2 — portent la même forge :
+<b>« dégâts par cumul d’accablement »</b>. L’arme porte en plus l’<b>Aspect
+pesant</b>, qui donne <b>+80 à 120 % par cumul d’accablement</b> contre les
+élites. L’éclat de ritualiste en rajoute une couche, et le glyphe
+<b>Renforcement</b> encore une.</p>
+
+<p>Cinq sources qui comptent des cumuls d’accablement. Sauf que le mot-clé, lui,
+plafonne à <b>4 cumuls</b> de 4 secondes. Le build consacre donc trois pièces à
+faire sauter ce plafond, et aucune des trois n’est une pièce offensive :</p>
+
+<div class="callout"><p class="lbl">La conversion</p>
+<p><b>Aspect de raz-de-marée</b> (sanctification de l’amulette) : votre maximum
+d’accablement est augmenté de 1 à 3 <b>tant que vous bénéficiez d’une
+fortification</b>. &rarr; <b>Fortification</b>, amélioration mineure de Sombre
+geôle : toucher un adversaire dans la geôle vous fortifie. &rarr; <b>Commandement
+de Valloch</b> : augmente votre maximum d’accablement, le <b>surcharge</b> de
+plusieurs cumuls d’un coup, et vous fortifie. &rarr; <b>Fragment brûlant</b> :
+Valloch vous fortifie encore, et règle votre facture en points de vie.</p></div>
+
+<p>Le circuit complet se lit : une amélioration mineure défensive alimente une
+sanctification, qui relève un plafond, qui multiplie cinq sources de dégâts. Et
+la <b>Pierre d’Hemat</b> pose par-dessus la ligne la plus facile à survoler de
+toute la fiche : « l’efficacité des bonus accordés par <b>Commandement de
+Valloch</b> ainsi que par l’<b>éclat de ritualiste</b> et ses fragments est
+augmentée de <b>200 %</b> ». Elle triple à elle seule les deux pièces maîtresses
+du circuit d’accablement.</p>
+
+<p>Enfin, le nœud légendaire <b>Chaos</b> ne compte pas les cumuls : il demande
+simplement d’en avoir. « Vos compétences occultes infligent <b>100 % de dégâts
+supplémentaires</b> tant que vous disposez de cumuls d’accablement. » C’est un
+multiplicateur séparé, à interrupteur, et le circuit ci-dessus existe en grande
+partie pour que cet interrupteur ne retombe jamais.</p>
+
+<h3>Vulnérabilité : la conversion que rien n’annonce</h3>
+
+<p>Comptez les pièces qui paient sur la vulnérabilité : le multiplicateur de
+dégâts contre les cibles vulnérables apparaît sur <b>les gants, l’amulette et les
+deux anneaux</b>, en affixe majeur trois fois sur quatre. Le glyphe <b>Vision
+surnaturelle</b> y ajoute <b>+151 %</b> additifs et <b>+10,4 %</b> multiplicatifs,
+et son seuil empile encore <b>+18 %</b>.</p>
+
+<p>Maintenant, cherchez dans l’arbre ce qui rend les adversaires vulnérables.
+Il n’y a rien. Sombre geôle applique <b>Affaiblissement</b>, Sceau de subversion
+applique <b>Maléfice</b> ; aucune des vingt-sept allocations ne produit de
+vulnérabilité. Les deux seules sources de tout le build sont rangées là où
+personne ne les cherche :</p>
+
+<ul class="mini">
+<li>L’<b>Aspect de toucher maudit</b>, sur les bottes — un aspect générique de
+    saison vampirique, dont seule la phrase du milieu compte : « toute cible
+    affectée par une malédiction vampirique <b>est également vulnérable</b> ».</li>
+<li>L’<b>Éclat des abîmes de la Mère</b>, serti dans l’anneau 2 : « lorsque vous
+    touchez des adversaires, vous les <b>rendez vulnérables</b> pendant
+    10 s ».</li>
+</ul>
+
+<p>Retirez l’un des deux et cinq affixes majeurs plus un glyphe entier cessent de
+produire quoi que ce soit. C’est la pièce la plus facile à remplacer par erreur
+de toute la fiche.</p>
+
+<h3>Ce qui multiplie et ce qui s’additionne</h3>
+
+<p>Deux phrases de la fiche visent la même cible, dans la même condition, avec le
+même vocabulaire.</p>
+
+<div class="callout big"><p class="lbl">Même phrase, deux mondes</p>
+<p><b>Aspect pesant</b> — « les compétences occultes infligent
+<b>+80 à 120 %</b> de dégâts supplémentaires par cumul d’accablement ».<br>
+<b>Chaos</b>, nœud légendaire — « vos compétences occultes infligent
+<b>100 %</b> de dégâts supplémentaires tant que vous disposez de cumuls
+d’accablement ».</p>
+<p>Le premier tombe dans le sac commun où s’entassent déjà les trois forges et la
+part additive du glyphe Renforcement ; il y rapporte de moins en moins. Le
+second forme <b>son propre facteur</b> et multiplie tout le reste. Le plus petit
+nombre est le plus puissant.</p></div>
+
+<p>Ce n’est pas une lecture d’auteur : les données du jeu le disent. La
+conversion du glyphe Renforcement et l’affixe de forge « dégâts par cumul
+d’accablement » écrivent dans <b>le même attribut interne</b> ; ils s’additionnent
+donc mécaniquement, tout comme l’Aspect pesant et l’éclat de ritualiste qui
+parlent de la même chose. À l’inverse, la Carapace et la Flamme dévorante portent
+dans leur texte brut le marqueur de multiplicateur séparé que le jeu réserve à ce
+qui forme son propre facteur.</p>
+
+<p>D’où une règle de lecture simple pour ce build : <b>empiler une quatrième
+forge « par cumul d’accablement » ne rapporterait presque rien, alors qu’un
+cumul d’accablement supplémentaire rapporte partout</b> — dans le sac additif
+<em>et</em> dans l’interrupteur de Chaos. C’est ce qui justifie de consacrer une
+sanctification, une amélioration mineure et un éclat d’âme entier à relever un
+plafond.</p>
+</div><figure class="fig"><img src="img/moteur.webp" alt="Trois cercles rituels reliés à un quatrième, plus grand, sur le point d’exploser" width="1280" height="720"><figcaption>Une incantation, trois zones, puis une quatrième qui les consomme toutes : la forme du build vue de dessus.</figcaption></figure><div class="t-scroll" tabindex="0" role="region" aria-label="Chaîne des multiplicateurs, tableau défilable"><table class="chain"><caption>Tout ce qui multiplie, et ce qui ne multiplie pas. Les lignes marquées <span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> forment chacune leur propre facteur.</caption><thead><tr><th scope="col">Source</th><th scope="col">Origine</th><th scope="col">Effet</th></tr></thead><tbody><tr class="hero-row"><th scope="row"><span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> Annihilation</th><td class="src">Arbre — Apocalypse</td><td class="val">+40 % de taille et de dégâts <b>par cumul</b>, jusqu’à 100 cumuls</td></tr><tr><th scope="row"><span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> Mains de brise-monde</th><td class="src">Gants</td><td class="val">jusqu’à +290 à 350 % sur Apocalypse lancée dans Sceau de chaos</td></tr><tr><th scope="row"><span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> Rite de l’Anonyme (5 p)</th><td class="src">Talismans</td><td class="val">+200 % dans les sceaux de base, <b>doublé</b> en puissance intérieure</td></tr><tr><th scope="row"><span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> Rite de l’Anonyme (2 p)</th><td class="src">Talismans</td><td class="val">+100 %, qui monte à +200 % quand le rituel s’épuise</td></tr><tr><th scope="row"><span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> Chaos</th><td class="src">Parangon — légendaire</td><td class="val">+100 % aux compétences occultes tant que vous avez de l’accablement</td></tr><tr><th scope="row"><span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> Ritualisme</th><td class="src">Parangon — légendaire</td><td class="val">+90 % pendant 20 s après chaque compétence de sceau</td></tr><tr><th scope="row"><span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> Insondable</th><td class="src">Parangon — légendaire</td><td class="val">+15 % par démon invoqué dans les 20 s, jusqu’à +105 %</td></tr><tr><th scope="row"><span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> Carapace de décret de la chair</th><td class="src">Torse</td><td class="val">+70 à 90 % aux compétences de sceau</td></tr><tr><th scope="row"><span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> Flamme dévorante de Moloch</th><td class="src">Amulette</td><td class="val">+20 à 30 % <b>par compétence renforcée par Instabilité</b></td></tr><tr><th scope="row"><span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> Pierre d’Hemat</th><td class="src">Talisman unique</td><td class="val">+20 à 30 % aux compétences occultes</td></tr><tr><th scope="row"><span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> Aspect d’hérésie</th><td class="src">Anneau 1</td><td class="val">+10 à 14 % à tous les dégâts <b>par compétence occulte utilisée</b>, 20 s</td></tr><tr><th scope="row"><span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> Dégâts aux survivants</th><td class="src">Arbre — Apocalypse</td><td class="val">+25 % pendant 3 s, 200 % plus longtemps sur une cible sous Maléfice</td></tr><tr><th scope="row"><span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> Glyphe Forge infernale</th><td class="src">Parangon</td><td class="val">+10,4 % aux compétences de flammes infernales</td></tr><tr><th scope="row"><span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> Glyphe Entropie</th><td class="src">Parangon</td><td class="val">+10,4 % aux compétences renforcées par Instabilité</td></tr><tr><th scope="row"><span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> Glyphe Vision surnaturelle</th><td class="src">Parangon</td><td class="val">+10,4 % contre les cibles vulnérables</td></tr><tr><th scope="row"><span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> Glyphe Renforcement</th><td class="src">Parangon</td><td class="val">+10,4 % à tous les dégâts</td></tr><tr><th scope="row"><span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> Glyphe Libération</th><td class="src">Parangon</td><td class="val">+10,4 % à tous les dégâts</td></tr><tr><th scope="row"><span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> Rubis horadrique parfait ×2</th><td class="src">Arme</td><td class="val">×32 % de dégâts de feu et sacrés, par gemme</td></tr><tr><th scope="row"><span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> Multiplicateurs d’affixe</th><td class="src">Bijoux, gants</td><td class="val">feu, critique, vulnérable, tous dégâts — un sac chacun</td></tr><tr class="add"><th scope="row">Aspect pesant</th><td class="src">Arme</td><td class="val">+80 à 120 % <b>par cumul d’accablement</b> contre les élites, doublé sous Maléfice</td></tr><tr class="add"><th scope="row">Dégâts par cumul d’accablement ×3</th><td class="src">Forge — arme, gants, anneau 2</td><td class="val">trois forges dans <b>le même sac additif</b></td></tr><tr class="add"><th scope="row">Glyphe Renforcement — part additive</th><td class="src">Parangon</td><td class="val">+14 % de dégâts d’accablement par cumul, <b>dans ce même sac</b></td></tr><tr class="add"><th scope="row">Fragment de ritualiste</th><td class="src">Éclat d’âme</td><td class="val">dégâts des compétences occultes par cumul d’accablement, <b>même sac encore</b></td></tr><tr class="add"><th scope="row">Glyphe Vision surnaturelle — part additive</th><td class="src">Parangon</td><td class="val">+151 % contre les cibles vulnérables</td></tr><tr class="add"><th scope="row">Glyphe Forge infernale — part additive</th><td class="src">Parangon</td><td class="val">+93 % aux compétences de flammes infernales</td></tr><tr class="add"><th scope="row">Glyphe Entropie — part additive</th><td class="src">Parangon</td><td class="val">+76 % aux compétences renforcées par Instabilité</td></tr><tr class="add"><th scope="row">Instabilité</th><td class="src">Mot-clé</td><td class="val">+50 % sur la prochaine utilisation de la compétence renforcée</td></tr><tr class="add"><th scope="row">Accablement</th><td class="src">Mot-clé</td><td class="val">+15 % par cumul, 4 s par cumul</td></tr></tbody></table></div><div class="prose">
+<h3>Les choix qui n’ont l’air de rien</h3>
+
+<p>Une fiche de build de ce niveau contient toujours quelques décisions
+incompréhensibles hors contexte. Les voici, avec ce qui les explique ailleurs sur
+la page.</p>
+</div><div class="t-scroll" tabindex="0" role="region" aria-label="Les choix contre-intuitifs du build, tableau défilable"><table class="chain myth"><thead><tr><th scope="col">Ce qu’on voit</th><th scope="col">Ce que ça fait</th><th scope="col">Pourquoi</th></tr></thead><tbody><tr><th scope="row">Trois sceaux à 1/15, dont deux absents de la barre</th><td class="src">Ils existent, c’est tout ce qu’on leur demande</td><td class="val"><span class="why">le palier 5 ne pose que les sceaux <b>alloués</b> : un rang chacun achète trois zones par incantation au lieu d’une</span></td></tr><tr><th scope="row">Un casque sans la moindre statistique offensive</th><td class="src">Il compte comme un bijou et majore les gemmes de 75 à 100 %</td><td class="val"><span class="why">les deux éclats sertis dedans valent alors près du double — dont celui qui empile 200 cumuls de +2,5 %</span></td></tr><tr><th scope="row">Une gemme qui coûte 30 % de vitesse de déplacement</th><td class="src">Éclat des abîmes de Douleur, &minus;25 % de dégâts subis</td><td class="val"><span class="why">la mobilité ne passe plus par les jambes mais par la téléportation du mot runique des jambières</span></td></tr><tr><th scope="row">Une invocation sur la barre d’un build sans invocations</th><td class="src">Invocation de Valloch, lancée pour mourir</td><td class="val"><span class="why">un démon majeur qui meurt dans un sceau y dépose <b>10 victimes</b> — nœud Ritualisme — et son commandement surcharge l’accablement</span></td></tr><tr><th scope="row">Une arme à deux mains sur une classe qui n’en a pas besoin</th><td class="src">Aspect de force céleste, &minus;20 à 30 % de dégâts subis</td><td class="val"><span class="why">et deux emplacements de gemme sur une seule pièce, donc deux rubis au lieu d’un</span></td></tr><tr><th scope="row">Un mercenaire archer qui ne fait aucun dégât</th><td class="src">Tir de couverture ralentit, Feu nourri ajoute 25 % de dégâts critiques</td><td class="val"><span class="why">les deux durent exactement le temps qu’il faut pour poser Apocalypse, et l’ultime déclenche le renfort</span></td></tr></tbody></table></div></div></section><section id="jeu"><div class="wrap"><div class="s-h"><span class="num">02</span><h2>Comment on le joue</h2><p>La rotation, expliquée par ce qu’elle déclenche plutôt que par l’ordre des touches.</p></div><div class="prose">
+<p>Une précision d’abord, parce qu’elle évite une demi-heure de confusion : la
+rotation écrite par l’auteur dans ses notes est <b>d’une révision en retard</b>
+sur la barre qu’il publie. Elle mentionne <b>Pas du néant</b> pour la mobilité,
+alors que la barre du build S15 ne le contient plus — l’emplacement est passé à
+<b>Sceau de subversion</b>, et la mobilité est descendue dans les jambières sous
+forme de mot runique. Le reste de ses notes est à jour ; ce point-là ne l’est
+pas.</p>
+
+<h3>L’entretien : trois choses qui ne doivent jamais retomber</h3>
+
+<p><b>Cinq cumuls de Bombardement.</b> <em>Déluge incessant</em> fait que les
+démons continuent de tomber pendant 10 secondes après l’incantation, et l’effet
+se cumule jusqu’à <b>cinq fois</b>. Ces cinq cumuls sont une pluie de coups de
+flammes infernales qui tombe toute seule — c’est la principale usine à cumuls
+d’Annihilation, et elle tourne pendant que vous faites autre chose. On la
+recharge avant qu’elle n’expire, jamais après.</p>
+
+<p><b>Sombre geôle et Invocation de Valloch, sur temps de recharge.</b> La geôle
+immobilise, applique <b>Affaiblissement</b> et, par son amélioration mineure,
+vous <b>fortifie</b> — donc ouvre les cumuls d’accablement supplémentaires de
+l’Aspect de raz-de-marée. <em>Aura de chaînes</em> l’a transformée en aura
+centrée sur vous qui réduit de 45 % les dégâts venus de l’extérieur : c’est aussi
+la moitié de votre défense. Valloch, lui, est lancé pour mourir dans un sceau et
+y déposer dix victimes, et pour la surcharge d’accablement de son commandement.</p>
+
+<p><b>Chaînes d’ombre en continu.</b> Converties en flammes infernales par
+<em>Fouets à chaîne</em>, elles fouettent l’air autour de la cible et deviennent
+la source de coups la plus dense de la barre. <em>Restitution de colère</em>
+rend un point de colère par cible touchée à l’expiration, ce qui paie
+littéralement le reste de la rotation.</p>
+
+<h3>Le cycle offensif : quatre temps</h3>
+
+<ol class="mini big">
+<li><b>Sceau de subversion.</b> Une incantation, trois zones : le palier 5 pose
+    Subversion, Chaos et Invocations d’un coup. Le rituel du palier 2 démarre.
+    <em>Aura de flammes infernales</em> garantit que Sceau de chaos apparaît
+    autour de vous — donc que vous êtes dedans.</li>
+<li><b>Chaînes d’ombre, en boucle, à l’intérieur.</b> Chaque utilisation est
+    renforcée par Instabilité (Fragment brûlant) et vaut donc <b>trois
+    victimes</b> au compteur de Sceau de chaos. C’est le remplissage du
+    multiplicateur des gants, et en même temps l’accumulation des cumuls
+    d’Annihilation.</li>
+<li><b>Apocalypse, quand le compteur est plein.</b> L’auteur écrit « idéalement à
+    100 cumuls ». Cent cumuls, c’est le plafond d’Annihilation ; en dessous,
+    l’explosion perd 40 % de taille et de dégâts par cumul manquant. Partir à 60
+    parce qu’un pack arrive, c’est laisser 40 % de l’explosion au sol.</li>
+<li><b>Et ça recommence tout seul.</b> Apocalypse étant un sceau, elle relance le
+    rituel et repose les trois zones. Elle verse aussi <b>200 offrandes</b> dans
+    la rune Zan, ce qui arme la barrière de Que une fois sur deux ; et elle
+    déclenche le renfort de Varyana, dont <em>Envie sanguinaire</em> vous reverse
+    10 % de vitesse d’attaque au moment exact où l’explosion part.</li>
+</ol>
+
+<h3>La fenêtre de puissance intérieure</h3>
+
+<p>Le palier 2 pièces contient une horloge qu’il est facile de rater. Le rituel
+dure 60 secondes, son bonus <b>s’intensifie à mesure qu’il approche de sa
+fin</b> (de +100 % vers +200 %), et lorsqu’il se termine, la <b>prochaine</b>
+compétence de sceau « déchaîne sa puissance intérieure » : les compétences
+occultes deviennent <b>gratuites pendant 6 secondes</b>, et le +200 % du palier 5
+est <b>doublé</b>.</p>
+
+<p>Deux conséquences pratiques. D’une, compléter des sceaux fait <em>progresser
+le rituel de 6 secondes</em>, ce qui le rapproche de sa fin : accélérer le cycle
+accélère la fenêtre. De deux, la meilleure Apocalypse de la minute est celle qui
+tombe <b>juste après</b> l’expiration du rituel, pas à un moment quelconque. Un
+joueur qui lance son ultime au hasard perd un facteur 2 sur le plus gros
+multiplicateur de la fiche.</p>
+
+<p>Les 6 secondes de gratuité règlent aussi, au passage, le seul vrai défaut du
+paquet de gemmes : l’<b>Éclat des abîmes d’Angoisse</b> augmente de 30 % le coût
+en ressource, et l’<b>Éclat des abîmes de Péché</b> réduit de 30 % la réserve
+maximale. Pendant la fenêtre, ni l’un ni l’autre ne coûte quoi que ce soit.</p>
+
+<h3>Ce qui vous tue</h3>
+
+<p>Le build n’a pas de bouton de survie. Il a quatre sources passives qui se
+chevauchent : l’aura de Sombre geôle (&minus;45 % venus de l’extérieur), le
+palier 3 pièces (jusqu’à &minus;40 % qui monte avec le rituel), l’Éclat des
+abîmes de Douleur (&minus;25 %) et l’Aspect de force céleste
+(&minus;20 à 30 % à deux mains). La barrière de Que arrive par-dessus, une
+Apocalypse sur deux.</p>
+
+<p>Le danger ne vient donc pas des coups reçus mais de la facture du <b>Fragment
+brûlant</b> : 4 à 7 % du maximum de points de vie <em>par compétence
+renforcée</em>, dans un build qui enchaîne les incantations. C’est ce qui rend
+l’<b>Aspect d’immortalité</b> non négociable en transfiguration — chaque
+compétence lancée rend 2 à 3 % de la vie maximale, doublé en état de blessure. Le
+soin doit être branché sur l’incantation, pas sur un temps de recharge, sinon la
+cadence elle-même devient mortelle.</p>
+</div><figure class="fig"><img src="img/boucle.webp" alt="Le démoniste au centre d’un cercle rituel enflammé, chaînes d’ombre tendues vers plusieurs ennemis" width="1088" height="608"><figcaption>Chaînes d’ombre entretient le compteur, Bombardement pleut tout seul, Apocalypse encaisse la mise.</figcaption></figure></div></section><section id="competences"><div class="wrap"><div class="s-h"><span class="num">03</span><h2>Compétences</h2><p>Les sept compétences allouées et leurs vingt améliorations. Le rang compte moins que ce que l’amélioration <em>change</em> : cinq majeures sur six sont des conversions de mot-clé.</p></div><div class="sk-grid"><article class="sk"><header class="sk-h"><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/867310805.webp" alt="" width="52" height="52" class="sk-ic"><div><p class="sk-cat">Ultime</p><h3>Apocalypse</h3><p class="sk-rk">rang 15/15</p></div></header><p class="sk-base">Vous tracez un sceau gigantesque qui explose au bout de 2.0 s et inflige … points de dégâts aux adversaires qui se trouvent à l’intérieur. Ce rituel n’est pas affecté par la réduction du temps de recharge.</p><dl class="sk-mods"><dt>Double explosion</dt><dd>Le coup final d’Apocalypse a 20 % de chances de toucher deux fois. Quand Apocalypse est renforcée par Instabilité, cette probabilité passe à 100 %.</dd><dt>Dégâts aux survivants <span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span></dt><dd>Les adversaires qui survivent à Apocalypse subissent 25 % de dégâts supplémentaires de votre part pendant 3 s. Ce bonus persiste 200 % plus longtemps contre les adversaires victimes de Maléfice.</dd><dt>Annihilation <span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span></dt><dd>Apocalypse provoque une explosion de flammes infernales avec au moins 20 cumuls, ce qui inflige … points de dégâts. Les coups des compétences de flammes infernales génèrent jusqu’à 100 cumuls, chaque cumul augmentant la taille et les dégâts de l’explosion de 40 %.</dd></dl></article><article class="sk"><header class="sk-h"><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/2615849514.webp" alt="" width="52" height="52" class="sk-ic"><div><p class="sk-cat">Sceau</p><h3>Sceau de subversion</h3><p class="sk-rk">rang 1/15</p></div></header><p class="sk-base">Vous créez pendant … s un rituel subversif qui inflige Maléfice aux adversaires. L’élimination de 8 adversaires ou démons à l’intérieur alimente le rituel et projette des traces d’ombres pendant … s qui vous octroient régulièrement 1 cumul de forme d’ombre lorsque vous marchez dessus. Vous pouvez avoir jusqu’à 3 traces actives en même temps.</p><dl class="sk-mods"><dt>Vitesse de déplacement <span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span></dt><dd>Les traînées de Sceau de subversion vous octroient 20 % de vitesse de déplacement supplémentaire lorsque vous vous tenez dessus.</dd><dt>Portée d’incantation</dt><dd>Sceau de subversion peut désormais être placé à longue distance.</dd><dt>Sceau de lave</dt><dd>Sceau de subversion devient une compétence de flammes infernales et crée désormais des traînées de lave qui infligent régulièrement … points de dégâts. Les adversaires qui meurent dans les traînées ont 35 % de chances d’engendrer des soufres qui infligent … points de dégâts quand ils explosent.</dd></dl></article><article class="sk"><header class="sk-h"><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/1931143625.webp" alt="" width="52" height="52" class="sk-ic"><div><p class="sk-cat">Sceau</p><h3>Sceau de chaos</h3><p class="sk-rk">rang 1/15</p></div></header><p class="sk-base">Vous invoquez un rituel destructeur pendant … s qui vous rend instable lorsque vous vous tenez à l’intérieur. Les cibles adverses ou démons tués à l’intérieur alimentent les flammes infernales du rituel, ce qui augmente les chances que les adversaires explosent et infligent … points de dégâts en mourant.</p><dl class="sk-mods"><dt>Durée d’instabilité</dt><dd>L’instabilité octroyée par Sceau de chaos persiste désormais 10 s après que vous avez quitté la zone.</dd><dt>Incantations instables</dt><dd>L’utilisation de compétences imprégnées par Instabilité à l’intérieur de Sceau de chaos est comptabilisée comme la mort de 3 victimes.</dd><dt>Aura de flammes infernales</dt><dd>Sceau de chaos est désormais lancé autour de vous pendant … s et fait instantanément exploser vos démons mineurs qui se trouvent à l’intérieur pour infliger … points de dégâts. Le temps de recharge est augmenté à 25 s.</dd></dl></article><article class="sk"><header class="sk-h"><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/1299951619.webp" alt="" width="52" height="52" class="sk-ic"><div><p class="sk-cat">Sceau</p><h3>Sceau d’invocations</h3><p class="sk-rk">rang 1/15</p></div></header><p class="sk-base">Vous créez un rituel de lien pendant … s qui prolonge la durée de vos invocations. L’élimination de … adversaires ou démons à l’intérieur alimente le rituel et permet d’invoquer un démon pendant 20 s. Celui-ci attaque les adversaires à proximité et leur inflige … points de dégâts par coup. Vous pouvez avoir jusqu’à … démons actifs en même temps.</p><dl class="sk-mods"><dt>Dégâts <span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span></dt><dd>Les adversaires à l’intérieur de Sceau d’invocations subissent 25 % de dégâts supplémentaires de la part de vos compétences de démons mineurs.</dd><dt>Frénésie affamée</dt><dd>Sceau d’invocations invoque désormais jusqu’à 2 démons supplémentaires. Lorsque les démons du sceau d’invocations tuent un adversaire, ils gagnent tous 3 % de vitesse d’incantation supplémentaire, jusqu’à un maximum de 30 %.</dd></dl></article><article class="sk"><header class="sk-h"><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/2509896079.webp" alt="" width="52" height="52" class="sk-ic"><div><p class="sk-cat">Principale</p><h3>Chaînes d’ombre</h3><p class="sk-rk">rang 15/15</p></div></header><p class="sk-base">Vous lancez une chaîne d’ombre qui inflige … points de dégâts et qui relie jusqu’à 2 cibles adverses entre elles pendant 5 s. Les cibles enchaînées sont ralenties de 30 % et subissent … points de dégâts par seconde.</p><dl class="sk-mods"><dt>Ralentissement à distance</dt><dd>Les chaînes d’ombre sont projetées 50 % plus loin et leur effet de ralentissement est augmenté de 60 %.</dd><dt>Restitution de colère</dt><dd>Lorsque Chaînes d’ombre se termine, la compétence octroie 1 point de colère pour chaque cible adverse touchée pendant sa durée.</dd><dt>Fouets à chaîne</dt><dd>Chaînes d’ombre devient une compétence de flammes infernales qui fouette l’air autour de votre cible pour infliger … points de dégâts par seconde aux adversaires à proximité. L’aire d’effet du fouet augmente de 25 % lorsque vous êtes instable.</dd></dl></article><article class="sk"><header class="sk-h"><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/19873807.webp" alt="" width="52" height="52" class="sk-ic"><div><p class="sk-cat">Principale</p><h3>Bombardement</h3><p class="sk-rk">rang 15/15</p></div></header><p class="sk-base">Vous écrasez 4 démons sur le sol, qui infligent chacun … points de dégâts.</p><dl class="sk-mods"><dt>Démon supplémentaire</dt><dd>Bombardement projette 1 démon supplémentaire.</dd><dt>Cible prioritaire</dt><dd>La propagation chaotique de Bombardement est réduite de 300 % et la compétence inflige 30 % de dégâts supplémentaires lorsqu’elle ne touche qu’une seule cible.</dd><dt>Déluge incessant</dt><dd>Bombardement devient une compétence de flammes infernales et ne projette désormais des démons qu’autour de vous de manière aléatoire, mais les démons continuent de tomber du ciel pendant 10 s après l’utilisation de la compétence. Cet effet peut se cumuler jusqu’à un maximum de 5 fois.</dd></dl></article><article class="sk"><header class="sk-h"><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/4284538946.webp" alt="" width="52" height="52" class="sk-ic"><div><p class="sk-cat">Défense</p><h3>Sombre geôle</h3><p class="sk-rk">rang 15/15</p></div></header><p class="sk-base">Vous créez un totem d’ombre pendant … s qui enchaîne les adversaires, ce qui les immobilise dans la zone et les empêche de s’échapper.</p><dl class="sk-mods"><dt>Affaiblissement</dt><dd>Les cibles adverses dans la sombre geôle sont affaiblies.</dd><dt>Fortification</dt><dd>Lorsque vous touchez des adversaires dans Sombre geôle, vous vous fortifiez à hauteur de 1 % de votre maximum de points de vie .</dd><dt>Aura de chaînes</dt><dd>Sombre geôle devient une compétence de flammes infernales qui crée une aura de chaînes de feu autour de vous, réduit les dégâts provenant de l’extérieur de 45 % et ralentit les adversaires qui se trouvent à l’intérieur de 80 %.</dd></dl></article></div></div></section><section id="equipement"><div class="wrap"><div class="s-h"><span class="num">04</span><h2>Équipement</h2><p>Dix emplacements, quatre uniques, cinq aspects. Les affixes majeurs sont signalés ; la ligne de forge est la même sur trois pièces et ce n’est pas un hasard.</p></div><figure class="fig"><img src="img/equipement.webp" alt="Étalage d’une panoplie d’armure démoniaque sur pierre noire" width="1280" height="560"><figcaption>Quatre uniques portent le moteur ; les cinq aspects portent les conversions.</figcaption></figure><div class="gi-grid"><article class="gi unique"><header class="gi-h"><img src="https://sunderarmor.com/DIABLO4/Uniques/2/leoric%27s_crown.png" alt="" width="56" height="56" class="gi-ic"><div><p class="gi-slot"><img src="https://sunderarmor.com/DIABLO4/Uniques/helm.png" alt="" width="15" height="15">Casque</p><h3>Couronne de Léoric<span class="tr" title="Traduction maison : ce terme n'existe pas encore dans les données françaises du jeu dont je dispose">°</span></h3><p class="gi-kind">Unique</p></div></header><p class="gi-pow mult"><span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> Cet objet <b>compte comme un bijou</b> et augmente de <b>75 à 100 %</b> l’effet de toute gemme sertie dans le casque.</p><table class="gi-t"><caption class="vh">Affixes de Casque</caption><tbody><tr class="ga"><th scope="row">Caractéristique principale</th><td><img src="https://sunderarmor.com/DIABLO4/UI/ga.png" alt="affixe majeur" width="16" height="16"></td></tr><tr><th scope="row">Armure</th><td></td></tr><tr><th scope="row">Résistance à tous les éléments</th><td></td></tr><tr class="tmp"><td colspan="2"><span class="lbl">Forge</span>Maximum de points de vie — Endurance chevronnée, défensif</td></tr></tbody></table><ul class="gi-sock"><li><img src="https://sunderarmor.com/DIABLO4/Gems/splinter_of_the_black_soulstone.png" alt="" width="26" height="26"><span>Éclat des abîmes de la pierre d’âme noire</span></li><li><img src="https://sunderarmor.com/DIABLO4/Gems/splinter_of_pain.png" alt="" width="26" height="26"><span>Éclat des abîmes de Douleur</span></li></ul></article><article class="gi unique"><header class="gi-h"><img src="https://sunderarmor.com/DIABLO4/Uniques/2/fleshwrit_carapace.png" alt="" width="56" height="56" class="gi-ic"><div><p class="gi-slot"><img src="https://sunderarmor.com/DIABLO4/Uniques/chest_armor.png" alt="" width="15" height="15">Torse</p><h3>Carapace de décret de la chair</h3><p class="gi-kind">Unique</p></div></header><p class="gi-pow mult"><span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> Les compétences de sceau infligent <b>+70 à 90 %</b> de dégâts supplémentaires. Les sceaux actifs bénéficient de <b>1 victime chaque seconde</b> et les victimes non utilisées sont conservées lorsqu’ils expirent.</p><table class="gi-t"><caption class="vh">Affixes de Torse</caption><tbody><tr class="ga"><th scope="row">Volonté</th><td><img src="https://sunderarmor.com/DIABLO4/UI/ga.png" alt="affixe majeur" width="16" height="16"></td></tr><tr><th scope="row">Armure</th><td></td></tr><tr class="ga"><th scope="row">Maximum de points de vie</th><td><img src="https://sunderarmor.com/DIABLO4/UI/ga.png" alt="affixe majeur" width="16" height="16"></td></tr><tr><th scope="row">Résistance à tous les éléments</th><td></td></tr><tr class="tmp"><td colspan="2"><span class="lbl">Forge</span>Maximum de points de vie — Endurance chevronnée, défensif</td></tr></tbody></table><ul class="gi-sock"><li><img src="https://sunderarmor.com/DIABLO4/Runes/ritual.png" alt="" width="26" height="26"><span>Zan</span></li><li><img src="https://sunderarmor.com/DIABLO4/Runes/invocation.png" alt="" width="26" height="26"><span>Que</span></li></ul></article><article class="gi unique"><header class="gi-h"><img src="https://sunderarmor.com/DIABLO4/Uniques/2/hands_of_the_worldbreaker.png" alt="" width="56" height="56" class="gi-ic"><div><p class="gi-slot"><img src="https://sunderarmor.com/DIABLO4/Uniques/gloves.png" alt="" width="15" height="15">Gants</p><h3>Mains de brise-monde</h3><p class="gi-kind">Unique</p></div></header><p class="gi-pow mult"><span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> Apocalypse inflige jusqu’à <b>+290 à 350 %</b> de dégâts supplémentaires lorsqu’elle est utilisée à l’intérieur de Sceau de chaos, en fonction du nombre de victimes que le sceau a emmagasiné. <b>Apocalypse est désormais également une compétence de sceau.</b></p><table class="gi-t"><caption class="vh">Affixes de Gants</caption><tbody><tr><th scope="row">Multiplicateur de dégâts de feu</th><td></td></tr><tr><th scope="row">Vitesse d’attaque</th><td></td></tr><tr class="ga"><th scope="row">Multiplicateur de dégâts contre les cibles vulnérables</th><td><img src="https://sunderarmor.com/DIABLO4/UI/ga.png" alt="affixe majeur" width="16" height="16"></td></tr><tr class="ga"><th scope="row">Multiplicateur de dégâts critiques</th><td><img src="https://sunderarmor.com/DIABLO4/UI/ga.png" alt="affixe majeur" width="16" height="16"></td></tr><tr class="tmp"><td colspan="2"><span class="lbl">Forge</span>Dégâts par cumul d’accablement — Finesse aiguisée, offensif</td></tr></tbody></table></article><article class="gi aspect"><header class="gi-h"><img src="https://sunderarmor.com/DIABLO4/Codex/1/defensive.png" alt="" width="56" height="56" class="gi-ic"><div><p class="gi-slot"><img src="https://sunderarmor.com/DIABLO4/Uniques/pants.png" alt="" width="15" height="15">Jambières</p><h3>Aspect de force céleste</h3><p class="gi-kind">Aspect</p></div></header><p class="gi-pow">Lorsque vous maniez une arme à deux mains, vous obtenez <b>20 à 30 %</b> de réduction des dégâts.</p><table class="gi-t"><caption class="vh">Affixes de Jambières</caption><tbody><tr class="ga"><th scope="row">Volonté</th><td><img src="https://sunderarmor.com/DIABLO4/UI/ga.png" alt="affixe majeur" width="16" height="16"></td></tr><tr class="ga"><th scope="row">Maximum de points de vie</th><td><img src="https://sunderarmor.com/DIABLO4/UI/ga.png" alt="affixe majeur" width="16" height="16"></td></tr><tr><th scope="row">Armure</th><td></td></tr><tr><th scope="row">Résistance à tous les éléments</th><td></td></tr><tr class="tmp"><td colspan="2"><span class="lbl">Forge</span>Maximum de points de vie — Endurance chevronnée, défensif</td></tr></tbody></table><ul class="gi-sock"><li><img src="https://sunderarmor.com/DIABLO4/Runes/ritual.png" alt="" width="26" height="26"><span>Igni</span></li><li><img src="https://sunderarmor.com/DIABLO4/Runes/invocation.png" alt="" width="26" height="26"><span>Jah</span></li></ul></article><article class="gi aspect"><header class="gi-h"><img src="https://sunderarmor.com/DIABLO4/Codex/1/utility.png" alt="" width="56" height="56" class="gi-ic"><div><p class="gi-slot"><img src="https://sunderarmor.com/DIABLO4/Uniques/boots.png" alt="" width="15" height="15">Bottes</p><h3>Aspect de toucher maudit</h3><p class="gi-kind">Aspect</p></div></header><p class="gi-pow">Coup de chance : vos compétences ont jusqu’à <b>30 à 40 %</b> de chances d’infliger aux adversaires une malédiction vampirique. <b>Toute cible affectée par une malédiction vampirique est également vulnérable.</b> Les âmes stockées par la malédiction infligent <b>40 à 60 %</b> de dégâts supplémentaires.</p><table class="gi-t"><caption class="vh">Affixes de Bottes</caption><tbody><tr class="ga"><th scope="row">Volonté</th><td><img src="https://sunderarmor.com/DIABLO4/UI/ga.png" alt="affixe majeur" width="16" height="16"></td></tr><tr><th scope="row">Maximum de points de vie</th><td></td></tr><tr class="ga"><th scope="row">Rangs aux compétences de flammes infernales</th><td><img src="https://sunderarmor.com/DIABLO4/UI/ga.png" alt="affixe majeur" width="16" height="16"></td></tr><tr><th scope="row">Vitesse de déplacement</th><td></td></tr><tr class="tmp"><td colspan="2"><span class="lbl">Forge</span>Vitesse de déplacement — Mouvement naturel, mobilité</td></tr></tbody></table></article><article class="gi aspect"><header class="gi-h"><img src="https://sunderarmor.com/DIABLO4/Codex/1/offensive.png" alt="" width="56" height="56" class="gi-ic"><div><p class="gi-slot"><img src="https://sunderarmor.com/DIABLO4/Uniques/weapon.png" alt="" width="15" height="15">Arme à deux mains</p><h3>Aspect pesant</h3><p class="gi-kind">Aspect</p></div></header><p class="gi-pow mult"><span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> Les compétences occultes infligent aux adversaires élites <b>+80 à 120 %</b> de dégâts supplémentaires <b>par cumul d’accablement</b> dont vous disposez. Ce bonus est doublé si la cible est victime de Maléfice.</p><p class="gi-pow second"><b>Sanctification : dégâts de feu</b> l’arme convertit ses dégâts en feu, ce qui les fait entrer dans le sac des deux rubis et du multiplicateur de dégâts de feu.</p><table class="gi-t"><caption class="vh">Affixes de Arme à deux mains</caption><tbody><tr class="ga"><th scope="row">Volonté</th><td><img src="https://sunderarmor.com/DIABLO4/UI/ga.png" alt="affixe majeur" width="16" height="16"></td></tr><tr><th scope="row">Maximum de points de vie</th><td></td></tr><tr class="ga"><th scope="row">Multiplicateur de dégâts critiques</th><td><img src="https://sunderarmor.com/DIABLO4/UI/ga.png" alt="affixe majeur" width="16" height="16"></td></tr><tr class="ga"><th scope="row">Dégâts de l’arme</th><td><img src="https://sunderarmor.com/DIABLO4/UI/ga.png" alt="affixe majeur" width="16" height="16"></td></tr><tr class="tmp"><td colspan="2"><span class="lbl">Forge</span>Dégâts par cumul d’accablement — Finesse aiguisée, offensif</td></tr></tbody></table><ul class="gi-sock"><li><img src="https://sunderarmor.com/DIABLO4/Gems/grand-ruby.png" alt="" width="26" height="26"><span>Rubis horadrique parfait</span></li><li><img src="https://sunderarmor.com/DIABLO4/Gems/grand-ruby.png" alt="" width="26" height="26"><span>Rubis horadrique parfait</span></li></ul></article><article class="gi unique"><header class="gi-h"><img src="https://sunderarmor.com/DIABLO4/Uniques/2/moloch%27s_beating_flame.png" alt="" width="56" height="56" class="gi-ic"><div><p class="gi-slot"><img src="https://sunderarmor.com/DIABLO4/Uniques/amulet.png" alt="" width="15" height="15">Amulette</p><h3>Flamme dévorante de Moloch</h3><p class="gi-kind">Unique</p></div></header><p class="gi-pow mult"><span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> Les compétences de flammes infernales infligent <b>+20 à 30 %</b> de dégâts supplémentaires <b>pour chaque compétence renforcée par Instabilité</b> dont vous disposez. L’utilisation d’une compétence instable augmente vos caractéristiques principales de 5 % pendant 10 s, jusqu’à un maximum de 50 %.</p><p class="gi-pow second"><b>Aspect de raz-de-marée</b> en sanctification : votre <b>maximum d’accablement est augmenté de 1 à 3</b> tant que vous bénéficiez d’une fortification.</p><table class="gi-t"><caption class="vh">Affixes de Amulette</caption><tbody><tr><th scope="row">Multiplicateur de dégâts de feu</th><td></td></tr><tr><th scope="row">Rangs à toutes les compétences</th><td></td></tr><tr class="ga"><th scope="row">Multiplicateur de dégâts contre les cibles vulnérables</th><td><img src="https://sunderarmor.com/DIABLO4/UI/ga.png" alt="affixe majeur" width="16" height="16"></td></tr><tr class="ga"><th scope="row">Multiplicateur de dégâts critiques</th><td><img src="https://sunderarmor.com/DIABLO4/UI/ga.png" alt="affixe majeur" width="16" height="16"></td></tr><tr class="tmp"><td colspan="2"><span class="lbl">Forge</span>Vitesse de déplacement — Mouvement naturel, mobilité</td></tr></tbody></table><ul class="gi-sock"><li><img src="https://sunderarmor.com/DIABLO4/Gems/splinter_of_anguish.png" alt="" width="26" height="26"><span>Éclat des abîmes d’Angoisse</span></li></ul></article><article class="gi aspect"><header class="gi-h"><img src="https://sunderarmor.com/DIABLO4/Codex/1/offensive.png" alt="" width="56" height="56" class="gi-ic"><div><p class="gi-slot"><img src="https://sunderarmor.com/DIABLO4/Uniques/ring_1.png" alt="" width="15" height="15">Anneau 1</p><h3>Aspect d’hérésie</h3><p class="gi-kind">Aspect</p></div></header><p class="gi-pow mult"><span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> Chaque compétence occulte que vous utilisez augmente <b>tous vos dégâts de 10 à 14 %</b> pendant 20 s.</p><table class="gi-t"><caption class="vh">Affixes de Anneau 1</caption><tbody><tr class="ga"><th scope="row">Multiplicateur de dégâts critiques</th><td><img src="https://sunderarmor.com/DIABLO4/UI/ga.png" alt="affixe majeur" width="16" height="16"></td></tr><tr><th scope="row">Multiplicateur de tous les dégâts</th><td></td></tr><tr class="ga"><th scope="row">Multiplicateur de dégâts contre les cibles vulnérables</th><td><img src="https://sunderarmor.com/DIABLO4/UI/ga.png" alt="affixe majeur" width="16" height="16"></td></tr><tr><th scope="row">Vitesse d’attaque</th><td></td></tr><tr class="tmp"><td colspan="2"><span class="lbl">Forge</span>Coup de chance : jusqu’à 15 % de chances de restaurer de la ressource principale — Stabilité matérielle, ressource</td></tr></tbody></table><ul class="gi-sock"><li><img src="https://sunderarmor.com/DIABLO4/Gems/splinter_of_sin.png" alt="" width="26" height="26"><span>Éclat des abîmes de Péché</span></li></ul></article><article class="gi aspect"><header class="gi-h"><img src="https://sunderarmor.com/DIABLO4/Codex/1/offensive.png" alt="" width="56" height="56" class="gi-ic"><div><p class="gi-slot"><img src="https://sunderarmor.com/DIABLO4/Uniques/ring_2.png" alt="" width="15" height="15">Anneau 2</p><h3>Aspect de calamité</h3><p class="gi-kind">Aspect</p></div></header><p class="gi-pow">Maléfice augmente vos <b>chances d’infliger un coup critique</b> contre une cible adverse de <b>+10 à 20 % par cumul</b>.</p><table class="gi-t"><caption class="vh">Affixes de Anneau 2</caption><tbody><tr class="ga"><th scope="row">Multiplicateur de dégâts critiques</th><td><img src="https://sunderarmor.com/DIABLO4/UI/ga.png" alt="affixe majeur" width="16" height="16"></td></tr><tr><th scope="row">Multiplicateur de tous les dégâts</th><td></td></tr><tr class="ga"><th scope="row">Multiplicateur de dégâts contre les cibles vulnérables</th><td><img src="https://sunderarmor.com/DIABLO4/UI/ga.png" alt="affixe majeur" width="16" height="16"></td></tr><tr><th scope="row">Vitesse d’attaque</th><td></td></tr><tr class="tmp"><td colspan="2"><span class="lbl">Forge</span>Dégâts par cumul d’accablement — Finesse aiguisée, offensif</td></tr></tbody></table><ul class="gi-sock"><li><img src="https://sunderarmor.com/DIABLO4/Gems/splinter_of_the_mother.png" alt="" width="26" height="26"><span>Éclat des abîmes de la Mère</span></li></ul></article></div></div></section><section id="runes"><div class="wrap"><div class="s-h"><span class="num">05</span><h2>Runes et gemmes</h2><p>Deux mots runiques, deux rôles : une barrière payée par l’ultime, une téléportation payée par le temps qui passe.</p></div><div class="rune-grid"><article class="rn rare"><header><img src="https://sunderarmor.com/DIABLO4/Runes/ritual.png" alt="" width="44" height="44"><div><h4>Zan</h4><p>Rune de rituel · rare</p></div></header><p><b>Condition :</b> vous lancez une compétence ultime. <b>Octroie 200 offrandes.</b></p></article><article class="rn rare"><header><img src="https://sunderarmor.com/DIABLO4/Runes/invocation.png" alt="" width="44" height="44"><div><h4>Que</h4><p>Rune d’effet · rare</p></div></header><p><b>Effet (300 offrandes) :</b> vous invoquez la compétence <i>Rempart de terre</i> des druides, ce qui vous confère une <b>barrière</b>. Débordement : durée augmentée.</p></article><article class="rn legendaire"><header><img src="https://sunderarmor.com/DIABLO4/Runes/ritual.png" alt="" width="44" height="44"><div><h4>Igni</h4><p>Rune de rituel · legendaire</p></div></header><p><b>Condition :</b> vous cumulez des offrandes toutes les 0,3 s ; utilisez une compétence hors compétences de base pour récupérer les offrandes accumulées (jusqu’à 500). <b>Octroie 25 offrandes</b> par tranche.</p></article><article class="rn legendaire"><header><img src="https://sunderarmor.com/DIABLO4/Runes/invocation.png" alt="" width="44" height="44"><div><h4>Jah</h4><p>Rune d’effet · legendaire</p></div></header><p><b>Effet (250 offrandes) :</b> votre prochaine Esquive devient une <b>téléportation</b> de sorciers, qui vous projette plus loin, inflige des dégâts et vous rend <b>inarrêtable</b>. Débordement : stocke les offrandes excédentaires.</p></article></div><div class="rw"><article class="rw-i"><h4>Zan + Que <small>— Torse</small></h4><p>Le mot runique se lit <b>Forteresse de transcendance</b> : lancer Apocalypse verse d’un coup 200 offrandes, Que en réclame 300. Une Apocalypse sur deux paie donc une barrière — c’est toute la défense active du build, et elle est gratuite parce qu’elle se branche sur la compétence qu’on lance de toute façon.</p></article><article class="rw-i"><h4>Igni + Jah <small>— Jambières</small></h4><p>Le mot runique se lit <b>Énigme de bombardement</b> : Igni engrange 25 offrandes toutes les 0,3 s en continu et Jah en demande 250. Résultat, une téléportation inarrêtable prête en permanence, sans rien changer à la rotation. C’est la mobilité que l’ancienne barre tirait de Pas du néant, déplacée dans les jambières pour libérer un emplacement de compétence.</p></article></div><div class="sp-grid"><article class="sp mult"><header><img src="https://sunderarmor.com/DIABLO4/Gems/grand-ruby.png" alt="" width="40" height="40"><div><h4>Rubis horadrique parfait</h4><p>Arme — deux exemplaires</p></div></header><p><span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> Multiplicateur de <b>dégâts de feu et sacrés : ×32 %</b>. La sanctification de l’arme convertit ses dégâts en feu ; sans elle, les deux rubis ne serviraient à rien.</p></article><article class="sp"><header><img src="https://sunderarmor.com/DIABLO4/Gems/splinter_of_the_black_soulstone.png" alt="" width="40" height="40"><div><h4>Éclat des abîmes de la pierre d’âme noire</h4><p>Casque</p></div></header><p>Chaque victime absorbe une âme pendant 10 s. <b>Chaque âme augmente vos dégâts de 2,5 %</b> et les dégâts que vous subissez de 1 %, jusqu’à <b>200 cumuls</b>, sans réinitialisation. Sertie dans la couronne, l’effet est majoré de 75 à 100 %.</p></article><article class="sp"><header><img src="https://sunderarmor.com/DIABLO4/Gems/splinter_of_pain.png" alt="" width="40" height="40"><div><h4>Éclat des abîmes de Douleur</h4><p>Casque</p></div></header><p><b>+25 % de réduction des dégâts</b>, mais <b>−30 % de vitesse de déplacement</b>. Le malus est indolore : la mobilité vient de la téléportation des jambières, pas des jambes.</p></article><article class="sp"><header><img src="https://sunderarmor.com/DIABLO4/Gems/splinter_of_anguish.png" alt="" width="40" height="40"><div><h4>Éclat des abîmes d’Angoisse</h4><p>Amulette</p></div></header><p><b>+20 % de vitesse d’attaque et de chances de coup critique</b>, mais <b>+30 % au coût en ressource</b>. Le surcoût disparaît pendant les 6 s de puissance intérieure, où les compétences occultes sont gratuites.</p></article><article class="sp"><header><img src="https://sunderarmor.com/DIABLO4/Gems/splinter_of_sin.png" alt="" width="40" height="40"><div><h4>Éclat des abîmes de Péché</h4><p>Anneau 1</p></div></header><p><b>+50 % de maximum de points de vie</b>, mais <b>−30 % de ressource principale maximale</b>. La vie est une ressource offensive ici : le Fragment brûlant fait payer 4 à 7 % du maximum de points de vie à chaque compétence renforcée.</p></article><article class="sp"><header><img src="https://sunderarmor.com/DIABLO4/Gems/splinter_of_the_mother.png" alt="" width="40" height="40"><div><h4>Éclat des abîmes de la Mère</h4><p>Anneau 2</p></div></header><p>Vous vous déplacez librement et <b>toucher un adversaire le rend vulnérable pendant 10 s</b> ; après 250 adversaires touchés, vous êtes étourdi 4 s. C’est la seconde source de vulnérabilité du build, avec l’Aspect de toucher maudit.</p></article></div></div></section><section id="talismans"><div class="wrap"><div class="s-h"><span class="num">06</span><h2>Talismans et sceau</h2><p>La panoplie Rite de l’Anonyme est la condition d’existence du build. Le sceau, lui, décide du moment où elle devient jouable.</p></div><ul class="charm-row"><li><img src="https://sunderarmor.com/DIABLO4/Charms/1/rite_of_the_nameless.png" alt="" width="38" height="38"><b>Berú de l’Anonyme</b><span>Rite de l’Anonyme</span></li><li><img src="https://sunderarmor.com/DIABLO4/Charms/1/rite_of_the_nameless.png" alt="" width="38" height="38"><b>Fer de l’Anonyme</b><span>Rite de l’Anonyme</span></li><li><img src="https://sunderarmor.com/DIABLO4/Charms/1/rite_of_the_nameless.png" alt="" width="38" height="38"><b>Linta de l’Anonyme</b><span>Rite de l’Anonyme</span></li><li><img src="https://sunderarmor.com/DIABLO4/Charms/1/rite_of_the_nameless.png" alt="" width="38" height="38"><b>Mlor de l’Anonyme</b><span>Rite de l’Anonyme</span></li><li><img src="https://sunderarmor.com/DIABLO4/Charms/1/rite_of_the_nameless.png" alt="" width="38" height="38"><b>Phoba de l’Anonyme</b><span>Rite de l’Anonyme</span></li><li><img src="https://sunderarmor.com/DIABLO4/Charms/1/unique_charm.png" alt="" width="38" height="38"><b>Pierre d’Hemat</b><span>talisman unique</span></li></ul><div class="set-grid"><article class="set"><header><img src="https://sunderarmor.com/DIABLO4/Charms/1/rite_of_the_nameless.png" alt="" width="40" height="40"><div><h4>Rite de l’Anonyme</h4><p>5 talismans portés → bonus 5 pièces</p></div></header><dl><dt class="on">(2)</dt><dd class="on key">L’utilisation d’une <b>compétence de sceau</b> commence un rituel qui dure 60 s. Le rituel octroie <b>100 % de dégâts supplémentaires</b>, et ce bonus s’intensifie jusqu’à <b>200 %</b> quand il touche à sa fin. Compléter des sceaux fait progresser le rituel de 6 s ; quand le délai se termine, votre prochaine compétence de sceau <b>déchaîne sa puissance intérieure</b> et vos compétences occultes sont gratuites pendant 6 s.</dd><dt class="on">(3)</dt><dd class="on">Le rituel octroie <b>20 % de réduction des dégâts</b>, valeur qui monte jusqu’à <b>40 %</b> à mesure qu’il se prolonge.</dd><dt class="on">(5)</dt><dd class="on key">L’utilisation d’une compétence de sceau <b>crée désormais toutes les compétences de sceau de base à la fois</b>. Vous infligez <b>200 % de dégâts supplémentaires</b> aux cibles prises dans vos sceaux de base, et cette valeur est <b>doublée</b> lorsque leur puissance intérieure est déchaînée.</dd></dl></article><article class="set"><header><img src="https://sunderarmor.com/DIABLO4/Charms/1/unique_charm.png" alt="" width="40" height="40"><div><h4>Pierre d’Hemat</h4><p>Talisman unique · hors panoplie</p></div></header><p class="set-uni">L’efficacité des bonus accordés par <b>Commandement de Valloch</b> ainsi que par l’<b>éclat de ritualiste</b> et ses fragments est augmentée de <b>200 %</b>. Vos compétences occultes infligent <b>20 à 30 %</b> de dégâts supplémentaires.</p><p class="set-uni seal"><b>Sceau</b> il porte <b>dégâts critiques</b> et surtout <b>« réduit de 1 le nombre de talismans nécessaires aux bonus de panoplie »</b> (minimum 2). Le palier 5 pièces tombe donc à quatre talismans : c’est ce qui rend le build jouable avant que le cinquième Anonyme ne daigne tomber, et ce qui laisse un emplacement libre pour la Pierre d’Hemat une fois les cinq réunis.</p></article></div></div></section><section id="parangon"><div class="wrap"><div class="s-h"><span class="num">07</span><h2>Parangon</h2><p>Cinq planches, 319 cases, 322 points. Les valeurs de glyphes sont calculées au niveau 100 à partir des données du jeu et des points de caractéristique relevés dans chaque portée.</p></div><div class="pb-grid"><article class="pb"><header><span class="pb-n">1</span><div><h4>Commencer</h4><p>Rotation 0° · 44 cases</p></div></header><p class="pb-gl"><span class="pb-gk">Glyphe</span> <b>Renforcement</b> <span class="pb-lv">niveau 100</span></p><p class="pb-g">105 points de volonté dans la portée &rarr; <b>+14 %</b> de dégâts d’accablement par cumul (additif), plus <span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> <b>+10,4 %</b> de tous les dégâts.</p><p class="pb-g note">Au seuil de volonté, le glyphe ajoute <b>+15 % aux compétences occultes tant que vous disposez d’accablement</b>.</p><p class="nd-lbl">Nœuds rares à prendre</p><ul class="nd-r"><li><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/4073752204.webp" alt="" width="26" height="26"><b>Distorsion</b><span>Dégâts · Volonté</span></li><li><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/4073752204.webp" alt="" width="26" height="26"><b>Domination</b><span>Élites · Dégâts · Volonté</span></li><li><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/4073752204.webp" alt="" width="26" height="26"><b>Primauté</b><span>Dégâts · Vie</span></li><li><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/1720318871.webp" alt="" width="26" height="26"><b>Résilience</b><span>Résistance · Vie · Non physique</span></li></ul></article><article class="pb"><header><span class="pb-n">3</span><div><h4>Ritualisme</h4><p>Rotation 270° · 69 cases</p></div></header><p class="pb-gl"><span class="pb-gk">Glyphe</span> <b>Libération</b> <span class="pb-lv">niveau 100</span></p><p class="pb-g">74 points d’intelligence dans la portée. <span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> <b>+10,4 %</b> de tous les dégâts.</p><p class="pb-g note">Sa part non multiplicative ne dépend pas des caractéristiques : elle confère <b>+3 270 à tous les nœuds magiques</b> de la portée. Au seuil d’intelligence, dépenser 50 points de colère donne <b>+10 % de dégâts et +25 % de régénération de colère pendant 3 s</b>.</p><div class="nd leg"><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/27078005.webp" alt="" width="34" height="34"><div><h5>Ritualisme <span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span></h5><p>Vous obtenez 90 % de dégâts supplémentaires pendant 20 s après avoir lancé une compétence de sceau. Les démons majeurs comptent désormais pour 10 victimes quand ils meurent à l’intérieur d’un sceau.</p></div></div><p class="nd-lbl">Nœuds rares à prendre</p><ul class="nd-r"><li><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/769067318.webp" alt="" width="26" height="26"><b>Cercle vicieux</b><span>Accablement · Dégâts · Volonté</span></li><li><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/4073752204.webp" alt="" width="26" height="26"><b>Descente</b><span>Vie · Dégâts</span></li><li><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/1812457486.webp" alt="" width="26" height="26"><b>Gethsémani</b><span>Armure · Résistance</span></li><li><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/1486963981.webp" alt="" width="26" height="26"><b>Sombre signe</b><span>Vie · Armure</span></li><li><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/584823143.webp" alt="" width="26" height="26"><b>Violence inlassable</b><span>Maléfice · Dégâts</span></li><li><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/1840126077.webp" alt="" width="26" height="26"><b>Émergence</b><span>Volonté · Instabilité · Dégâts</span></li></ul></article><article class="pb"><header><span class="pb-n">4</span><div><h4>Chaos</h4><p>Rotation 180° · 72 cases</p></div></header><p class="pb-gl"><span class="pb-gk">Glyphe</span> <b>Entropie</b> <span class="pb-lv">niveau 100</span></p><p class="pb-g">49 points d’intelligence dans la portée &rarr; <b>+76 %</b> de dégâts des compétences renforcées par Instabilité (additif), plus <span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> <b>+10,4 %</b> de dégâts des compétences renforcées par Instabilité.</p><p class="pb-g note">Au seuil d’intelligence, <b>+15 % aux compétences renforcées par Instabilité</b>. Avec le Fragment brûlant, toutes les compétences occultes de flammes infernales le sont en permanence.</p><div class="nd leg"><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/27078004.webp" alt="" width="34" height="34"><div><h5>Chaos <span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span></h5><p>Vos compétences occultes infligent 100 % de dégâts supplémentaires tant que vous disposez de cumuls d’accablement. Mais quand vous perdez un cumul, soit vous récupérez 2 cumuls, soit vous perdez 1 cumul supplémentaire.</p></div></div><p class="nd-lbl">Nœuds rares à prendre</p><ul class="nd-r"><li><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/3495595098.webp" alt="" width="26" height="26"><b>Contrôle</b><span>Vie · Armure</span></li><li><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/4073752204.webp" alt="" width="26" height="26"><b>Effondrement entropique</b><span>Coup de chance · Critique</span></li><li><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/1812457486.webp" alt="" width="26" height="26"><b>Mutation</b><span>Armure · Résistance</span></li><li><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/292346296.webp" alt="" width="26" height="26"><b>Onde de distorsion</b><span>Critique · Vie</span></li><li><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/584823143.webp" alt="" width="26" height="26"><b>Rayon fractal</b><span>Maléfice · Volonté</span></li><li><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/769067318.webp" alt="" width="26" height="26"><b>Surcharge</b><span>Accablement · Dégâts · Volonté</span></li></ul></article><article class="pb"><header><span class="pb-n">5</span><div><h4>Spicules démoniaques</h4><p>Rotation 0° · 64 cases</p></div></header><p class="pb-gl"><span class="pb-gk">Glyphe</span> <b>Vision surnaturelle</b> <span class="pb-lv">niveau 100</span></p><p class="pb-g">115 points de volonté dans la portée &rarr; <b>+151 %</b> de dégâts contre les cibles vulnérables (additif), plus <span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> <b>+10,4 %</b> de dégâts contre les cibles vulnérables.</p><p class="pb-g note">Au seuil de volonté, toucher une cible vulnérable donne <b>+3 % de dégâts pendant 20 s, jusqu’à +18 %</b>.</p><p class="nd-lbl">Nœuds rares à prendre</p><ul class="nd-r"><li><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/4073752204.webp" alt="" width="26" height="26"><b>Aiguille</b><span>Dégâts · Volonté</span></li><li><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/938068786.webp" alt="" width="26" height="26"><b>Amplification du vide</b><span>Temps de recharge · Volonté</span></li><li><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/3495595098.webp" alt="" width="26" height="26"><b>Avantage</b><span>Bonne santé · Volonté</span></li><li><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/292346296.webp" alt="" width="26" height="26"><b>Mur démoniaque</b><span>Critique · Vie</span></li><li><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/1486963981.webp" alt="" width="26" height="26"><b>Récupération infernale</b><span>Vie · Soins</span></li></ul></article><article class="pb"><header><span class="pb-n">5</span><div><h4>Insondable</h4><p>Rotation 90° · 70 cases</p></div></header><p class="pb-gl"><span class="pb-gk">Glyphe</span> <b>Forge infernale</b> <span class="pb-lv">niveau 100</span></p><p class="pb-g">59 points d’intelligence dans la portée &rarr; <b>+93 %</b> de dégâts des compétences de flammes infernales (additif), plus <span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> <b>+10,4 %</b> de dégâts des compétences de flammes infernales.</p><p class="pb-g note">Au seuil d’intelligence, <b>+15 % aux compétences renforcées par Instabilité</b>. C’est le glyphe qui paie les cinq conversions de l’arbre.</p><div class="nd leg"><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/2713617608.webp" alt="" width="34" height="34"><div><h5>Insondable <span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span></h5><p>Chaque démon que vous avez invoqué dans les 20 dernières secondes augmente vos dégâts de 15 %, jusqu’à un maximum de 105 %.</p></div></div><p class="nd-lbl">Nœuds rares à prendre</p><ul class="nd-r"><li><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/3495595098.webp" alt="" width="26" height="26"><b>Chaîne</b><span>Démonologie · Volonté · Dégâts</span></li><li><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/3495595098.webp" alt="" width="26" height="26"><b>Liaison</b><span>Démonologie · Dégâts · Critique</span></li><li><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/1812457486.webp" alt="" width="26" height="26"><b>Sceau de protection</b><span>Armure · Résistance</span></li><li><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/1486963981.webp" alt="" width="26" height="26"><b>Sceau de récupération</b><span>Vie · Soins</span></li><li><img src="https://assets-ng.maxroll.gg/d4-tools/images/webp/4073752204.webp" alt="" width="26" height="26"><b>Signature de pacte</b><span>Dégâts · Volonté</span></li></ul></article></div></div></section><section id="annexes"><div class="wrap"><div class="s-h"><span class="num">08</span><h2>Mercenaire et annexes</h2><p>Ce que le planificateur dit encore, et ce qu’il ne dit pas.</p></div><div class="misc"><article class="mc"><h4>Mercenaire</h4><p class="big">Subo, l’archer ivre<span class="tr" title="Traduction maison : ce terme n'existe pas encore dans les données françaises du jeu dont je dispose">°</span></p><p>Renfort : <b>Varyana, la mégère berserk<span class="tr" title="Traduction maison : ce terme n'existe pas encore dans les données françaises du jeu dont je dispose">°</span></b> · compétence : <b>Envie sanguinaire</b> · déclencheur : <b>Apocalypse</b></p><p>Talents : Traqueur → Piège câblé → Flèches perçantes → Tir de couverture → Feu nourri</p><p class="why">Subo n’est pas là pour ses dégâts. <b>Tir de couverture</b> ralentit de 50 % et <b>Feu nourri</b> ajoute 25 % de dégâts critiques sur les cibles ainsi ralenties — deux effets qui durent le temps qu’il faut pour poser Apocalypse. Le déclencheur du renfort est <b>Apocalypse</b> elle-même : lancer l’ultime appelle Varyana, dont Envie sanguinaire vous reverse <b>10 % de vitesse d’attaque</b> au moment précis où l’explosion part.</p></article><article class="mc"><h4>Plans de guerre</h4><ul class="tags"><li>Arbre des Murmures</li><li>Donjons du Cauchemar</li><li>Vague infernale</li><li>Les bas-fonds</li><li>Boss de repaire</li><li>Hordes infernales</li><li>La fosse</li></ul><p class="why">Les sept activités portent des points. Le document du planificateur ne stocke que des masques binaires propres au site, sans nom de nœud : je ne reconstitue pas ce que je ne peux pas lire.</p></article><article class="mc"><h4>Élixirs et dons divins</h4><p class="why">Non renseignés par l’auteur dans le planificateur. Plutôt que d’inventer une liste plausible, je laisse la case vide.</p></article></div></div></section><section id="options"><div class="wrap"><div class="s-h"><span class="num">09</span><h2>Les options de l’auteur</h2><p>Il n’y a pas de variante « mythique » ni de variante « starter » dans ce document : une seule construction est publiée. L’auteur donne en revanche trois échanges possibles, tous du même côté de la balance — moins de dégâts, plus de survie.</p></div><div class="t-scroll" tabindex="0" role="region" aria-label="Comparaison des variantes, tableau défilable"><table class="chain myth"><thead><tr><th scope="col">Emplacement</th><th scope="col">Standard</th><th scope="col">Options de survie</th></tr></thead><tbody><tr><th scope="row">Bottes</th><td class="src">Aspect de toucher maudit</td><td class="val"><b>Aspect de fléau lié</b><br><span class="why">les cibles sous Maléfice deviennent vulnérables quand vous les ralentissez, et l’inverse — on remplace une source de vulnérabilité par une autre, plus fiable en mêlée, et on gagne +15 % contre les cibles vulnérables</span></td></tr><tr><th scope="row">Casque</th><td class="src">Couronne de Léoric</td><td class="val"><b>Aspect de mastodonte</b><br><span class="why">+100 à 150 % d’armure totale contre +100 % de temps de recharge d’Esquive ; on abandonne la majoration des deux éclats sertis, c’est un échange sec de dégâts contre de la survie</span></td></tr><tr><th scope="row">Amulette</th><td class="src">Aspect de raz-de-marée</td><td class="val"><b>Aspect d’immortalité</b><br><span class="why">en transfiguration : chaque compétence lancée rend 2 à 3 % du maximum de points de vie, doublé en état de blessure — c’est ce que l’auteur pose en prérequis dans ses notes, parce que le Fragment brûlant fait payer la vie</span></td></tr></tbody></table></div></div></section><section id="saison"><div class="wrap"><div class="s-h"><span class="num">10</span><h2>Ce que la saison a changé</h2><p>Les notes de l’auteur consignent les ajustements qui ont refait le build. Ils sont recopiés ici tels qu’il les a écrits, traduits, parce qu’ils expliquent des choix qui paraîtraient datés sans eux.</p></div><div class="prose patch"><h3>Changements généraux</h3><ul><li>Tous les uniques peuvent désormais devenir <b>mythiques</b>, avec une puissance supérieure de 30 %.</li><li>Les uniques mythiques ont des statistiques aléatoires, à l’exception d’une seule.</li><li>La forge « résolution maximale » est plafonnée à 6.</li><li><b>Héritier de perdition</b> : 80 % → 15 %, ne garantit plus que la vitesse de déplacement.</li><li><b>Anneau du ciel sans étoiles</b> : ne garantit plus que la vitesse d’attaque.</li><li><b>Ceh</b> : n’applique plus Vulnérabilité. <b>Prid</b> : coût porté de 250 à 500.</li><li><b>Aspect du crémateur</b> : 100 % → 65 %.</li></ul><h3>Changements de classe</h3><ul><li><b>Invocation de Valloch</b> : 4 → 2 cumuls d’accablement, 2 → 1 cumul de débordement, coût 20 → 25, durée 6 → 10 s.</li><li><b>Apocalypse</b>, amélioration <em>Dégâts aux survivants</em> : bonus 100 % → 25 %, durée 2 → 3 s.</li><li><b>Flamme dévorante de Moloch</b> : 11 % → 30 %.</li></ul><p class="why">Ces notes sont datées de la saison 14 dans le document de l’auteur ; elles décrivent les valeurs sur lesquelles la construction publiée en saison 15 est calée.</p></div></div></section></main><footer><div class="wrap"><h2>Sources et méthode</h2><ul><li>Construction : <b>Apocalypse Warlock (S15)</b> de Rob2628, lue dans la base du planificateur d4builds.gg — arbre, parangon, équipement, panoplie, runes, éclats d’âme et notes de l’auteur.</li><li>Textes et noms : données francophones officielles du jeu (dump <span class="mono">3.1.3.73224</span>) — compétences et améliorations, aspects, panoplies, glyphes, nœuds de parangon, runes, éclats.</li><li>Valeurs chiffrées des glyphes : calculées au niveau 100 depuis les données du jeu, avec les points de caractéristique relevés dans chaque portée sur le planificateur.</li></ul><h2>Ce que je n’ai pas pu résoudre</h2><ul><li>La <b>Couronne de Léoric</b>, le <b>sceau horadrique</b> et ses affixes n’existent pas encore dans les données francophones dont je dispose : leurs noms et leurs textes sont traduits par mes soins et marqués <span class="tr" title="Traduction maison : ce terme n'existe pas encore dans les données françaises du jeu dont je dispose">°</span>.</li><li>Les <b>plans de guerre</b> sont stockés sous forme de masques binaires propres au planificateur ; ils ne se résolvent pas en noms de nœuds. Seules les activités investies sont listées.</li><li>Sur l’<b>Aspect pesant</b> et l’<b>Aspect d’hérésie</b>, le texte français du jeu et le texte anglais de d4builds décrivent des effets légèrement différents — le premier semble d’un patch plus récent. J’ai retenu la version française et signalé l’écart dans le corps de la page.</li><li>Aucun élixir ni don divin n’est renseigné par l’auteur.</li></ul><h2>Marqueurs</h2><div class="legend"><span><span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> facteur multiplicatif séparé</span><span><span class="tr" title="Traduction maison : ce terme n'existe pas encore dans les données françaises du jeu dont je dispose">°</span> traduction maison, terme non officiel</span><span style="color:var(--ga)">◆ affixe majeur</span></div><p class="fine">Le marqueur <span class="xm" aria-label="multiplicateur séparé">⟨x⟩</span> reprend le marquage du jeu lui-même dans ses textes bruts, complété par la notation de d4builds là où le texte du dump précède une refonte. Les <b>…</b> qui subsistent dans les descriptions de compétences remplacent des nombres que le jeu calcule au niveau du personnage : ils n’existent pas dans les fichiers de données et je ne les invente pas.</p></div></footer></body></html>
