@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Diablo a gagné — Tout ce que l'on sait de Diablo V — Vostok Jeux</title>
+<meta name="description" content="Diablo V, printemps 2029 : la fin de l'open world statique, la caravane qui remplace les villes, les trois classes, l'itemisation façon Diablo II, les rumeurs et la fabrique de la désinformation. Dossier sourcé.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;700;900&family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+:root{
+  --ground:#0d0a09; --stone:#171210; --stone-2:#201915; --line:#3a2c22;
+  --text:#e6d9c0; --muted:#a8977c; --faint:#6f604e;
+  --gold:#d4a25a; --unique:#e08a3c; --ember:#c9542e; --arcane:#9b7fd4; --blood:#7a1f16;
+  --green:#8fae6a;
+  --display:"Cinzel","Trajan Pro",Georgia,serif;
+  --body:"EB Garamond",Garamond,Georgia,serif;
+  --mono:"JetBrains Mono",ui-monospace,Consolas,monospace;
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+html{background:var(--ground);scroll-behavior:smooth}
+body{background:var(--ground);color:var(--text);font-family:var(--body);font-size:19px;line-height:1.6;margin:0}
+img{max-width:100%}
+a{color:var(--gold)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--gold);outline-offset:3px}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:20px}
+.prose{max-width:68ch}
+h1,h2,h3,h4{font-family:var(--display);font-weight:700;letter-spacing:.04em;text-wrap:balance;line-height:1.15;margin:0}
+h2{font-size:clamp(1.6rem,3.6vw,2.4rem);color:var(--gold)}
+h3{font-size:1.28rem;color:#f3e6c8;margin-top:2.2rem}
+h4{font-size:1.02rem;color:var(--unique);font-weight:700;letter-spacing:.06em}
+.eyebrow{font-family:var(--mono);font-size:.72rem;letter-spacing:.22em;text-transform:uppercase;color:var(--ember)}
+p{margin:0}
+.stack>*+*{margin-top:1.05rem}
+
+.topbar{position:absolute;top:0;left:0;right:0;z-index:3;padding-block:16px}
+.topbar .wrap{display:flex;gap:10px;font-family:var(--mono);font-size:.74rem;letter-spacing:.08em}
+.topbar a{color:#e9dcc2;text-decoration:none;text-shadow:0 1px 6px #000}
+.topbar a:hover{color:var(--gold)}
+.topbar span{color:var(--faint)}
+
+.hero{position:relative;min-height:min(80vh,680px);display:flex;align-items:flex-end;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero>img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 45%}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(13,10,9,.42) 0%,rgba(13,10,9,.38) 42%,var(--ground) 100%)}
+.hero .wrap{position:relative;z-index:1;padding-block:72px 40px;width:100%}
+.hero h1{font-size:clamp(2.3rem,7.4vw,5.2rem);font-weight:900;color:#f3e6c8;text-shadow:0 2px 24px rgba(0,0,0,.85)}
+.hero h1 em{font-style:normal;color:var(--unique)}
+.hero .lede{max-width:62ch;font-size:1.2rem;color:#ddd0b5;margin-top:1rem;text-shadow:0 1px 8px #000}
+.meta{display:flex;flex-wrap:wrap;gap:8px 18px;margin-top:1.4rem;font-family:var(--mono);font-size:.78rem;color:var(--muted)}
+.meta b{color:var(--gold);font-weight:600}
+
+.toc{position:sticky;top:0;z-index:5;background:rgba(13,10,9,.93);backdrop-filter:blur(6px);border-bottom:1px solid var(--line)}
+.toc .wrap{display:flex;gap:4px 18px;overflow-x:auto;padding-block:10px;font-family:var(--mono);font-size:.72rem;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap}
+.toc a{color:var(--muted);text-decoration:none}
+.toc a:hover{color:var(--gold)}
+
+section{padding-block:64px 8px;scroll-margin-top:48px}
+.sec-head{display:grid;gap:.6rem;margin-bottom:1.8rem}
+
+figure{margin:2.2rem 0 0}
+.plate{border:1px solid var(--line);background:var(--stone);padding:6px}
+.plate img{display:block;width:100%;height:auto}
+figcaption{font-style:italic;color:var(--muted);font-size:.95rem;margin-top:.5rem;max-width:72ch}
+.split{display:grid;grid-template-columns:1.1fr 1fr;gap:36px;align-items:center}
+@media (max-width:820px){.split{grid-template-columns:1fr}}
+
+.warn{border-left:3px solid var(--ember);background:linear-gradient(90deg,rgba(201,84,46,.12),transparent);padding:14px 18px;font-size:1rem;margin-top:1.4rem}
+.warn strong{color:var(--unique)}
+.note{border-left:3px solid var(--arcane);background:linear-gradient(90deg,rgba(155,127,212,.10),transparent);padding:14px 18px;font-size:1rem;margin-top:1.4rem}
+.note strong{color:#c7b3f0}
+.quote{border-left:3px solid var(--gold);background:linear-gradient(90deg,rgba(212,162,90,.09),transparent);padding:16px 20px;margin-top:1.4rem;font-size:1.06rem}
+.quote p{font-style:italic;color:#f0e2c4}
+.quote cite{display:block;font-style:normal;font-family:var(--mono);font-size:.74rem;letter-spacing:.08em;color:var(--muted);margin-top:.7rem}
+.quote cite b{color:var(--gold);font-weight:600}
+
+.rules{list-style:none;padding:0;margin:1.4rem 0 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.rules li{background:var(--stone);border:1px solid var(--line);padding:16px 18px;font-size:.98rem}
+.rules b{display:block;font-family:var(--display);color:#f3e6c8;font-size:1.02rem;margin-bottom:.3rem}
+
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);margin-top:1.4rem}
+table{border-collapse:collapse;width:100%;font-size:.97rem}
+th,td{padding:12px 14px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+thead th{font-family:var(--mono);font-size:.7rem;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);background:var(--stone-2);font-weight:400}
+tbody tr{background:var(--stone)}
+tbody tr:nth-child(even){background:#140f0d}
+tbody tr:hover{background:#231a14}
+tfoot td{background:var(--stone-2);color:var(--gold);font-weight:600;border-bottom:0;font-family:var(--mono);font-size:.88rem}
+td.num{font-family:var(--mono);font-size:.9rem;white-space:nowrap}
+td b{color:#f3e6c8}
+
+.classes{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;margin-top:1.6rem}
+@media (max-width:820px){.classes{grid-template-columns:1fr}}
+.cls{background:var(--stone);border:1px solid var(--line)}
+.cls img{display:block;width:100%;height:auto}
+.cls .body{padding:18px}
+.cls h3{margin-top:0;font-size:1.22rem}
+.cls .vf{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--gold);margin-bottom:.5rem}
+.cls p{font-size:.97rem;color:var(--text)}
+.cls .tagline{margin-top:.7rem;font-size:.9rem;color:var(--muted);font-style:italic}
+
+.cred{display:inline-block;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border:1px solid var(--line);color:var(--muted);white-space:nowrap}
+.cred.forte{background:rgba(143,174,106,.14);color:#b9d894;border-color:#4d6634}
+.cred.moyenne{background:rgba(212,162,90,.12);color:var(--gold);border-color:#6b5020}
+.cred.faible{background:rgba(201,84,46,.10);color:#e0906a;border-color:#5a2a1e}
+.cred.nulle{background:rgba(122,31,22,.18);color:#e07a6a;border-color:#6d2019}
+.cred.confirme{background:rgba(155,127,212,.14);color:#c7b3f0;border-color:#5a4a80}
+
+.rum{background:var(--stone);border:1px solid var(--line);padding:20px;margin-top:16px;position:relative}
+.rum::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--c,var(--line))}
+.rum.forte{--c:#8fae6a} .rum.moyenne{--c:var(--gold)} .rum.faible{--c:var(--ember)} .rum.nulle{--c:var(--blood)}
+.rum h3{margin-top:0;font-size:1.1rem}
+.rum .hdr{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:.8rem}
+.rum p{font-size:.98rem;margin-top:.7rem}
+.rum .verdict{margin-top:.9rem;padding-top:.8rem;border-top:1px solid var(--line);font-size:.93rem;color:var(--muted)}
+.rum .verdict b{color:var(--unique);font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase}
+
+.gaps{list-style:none;padding:0;margin:1.4rem 0 0}
+.gaps li{padding:12px 0 12px 26px;border-bottom:1px solid var(--line);position:relative;font-size:1rem}
+.gaps li::before{content:"?";position:absolute;left:0;top:12px;font-family:var(--display);color:var(--ember);font-weight:700}
+.gaps b{color:#f3e6c8}
+
+.srcs{columns:2;column-gap:36px;font-size:.88rem;margin-top:1.2rem}
+@media (max-width:820px){.srcs{columns:1}}
+.srcs li{break-inside:avoid;margin-bottom:.6rem;color:var(--muted)}
+.srcs a{text-decoration:none;border-bottom:1px solid rgba(212,162,90,.3)}
+.srcs a:hover{border-bottom-color:var(--gold)}
+
+.endnote{border:1px solid var(--line);background:var(--stone);padding:22px;margin-top:2rem;font-size:.96rem;color:var(--muted)}
+.endnote b{color:var(--gold)}
+
+footer{border-top:1px solid var(--line);margin-top:72px;padding-block:32px;text-align:center;font-family:var(--mono);font-size:.76rem;color:var(--faint)}
+footer a{color:var(--gold);text-decoration:none}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <a href="/">Vostok</a><span>·</span><a href="/jeux/">Jeux</a><span>·</span><a href="/jeux/diablo-5/">Diablo V</a>
+  </div>
+</div>
+
+<div class="hero">
+  <img src="/jeux/diablo-5/diablo-a-gagne/img/hero.webp" alt="Les flèches en flammes d'Ouestmarche vues depuis une plaine calcinée, silhouettes ailées clouées à des charpentes brisées au premier plan">
+  <div class="wrap">
+    <p class="eyebrow">Diablo V · BlizzCon 2026 · Printemps 2029</p>
+    <h1>Diablo a <em>gagné</em></h1>
+    <p class="lede">Blizzard a annoncé Diablo V le 12 septembre 2026 pour le printemps 2029. Sanctuaire est tombé, les villes ont disparu, le monde ouvert statique est enterré. Voici tout ce qui est établi, tout ce qui est rumeur, et tout ce que personne ne sait.</p>
+    <div class="meta">
+      <span>Octobre 2026</span>
+      <span>·</span>
+      <span>Dossier — <b>12 sections</b></span>
+      <span>·</span>
+      <span>Sources primaires : transcript intégral du panel, <b>3 articles officiels</b>, <b>15 entretiens</b></span>
+    </div>
+  </div>
+</div>
+
+<nav class="toc">
+  <div class="wrap">
+    <a href="#annonce">L'annonce</a>
+    <a href="#postulat">Le postulat</a>
+    <a href="#monde">La fin du monde ouvert</a>
+    <a href="#caravane">La caravane</a>
+    <a href="#classes">Les classes</a>
+    <a href="#bareme">Le barème</a>
+    <a href="#items">L'itemisation</a>
+    <a href="#rumeurs">Rumeurs</a>
+    <a href="#desinfo">Désinformation</a>
+    <a href="#industrie">L'industrie</a>
+    <a href="#trous">Ce qu'on ignore</a>
+    <a href="#sources">Sources</a>
+  </div>
+</nav>
+
+<main class="wrap">
+
+<!-- ─────────── 1. L'ANNONCE ─────────── -->
+<section id="annonce">
+  <div class="sec-head">
+    <p class="eyebrow">I — Ce qui s'est passé</p>
+    <h2>Une annonce faite trois ans trop tôt, et c'est délibéré</h2>
+  </div>
+  <div class="prose stack">
+    <p>Le <b>samedi 12 septembre 2026</b>, à la cérémonie d'ouverture de la BlizzCon au Anaheim Convention Center, Johanna Faries annonce Diablo V pour le <b>printemps 2029</b>. Le même jour à 13 h 45 heure du Pacifique, un panel de trente-cinq minutes intitulé <em>Diablo V : Forging the Next Era</em> détaille le jeu sur la scène principale. C'est tout ce qui existe : un teaser cinématique de quarante-huit secondes, une poignée de concept arts, des maquettes d'interface estampillées « contenu en développement — non définitif ». <b>Aucune séquence de jeu n'a été montrée.</b></p>
+
+    <p>La date circule beaucoup en 13 septembre. C'est faux : le 13 était consacré au panel <em>Diablo IV : What's Next</em>, celui de l'Amazone. Toute la séquence Diablo V — cérémonie, panel, teaser, entretiens presse — tient dans la journée du 12.</p>
+
+    <h3>Qui parle, et à quel titre</h3>
+    <p>Le plateau compte six personnes, et leurs fonctions exactes comptent parce que la presse les a beaucoup mélangées.</p>
+    <ul class="rules">
+      <li><b>Johanna Faries</b>Présidente de Blizzard Entertainment. Anime le panel. S'est présentée d'un simple « je m'appelle Johanna ».</li>
+      <li><b>Matt Zitterman</b>Executive producer de Diablo V. C'est lui qui porte l'argumentaire stratégique.</li>
+      <li><b>Tiffany Wat</b>Senior production director. A travaillé sur Diablo III et Diablo IV.</li>
+      <li><b>Joe Shely</b>Senior game director. Directeur du jeu.</li>
+      <li><b>Jennifer Brandes Hepler</b>Narrative director. Vingt ans d'écriture, vétérane de BioWare.</li>
+      <li><b>John Mueller</b>Senior art director, sur Diablo — pas sur Diablo V spécifiquement. Était déjà sur scène en 2019 pour annoncer Diablo IV.</li>
+    </ul>
+
+    <div class="warn">
+      <strong>Un nom à retirer du dossier.</strong> <b>Rod Fergusson</b> n'a fait aucune déclaration sur Diablo V et ne pouvait pas en faire : il a quitté Blizzard le 8 août 2025, après cinq ans à la tête de la franchise, pour rejoindre 2K et diriger BioShock. « Il est temps pour moi de m'éloigner, épée à la main, et de voir ce qui vient ensuite. » <b>Aucun successeur n'a été nommé publiquement</b> au poste de general manager de la franchise Diablo. Le jeu semble piloté par le trio Shely / Wat / Zitterman sous l'autorité de Faries. Par ailleurs, <b>Brent Gibson</b>, très cité dans la couverture, est game director de <em>Diablo IV</em> : toutes ses déclarations portent sur le quatrième épisode.</div>
+
+    <h3>La raison officielle d'annoncer si tôt</h3>
+    <p>Blizzard donne deux arguments, et ils ne sont pas du même registre. Le premier est méthodologique, porté par Zitterman.</p>
+    <div class="quote">
+      <p>« Si nous n'annoncions pas maintenant et que nous attendions d'être beaucoup plus avancés dans le développement, il devient bien plus difficile de prendre ce retour et de s'en servir pour faire les changements et les ajustements vraiment importants tout au long du développement. »</p>
+      <cite><b>Matt Zitterman</b>, executive producer, à GameSpot</cite>
+    </div>
+    <p>John Mueller le dit plus franchement encore, et sa phrase est la seule autocritique explicite de Diablo IV formulée par un développeur :</p>
+    <div class="quote">
+      <p>« Nous avons eu une bonne expérience sur le 4, mais elle aurait pu être meilleure. Et ce qui aurait été meilleur, c'est si nous avions pu faire venir les joueurs tôt pour vérifier les choses que nous trouvons formidables dans le jeu. […] Vous recevez énormément de retours excellents. Mais si vous n'avez pas le temps de les implémenter, ça part dans un patch, ça part dans une liste de triage, ça arrive tard. »</p>
+      <cite><b>John Mueller</b>, senior art director, à Kotaku</cite>
+    </div>
+    <p>Le second argument est corporate, et c'est la présidente qui le porte, à Bloomberg : « Nous voulons transmettre de la confiance dans certains de nos plus gros paris à venir. » Et : « Nous sommes un Blizzard qui va livrer, livrer gros, livrer à l'heure. » Nous verrons plus bas ce que la presse pense de cette assurance.</p>
+
+    <h3>Ce qui n'a pas été annoncé</h3>
+    <p>La liste est plus instructive que le reste. <b>Aucune plateforme.</b> Aucun prix, aucune édition, aucune précommande. Aucun modèle économique. Aucune alpha, aucune bêta, aucun test technique. Aucun arbre de compétences. Aucun système saisonnier. Le site officiel <code>diablo5.blizzard.com</code> ne contient qu'un teaser, une phrase — « Diablo V est en cours de développement et sortira au printemps 2029 » — et un formulaire d'inscription à la newsletter. Techniquement, le champ des plateformes y est un tableau vide.</p>
+    <p>Le seul jalon communiqué : <b>des mises à jour régulières de développement à partir de 2027</b>.</p>
+
+    <div class="note">
+      <strong>L'incident de communication sur le PC.</strong> En conférence de presse, interrogé sur les plateformes, Joe Shely répond n'avoir rien à annoncer. Depuis le fond de la salle, un membre du service presse lance « la version PC ». Rires. Shely, taquin : « Vous n'êtes pas censé leur dire ! » Kotaku a titré que le PC était officiellement confirmé. Blizzard a démenti par écrit le 21 septembre : le propos du directeur des relations presse était « la reconnaissance du fait que le PC et Battle.net sont fondamentaux pour Blizzard, pas l'annonce de nos plans complets de plateformes ». Formulation juste : <b>le PC est acquis dans les faits, jamais annoncé dans les formes.</b> Ni PlayStation ni Xbox n'ont reçu le moindre engagement.</div>
+  </div>
+
+  <figure>
+    <div class="plate"><img src="/jeux/diablo-5/diablo-a-gagne/img/annonce.webp" alt="Un immense auditorium vide vu depuis la scène, un unique faisceau de lumière froide sur les planches nues"></div>
+    <figcaption>Annoncer un jeu à trois ans, sans gameplay, sans plateforme et sans prix : une pratique que l'industrie avait abandonnée, et que Blizzard reprend pour des raisons qui ne sont sans doute pas seulement créatives.</figcaption>
+  </figure>
+</section>
+
+<!-- ─────────── 2. LE POSTULAT ─────────── -->
+<section id="postulat">
+  <div class="sec-head">
+    <p class="eyebrow">II — Le récit</p>
+    <h2>Cent ans d'âge d'or, puis sept années perdues</h2>
+  </div>
+  <div class="prose stack">
+    <p>Le pitch officiel tient en trois phrases que Blizzard répète partout : « Les héros du passé ont échoué, Sanctuaire est tombé, et Diablo a gagné. » Et la question que Tiffany Wat lance sur scène : <em>« Que faut-il devenir lorsque le monde est déjà tombé ? »</em></p>
+
+    <p>La chronologie mérite d'être posée correctement, parce que deux chiffres circulent et que les deux sont vrais. Diablo V se situe <b>environ un siècle après Diablo IV</b>. Mais la conquête de Sanctuaire par Diablo, elle, ne date que de <b>sept ans</b> avant le début du jeu. Entre les deux, il y a autre chose que du déclin.</p>
+
+    <div class="quote">
+      <p>« Ces cent années n'ont pas été simplement une ère où de mauvaises choses se produisaient continuellement. À la fin de Diablo 4, les joueurs ont réellement sauvé le monde, et Sanctuaire s'en est remis. Il y a eu une sorte d'âge d'or de cent ans. C'est pour ça que le moment où vous affrontez un monde effondré à nouveau dans Diablo 5 sera d'autant plus dramatique. »</p>
+      <cite><b>John Mueller</b>, senior art director, à Inven Global</cite>
+    </div>
+
+    <p>C'est un point de récit contre-intuitif et il désamorce l'accusation de reniement : la victoire du joueur de Diablo IV n'est pas annulée rétroactivement, elle a produit un siècle faste. Jennifer Hepler le formule côté écriture : « Nous devons vous montrer que ce que vous avez fait en vainquant Mephisto, ça a marché. Il y a eu un âge d'or de Sanctuaire. » Mueller appelle par ailleurs la période récente les <b>« sept années perdues »</b>, et dit que découvrir ce qui s'y est produit constitue une part importante du récit.</p>
+
+    <h3>Diablo n'est pas un personnage moralement gris, et c'est assumé</h3>
+    <p>L'équipe raconte avoir commencé par chercher la nuance, puis y avoir renoncé.</p>
+    <div class="quote">
+      <p>« Nous adorons un bon personnage moralement gris dans l'équipe Diablo. Blizzard en a créé d'incroyables — Sylvanas, Lilith. Il était naturel pour nous de pencher dans cette direction quand nous avons commencé. Mais assez vite, nous arrivions toujours à la même conclusion. <b>Diablo est Diablo. C'est le Seigneur de la Terreur. Il n'est pas rachetable. Il n'est pas incompris.</b> Et ça nous a donné beaucoup de clarté. La question devient non pas « a-t-il raison », mais <b>que se passe-t-il maintenant qu'il a gagné</b> ? »</p>
+      <cite><b>Tiffany Wat</b>, senior production director, panel BlizzCon</cite>
+    </div>
+    <p>Conséquence de design : Diablo cesse d'être la ligne d'arrivée. Il est « présent dès le premier instant du jeu, façonnant l'histoire, le monde et votre chemin à travers lui ». Shely ajoute, avec la vanne de scène : « Diablo a beaucoup plus de choses à dire dans ce jeu. C'est un personnage pleinement développé. » Son producteur exécutif lui coupe le micro avant qu'il ne tente l'imitation vocale.</p>
+
+    <h3>Ce que vous êtes</h3>
+    <p>Le joueur incarne <b>l'héritier d'Ouestmarche</b> — la VF officielle de Blizzard dit « vous portez l'héritage d'Ouestmarche », le substantif « l'Héritier » est une invention de la presse française. Vous fuyez à travers les restes calcinés d'un royaume transformé en avant-poste des Enfers, et vous avez avec Diablo <b>un lien mystérieux qui vous rend à la fois menaçant et singulièrement vulnérable à son influence</b>.</p>
+    <div class="quote">
+      <p>« Vous allez avoir un lien unique avec Diablo dont vous découvrirez au cours du jeu pourquoi et comment il est né. C'est ce qui vous met dans une position unique pour l'affronter. Vous avez une compréhension unique de lui. Mais aussi une vulnérabilité unique à ce qu'il peut vous faire. Et cela vous permet de passer le jeu à vous définir en opposition au Seigneur de la Terreur. Pouvez-vous résister à son influence ? Pouvez-vous retourner ses pouvoirs contre lui ? »</p>
+      <cite><b>Jennifer Brandes Hepler</b>, narrative director, panel BlizzCon</cite>
+    </div>
+
+    <h3>Les commandants de l'effroi et le royaume de la Terreur</h3>
+    <p>Diablo ne règne pas seul. Quelques humains puissants ont été <b>corrompus et élevés au rang de commandants de l'effroi</b> — « ils ont le pouvoir des ducs de l'Enfer », précise Shely à l'oral, une indication de rang absente des textes officiels. Chacun possède son identité visuelle propre et son thème, qu'il applique au monde. Leur nombre et leurs noms n'ont pas été révélés ; un seul a été désigné, par sa fonction, comme le <em>commandant de l'effroi des Morts-Vivants</em>.</p>
+    <p>Ceux qui résistent finissent dans une <b>cage à âmes</b> ou sont happés dans le <b>royaume de la Terreur</b>, le coin d'Enfer personnel de Diablo. Et c'est là que démarre l'intrigue : « L'histoire commence vraiment quand vous découvrez que vous pouvez entrer dans le royaume de la Terreur et survivre », dit Hepler — ce que personne d'autre ne peut faire. Elle ajoute y apprendre « quelques autres pouvoirs dont nous ne sommes pas encore prêts à parler ».</p>
+
+    <div class="note"><strong>Un allié chez les anges, et l'indifférence des Cieux.</strong> Hepler annonce vouloir montrer « un Sanctuaire pris entre l'agression de Diablo et l'indifférence presque aussi dommageable des Cieux », et promet de « vous laisser trouver un allié parmi les anges, et même retourner les pouvoirs de l'Enfer contre lui-même ». C'est la seule mention d'un allié angélique. Aucun nom n'est donné.</div>
+
+    <p>Le plan de Diablo, lui, est explicite dans le texte officiel : « Diablo a conquis Sanctuaire, <b>un marchepied pour envahir les Cieux</b>. Désormais, depuis le trône d'Ouestmarche, il utilise le peuple et les âmes de Sanctuaire comme des armes au service de l'Éternel conflit. »</p>
+  </div>
+
+  <figure>
+    <div class="plate"><img src="/jeux/diablo-5/diablo-a-gagne/img/terror-realm.webp" alt="Intérieur d'une dimension infernale, vastes cages de fer suspendues dans un vide de brume rouge, chacune abritant une pâle luminescence"></div>
+    <figcaption>Les cages à âmes et le royaume de la Terreur. Confirmés comme lieux narratifs traversables — mais rien n'a été dit de leur statut en jeu : zone, endgame, dimension parallèle procédurale ? Aucune réponse.</figcaption>
+  </figure>
+</section>
+
+<!-- ─────────── 3. LE MONDE ─────────── -->
+<section id="monde">
+  <div class="sec-head">
+    <p class="eyebrow">III — Le changement structurel</p>
+    <h2>Ce n'est pas la fin du monde ouvert. C'est la fin du monde ouvert <em>statique</em>.</h2>
+  </div>
+  <div class="prose stack">
+    <p>La formule qui circule — « Diablo V abandonne le monde ouvert » — est une approximation. Le monde reste ouvert et Mueller précise conserver « la portée et l'échelle montrées dans Diablo 4 ». Ce qui disparaît, c'est la <b>carte fixe</b>. L'overworld <em>et</em> les donjons redeviennent <b>procéduraux</b>, comme avant Diablo IV.</p>
+
+    <div class="quote">
+      <p>« Dans Diablo 5, nous ramenons le monde procédural, à la fois dans les donjons et dans l'overworld. Si vous retournez dans une région où vous êtes déjà allé, toute l'information que je connaissais hier — ce chemin que j'avais trouvé, ce point de repère vers lequel j'avançais, comment combattre ces monstres d'élite — rien de tout ça ne va m'aider aujourd'hui. »</p>
+      <cite><b>Tiffany Wat</b>, senior production director, panel BlizzCon</cite>
+    </div>
+
+    <h3>Le <em>terror-forming</em> : un jeu de mots d'équipe, pas un système</h3>
+    <p>Il faut être précis ici, parce que c'est l'endroit où la couverture a le plus dérapé. Le mot n'apparaît <b>dans aucun des textes officiels de Blizzard</b>, qui écrivent seulement « paysage procédural ». Il vient d'une phrase orale de Tiffany Wat :</p>
+    <div class="quote">
+      <p>« Cela fait sept ans qu'il a conquis Sanctuaire. Lui et ses commandants de l'effroi, leur corruption et leur influence se sont vraiment répandues à travers Ouestmarche, et ils remodèlent activement la terre telle que nous la connaissons. Et affectueusement, dans l'équipe — on adore un bon jeu de mots chez Diablo — nous appelons ça le <b>terror-forming</b>. »</p>
+      <cite><b>Tiffany Wat</b>, panel BlizzCon</cite>
+    </div>
+    <p>C'est un surnom interne assumé comme calembour sur <em>terraforming</em>. Des dizaines de sites le présentent comme un système officiel doté de règles décrites. Il n'y en a aucune. La définition la plus précise obtenue vient de Shely, en entretien : « Nous appelons ça terror forming parce que ces commandants de l'effroi vont réellement transformer l'environnement, transformer le biome en une version de l'Enfer qui se rattache à leurs pouvoirs propres. »</p>
+
+    <p>Hepler donne l'exemple concret, et il est plus riche :</p>
+    <div class="quote">
+      <p>« Le monde procédural nous donne beaucoup de leviers. Vous pouvez aller dans un endroit, il est sous le contrôle du commandant de l'effroi des Morts-Vivants, et il est plein de zombies et de choses comme ça. Et plus tard dans le jeu, vous pouvez y retourner, et il a <b>soit été repris par l'humanité, soit pris par un autre commandant de l'effroi</b>, et l'environnement sera totalement différent en conséquence. »</p>
+      <cite><b>Jennifer Brandes Hepler</b>, narrative director</cite>
+    </div>
+    <p>Notez la formulation passive : « repris par l'humanité ». <b>Personne n'a dit que c'est le joueur qui reprend une région</b>, ni que tuer un commandant de l'effroi change son territoire. L'interview française de jeuxvideo.com ajoute un élément absent de la version anglaise : le retour dans la zone s'y fait « lors d'une quête personnelle d'un des membres de votre caravane ». Le changement serait donc scénarisé par la progression, au moins dans cet exemple.</p>
+
+    <h3>Comment ça marche techniquement</h3>
+    <p>La seule description d'architecture livrée tient en deux phrases de Joe Shely : le monde est assemblé à partir de <b>tuiles</b>, et les commandants de l'effroi <b>superposent des modifications par-dessus ces tuiles</b>.</p>
+    <div class="quote">
+      <p>« Les tuiles elles-mêmes peuvent être différentes d'une aventure à l'autre lorsque vous explorez un espace donné. Quand les commandants de l'effroi sont là, ils peuvent ajouter des changements supplémentaires par-dessus ces tuiles. […] Vous pouvez avoir rencontré une église en ruine, et cette église en ruine peut être représentée de différentes manières selon l'état de la région. »</p>
+      <cite><b>Joe Shely</b>, senior game director</cite>
+    </div>
+    <p>Le mot « seed » n'apparaît dans aucune source fiable. On ignore si l'overworld est un monde persistant régénéré, une collection de zones instanciées, ou un monde par personnage. <b>C'est le trou le plus gênant du dossier</b>, et il commande tout le reste, à commencer par le multijoueur.</p>
+
+    <h3>Le brouillard de guerre revient, et la carte en overlay avec lui</h3>
+    <p>Le concept interne s'appelle <b>« Constant Discovery »</b>. Wat, sur scène : « Et la seule chose au-delà du brouillard de guerre, ce sont d'autres questions. » Une diapositive résume : « Nous ramenons le brouillard de guerre pour aider à créer la peur de l'inconnu. » Mueller explicite le lien mécanique avec la caravane : « Chaque fois que vous déplacez la caravane vers un nouvel emplacement, le brouillard de guerre se redéploie par-dessus, et les joueurs doivent explorer la zone de leurs propres yeux. »</p>
+    <p>Et un détail concret que la couverture a largement manqué : <b>Diablo V aura une carte en overlay dès le lancement</b>, confirmé par Joe Shely lors du Q&A de groupe. Diablo IV n'en avait pas à sa sortie et n'en a reçu une qu'en 2026. Un minimap serait de toute façon de peu d'utilité dans un monde régénéré.</p>
+
+    <h3>Le spectre de Starfield</h3>
+    <p>Un seul journaliste a posé la question qui fâche : comment éviter la répétitivité dont souffrent les mondes procéduraux modernes ? La réponse de Shely est la meilleure formulation disponible de l'intention de design.</p>
+    <div class="quote">
+      <p>« Eh bien, nous allons construire beaucoup de contenu. Mais une partie du travail, c'est de créer un équilibre entre le fait qu'une zone du monde ait une identité, pour que vous ayez quelque chose qui en fasse un lieu, et le fait qu'elle ait aussi des éléments qui peuvent changer. Il y a un équilibre entre ces deux choses qui crée la sensation que <b>ce n'est pas comme si on avait pris un tas de blocs et qu'on les avait vidés par terre, et voilà ce que vous obtenez. C'est intentionnel.</b> »</p>
+      <cite><b>Joe Shely</b>, à Polygon</cite>
+    </div>
+    <p>Zitterman ajoute que « c'est une technologie sur laquelle nous construisons depuis Diablo 3 » et promet un approfondissement technique « quand le moment sera venu ». Mueller précise de son côté que le système de donjons procéduraux en est à « notre troisième version de cette techno ».</p>
+
+    <div class="warn"><strong>Ce que personne n'a dit.</strong> La <b>fréquence</b> de régénération. Le <b>ratio</b> procédural / fait main — aucun chiffre. Si le joueur <b>déclenche ou subit</b> le remodelage. Ce que deviennent les zones nettoyées en <b>multijoueur</b> si chacun a sa version de Sanctuaire. Le <b>moteur</b> n'a pas été nommé ; la seule indication officielle est de Tiffany Wat : « Le moteur de Diablo 5 est une évolution du moteur de Diablo 4. » Et aucun mot sur la verticalité, le cycle jour/nuit ou la météo — trois choses que Diablo IV possède et qu'il serait facile de reporter par défaut. Ne le faites pas.</div>
+
+    <h3>La seule critique explicite de Diablo IV</h3>
+    <p>Elle vient de Zitterman, à Polygon, et elle est nette :</p>
+    <div class="quote">
+      <p>« Les joueurs se sont tellement amusés à lever le brouillard de guerre dans Diablo 4… C'était une expérience à usage unique, non ? Mais les joueurs veulent ça. Ils veulent ce sentiment de découverte constante. L'une des raisons pour lesquelles nous sommes revenus au monde procédural pour Diablo 5, c'est que nous avons vu que c'était une expérience formidable d'explorer à quoi ressemblait le monde entier du continent oriental dans Diablo 4, mais que c'était une expérience <b>qu'on ne pouvait réellement vivre qu'une seule fois</b>, et nous voulions pouvoir la fournir de manière plus constante. »</p>
+      <cite><b>Matt Zitterman</b>, executive producer, à Polygon</cite>
+    </div>
+    <p>Aucun développeur n'a employé les mots « erreur », « échec » ou « raté » à propos du monde de Diablo IV. Les titres qui le prétendent sont des habillages éditoriaux. La seule pique présente dans un texte officiel écrit est plus discrète : la survie « n'est plus liée aux villes ni aux <b>bastions conquis</b> » — un tir direct sur les Bastions de Diablo IV.</p>
+  </div>
+
+  <figure>
+    <div class="plate"><img src="/jeux/diablo-5/diablo-a-gagne/img/terror-forming.webp" alt="Une église en ruine montrée comme si deux versions incompatibles du même lieu se superposaient, l'une envahie de racines pâles, l'autre calcinée et veinée de lumière orange"></div>
+    <figcaption>« Vous pouvez avoir rencontré une église en ruine, et cette église en ruine peut être représentée de différentes manières selon l'état de la région. » C'est, littéralement, la seule mécanique de <em>terror-forming</em> que Blizzard ait décrite.</figcaption>
+  </figure>
+
+  <figure>
+    <div class="plate"><img src="/jeux/diablo-5/diablo-a-gagne/img/dread-commander.webp" alt="Une colossale figure humaine corrompue, couronnée d'os et nimbée d'ombre, au centre d'une vallée qui se déforme autour d'elle"></div>
+    <figcaption>Un commandant de l'effroi. Chacun « applique au monde son apparence propre et son thème visuel », dit John Mueller. Combien sont-ils ? Comment s'appellent-ils ? Aucune réponse.</figcaption>
+  </figure>
+</section>
+
+<!-- ─────────── 4. LA CARAVANE ─────────── -->
+<section id="caravane">
+  <div class="sec-head">
+    <p class="eyebrow">IV — Ce qui remplace les villes</p>
+    <h2>Vous êtes la zone sûre</h2>
+  </div>
+  <div class="prose stack">
+    <p>Une précision de rigueur d'abord, parce que les deux registres diffèrent. <b>À l'écrit, Blizzard ne dit jamais « il n'y a pas de villes »</b> : le texte officiel dit que « la survie n'est plus liée aux villes ni aux bastions conquis ». C'est à l'oral, dans le panel, que les développeurs sont catégoriques — et ils le sont beaucoup.</p>
+    <p>Tiffany Wat : « Dans Diablo V, toutes les villes sont détruites. Il ne reste pas beaucoup de survivants. » Et : « Vous ne devriez jamais vous sentir vraiment en sécurité, parce que toutes les villes ont disparu et que Sanctuaire est un endroit brutal. » Zitterman : « un monde où Diablo a déjà gagné, et où il n'y a <b>littéralement aucun endroit sûr</b> ». Mueller, à Inven Global : « L'un des plus grands changements, c'est que les villes sûres et les villageois accueillants n'existent plus. La destruction de Sanctuaire est à ce point absolue. »</p>
+
+    <h3>L'idée fondatrice</h3>
+    <div class="quote">
+      <p>« C'est personnellement une de mes parties préférées du jeu : comment représenter une ville ou un lieu de sécurité dans un monde où Diablo a déjà gagné, et où il n'y a littéralement aucun endroit sûr ? Nous avons commencé à réfléchir à ce problème, et <b>l'idée qui nous est restée, c'est que le joueur est le point de sécurité. Vous et votre bande de suiveurs êtes les derniers restes de l'humanité</b>, et en quelque sorte la lumière dans les ténèbres de Sanctuaire. »</p>
+      <cite><b>Matt Zitterman</b>, executive producer, panel BlizzCon</cite>
+    </div>
+
+    <p>Concrètement : une <b>caravane</b>. Elle démarre — détail livré uniquement à jeuxvideo.com — sous la forme d'un simple campement autour d'un feu avec <b>un seul compagnon</b>, et grandit par recrutement. Chaque survivant rallié apporte son chariot, dont l'apparence reflète sa personnalité et sa spécialisation. Les trois fonctions confirmées sont <b>marchands, artisans, compagnons</b>. Ce n'est <em>pas</em> un système de logement au sens strict, précisent les développeurs, mais c'est le hub central de tout l'artisanat.</p>
+
+    <h3>La contrainte que tout le monde a manquée</h3>
+    <p>On ne déplace pas la caravane librement. C'est la seule mécanique de progression décrite, et elle ne figure que dans une interview donnée à la presse coréenne :</p>
+    <div class="quote">
+      <p>« Parce que Sanctuaire lui-même est devenu un monde extrêmement dangereux, <b>vous ne pouvez pas simplement déplacer la caravane où vous voulez. Les joueurs doivent sortir eux-mêmes dans le monde et établir des emplacements sûrs vers lesquels la caravane pourra voyager. Ce n'est qu'après avoir sécurisé un espace sûr que vous pouvez y amener la caravane et vos compagnons.</b> »</p>
+      <cite><b>Matt Zitterman</b>, à Inven Global</cite>
+    </div>
+    <p>La boucle se dessine : sécuriser un site → y amener la caravane → le brouillard de guerre se redéploie sur la zone nouvelle → explorer. Réserve de méthode : ce texte est passé par une traduction assistée par IA depuis le coréen, donc à citer en paraphrase plutôt qu'en verbatim. Aucun média occidental n'a rapporté ce point.</p>
+
+    <h3>Toutes les quêtes secondaires viennent de vos compagnons</h3>
+    <p>C'est le corollaire narratif, et Hepler le défend avec l'argument le plus convaincant du panel.</p>
+    <div class="quote">
+      <p>« Il ne reste aucun civil normal, ce qui veut dire que <b>vous ne tomberez jamais sur un donneur de quête planté au bord de la route qui attend de vous demander un service</b>. À la place, les personnages de votre caravane deviennent la source de tout votre contenu annexe. Et chacun d'eux est une personne intéressante et à multiples facettes que vous avez choisi d'amener dans votre caravane, dans votre vie. Et les quêtes qu'ils vous donnent font partie de leur histoire personnelle. Donc <b>chaque quête secondaire de ce jeu compte. Elle compte parce qu'elle compte pour quelqu'un qui compte pour vous.</b> Ou, comme j'aime le résumer : le véritable enfer, ce sont les amis qu'on se fait en chemin. »</p>
+      <cite><b>Jennifer Brandes Hepler</b>, narrative director, panel BlizzCon</cite>
+    </div>
+
+    <p>Tiffany Wat fait la même critique côté marchands, avec un gag qui vise explicitement les PNJ interchangeables de Diablo III et IV : « Dans les Diablo précédents, vous alliez de ville en ville, et il y avait toujours, commodément, un forgeron qui attendait de vous aider. C'était Bob 1, Bob 2. Mais dans Diablo V, toutes les villes sont détruites. Alors quand un forgeron choisit de rejoindre votre caravane, eh bien, ce sera <b>Bob Prime</b>. » Elle précise aussitôt que le nom n'est pas définitif.</p>
+
+    <h3>Deux compagnons identifiés</h3>
+    <p>Le texte officiel en nomme deux : « une ancienne <b>sœur de l'Œil aveugle</b> » — la confrérie d'archères dont dérive la Rogue de Diablo I, rappel direct du Camp des Rogues de Diablo II — et « un <b>gobelin au trésor</b> échoué, en quête de sens dans un monde où la cupidité a perdu son objet ». Il s'appelle <b>Zarg</b>, ce n'est pas non plus un nom définitif, et Wat souligne le renversement : « Dans Diablo V, vous allez avoir l'occasion de connaître un gobelin au trésor autrement que comme une piñata à butin, pour une fois. » Hepler conclut : « Faites absolument confiance à Zarg, parce qu'il comprend parfaitement que vous êtes bien plus facile à voler que Diablo. »</p>
+
+    <h3>La filiation revendiquée</h3>
+    <p>Zitterman cite le Camp des Rogues de Diablo II — « il a cette ambiance, il donne le ton de tout le jeu, l'humanité qui gratte un coin de sécurité au milieu de toute cette horreur, et le feu de camp au centre qui représente d'une certaine manière cet espoir de l'humanité ». Hepler, elle, revendique son propre passé :</p>
+    <div class="quote">
+      <p>« La caravane amène certains des meilleurs éléments des RPG traditionnels dans le format ARPG de Diablo, en vous donnant ce genre de campement à la Baldur's Gate ou Dragon Age où vous pouvez interagir avec vos suiveurs. <b>Ce ne seront pas des suiveurs à la Dragon Age où vous montez leurs compétences et leur donnez des vêtements</b>, mais ce seront des suiveurs avec des personnalités. »</p>
+      <cite><b>Jennifer Brandes Hepler</b>, à GamesRadar</cite>
+    </div>
+    <p>La limite est posée par elle-même. Des sites ont titré que Diablo V « confirmait officiellement une fonctionnalité de Baldur's Gate 3 » : c'est l'amplification d'une analogie, pas la confirmation d'une mécanique.</p>
+
+    <div class="warn"><strong>Le vide le plus inquiétant.</strong> Réparation, potions, <b>coffre partagé</b>, portail de ville, tri du butin, mort et résurrection : <b>rien</b>. Zéro information. Or le retour annoncé de l'inventaire en grille rend ces questions structurellement brûlantes — un inventaire encombré sans ville où se décharger est un problème de conception majeur. Plusieurs sites comblent le vide en affirmant que la caravane permet « de réparer, de reconstituer les potions », ou que des joailliers y rejoignent le cercle. <b>Rien de tout cela n'a été dit.</b> Et la question « la caravane peut-elle être attaquée ? » n'a jamais été posée ni traitée : tout le discours officiel la présente au contraire comme <em>le</em> lieu sûr.</div>
+  </div>
+
+  <figure>
+    <div class="plate"><img src="/jeux/diablo-5/diablo-a-gagne/img/caravane.webp" alt="Un petit convoi de lourds chariots de bois disposés en cercle autour d'un unique feu de camp sur une lande calcinée, la nuit"></div>
+    <figcaption>« Vous et votre bande de suiveurs êtes les derniers restes de l'humanité. » L'obscurité au-delà des chariots est, dans le discours de Blizzard, totale et sans exception.</figcaption>
+  </figure>
+</section>
+
+<!-- ─────────── 5. LES CLASSES ─────────── -->
+<section id="classes">
+  <div class="sec-head">
+    <p class="eyebrow">V — Trois sur un nombre inconnu</p>
+    <h2>Un chevalier de la peste, et deux revenants de Diablo III</h2>
+  </div>
+  <div class="prose stack">
+    <p>Trois classes ont été révélées. Blizzard emploie en français le <b>pluriel et la minuscule</b> — « les chevaliers de la peste », « les chasseurs de démons », « les moines » — là où la presse française écrit au singulier avec capitale. Aucun genre n'est assigné : le texte anglais dit <em>they</em>.</p>
+  </div>
+
+  <div class="classes">
+    <article class="cls">
+      <img src="/jeux/diablo-5/diablo-a-gagne/img/plague-knight.webp" alt="Un chevalier massif en armure de plates noire hérissée de pointes, heaume clos à cornes, miasme verdâtre autour des jambières">
+      <div class="body">
+        <p class="vf">Chevalier de la peste</p>
+        <h3>Plague Knight</h3>
+        <p>La seule classe inédite annoncée. « Une classe lourdement blindée. C'est une mort en marche. Vous allez parcourir le champ de bataille en répandant la maladie, puis en la consommant pour en tirer de la puissance. »</p>
+        <p class="tagline">Artistiquement, l'équipe l'a conçue « comme une vierge de fer médiévale sur deux jambes ».</p>
+      </div>
+    </article>
+    <article class="cls">
+      <img src="/jeux/diablo-5/diablo-a-gagne/img/demon-hunter.webp" alt="Un rôdeur encapuchonné en armure de cuir légère, longue écharpe au vent, deux arbalètes en main">
+      <div class="body">
+        <p class="vf">Chasseur de démons</p>
+        <h3>Demon Hunter</h3>
+        <p>De retour depuis Diablo III. Armure légère, arbalètes jumelles, frappe depuis l'ombre, bonds à travers le champ de bataille. « Extrêmement agile, cloue les démons contre les murs. »</p>
+        <p class="tagline">La classe préférée de Joe Shely, qui s'est fait promettre une écharpe par son directeur artistique.</p>
+      </div>
+    </article>
+    <article class="cls">
+      <img src="/jeux/diablo-5/diablo-a-gagne/img/monk.webp" alt="Un moine au crâne rasé, bandeau de tissu, torse bandé de lin, poings nus, lumière sacrée le long des avant-bras">
+      <div class="body">
+        <p class="vf">Moine</p>
+        <h3>Monk</h3>
+        <p>De retour depuis Diablo III. Combat de mêlée rapprochée à mains nues. « Vous pourrez de nouveau réduire les démons en pulpe à coups de poing. Et s'il y en a hors de portée, appeler la Lumière sacrée pour les frapper. »</p>
+        <p class="tagline">La classe la moins documentée des trois : rien n'a été dit de son évolution depuis 2012.</p>
+      </div>
+    </article>
+  </div>
+
+  <div class="prose stack" style="margin-top:2rem">
+    <h3>Ce qu'on sait réellement du chevalier de la peste</h3>
+    <p>La citation la plus riche du dossier sur cette classe vient d'un média français, et aucun média anglophone ne la porte :</p>
+    <div class="quote">
+      <p>« En ce qui concerne les détails du système de ressources liées au plague knight, l'équipe des systèmes travaille actuellement sur ces mécaniques, donc je ne rentrerai pas dans les détails exacts de son fonctionnement. Cependant, c'est une classe lourdement armurée. C'est une classe <b>qui n'est peut-être pas aussi mobile que le Chasseur de Démons</b>, mais qui possède <b>un grand contrôle sur le champ de bataille, différemment d'une classe à invocations</b>, en propageant la maladie et la peste et en pouvant les consommer pour <b>gagner en puissance et en vitalité</b>. »</p>
+      <cite>Entretien exclusif <b>jeuxvideo.com</b> avec Joe Shely et Jennifer Hepler</cite>
+    </div>
+    <p>Trois faits inédits y sont : le système de ressource <b>est encore en conception</b>, la classe est <b>moins mobile</b> que le chasseur de démons, et la consommation de maladie rend de la <b>vitalité</b> en plus de la puissance — le texte officiel ne parlait que de puissance. Esquire Singapour, qui détenait l'exclusivité mondiale des premiers concept arts, la décrit comme un archétype « de contrôle », « bâti comme un tank ».</p>
+
+    <div class="warn"><strong>Aucune compétence nommée n'existe.</strong> Ni pour le chevalier de la peste, ni pour les deux autres. Aucune ressource, aucun type d'arme, aucun arbre de talents. C'est une absence <em>attestée</em>, pas un défaut de recherche : Blizzard l'écrit — « plus de détails sur leur combat, leur progression et leurs possibilités de build à venir » — et les journalistes présents sur place le constatent. <b>Toute liste de compétences qui circule aujourd'hui est fabriquée.</b></div>
+
+    <h3>Pourquoi le moine et le chasseur de démons reviennent : la réponse n'est pas narrative</h3>
+    <p>C'est un point important et il est passé inaperçu. Aucun développeur n'explique comment un ordre monastique et une confrérie de chasseurs de démons subsistent dans un Sanctuaire « où les plus grands champions ont disparu ». La justification donnée est <b>entièrement ludique</b> : donner à chaque génération de joueurs une classe familière.</p>
+    <div class="quote">
+      <p>« Ça nous permet — si vous avez commencé Diablo avec Diablo 3, vous connaissez probablement le chasseur de démons, et vous pouvez sauter dans Diablo 5 et avoir une expérience à la fois familière et nouvelle. <b>C'est une nouvelle représentation de la classe. Ce sera différent, mais vous aurez toujours les arbalètes jumelles.</b> Nous allons payer cette nostalgie que vous avez. »</p>
+      <cite><b>Joe Shely</b>, à GameSpot</cite>
+    </div>
+    <p>John Mueller le formule par une analogie qui résume tout le projet : « Si vous jouez Batman, c'est peut-être un nouveau costume de Batman, mais c'est toujours Batman. » Modernisation visuelle assumée, pas réinvention.</p>
+    <p>Détail que personne ne relève : le moine et le chasseur de démons n'ont jamais été ajoutés à Diablo IV, même en extension. Leur dernière apparition dans un jeu principal remonte à Diablo III, en 2012. Ils existent en revanche dans <b>Diablo Immortal</b> depuis son lancement — leur « retour » n'en est un que dans la série principale.</p>
+
+    <div class="note"><strong>Un scoop enterré.</strong> Dans l'entretien Esquire, Hepler et Shely annoncent un découplage inédit : « Vous n'êtes pas un personnage figé. Ce n'est pas Nathan Drake. L'héritier d'Ouestmarche dans votre monde a <b>le genre et la classe que vous choisissez</b>. » Et Shely : « L'idée de qui vous êtes en tant que personne et de la classe que vous jouez sont <b>indépendantes d'une façon qu'elles n'ont jamais été</b>. » Ce que cela signifie techniquement n'est pas explicité, et aucun autre média du corpus ne le rapporte. Source unique.</div>
+  </div>
+</section>
+
+<!-- ─────────── 6. LE BARÈME ─────────── -->
+<section id="bareme">
+  <div class="sec-head">
+    <p class="eyebrow">VI — Enquête</p>
+    <h2>« Plus de classes que jamais » : la barre est beaucoup plus haute que la presse ne l'a calculée</h2>
+  </div>
+  <div class="prose stack">
+    <p>Sur scène, Joe Shely lance une promesse spectaculaire et volontairement ambiguë :</p>
+    <div class="quote">
+      <p>« Diablo V va sortir avec plus de classes que jamais auparavant. Et je ne veux pas seulement dire plus de classes qu'un autre jeu Diablo au lancement. <b>Je veux dire plus de classes au total.</b> »</p>
+      <cite><b>Joe Shely</b>, panel BlizzCon — transcription verbatim</cite>
+    </div>
+    <p>Blizzard confirme par écrit dans son récapitulatif officiel : « Diablo 5 sortira avec plus de classes que n'importe lequel des titres précédents de la série. » <b>Aucun chiffre n'a jamais été donné.</b> Tout nombre attribué à Blizzard est une déduction de presse ou une invention.</p>
+    <p>La déduction la plus citée est celle de GameSpot : « neuf ou dix classes ». Elle est <b>incomplète</b>, parce qu'elle ignore trois ajouts de 2026. Voici le barème réel, reconstitué.</p>
+
+    <div class="tbl-wrap">
+      <table>
+        <thead>
+          <tr><th>Jeu</th><th class="num">Au lancement</th><th class="num">Total aujourd'hui</th><th>Ce qui s'est ajouté</th></tr>
+        </thead>
+        <tbody>
+          <tr><td><b>Diablo</b> (1996)</td><td class="num">3</td><td class="num">4</td><td>Moine, via <em>Hellfire</em> (1997, développée par Synergistic Software)</td></tr>
+          <tr><td><b>Diablo II</b> (2000)</td><td class="num">5</td><td class="num"><b>8</b></td><td>Druide et Assassin (<em>Lord of Destruction</em>, 2001), puis <b>Démoniste</b> — <em>Reign of the Warlock</em>, DLC de Resurrected, <b>février 2026</b>. Première nouvelle classe jouable de Diablo II en vingt-cinq ans.</td></tr>
+          <tr><td><b>Diablo III</b> (2012)</td><td class="num">5</td><td class="num">7</td><td>Croisé (<em>Reaper of Souls</em>, 2014), Nécromancien (DLC, 2017)</td></tr>
+          <tr><td><b>Diablo IV</b> (2023)</td><td class="num">5</td><td class="num"><b>8</b> → <b>9</b></td><td>Spiritborn (<em>Vessel of Hatred</em>, 2024), puis <b>Paladin et Démoniste</b> (<em>Lord of Hatred</em>, avril 2026 — deux classes, ce que personne ne relève). L'<b>Amazone</b> arrive au premier semestre 2027.</td></tr>
+          <tr><td><b>Diablo Immortal</b> (2022)</td><td class="num">6</td><td class="num"><b>10</b></td><td>Chevalier de sang (2023), Tempête (2024), Druide (2025), <b>Démoniste</b> (juin 2026, dixième classe)</td></tr>
+          <tr><td><b>Diablo V</b> (2029)</td><td class="num">?</td><td class="num">—</td><td>Trois connues : chasseur de démons, moine, chevalier de la peste</td></tr>
+        </tbody>
+        <tfoot>
+          <tr><td colspan="4">Pour battre « n'importe quel titre précédent » : <b>9 minimum</b> aujourd'hui · <b>10</b> dès 2027 avec l'Amazone · <b>11</b> si Diablo Immortal compte</td></tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <p>Autrement dit, le « neuf ou dix » de GameSpot est un <b>plancher</b>, pas une estimation. Et le périmètre de la promesse n'est pas tranché : un journaliste présent au Q&A a posé la question directement — Diablo Immortal compte-t-il ? — et <b>n'a pas obtenu de réponse</b>.</p>
+
+    <div class="warn"><strong>Deux déformations à ne pas reprendre.</strong> PC Gamer écrit que Diablo V sortira « avec plus de classes que tous les jeux Diablo réunis à leur lancement ». Lu littéralement, cela ferait dix-huit classes. Shely dit « plus de classes au total », pas « que tous cumulés » : c'est une surinterprétation, reprise ensuite par plusieurs sites français. Et une formulation recueillie par Gameblog tire dans l'autre sens — « plus qu'il n'y en a jamais eu dans un jeu Diablo <em>de base</em> » — ce qui serait nettement moins ambitieux. <b>La contradiction n'est pas résolue</b>, et tient peut-être à un effet de traduction.</div>
+
+    <p>Reste un fait grammatical, mince mais réel : Shely dit « nous allons aussi amener de <b>nouvelles classes</b> » au pluriel, puis « le chevalier de la peste est la <b>première</b> nouvelle classe ». Il y a donc au moins une seconde classe inédite non annoncée. C'est une déduction solide, mais c'est une déduction.</p>
+    <p>Quant aux classes historiques — Barbare, Sorcier, Nécromancien, Druide, Paladin, Assassin, Amazone, Croisé — <b>aucune n'est confirmée, et aucune ne fait même l'objet d'une fuite</b>. Leur histoire les rend plausibles, pas certaines.</p>
+  </div>
+</section>
+
+<!-- ─────────── 7. ITEMISATION ─────────── -->
+<section id="items">
+  <div class="sec-head">
+    <p class="eyebrow">VII — Le butin</p>
+    <h2>Le Tetris d'inventaire revient, et avec lui vingt-cinq ans de dette</h2>
+  </div>
+  <div class="prose stack">
+    <p>Les trois piliers annoncés sont « profondeur, clarté, identité ». La phrase-clé du texte officiel : « L'itemisation de Diablo V est inspirée de Diablo II. » Mais la référence de travail n'est pas le jeu de l'an 2000.</p>
+    <div class="quote">
+      <p>« Parce que Diablo 2: Resurrected existe aujourd'hui aux côtés de Diablo 4, nous pouvons le regarder à travers le prisme d'aujourd'hui, et pas seulement devoir remonter vingt ans en arrière. <b>Nous pouvons tirer des leçons de D2, mais des leçons d'aujourd'hui.</b> »</p>
+      <cite><b>Joe Shely</b>, à TechRadar</cite>
+    </div>
+
+    <h3>Ce qui est confirmé</h3>
+    <ul class="rules">
+      <li><b>Inventaire en grille</b>Les objets volumineux occupent de nouveau plusieurs cases. Le paper doll est « très familier aux fans de D2 », et la <b>ceinture</b> redevient un emplacement d'équipement. Dans la maquette montrée, il n'y a <b>pas d'emplacement de pantalon</b>.</li>
+      <li><b>Runes et mots runiques</b>« Un système d'artisanat riche et profond, inspiré de l'approche de <em>Lord of Hatred</em>, avec des runes et des mots runiques dans l'esprit de Diablo II. »</li>
+      <li><b>Sets d'équipement</b>De retour, rattachés à l'équipement et non à un talisman. « Nous avons des idées incroyables pour que les objets de set <b>élargissent</b> le nombre de builds disponibles plutôt que de le réduire. »</li>
+      <li><b>Paliers d'objets</b>« Les objets commenceront simples, puis grandiront et feront un voyage avec vous. Un peu comme dans Diablo II. »</li>
+      <li><b>Objets multi-cases</b>Attention au faux ami : il s'agit de cases <em>d'inventaire</em>, pas d'emplacements d'équipement. L'intention est l'identité de l'objet sur ses trois représentations — au sol, en inventaire, porté.</li>
+      <li><b>Prérequis de caractéristiques</b>« Nous expérimentons un peu avec des prérequis de statistiques sur les objets. <b>Donc pas sûr que ce soit définitif.</b> »</li>
+    </ul>
+
+    <h3>Les chiffres de la diapositive</h3>
+    <p>Les seules valeurs concrètes du dossier viennent des maquettes projetées au panel, toutes estampillées « contenu en développement — non définitif ». Relevées par Icy Veins :</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Objet</th><th>Palier</th><th>Prérequis</th><th>Affixes relevés</th></tr></thead>
+        <tbody>
+          <tr><td><b>War Spear</b><br><span style="color:var(--muted);font-size:.9rem">Lance magique</span></td><td class="num">Tier 3</td><td class="num">60 Dextérité</td><td>87 dégâts/seconde · +13 dégâts d'Ombre · +2 Mana par élimination</td></tr>
+          <tr><td><b>Ancient Shield</b><br><span style="color:var(--muted);font-size:.9rem">Bouclier rare</span></td><td class="num">Tier 5</td><td class="num">119 Force<br>68 Intelligence</td><td>103 Armure · +112 Épines en Ombre · Les invocations héritent de 61 % de vos Épines · 36 % de chance de corrompre · Restaure 15 % des dégâts subis en Mana · +14 % Pénétration</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>Deux observations en découlent, et ce sont des lectures d'image, pas des annonces. D'abord, <b>le palier coexiste avec la rareté</b> — « Lance <em>magique</em>, Tier 3 », « Bouclier <em>rare</em>, Tier 5 » — ce qui suggère que le palier est un axe distinct de la rareté. Ensuite, <b>« +112 Épines en Ombre »</b> implique de pouvoir convertir le type de dégât des Épines, ce qui les ferait scaler avec des bonus élémentaires. Deux mécaniques nouvelles apparaissent au passage — la <b>Pénétration</b> et la <b>Corruption</b> — sans qu'aucune n'ait été expliquée. Et le <b>Mana</b> figure comme ressource, là où Diablo IV réserve le mana au seul Sorcier.</p>
+
+    <div class="note"><p><strong>La question mécanique la plus importante n'a pas été posée.</strong> Des prérequis de caractéristiques n'ont de sens que si les points de caractéristiques sont <b>attribués manuellement</b> à la montée de niveau, comme dans Diablo I et II. S'ils sont dérivés automatiquement, comme dans Diablo III et IV, les prérequis deviennent cosmétiques. Blizzard n'a rien dit. C'est le nœud de tout le système, et il est vide.</p>
+    <p style="margin-top:.7rem">Un indice, cependant : l'affixe « <b>Prérequis réduits de 15 %</b> » figure sur la maquette. C'est une mécanique classique de Diablo II, et sa présence suggère que Blizzard prévoit déjà des soupapes.</p></div>
+
+    <h3>Le piège Lord of Hatred / Vessel of Hatred</h3>
+    <p>Blizzard dit s'inspirer de l'approche de <b>Lord of Hatred</b>, la seconde extension de Diablo IV sortie en avril 2026 — pas de <em>Vessel of Hatred</em> (2024), qui avait pourtant introduit les runes. C'est une distinction qui change tout, parce que les deux systèmes n'ont rien à voir.</p>
+    <p>Le runeword actuel de Diablo IV est un couple <b>rune de rituel + rune d'invocation</b> : la première génère une ressource appelée Offrande quand une condition est remplie, la seconde se déclenche au seuil atteint. C'est un système de cause à effet, très éloigné du paradigme Diablo II où un mot runique est une <b>séquence ordonnée de runes précises</b> insérée dans un type de base donné, selon des recettes fixes. <em>Lord of Hatred</em>, lui, a apporté le <b>Cube horadrique</b> comme système d'artisanat central et le <b>Talisman</b> porteur de bonus d'ensemble — et c'est précisément le Talisman que Shely cite en disant vouloir rattacher le concept de set à l'équipement.</p>
+    <p>Quand Blizzard écrit « inspiré de l'approche de <em>Lord of Hatred</em> » pour l'artisanat, le référent concret le plus probable est donc le Cube horadrique. <b>Ce lien n'est pas explicité par Blizzard</b> : c'est une déduction.</p>
+
+    <div class="warn"><strong>Ce qui n'existe pas.</strong> Le nombre de runes, leurs noms, leur rareté, le nombre de sockets, les recettes de mots runiques, leur mode d'obtention. Les charmes. Les gemmes et le sertissage. Le nombre de pièces par set et les seuils de bonus. La <b>taille de la grille</b> d'inventaire. Le <b>coffre</b>. Et surtout <b>l'échange entre joueurs</b> : aucun développeur n'a prononcé le mot « trade » dans le transcript du panel, dans le récapitulatif officiel, ni dans aucun des entretiens. C'est le sujet le plus pollué du dossier, parce que plusieurs sites raisonnent « runes + mots runiques ⇒ économie d'échange comme D2 » et présentent la conclusion comme acquise.</div>
+
+    <p>La seule parole de développeur sur les runes de Diablo V est une intention, recueillie par jeuxvideo.com : « Ce sont des runes telles que les joueurs s'en souviennent, mais elles doivent être intégrées de manière à <b>élargir l'éventail des builds disponibles au lieu de le restreindre à quelques options seulement</b>. »</p>
+    <p>Enfin, un principe de design revient partout : la <b>« complexité différée »</b>. « En repoussant une partie de la complexité des systèmes et de l'itemisation plus tard dans l'endgame, nous pouvons livrer la profondeur et la maîtrise qu'aiment nos joueurs d'endgame sans submerger ceux qui passent beaucoup de temps dans la campagne. » Et le garde-fou anti-nostalgie, de Zitterman : « Plutôt que de simplement revenir aux anciens systèmes, l'important est de les faire évoluer vers de nouvelles formes adaptées à Diablo 5. »</p>
+  </div>
+
+  <figure>
+    <div class="plate"><img src="/jeux/diablo-5/diablo-a-gagne/img/itemisation.webp" alt="Une besace de cuir vidée sur une table de bois : une épée à deux mains occupant l'essentiel de la place, une ceinture cloutée, un bouclier, des runes de pierre gravées"></div>
+    <figcaption>« L'équipe artistique adore les icônes plus grandes, et aussi une certaine familiarité », dit John Mueller. Joe Shely promet par ailleurs « d'excellentes solutions » pour les joueurs à la manette inquiets de manipuler des objets multi-cases. Aucune n'a été décrite.</figcaption>
+  </figure>
+</section>
+
+<!-- ─────────── 8. RUMEURS ─────────── -->
+<section id="rumeurs">
+  <div class="sec-head">
+    <p class="eyebrow">VIII — Ce que les fans avaient deviné</p>
+    <h2>Rumeurs, fuites et intuitions : le palmarès</h2>
+  </div>
+  <div class="prose stack">
+    <p>Commençons par le fait le plus remarquable de cette section : <b>personne n'avait Diablo V.</b> Ni Jason Schreier, ni Jez Corden, ni eXtas1s, ni billbil-kun. Contrairement à Diablo IV, fuité par son artbook et des captures avant la BlizzCon 2019, le cinquième épisode n'a pas fuité du tout. L'embargo a parfaitement tenu, y compris auprès des créateurs partenaires sous accord de confidentialité.</p>
+    <p>Ce qui rend d'autant plus intéressant ce que la communauté avait cru deviner.</p>
+  </div>
+
+  <div class="rum forte">
+    <div class="hdr"><span class="cred forte">Crédibilité forte</span><span class="cred confirme">Vérifiée</span></div>
+    <h3>La fuite involontaire de Blizzard, en février 2026</h3>
+    <p>Tout part d'une phrase coupée au montage. Dans le <em>Diablo 30th Anniversary Spotlight</em>, produit et diffusé par Blizzard, Brent Gibson lâche : « Oh mon Dieu, ils vont devenir fous à la BlizzCon quand on annoncera— ». La phrase s'arrête là.</p>
+    <p class="verdict"><b>Verdict</b> — Sept mois de spéculation communautaire sont nés de ce fragment. La communauté avait raison qu'il y avait quelque chose de gros. Elle s'est massivement trompée sur sa nature.</p>
+  </div>
+
+  <div class="rum nulle">
+    <div class="hdr"><span class="cred nulle">Crédibilité nulle</span><span class="cred">Spéculation fan</span></div>
+    <h3>La grande erreur collective : le remaster de Diablo 1</h3>
+    <p>C'était la théorie dominante, et elle reposait sur des indices <b>tous authentiques</b> : un badge Twitch « Diablo » dans le guide officiel de la BlizzCon associé à la catégorie du jeu de 1996 ; un plan de salle prévoyant une zone de démo dédiée aux trois Diablo historiques ; deux panels consacrés aux jeux legacy ; le trentième anniversaire ; et le précédent de Diablo II: Resurrected.</p>
+    <p class="verdict"><b>Verdict</b> — Aucun remaster n'a été annoncé. Mais le legacy <em>a</em> été servi : la Saison 15 de Diablo IV est un hommage aux trois premiers jeux, avec près de vingt boss historiques, la cathédrale de Tristram, la Durance de la Haine et le Donjon de la Pierre-monde. Les indices étaient réels ; la conclusion était fausse. C'est le cas d'école parfait de l'intuition communautaire qui vise juste sur la direction et rate la cible.</p>
+  </div>
+
+  <div class="rum moyenne">
+    <div class="hdr"><span class="cred moyenne">Crédibilité moyenne</span><span class="cred">Partiellement vérifiée</span></div>
+    <h3>L'Amazone : bonne intuition, plomberie catastrophique</h3>
+    <p>Une rumeur d'avant-BlizzCon annonçait l'Amazone comme prochaine classe de Diablo IV. Le faisceau d'indices était réel : une entrée « Hand Crossbow » découverte dans les données du filtre de butin en mai 2026 et popularisée par Rhykker, le lien de lore avec Skovos ajouté par <em>Lord of Hatred</em>, et le précédent du Paladin en accès anticipé. Mais l'auteur du fil a lui-même retiré sa source en écrivant : « Source retirée, je ne veux pas faire de publicité à des sites de vente d'or. »</p>
+    <p class="verdict"><b>Verdict</b> — L'Amazone a bien été annoncée, mais pour 2027, en class pack, avec quatre archétypes. Pas en accès anticipé de la Saison 15. Et l'ironie est double : l'indice de l'arbalète de poing, que Rhykker rattachait à un chasseur de démons, pointait effectivement vers un chasseur de démons — <b>mais dans Diablo V</b>. Bonne lecture des données, mauvais jeu.</p>
+  </div>
+
+  <div class="rum faible">
+    <div class="hdr"><span class="cred faible">Crédibilité faible</span><span class="cred nulle">Preuve retouchée</span></div>
+    <h3>La carte de Kingsport et Duncraig</h3>
+    <p>Début septembre 2026, un compte nommé « 3P Venom » diffuse une capture d'écran d'une carte montrant deux régions inédites sur un continent occidental de Sanctuaire, présentée comme du contenu de la Saison 15. Un gros créateur Diablo la relaie en « améliorant » l'image.</p>
+    <p>Trois problèmes l'enterrent. La Saison 15 n'a livré <b>aucune nouvelle région</b>. Des joueurs ont relevé sur le forum officiel que Kingsport et Duncraig apparaissent dans des positions relatives incorrectes par rapport au lore établi. Et au moins une version largement partagée de l'image a été <b>retouchée par IA</b>. Quant à « 3P Venom », aucun antécédent vérifiable n'existe : le seul site à le qualifier de « leaker crédible » est un vendeur d'or.</p>
+    <p class="verdict"><b>Verdict</b> — Rumeur sans origine identifiable, étayée par une preuve altérée. À noter tout de même, et je le présente comme <em>mon</em> hypothèse et non comme un fait établi : Diablo V se déroule sur le continent occidental, dans un Ouestmarche élargi, et le héros en est l'héritier. La coïncidence est frappante. Aucune source ne l'établit.</p>
+  </div>
+
+  <div class="rum faible">
+    <div class="hdr"><span class="cred faible">Crédibilité faible</span><span class="cred">Contredite par les faits</span></div>
+    <h3>Diablo V tournerait sous Unreal Engine 5</h3>
+    <p>La rumeur s'appuie sur des offres d'emploi <b>réelles et vérifiables</b> publiées par Blizzard : un <em>Lead Systems Engineer, Unreal Engine 5</em> à Irvine, un <em>Senior Engine Programmer</em> à Santa Monica, exigeant plus de huit ans d'expérience Unreal et une <b>expertise dans la création de grands mondes ouverts</b>.</p>
+    <p class="verdict"><b>Verdict</b> — C'est précisément ce dernier point qui la tue. Diablo V abandonne le monde ouvert au profit du procédural. Ces offres correspondent bien mieux au shooter StarCraft en monde ouvert annoncé pour 2030. Et surtout, une déclaration officielle les contredit : « Le moteur de Diablo 5 est une <b>évolution du moteur de Diablo 4</b> », dit Tiffany Wat. Mueller précise que la branche depuis Diablo IV date de « plus d'un an ».</p>
+  </div>
+
+  <div class="rum moyenne">
+    <div class="hdr"><span class="cred moyenne">Avis d'expert</span><span class="cred">Pas une fuite</span></div>
+    <h3>« Le jeu ne sera pas prêt pour le printemps 2029 »</h3>
+    <p>Chris Wilson, cocréateur de Path of Exile et ancien patron de Grinding Gear Games, a publié une longue vidéo d'analyse. Ce n'est pas un leaker et il n'a aucune information interne — mais c'est la personne la plus qualifiée à s'être exprimée, et il désamorce lui-même son conflit d'intérêts en rappelant qu'il prépare son propre ARPG non annoncé.</p>
+    <p>Son raisonnement : l'absence de gameplay à la BlizzCon lui fait dater à environ cinq mois le moment où Diablo V est devenu la priorité centrale de l'équipe, soit la sortie de <em>Lord of Hatred</em>. Il compare avec sa propre expérience — Grinding Gear avait « des pipelines de contenu matures et un moteur sur mesure conçu pour ce genre », et Path of Exile a demandé « huit ans et ça continue ». Sa conclusion : « Leur fenêtre de trois ans me semble une échéance très serrée. […] <b>Mon meilleur pronostic, c'est que le jeu ne sera pas prêt pour le printemps 2029. Mais ce n'est pas grave, les retards arrivent et c'est normal dans cette industrie.</b> »</p>
+    <p>Sur le jeu lui-même, en revanche, il est franchement positif — ce qui rend son scepticisme crédible. Il relève que <b>le logo de Diablo V a les lettres en flammes</b>, comme Diablo I et II, contrairement aux logos sans flammes de Diablo III et IV, et que les maquettes d'inventaire montrent des objets de tailles différentes. « Ce sont des signaux spécifiques adressés aux joueurs comme moi. » Sa conclusion : « Je suis prudemment optimiste pour Diablo 5. Je ne m'attendais pas à l'être, mais <b>ils ont prononcé assez de mots magiques et choisi la bonne police pour le logo.</b> »</p>
+    <p class="verdict"><b>Verdict</b> — Opinion experte, pas information. Mais son exigence non négociable mérite d'être retenue comme grille de lecture des trois prochaines années : « Diablo 5 doit absolument utiliser un système traditionnel où le monde comporte des monstres progressivement plus puissants et où vous pouvez choisir à quelle vitesse y progresser. »</p>
+  </div>
+
+  <div class="prose stack" style="margin-top:2rem">
+    <h3>Ce sur quoi il n'y a strictement aucune rumeur</h3>
+    <p>C'est presque aussi instructif. <b>Le modèle économique</b> : aucune rumeur de free-to-play, de passe de combat, de boutique. Brent Gibson a répondu « On ne parle pas encore de prix, non. » <b>Le retour de l'hôtel des ventes</b> : zéro. Le sujet n'existe pas encore. <b>Le mode hors ligne</b> : une non-réponse officielle — « Nous n'avons aucune annonce à faire sur ce sujet précis » — et aucune fuite. <b>L'IA générative dans la production de Diablo V</b> : rien. Et <b>le datamining</b> est structurellement impossible : il n'existe ni build, ni alpha, ni client, ni fichiers. Toute mention de « leak » ou de « datamining » pour Diablo V aujourd'hui est fausse par construction.</p>
+
+    <div class="warn"><strong>La limite de ce dossier.</strong> Reddit est inaccessible à mes outils comme au navigateur utilisé pour cette enquête. Tout ce qui concerne r/Diablo ici est de <b>seconde main</b>, via des médias qui le citent. Les forums officiels de Blizzard, eux, sont accessibles et horodatés, et c'est de là que viennent les meilleurs matériaux communautaires de cette section. Je préfère le dire plutôt que de faire passer une synthèse de presse pour une prise de température de la communauté.</div>
+  </div>
+
+  <figure>
+    <div class="plate"><img src="/jeux/diablo-5/diablo-a-gagne/img/rumeurs.webp" alt="Une vieille carte sur parchemin épinglée, plusieurs copies contradictoires de la même carte empilées dessous, noms de lieux biffés et réécrits"></div>
+    <figcaption>La même carte, plusieurs fois, jamais tout à fait identique. C'est aussi ce que produit une chaîne de reprise quand personne ne remonte à la source.</figcaption>
+  </figure>
+</section>
+
+<!-- ─────────── 9. DÉSINFORMATION ─────────── -->
+<section id="desinfo">
+  <div class="sec-head">
+    <p class="eyebrow">IX — Autopsie</p>
+    <h2>La fabrique de la désinformation, prise sur le fait</h2>
+  </div>
+  <div class="prose stack">
+    <p>Un sujet vieux de trois semaines, une demande de recherche massive, et aucune information neuve à produire : c'est le terrain idéal pour la ferme de contenu. Voici cinq mécanismes, tous documentés sur ce dossier précis, du plus grossier au plus retors.</p>
+
+    <h3>1. L'erreur née dans la réécriture — « Plague Doctor »</h3>
+    <p>Un site publie le 13 septembre un article qui nomme la nouvelle classe <b>« Plague Doctor »</b>, et répète l'erreur quatre fois. En bas de page, il crédite une source unique : GamesRadar. Or GamesRadar écrit « Plague Knight », dans son titre même. <b>L'erreur n'est pas dans la source, elle naît dans la réécriture.</b></p>
+    <p>Deux détails achèvent le diagnostic. L'article ajoute deux phrases d'« analyse » entièrement inventées, spéculant que la classe comblerait « une niche pour les builds de dégâts sur la durée ou orientés soutien » — Blizzard n'a décrit aucun type de dégât. Et le même site publie <b>le même jour</b> un autre article qui écrit correctement « Plague Knight » sept fois. Il se contredit d'un article à l'autre, à quelques heures d'intervalle.</p>
+    <p>Une erreur voisine, et plus intéressante, vient d'un média de référence : le sous-titre d'un article de GameSpot annonce « Moine, chasseur de démons et <b>Death Knight</b> ». Le corps du texte est correct. Seul le chapeau est faux, et il trahit le réflexe Warcraft que GameSpot théorise lui-même ailleurs.</p>
+
+    <h3>2. Le facteur dix — « 1000 ans après D4 »</h3>
+    <p>Le 12 septembre à 21 h 04, jeuxvideo.com publie un article titré <b>« Diablo 5 annoncé et je veux déjà y jouer : 1000 ans après D4, Diablo a gagné »</b>. Blizzard dit cent ans. L'erreur est dans le titre et dans l'adresse de la page, donc reprise par les agrégateurs et les moteurs de recherche.</p>
+    <p>Le plus curieux est ailleurs : <b>le corps de l'article ne mentionne aucune durée</b>. Vérification faite, le seul « 1 000 » du texte est dans l'expression « brille de 1 000 feux ». Difficile de ne pas y voir une contamination du titre par une expression du corps — mais c'est mon interprétation, pas un fait établi. Aucune correction n'a été apportée à ce jour.</p>
+
+    <h3>3. Le marqueur médico-légal — « Doom Craig »</h3>
+    <p>Deux sites d'agrégation, en relayant la carte fuitée, écrivent « Kingsport and <b>Doom Craig</b> ». Le toponyme canonique est <em>Duncraig</em>. D'autres reprises donnent « Dunkra », « Duncra ».</p>
+    <p>C'est plus qu'une coquille : <b>c'est un test de fiabilité utilisable par le lecteur</b>. Une déformation phonétique d'un nom propre canonique révèle que le texte n'a pas été écrit par quelqu'un qui connaît la franchise — réécriture automatisée, ou rédaction sous-traitée à l'aveugle. Si un site écrit « Doom Craig », il n'a pas vu la source.</p>
+
+    <h3>4. Le blanchiment de fait périmé — « Project Hades »</h3>
+    <p>C'est le cas le plus retors, et le plus élégant dans son mécanisme. Un site présente, le 4 septembre 2026, un jeu Diablo en vue à la troisième personne nommé « Project Hades » comme <b>« reportedly in development »</b>, et spécule qu'il s'agirait d'un remake de Diablo I.</p>
+    <p>Project Hades est le nom de code d'un projet Diablo <b>annulé en 2016</b>. Un jeu de type Dark Souls, caméra par-dessus l'épaule, mort permanente à chaque partie, supervisé par Josh Mosqueira, projet principal de la Team 3 de 2014 à mi-2016, abandonné pour difficultés de développement. Mosqueira a quitté Blizzard, l'équipe est passée sur « Fenris », devenu Diablo IV. Tout cela est documenté depuis des années par Jason Schreier.</p>
+    <p>Le mécanisme est remarquable : prendre un fait ancien, réel et solidement sourcé, en retirer la date et la mention d'annulation, et le republier au présent. <b>Le lecteur qui vérifie trouve des sources excellentes confirmant l'existence de Project Hades</b> — et conclut que la fuite est bonne. La vérification, ici, renforce l'erreur.</p>
+
+    <h3>5. Le détournement sémantique — « leaks » sur du contenu officiel</h3>
+    <p>Un article du 14 septembre s'intitule « Diablo 5 : date de sortie, classes, histoire, carte, gameplay, itemisation et autres <b>fuites</b> ». Son propre corps admet que tout provient « des panels officiels de la BlizzCon, des interviews de développeurs et du site de Diablo 5 ». <b>Zéro fuite.</b></p>
+    <p>Ce n'est pas de la fabrication, et c'est ce qui le rend efficace : c'est une <b>requalification</b> d'information officielle en information confidentielle, pour capter le trafic de recherche. Le résultat est un bruit de fond de « fuites » qui n'en sont pas, dans lequel une vraie fuite deviendrait indétectable.</p>
+
+    <div class="note"><p><strong>Et pour finir, ma propre quasi-erreur.</strong> En vérifiant ce dossier, un de mes contrôles avait classé une « collaboration Witcher » parmi les inventions d'une de ces fermes de contenu. Vérification faite : <b>la collaboration existe.</b> Elle a été annoncée à la BlizzCon par CD Projekt Red — un skin de Geralt pour le Barbare de Diablo IV, lié à la sortie de <em>Songs of the Past</em> en 2027, avec une justification de design tout à fait sérieuse du responsable du level design sur le rapport entre l'arsenal du Barbare et la préparation d'un sorceleur.</p>
+    <p style="margin-top:.7rem">J'ai donc failli publier une accusation fausse <b>en croyant faire de la vérification</b>. C'est exactement le mécanisme décrit plus haut, appliqué en sens inverse : une source peu fiable n'a pas systématiquement tort, et décider à l'avance de ce qu'elle a inventé produit une erreur symétrique de la sienne. La seule méthode qui tienne est de vérifier chaque affirmation séparément, y compris celles qu'on s'attend à voir fausses.</p></div>
+  </div>
+</section>
+
+<!-- ─────────── 10. INDUSTRIE ─────────── -->
+<section id="industrie">
+  <div class="sec-head">
+    <p class="eyebrow">X — Pourquoi maintenant</p>
+    <h2>Une annonce sous contrainte</h2>
+  </div>
+  <div class="prose stack">
+    <h3>D'abord, tuer une erreur de calcul</h3>
+    <p>« Le plus court intervalle de l'histoire de la série » : la formule circule partout, jusque chez PC Gamer. <b>Elle est fausse.</b> Voici les écarts réels.</p>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>De</th><th>À</th><th class="num">Écart</th></tr></thead>
+        <tbody>
+          <tr><td>Diablo (janvier 1997)</td><td>Diablo II (juin 2000)</td><td class="num"><b>3 ans 6 mois</b></td></tr>
+          <tr><td>Diablo II (juin 2000)</td><td>Diablo III (mai 2012)</td><td class="num">11 ans 10 mois</td></tr>
+          <tr><td>Diablo III (mai 2012)</td><td>Diablo IV (juin 2023)</td><td class="num">11 ans 1 mois</td></tr>
+          <tr><td>Diablo IV (juin 2023)</td><td>Diablo V (printemps 2029)</td><td class="num">~5 ans 9 mois</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p>La formulation juste est donc : <b>le plus court intervalle entre deux Diablo numérotés depuis l'an 2000</b>, soit environ la moitié de l'attente qu'ont connue les deux générations précédentes.</p>
+
+    <h3>La thèse de la main forcée</h3>
+    <p>L'analyse la plus tranchée du dossier vient d'Oli Welsh, qui a passé quatorze ans à Eurogamer, dont plusieurs comme rédacteur en chef. Elle relie l'annonce à trois faisceaux.</p>
+    <p>Le premier est corporate. Blizzard a une nouvelle patronne : <b>Asha Sharma</b>, PDG de Xbox depuis début 2026, qui veut que les studios de Microsoft livrent plus souvent sur leurs grosses franchises — au point, rapporte Welsh, qu'Obsidian a dû « tout laisser tomber pour monter un nouveau Fallout ». Or Blizzard n'avait pas sorti de StarCraft depuis une décennie, et ses écarts entre Diablo tournaient autour de onze ans. « Dans cette nouvelle ère, Blizzard doit être anxieux d'éviter que ses titres tombent dans cette catégorie. »</p>
+    <p>Le deuxième est social. Microsoft a annoncé le 6 juillet 2026 la suppression de <b>3 200 postes</b> dans la division Xbox, dont 1 600 encore à répartir. Blizzard a été largement épargné par la première vague ; la seconde n'est pas affectée. « Planter deux immenses drapeaux dans le sol est une déclaration d'intention, destinée à être entendue par la direction de Xbox, les actionnaires de Microsoft et le propre personnel de Blizzard, autant que par les joueurs. »</p>
+    <p>Le troisième est le plus intéressant, parce qu'il est propre à Diablo :</p>
+    <div class="quote">
+      <p>« Il y a clairement eu un pivot, avec des ressources déplacées de Diablo 4 vers Diablo 5 plus tôt que prévu pour avancer la sortie de la suite. Mais cela a mis Blizzard dans une impasse : <b>le studio n'aurait pas pu tenir beaucoup plus longtemps sans annoncer une nouvelle extension de Diablo 4 avant que les fans ne comprennent que quelque chose clochait.</b> En ce sens, sa main a été forcée. »</p>
+      <cite><b>Oli Welsh</b>, Polygon</cite>
+    </div>
+    <p>Et sa lecture du design lui-même : « La conception de Diablo 5 équivaut à admettre que la tentative d'hybrider Diablo avec World of Warcraft n'a pas vraiment fonctionné. » Il conclut sur une note qui est presque de la sympathie : « Diablo 4 a été un grand succès. Mais il vaut mieux pour lui sortir par le haut que pour les développeurs de Blizzard de s'enliser dans la gestion de son déclin inévitable. »</p>
+
+    <h3>Le sort de Diablo IV</h3>
+    <p>Trois faits, dans l'ordre d'importance. <b>Plus aucune extension n'est prévue</b> : après <em>Vessel of Hatred</em> et <em>Lord of Hatred</em>, l'arc de la Haine est clos. Le contenu passera par des saisons et des class packs. <b>Les saisons continueront après la sortie de Diablo V</b> — mais la promesse est conditionnelle, et c'est un détail que la paraphrase de presse efface :</p>
+    <div class="quote">
+      <p>« Nous prévoyons de soutenir les saisons <b>aussi longtemps que la communauté continuera de venir</b> pour D4. Comme ce que nous avons sur D2 et D3. Il y a encore des gens qui jouent à ces jeux, et tant que vous êtes là, nous continuerons à faire du contenu. »</p>
+      <cite><b>Brent Gibson</b>, game director de Diablo IV, à Icy Veins</cite>
+    </div>
+    <p>Le modèle invoqué — Diablo II et III — décrit un régime de maintenance et de saisons recyclées, pas de contenu neuf. « Blizzard a promis de ne pas tuer Diablo IV » n'est d'ailleurs pas une citation mais une paraphrase de presse : aucun développeur n'a prononcé cette phrase.</p>
+    <p>Le troisième fait est le plus embarrassant. En 2023, Rod Fergusson promettait des <b>extensions annuelles</b>, sur le modèle de Destiny 2. Le plan a été officiellement abandonné en février 2025. Fergusson est parti en août 2025. Bilan : <b>deux extensions au lieu d'une par an.</b> Oli Welsh note que son départ n'est « probablement pas une coïncidence », et compare la situation à celle de Halo Infinite, autre jeu Xbox dont la décennie de live service annoncée a été enterrée.</p>
+
+    <h3>Blizzard, lui, se dit confiant — et argumente techniquement</h3>
+    <p>Le meilleur entretien du corpus est celui où Rebekah Valentine, de Kotaku, pose la question du scepticisme en face, en mentionnant aux développeurs les 1 600 licenciements à venir. La réponse est inhabituellement concrète :</p>
+    <div class="quote">
+      <p>« Nous avons l'avantage incroyable que la majorité des gens qui travaillent sur Diablo 5 sont des gens qui travaillent sur Diablo depuis longtemps. <b>Le moteur de Diablo 5 est une évolution du moteur de Diablo 4. Et la majorité des développeurs ont travaillé sur Diablo 4. Nous construisons donc sur la pile technique. Nos pipelines sont une évolution.</b> […] On ne peut pas entrer en pleine production sans avoir confiance dans ses pipelines, ses capacités, les talents qu'on a dans l'équipe. »</p>
+      <cite><b>Tiffany Wat</b>, senior production director, à Kotaku</cite>
+    </div>
+    <p>Le jugement de Valentine, lui, est sans appel : « Le printemps 2029, c'est un sacré coup annoncé. […] Actuellement, pour autant que je sache, le jeu est <b>seul sur le calendrier de sorties de 2029. Personne d'autre ne veut annoncer de jeux vidéo aussi loin.</b> […] Ils n'avaient pas à faire ça. Personne ne leur en aurait voulu de s'abstenir. » Son confrère Ethan Gach ajoute le précédent interne : Diablo IV avait été annoncé à la BlizzCon 2019 pour une sortie trois ans plus tard, et est arrivé en 2023. Et sa formule, la meilleure du corpus : « Fixer des dates et s'y tenir n'a traditionnellement pas été le truc de Blizzard. C'est plutôt <b>un truc de Call of Duty</b>. »</p>
+    <p>Le plus radical reste Luke Plunkett, chez Aftermath, qui déplace la question du jeu vers le monde autour : « Microsoft ne possédera peut-être plus Blizzard d'ici là. Quelqu'un d'autre, peut-être, ou ils pourraient être indépendants, qui sait ! <b>Il n'y aura peut-être plus de Blizzard d'ici là. Il n'y aura peut-être plus de Xbox d'ici là.</b> » Il rappelle que The Elder Scrolls VI a été annoncé il y a huit ans et que Todd Howard en est réduit à demander aux joueurs de « faire comme si on ne l'avait pas annoncé ».</p>
+
+    <h3>La concurrence en 2029</h3>
+    <p>Quand Diablo V sortira, <b>Path of Exile 2</b> aura environ deux ans et demi de version 1.0 derrière lui — sa sortie est fixée au 11 décembre 2026, en free-to-play — et aura enchaîné les ligues saisonnières. <b>Titan Quest II</b> sort en janvier 2027. <b>Last Epoch</b> déroule ses saisons et son extension. <b>Grim Dawn 2</b> n'arrivera pas avant 2031.</p>
+    <p>Mais l'argument le plus contre-intuitif vient du concurrent direct lui-même :</p>
+    <div class="quote">
+      <p>« Il y a de la place pour beaucoup de joueurs différents dans le genre. Ça ne doit pas nécessairement être un seul jeu qui domine tous les autres. […] <b>Tant que les gens sont prêts à revenir jouer à notre jeu un mois, quatre fois par an, ça me va.</b> »</p>
+      <cite><b>Jonathan Rogers</b>, game director de Path of Exile 2, à PC Gamer</cite>
+    </div>
+    <p>Le modèle saisonnier neutralise en partie la logique de somme nulle — ce qui rejoint mécaniquement l'argument de Gibson sur la coexistence de Diablo II, III et IV.</p>
+  </div>
+</section>
+
+<!-- ─────────── 11. TROUS ─────────── -->
+<section id="trous">
+  <div class="sec-head">
+    <p class="eyebrow">XI — Honnêteté</p>
+    <h2>Ce que personne ne sait</h2>
+  </div>
+  <div class="prose">
+    <p>Un dossier exhaustif sur un jeu annoncé à trois ans doit consacrer une section à ce qui n'existe pas. Voici les questions ouvertes, par ordre d'importance pour le jeu qui sortira.</p>
+    <ul class="gaps">
+      <li><b>Le monde procédural est-il persistant, instancié, ou propre à chaque personnage ?</b> Le mot « seed » n'apparaît nulle part. De cette réponse dépend tout le reste, à commencer par le multijoueur.</li>
+      <li><b>Comment se croise-t-on si chacun a sa version de Sanctuaire ?</b> Le multijoueur est confirmé — « solo ou multijoueur, comme vous voulez, et vous devriez pouvoir jouer tout le contenu avec vos amis » — et Blizzard a explicitement renvoyé les modalités à plus tard.</li>
+      <li><b>Les points de caractéristiques sont-ils attribués manuellement ?</b> Sans cela, les prérequis de statistiques n'ont pas de sens mécanique.</li>
+      <li><b>Où range-t-on le butin ?</b> Aucun mot sur le coffre, la réparation, les potions, le portail de ville, le tri. Or l'inventaire en grille rend ces questions urgentes.</li>
+      <li><b>L'échange entre joueurs existera-t-il ?</b> Le mot n'a jamais été prononcé par un développeur. Contexte : l'hôtel des ventes de Diablo III, puis l'échange très restreint de Diablo IV.</li>
+      <li><b>Combien de classes, exactement, et le périmètre inclut-il Diablo Immortal ?</b> Question posée à Blizzard, restée sans réponse.</li>
+      <li><b>Les compagnons de la caravane combattent-ils ?</b> Le vocabulaire officiel est ambigu — « compagnons », « bande de suiveurs » — et n'a jamais été précisé.</li>
+      <li><b>La caravane peut-elle être attaquée ?</b> Jamais abordé, ni dans les textes officiels, ni au panel, ni en entretien.</li>
+      <li><b>Sur quelles plateformes ?</b> Aucune annoncée. Le PC n'est acquis que par un lapsus, officiellement démenti comme annonce.</li>
+      <li><b>Quel modèle économique ?</b> Rien. Et fait notable : <b>aucun journaliste n'a posé la question</b> à la BlizzCon, sur une franchise dont la monétisation est pourtant le principal grief communautaire.</li>
+      <li><b>Saisons, ladder, difficulté, mode hardcore, PvP ?</b> Refus explicite de commenter. L'unique occurrence du mot « hardcore » au panel est une blague sur la chasse aux gobelins.</li>
+      <li><b>Combien de commandants de l'effroi, et qui sont-ils ?</b> Un seul désigné, par sa fonction. Aucun nom, aucun décompte.</li>
+      <li><b>Quelles régions en dehors d'Ouestmarche ?</b> Un seul toponyme dans tout le corpus. Pas de carte, pas de liste de biomes.</li>
+      <li><b>Verticalité, cycle jour/nuit, météo ?</b> Rien. Diablo IV possède les trois ; il serait facile de les reporter par défaut. Ne le faites pas.</li>
+    </ul>
+
+    <div class="endnote">
+      <p><b>Note de méthode.</b> Ce dossier repose sur la transcription verbatim intégrale du panel en huit pages, les trois articles officiels de Blizzard en anglais et en français, le site officiel, et une quinzaine d'entretiens de groupe distincts menés à la BlizzCon par PC Gamer, GameSpot, Kotaku, Polygon, TechRadar, PCGamesN, MMORPG.com, Icy Veins, Esquire Singapour, Inven Global, jeuxvideo.com et Gameblog.</p>
+      <p style="margin-top:.8rem">Règle appliquée : un fait n'est donné comme établi que s'il remonte à une source primaire ou à deux médias établis concordants. Les citations de développeurs sont traduites de l'anglais, sauf celles issues des entretiens français et de la version française officielle de Blizzard. Les propos recueillis par Inven Global sont passés par une traduction assistée par IA depuis le coréen et sont donnés en paraphrase.</p>
+      <p style="margin-top:.8rem"><b>Limites assumées.</b> Reddit n'a pas pu être consulté directement ; la réception communautaire est donc rapportée de seconde main. La vidéo du panel, qui contient les diapositives d'inventaire en pleine résolution, n'a pas été visionnée : les valeurs chiffrées proviennent de relevés concordants d'Icy Veins et d'Output Lag. Le contenu exact du teaser de quarante-huit secondes reste incertain sur un point — les silhouettes ailées crucifiées appartiennent-elles au teaser ou seulement au concept art du panel ? Les sources divergent et je n'ai pas tranché.</p>
+      <p style="margin-top:.8rem">Enfin, rappel que Blizzard martèle lui-même : <b>« Ceci est du concept art. Ce n'est pas définitif. »</b> Tout ce qui précède décrit des intentions de design à trois ans de la sortie.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ─────────── SOURCES ─────────── -->
+<section id="sources">
+  <div class="sec-head">
+    <p class="eyebrow">XII</p>
+    <h2>Sources</h2>
+  </div>
+  <div>
+    <h3 style="margin-top:0">Primaires</h3>
+    <ul class="srcs">
+      <li><a href="https://news.blizzard.com/en-us/article/24297204/diablo-v-forging-the-next-era">Blizzard — <em>Diablo V: Forging the Next Era</em></a> (et sa <a href="https://news.blizzard.com/fr-fr/article/24297204/diablo-v-forging-the-next-era">version française officielle</a>)</li>
+      <li><a href="https://news.blizzard.com/en-us/article/24301509/diablos-next-era-revealed-at-blizzcon-2026-opening-ceremonies-recap">Blizzard — récapitulatif de la cérémonie d'ouverture</a></li>
+      <li><a href="https://news.blizzard.com/en-us/article/24297203/diablo-v-is-coming-spring-2029">Blizzard — <em>Diablo V is Coming Spring 2029</em></a></li>
+      <li><a href="https://diablo5.blizzard.com/fr-fr">Site officiel Diablo V</a></li>
+      <li><a href="https://warcraft.blizzplanet.com/blog/comments/blizzcon-2026-diablo-v-forging-the-next-era-panel-transcript">Blizzplanet — transcription intégrale du panel, 8 pages</a></li>
+      <li><a href="https://www.youtube.com/watch?v=5QP8dyd8X3k">Vidéo intégrale du panel</a> · <a href="https://www.youtube.com/watch?v=GxCN_AKYtts">teaser officiel</a></li>
+    </ul>
+
+    <h3>Entretiens</h3>
+    <ul class="srcs">
+      <li><a href="https://www.polygon.com/diablo-5-no-open-world-blizzard-interview/">Polygon — Blizzard explique comment Diablo 5 évite le problème du monde ouvert de Diablo 4</a></li>
+      <li><a href="https://kotaku.com/diablo-5-developers-release-date-skepticism-2000734728">Kotaku — les développeurs face au scepticisme sur la date</a></li>
+      <li><a href="https://www.gamespot.com/articles/blizzard-says-diablo-5-was-too-big-to-be-a-diablo-4-expansion/">GameSpot — pourquoi une suite plutôt qu'une extension</a></li>
+      <li><a href="https://www.pcgamer.com/games/rpg/no-more-diablo-4-expansions-are-planned-but-theres-a-lot-of-room-for-more-storytelling-in-the-leadup-to-diablo-5/">PC Gamer — plus d'extensions pour Diablo IV</a></li>
+      <li><a href="https://www.pcgamer.com/games/rpg/diablo-5-will-fully-support-multiplayer-but-blizzard-wont-say-how-similar-to-diablo-4-itll-be/">PC Gamer — le multijoueur</a></li>
+      <li><a href="https://www.pcgamesn.com/diablo-5/blizzcon-interview-2026">PCGamesN — Q&A de groupe</a></li>
+      <li><a href="https://www.mmorpg.com/interviews/5-takeaways-from-blizzcons-diablo-v-panel-interview-2000138976">MMORPG.com — cinq enseignements</a></li>
+      <li><a href="https://www.invenglobal.com/articles/25887/diablo-5-set-100-years-after-diablo-4">Inven Global — entretien de la presse coréenne</a></li>
+      <li><a href="https://esquiresg.com/esquire-first-look-diablo-v-is-doubling-down-on-darkness/">Esquire Singapour — premiers concept arts exclusifs</a></li>
+      <li><a href="https://www.jeuxvideo.com/news/2103659/diablo-5-fait-machine-arriere-les-developpeurs-nous-avouent-qu-il-laissent-tomber-le-monde-ouvert-facon-diablo-4.htm">jeuxvideo.com — entretien exclusif Shely / Hepler</a></li>
+      <li><a href="https://www.gameblog.fr/jeu-video/ed/articles/diablo-5-interview-blizzcon-2026-722973">Gameblog — entretien BlizzCon</a></li>
+      <li><a href="https://waytoomany.games/2026/09/14/blizzcon-2026-diablo-interview/">WayTooManyGames — Brent Gibson</a></li>
+    </ul>
+
+    <h3>Analyses et réception</h3>
+    <ul class="srcs">
+      <li><a href="https://www.polygon.com/diablo-5-early-reveal-blizzard-diablo-4-future/">Polygon — Blizzard joue aux échecs en quatre dimensions</a></li>
+      <li><a href="https://www.polygon.com/patch-notes-blizzcon-2026/">Polygon — la BlizzCon était bonne, mais l'ambiance était étrange</a></li>
+      <li><a href="https://aftermath.site/blizzard-announce-new-diablo-v-starcraft-fps/">Aftermath — annoncer des jeux pour 2029 et 2030 paraît insensé</a></li>
+      <li><a href="https://www.gamesradar.com/games/diablo/diablo-5-wont-be-ready-for-spring-2029-path-of-exile-co-creator-says-and-blizzard-money-wont-change-that/">GamesRadar — Chris Wilson sur le calendrier</a></li>
+      <li><a href="https://www.gamesradar.com/games/diablo/path-of-exile-co-creator-is-tentatively-hopeful-diablo-5-will-stick-the-landing/">GamesRadar — Chris Wilson, prudemment optimiste</a></li>
+      <li><a href="https://kotaku.com/blizzard-explains-why-its-revealing-diablo-5-and-a-new-starcraft-so-early-2000733970">Kotaku — pourquoi révéler si tôt</a></li>
+      <li><a href="https://kotaku.com/diablo-5-pc-starcraft-xbox-confirmed-2000735382">Kotaku — l'affaire des plateformes</a></li>
+      <li><a href="https://www.icy-veins.com/d5/news/first-look-diablo-5-itemization-content-shown-at-blizzcon/">Icy Veins — premier regard sur l'itemisation</a></li>
+      <li><a href="https://www.videogameschronicle.com/news/blizzard-announced-diablo-and-starcraft-games-that-are-years-away-to-show-confidence/">VGC — annoncer pour afficher la confiance</a></li>
+      <li><a href="https://www.techradar.com/gaming/diablo-4-game-director-confirms-the-end-is-not-nigh-despite-diablo-5s-announcement-and-says-players-shouldnt-worry-as-were-going-to-be-making-content-for-a-long-time-the-train-is-not-stopping">TechRadar — « le train ne s'arrête pas »</a></li>
+      <li><a href="https://massivelyop.com/2026/09/29/diablo-4-will-keep-adding-seasons-even-after-diablo-5-launches-as-long-as-players-keep-showing-up/">MassivelyOP — les saisons après Diablo V</a></li>
+      <li><a href="https://www.pcgamesn.com/diablo-5/release-date">PCGamesN — récapitulatif du panel</a></li>
+    </ul>
+  </div>
+</section>
+
+</main>
+
+<footer>
+  <a href="/">Vostok</a> · <a href="/jeux/">Jeux</a> · <a href="/jeux/diablo-5/">Diablo V</a>
+</footer>
+
+</body>
+</html>
