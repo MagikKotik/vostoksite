@@ -48,6 +48,10 @@ body{
     url(/cv/hero-bg.webp) center/cover no-repeat var(--navy);
   color:#fff;padding:28px 20px 22px}
 .hero-top{display:flex;gap:18px;align-items:center}
+.ident{flex:1 1 0;min-width:0}
+/* Une source, deux rendus : la page web garde sa version, le PDF tient sur moins de place. */
+@media screen{.print-only{display:none!important}}
+@media print{.web-only{display:none!important}}
 .photo{
   width:88px;height:88px;flex:0 0 88px;border-radius:50%;
   object-fit:cover;border:3px solid rgba(255,255,255,.22);background:#0d2338;
@@ -243,15 +247,20 @@ footer a{color:var(--accent);text-decoration:none}
   .photo{width:62pt;height:62pt;flex-basis:62pt}
   .badges{margin-top:6pt;gap:4pt}
   .badge{font-size:7.2pt;padding:1pt 6pt}
-  .contacts{grid-template-columns:1fr 1fr;gap:0 16pt;margin-top:7pt;padding-top:6pt}
+  .hero-top{gap:12pt}
+  .hero .role{white-space:nowrap}
+  .contacts.side{
+    flex:0 0 auto;margin:0 0 0 auto;gap:1pt;padding:0 0 0 12pt;grid-template-columns:1fr;
+    border-top:0;border-left:1px solid rgba(255,255,255,.22);
+  }
   .contacts a{font-size:8.2pt;min-height:0;gap:5pt;color:#dbe8f2!important}
   .contacts svg{width:9pt;height:9pt;flex-basis:9pt}
   main{padding:0}
-  section{padding-top:5pt}
+  section{padding-top:3.5pt}
   h2{font-size:8pt;margin-bottom:3.5pt;padding-bottom:2pt;break-after:avoid;page-break-after:avoid}
   .intro p{font-size:8.8pt;margin-bottom:3.5pt;line-height:1.45}
   .pillars{grid-template-columns:repeat(3,1fr);gap:4pt;margin:4pt 0}
-  .pillars li{font-size:8pt;padding:3pt 6pt}
+  .pillars li{font-size:8pt;padding:2pt 6pt}
   .keyline{font-size:8.8pt;padding:3pt 7pt}
   .tool{font-size:7.6pt;padding:1.5pt 6pt}
   .ai-cards{display:grid;grid-template-columns:1fr 1fr;gap:5pt}
@@ -259,9 +268,10 @@ footer a{color:var(--accent);text-decoration:none}
   .ai-card h3{font-size:9pt}
   .ai-card p{font-size:8.2pt;line-height:1.38}
   .skillgroup{margin-bottom:3pt;display:flex;align-items:baseline;gap:6pt}
+  .skillgroup:has(+ .web-only:last-child){margin-bottom:0}
   .skillgroup h3{font-size:7.2pt;margin-bottom:0;flex:0 0 118pt}
   .chip{font-size:7.4pt;padding:1pt 5pt}
-  .job{padding:4pt 0}
+  .job{padding:3pt 0}
   .logo{width:24pt;height:24pt;flex-basis:24pt;padding:1.5pt}
   .job-id h3{font-size:9.6pt}
   .job-id .role{font-size:8.3pt}
@@ -291,10 +301,25 @@ footer a{color:var(--accent);text-decoration:none}
 <header class="hero">
   <div class="hero-top">
     <img class="photo" src="/cv/photo-rudy.jpg" alt="Portrait de Rudy Burnay" width="88" height="88">
-    <div>
+    <div class="ident">
       <h1>Rudy Burnay</h1>
       <p class="role">Développeur IA Agentique · en alternance</p>
       <p class="tagline">Senior backend C# .NET</p>
+    </div>
+    <!-- PDF : contacts à droite du nom, sans Calendly -->
+    <div class="contacts side print-only">
+      <a href="mailto:rudy.burnay@gmail.com">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
+        rudy.burnay@gmail.com
+      </a>
+      <a href="tel:+33662520860">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1 1 .4 1.9.7 2.8a2 2 0 0 1-.5 2.1L8.1 9.9a16 16 0 0 0 6 6l1.3-1.2a2 2 0 0 1 2.1-.5c.9.3 1.8.6 2.8.7a2 2 0 0 1 1.7 2z"/></svg>
+        06 62 52 08 60
+      </a>
+      <a href="https://www.linkedin.com/in/rburnay" rel="me">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="20" rx="3"/><path d="M7 10v7M7 7v.01M12 17v-4a2.5 2.5 0 0 1 5 0v4"/></svg>
+        linkedin.com/in/rburnay
+      </a>
     </div>
   </div>
 
@@ -306,7 +331,7 @@ footer a{color:var(--accent);text-decoration:none}
     <span class="badge">Anglais courant</span>
   </div>
 
-  <div class="contacts">
+  <div class="contacts web-only">
     <a href="mailto:rudy.burnay@gmail.com">
       <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 6 10-6"/></svg>
       rudy.burnay@gmail.com
@@ -338,8 +363,9 @@ footer a{color:var(--accent);text-decoration:none}
 
   <section class="intro">
     <h2>Profil</h2>
-    <p>Mon parcours suit une seule ligne : la <strong>complexité</strong>. Les bases de données, puis le backend, puis l'<strong>architecture</strong>, qui est ma passion et l'objet de ma VAE. L'<strong>IA agentique</strong> en est la suite logique : un système d'agents est une architecture. C'est pour prolonger cette ligne que je rejoins une <strong>formation en alternance de développeur IA agentique</strong>.</p>
-    <p>J'y arrive avec vingt-cinq ans de développement, dont <strong>quinze en .NET</strong> et <strong>les huit dernières en backend</strong>, sur des systèmes où la panne se voit. Et l'IA, je m'en sers déjà tous les jours : je construis des <strong>agents</strong> qui publient, transcrivent, génèrent des images et de la voix.</p>
+    <p class="web-only">Mon parcours suit une seule ligne : la <strong>complexité</strong>. Les bases de données, puis le backend, puis l'<strong>architecture</strong>, qui est ma passion et l'objet de ma VAE. L'<strong>IA agentique</strong> en est la suite logique : un système d'agents est une architecture. C'est pour prolonger cette ligne que je rejoins une <strong>formation en alternance de développeur IA agentique</strong>.</p>
+    <p class="web-only">J'y arrive avec vingt-cinq ans de développement, dont <strong>quinze en .NET</strong> et <strong>les huit dernières en backend</strong>, sur des systèmes où la panne se voit. Et l'IA, je m'en sers déjà tous les jours : je construis des <strong>agents</strong> qui publient, transcrivent, génèrent des images et de la voix.</p>
+    <p class="print-only">Développeur depuis 25 ans, <strong>architecte dans l'âme</strong>. Après <strong>15 ans de .NET</strong> et <strong>8 ans de backend</strong>, l'IA n'est pas un virage pour moi, c'est la <strong>suite logique</strong> d'un parcours construit autour de l'architecture. Je cherche une <strong>alternance</strong> pour la pratiquer à fond, et pour apporter à l'équipe qui m'accueille le recul de celui qui a déjà vu beaucoup de projets.</p>
     <ul class="pillars">
       <li><b>Données</b>Collecte temps réel en flux continu, taux de change agrégés depuis des sources multiples, migrations SQL.</li>
       <li><b>Intégration</b>API REST, services C# appelant Azure OpenAI, outils exposés à un assistant IA.</li>
@@ -351,14 +377,15 @@ footer a{color:var(--accent);text-decoration:none}
   <section class="ai-block">
     <h2>IA &amp; cloud</h2>
     <div class="tools">
-      <span class="tool">Claude</span>
+      <span class="tool web-only">Claude</span>
       <span class="tool">Claude Code</span>
       <span class="tool">MCP</span>
-      <span class="tool">Azure OpenAI</span>
+      <span class="tool web-only">Azure OpenAI</span>
       <span class="tool">Azure Cognitive Services</span>
       <span class="tool soft">OCR</span>
       <span class="tool soft">Azure Functions</span>
-      <span class="tool soft">Une vingtaine de services IA pratiqués</span>
+      <span class="tool soft web-only">Une vingtaine de services IA pratiqués</span>
+      <span class="tool soft print-only">+20 services IA</span>
     </div>
 
     <div class="ai-cards">
@@ -402,7 +429,7 @@ footer a{color:var(--accent);text-decoration:none}
         <span class="chip">Git</span>
       </div>
     </div>
-    <div class="skillgroup">
+    <div class="skillgroup web-only">
       <h3>Observabilité</h3>
       <div class="chips">
         <span class="chip">ElasticSearch</span>
@@ -513,7 +540,7 @@ footer a{color:var(--accent);text-decoration:none}
       <p class="note">Formations suivies, sans passage de certification.</p>
     </div>  </section>
 
-  <section>
+  <section class="web-only">
     <h2>Projets personnels</h2>
     <div class="edu">
       <h3>Jarvis — assistant vocal</h3>
