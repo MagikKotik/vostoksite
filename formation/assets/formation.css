@@ -208,6 +208,7 @@ a { color: var(--color-accent-secondary); }
 .chapter-head b { font-family: var(--font-heading); font-weight: 500; color: var(--color-text-primary); font-size: 1rem; }
 .chapter-head .pill { background: var(--color-background-secondary); color: var(--color-on-background-secondary); border-radius: var(--radius-full); padding: 0.15rem 0.7rem; font-size: 0.75rem; }
 .scene { display: grid; gap: clamp(1.5rem, 4vw, 3.5rem); align-items: start; animation: enter .45s var(--ease); }
+.scene > * { min-width: 0; }
 .scene--split { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); }
 @keyframes enter { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
 .kicker { font-size: 0.75rem; letter-spacing: .08em; text-transform: uppercase; color: var(--color-accent-secondary); font-weight: 500; margin-bottom: var(--space-3); }

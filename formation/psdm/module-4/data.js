@@ -255,7 +255,6 @@ window.MODULE = {
             { image: "img/affiche2.webp", alt: "Deux techniciennes discutent près de la machine à café de l'agence.", texte: "Même entre collègues, la confidentialité se respecte." },
             { image: "img/affiche3.webp", alt: "Une technicienne parle avec un patient pendant que son fils attend à la porte.", texte: "Rien à l'entourage sans l'accord du patient." }
           ],
-          note: "Visuels créés pour la formation, dans un contexte de domicile. Ils remplacent les affiches hospitalières du support d'origine.",
           commentaire: { pistes: ["Les lieux où l'on parle trop fort sans s'en rendre compte : la camionnette, le palier, l'ascenseur."], audio: "audio/communiquer-4.mp3", transcription: "Ces trois messages ont l'air simples, et pourtant, on les oublie tous les jours. La discussion entre collègues à la machine à café. L'appel passé depuis la camionnette, vitre ouverte. La conversation sur le palier, pendant que le voisin sort ses poubelles. La discrétion, ce n'est pas seulement chez le patient : c'est partout où l'on parle de lui. Avant de parler d'un patient, posez-vous une seule question : qui peut m'entendre en ce moment ?" }
         }
       ]
