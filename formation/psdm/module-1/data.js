@@ -420,7 +420,7 @@ window.MODULE = {
           commentaire: {
             pistes: ["Ce que le terrain voit et que les essais ne voient pas."],
             audio: "audio/mdr-3.mp3",
-            transcription: "Ce cycle montre une chose importante : la vie d'un dispositif médical ne s'arrête pas à sa mise sur le marché. Elle continue chez le patient, avec la surveillance, les modifications, et parfois le retrait. Et vous êtes à cette étape-là, au plus près de l'utilisation réelle. Un défaut qui n'est jamais apparu pendant les essais peut apparaître dans un salon, avec un patient âgé ou un usage imprévu. Vous verrez peut-être, dans d'anciens supports, une durée de vie moyenne de trois à cinq ans : elle n'a pas de source, mieux vaut ne pas la citer."
+            transcription: "Ce cycle montre une chose importante : la vie d'un dispositif médical ne s'arrête pas à sa mise sur le marché. Le dispositif reste surveillé chez le patient. Il peut être modifié. Et un jour, il est retiré. Vous êtes à cette étape-là, au plus près de l'utilisation réelle. Un défaut qui n'est jamais apparu pendant les essais peut apparaître dans un salon, avec un patient âgé ou un usage imprévu. Vous verrez peut-être, dans d'anciens supports, une durée de vie moyenne de trois à cinq ans : elle n'a pas de source, mieux vaut ne pas la citer."
           }
         },
         {
