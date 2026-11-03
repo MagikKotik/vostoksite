@@ -25,7 +25,19 @@
     left: '<path d="m15 18-6-6 6-6"/>',
     right: '<path d="m9 18 6-6-6-6"/>',
     flag: '<path d="M4 15s1-1 4-1 5 2 8 2 4-1 4-1V3s-1 1-4 1-5-2-8-2-4 1-4 1z"/><path d="M4 22v-7"/>',
-    grid: '<rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/>'
+    grid: '<rect width="7" height="7" x="3" y="3" rx="1"/><rect width="7" height="7" x="14" y="3" rx="1"/><rect width="7" height="7" x="14" y="14" rx="1"/><rect width="7" height="7" x="3" y="14" rx="1"/>',
+    home: '<path d="M15 21v-8a1 1 0 0 0-1-1h-4a1 1 0 0 0-1 1v8"/><path d="M3 10a2 2 0 0 1 .709-1.528l7-5.999a2 2 0 0 1 2.582 0l7 5.999A2 2 0 0 1 21 10v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/>',
+    users: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>',
+    building: '<rect width="16" height="20" x="4" y="2" rx="2" ry="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/>',
+    pill: '<path d="m10.5 20.5 10-10a4.95 4.95 0 1 0-7-7l-10 10a4.95 4.95 0 1 0 7 7Z"/><path d="m8.5 8.5 7 7"/>',
+    plus: '<path d="M5 12h14"/><path d="M12 5v14"/>',
+    euro: '<path d="M4 10h12"/><path d="M4 14h9"/><path d="M19 6a7.7 7.7 0 0 0-5.2-2A7.9 7.9 0 0 0 6 12c0 4.4 3.5 8 7.8 8 2 0 3.8-.8 5.2-2"/>',
+    bed: '<path d="M2 4v16"/><path d="M2 8h18a2 2 0 0 1 2 2v10"/><path d="M2 17h20"/><path d="M6 8v9"/>',
+    file: '<path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"/><path d="M14 2v4a2 2 0 0 0 2 2h4"/><path d="M16 13H8"/><path d="M16 17H8"/><path d="M10 9H8"/>',
+    alert: '<path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/>',
+    search: '<circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>',
+    wrench: '<path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>',
+    tag: '<path d="M12.59 2.59A2 2 0 0 0 11.17 2H4a2 2 0 0 0-2 2v7.17a2 2 0 0 0 .59 1.42l8.7 8.7a2.43 2.43 0 0 0 3.42 0l6.58-6.58a2.43 2.43 0 0 0 0-3.42z"/><circle cx="7.5" cy="7.5" r=".5"/>'
   };
   function ico(name, label) {
     return '<svg class="ico" viewBox="0 0 24 24"' + (label ? ' role="img" aria-label="' + label + '"' : ' aria-hidden="true"') + '>' + (ICONS[name] || "") + "</svg>";
@@ -86,7 +98,7 @@
   var audio = new Audio();
 
   /* ---------- Rendu des écrans ---------- */
-  function retenir(e) { return e.retenir ? '<p class="retenir"><b>À retenir</b><span>' + esc(e.retenir) + "</span></p>" : ""; }
+  function retenir(e) { return (e.retenir ? '<p class="retenir"><b>À retenir</b><span>' + esc(e.retenir) + "</span></p>" : "") + (e.note ? '<p class="note">' + esc(e.note) + "</p>" : ""); }
   function bullets(list) { return list ? '<ul class="bullets">' + list.map(function (p) { return "<li>" + esc(p) + "</li>"; }).join("") + "</ul>" : ""; }
   function head(e, h1) { return '<p class="kicker">' + esc(e.kicker) + "</p>" + (h1 ? "<h1>" : '<h2 class="title">') + esc(e.titre) + (h1 ? "</h1>" : "</h2>"); }
   function figure(e) { return e.image ? '<figure class="figure"><img src="' + e.image + '" alt="' + esc(e.alt || "") + '" width="1024" height="640"></figure>' : ""; }
@@ -142,7 +154,7 @@
     affiches: function (e) {
       return '<div class="scene"><div>' + head(e) + '<div class="posters">' + e.affiches.map(function (a) {
         return '<figure class="poster"><img src="' + a.image + '" alt="' + esc(a.alt) + '" width="768" height="1024" loading="lazy"><figcaption>' + esc(a.texte) + "</figcaption></figure>";
-      }).join("") + '</div><p class="note">' + esc(e.note) + "</p></div></div>";
+      }).join("") + '</div>' + (e.note ? '<p class="note">' + esc(e.note) + '</p>' : '') + "</div></div>";
     },
     quiz: function (e) {
       return '<div class="scene"><div>' + head(e) + '<div class="quiz">' + e.questions.map(function (q, qi) {
