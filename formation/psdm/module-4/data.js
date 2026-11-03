@@ -6,7 +6,7 @@ window.MODULE = {
   numero: 4,
   titre: "Intervention auprès de la personne malade ou présentant une incapacité ou un handicap",
   titreCourt: "Intervenir au domicile",
-  formatrice: { nom: "Stéphanie Plaisant", initiales: "SP", role: "formatrice PSDM", photo: null },
+  formatrice: { nom: "Stéphanie Plaisant", initiales: "SP", role: "formatrice PSDM", photo: "../../img/stephanie.webp" },
   version: "Prototype · 3 novembre 2026 · d'après le support corrigé du module 4",
 
   chapitres: [
