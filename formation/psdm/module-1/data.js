@@ -647,7 +647,8 @@ window.MODULE = {
           puces: [
             "Oxygénothérapie de longue durée : accord préalable obligatoire (LPP, rubrique I-1.1.3).",
             "Oxygénothérapie de courte durée : pas d'accord préalable. Prescription pour 1 mois, renouvelable 2 fois au maximum.",
-            "VNI, PPC : conditions fixées par la LPP, à confirmer auprès de la caisse."
+            "VNI (ventilation à domicile) : demande d'entente préalable obligatoire, sur le formulaire Cnam n° 629 « assistance respiratoire de longue durée à domicile ». Une demande initiale couvre 3 mois, puis chaque prolongation fait l'objet d'une nouvelle demande.",
+            "PPC (apnée du sommeil) : demande d'accord préalable obligatoire, à la mise en route comme au renouvellement. Depuis le 31 décembre 2024, le médecin la fait en ligne sur amelipro pour les patients de 16 ans et plus. Sans réponse de la caisse sous 15 jours, l'accord est acquis."
           ],
           commentaire: {
             pistes: ["Vérifier la demande d'accord préalable à l'installation : signatures, pièces."],
