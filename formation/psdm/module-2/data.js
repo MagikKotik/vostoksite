@@ -106,7 +106,6 @@ window.MODULE = {
             { titre: "Un logement adapté", texte: "Le logement permet l'HAD : l'évaluation sociale est faite par l'équipe de l'HAD." },
             { titre: "Un accord", texte: "Le patient et son entourage sont d'accord." }
           ],
-          note: "⚠ À vérifier sur ameli.fr : les règles de prise en charge (le support dit 80 %, ou 100 % en ALD). Il n'y a pas de forfait journalier hospitalier en HAD.",
           commentaire: { pistes: ["Ce qu'un technicien peut remarquer au domicile et qui intéresse l'équipe d'HAD."], audio: "audio/had-2.mp3", transcription: "Ces trois conditions disent une chose importante : l'hospitalisation à domicile ne s'impose jamais. Il faut une indication médicale, un logement qui le permet, et l'accord du patient et de ses proches. Ce dernier point, gardez-le en tête. Accueillir l'hôpital chez soi, c'est lourd pour une famille. Si vous sentez sur place que l'entourage est épuisé, ou que le logement ne suit plus, ne le gardez pas pour vous. Signalez-le à l'équipe de coordination : c'est exactement le genre d'information qui l'aide." }
         },
         {
@@ -186,7 +185,6 @@ window.MODULE = {
             "Souvent organisées autour d'une maladie ou d'un groupe de maladies. Exemple dans le domaine respiratoire : la FFAAIR (Fédération française des associations et amicales de malades, insuffisants ou handicapés respiratoires).",
             "Les associations agréées représentent les usagers dans les établissements et les instances : agrément d'usagers du système de santé, réseau France Assos Santé."
           ],
-          note: "⚠ À vérifier : le support cite « plus de 14 000 associations » sans source. Chiffre retiré en attendant de le sourcer.",
           commentaire: { pistes: ["Les associations que les patients de l'agence citent le plus souvent."], audio: "audio/medicosocial-4.mp3", transcription: "On pense peu aux associations de patients, et c'est dommage. Pour quelqu'un qui découvre sa maladie, ou qui se retrouve seul avec un appareil, elles peuvent compter énormément : on y trouve de l'information, du soutien, et des gens qui vivent la même chose. Dans le domaine respiratoire, par exemple, il existe une fédération nationale d'associations de malades. Si un patient se sent isolé, vous pouvez lui dire qu'elles existent. Simplement, sans insister : c'est à lui de décider s'il veut les contacter." }
         }
       ]
@@ -206,7 +204,6 @@ window.MODULE = {
             "Le secteur associatif, notamment représenté par le SNADOM.",
             "Les pharmacies d'officine."
           ],
-          note: "⚠ À vérifier : la liste à jour des organisations représentatives, qui évolue (fédérations, fusions).",
           commentaire: { pistes: ["Ce qui bloque le plus souvent un dossier : prescription incomplète, accord préalable en attente."], audio: "audio/psdm-1.mp3", transcription: "Voilà notre métier : le dispositif médical, et le service qui va avec. Retenez bien cette formule, parce que le matériel seul ne suffit pas. Presque tout ce que vous livrez part d'une prescription, et c'est l'Assurance maladie qui rembourse. Certains traitements, comme l'oxygène de longue durée, demandent même un accord préalable de la caisse. C'est pour ça que les papiers ne sont pas un détail. Une prescription incomplète, et c'est toute la prise en charge du patient qui peut être retardée." }
         },
         {
@@ -214,7 +211,6 @@ window.MODULE = {
           titre: "Certification et formation obligatoire",
           gauche: { etiquette: "Depuis 2021", titre: "La certification des PSDM", texte: "Créée par la LFSS pour 2021 (décret n° 2022-169 du 11 février 2022), elle conditionnera le remboursement LPP. La HAS a publié en juin 2024 le référentiel de bonnes pratiques professionnelles des PSDM (60 critères en 4 chapitres), mis à jour en juin 2026." },
           droite: { etiquette: "Arrêté du 23 décembre 2011", titre: "La formation obligatoire", texte: "Des intervenants et des garants, selon l'arrêté du 23 décembre 2011 modifié par l'arrêté du 8 mars 2012 (voir module 5)." },
-          note: "⚠ À vérifier : le calendrier d'application de la certification, sur has-sante.fr.",
           commentaire: { pistes: ["Où en est son entreprise dans la démarche de certification."], audio: "audio/psdm-2.mp3", transcription: "Ces deux évolutions vont dans le même sens : professionnaliser le métier. La certification, d'abord, conditionnera le remboursement. Et le référentiel de la Haute Autorité de santé décrit, critère par critère, ce qu'on attend d'un prestataire. La formation obligatoire, ensuite : c'est elle qui vous amène ici. Ce n'est pas une contrainte de plus. C'est la reconnaissance que votre travail demande de vraies compétences, et qu'on ne s'improvise pas intervenant à domicile." }
         },
         {

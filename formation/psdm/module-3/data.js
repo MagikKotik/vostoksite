@@ -63,9 +63,9 @@ window.MODULE = {
           titre: "Choisir des dispositifs médicaux conformes",
           intro: "Le choix des dispositifs médicaux (DM) doit respecter la réglementation :",
           cartes: [
-            { icone: "shield", titre: "Marquage CE", texte: "Apposé par le fabricant, il atteste la conformité du DM au règlement (UE) 2017/745 (MDR), applicable depuis le 26 mai 2021. Il a remplacé la directive 93/42/CEE." },
-            { icone: "scale", titre: "Classe de risque", texte: "I, IIa, IIb ou III, définie par les règles de classification de l'annexe VIII du MDR (voir le module 1)." },
-            { icone: "check", titre: "Sécurité et performances", texte: "Les exigences générales en matière de sécurité et de performances (MDR, annexe I) encadrent la conception et la fabrication." },
+            { icone: "shield", titre: "Marquage CE", texte: "Apposé par le fabricant, il atteste la conformité du DM au règlement européen relatif aux dispositifs médicaux (RDM, n° 2017/745), applicable depuis le 26 mai 2021. Il a remplacé la directive 93/42/CEE." },
+            { icone: "scale", titre: "Classe de risque", texte: "I, IIa, IIb ou III, définie par les règles de classification de l'annexe VIII du RDM (voir le module 1)." },
+            { icone: "check", titre: "Sécurité et performances", texte: "Les exigences générales en matière de sécurité et de performances (RDM, annexe I) encadrent la conception et la fabrication." },
             { icone: "tag", titre: "Notice et identifiant", texte: "Une notice d'utilisation et un étiquetage permettent une utilisation correcte et sûre, et l'identification du fabricant. L'identifiant unique (IUD) permet de tracer le DM." }
           ],
           commentaire: { pistes: ["Montrer, sur un appareil de l'agence, où trouver le marquage, la classe et l'identifiant unique."], audio: "audio/bases-3.mp3", transcription: "Vous ne choisissez pas forcément le matériel que vous installez, mais vous êtes souvent le dernier à le voir avant le patient. Alors prenez le réflexe de vérifier ce qui se vérifie : le marquage européen sur l'appareil, la présence de la notice, une étiquette lisible avec son identifiant. Ce n'est pas de la paperasse. Un appareil sans notice, c'est un patient qui ne saura pas l'utiliser correctement. Et un appareil sans identifiant, c'est un appareil qu'on ne pourra pas retrouver le jour où le fabricant signalera un problème." }
@@ -91,7 +91,6 @@ window.MODULE = {
             { icone: "shield", titre: "Se protéger", texte: "Porter les équipements de protection individuelle (EPI) adaptés. Pour l'oxygène liquide et le remplissage des réservoirs cryogéniques : chaussures de sécurité, gants cryogéniques, lunettes de protection ou écran facial, vêtements en coton couvrants, qui limitent l'électricité statique et ne collent pas à la peau en cas de projection." },
             { icone: "alert", titre: "Aménager le véhicule", texte: "Selon le matériel transporté. Pour l'oxygène : rampes de fixation et sangles d'arrimage, bacs de rangement, aération haute et basse, signalisation « interdiction de fumer » sur le véhicule et à l'intérieur, peu de matières combustibles, un extincteur." }
           ],
-          note: "⚠ À vérifier : la liste exacte des EPI dans les consignes du fournisseur de gaz et le document unique de l'entreprise ; les obligations liées au transport de gaz (réglementation ADR et exemptions applicables aux petites quantités).",
           commentaire: { pistes: ["Le contrôle du véhicule avant de partir : ce qu'elle vérifie elle-même, dans quel ordre."], audio: "audio/tournee-1.mp3", transcription: "Le véhicule, c'est votre premier outil de travail. Et quand il transporte de l'oxygène, il demande une attention particulière. L'oxygène ne brûle pas lui-même, mais il rend tout le reste beaucoup plus inflammable. C'est pour ça qu'on attache solidement les bouteilles, qu'on aère, qu'on interdit de fumer à bord, et qu'on emporte un extincteur. Pour l'oxygène liquide, le froid est un vrai danger : une projection peut brûler la peau. Les gants et la protection des yeux ne sont pas des accessoires. Portez-les à chaque fois, même pour un remplissage rapide." }
         },
         {
@@ -157,7 +156,6 @@ window.MODULE = {
             "Un protocole adapté au DM et à son niveau de risque infectieux : essuyage ou pulvérisation pour le matériel à risque faible ; immersion dans une solution diluée pour le matériel à risque plus élevé, qui contient de l'eau stagnante, comme les humidificateurs."
           ],
           retenir: "On ne désinfecte qu'un DM préalablement nettoyé. La désinfection protège les patients, mais aussi les intervenants et les familles.",
-          note: "⚠ À vérifier : la terminologie et les niveaux de risque des protocoles internes de l'entreprise.",
           commentaire: { pistes: ["Le protocole d'un humidificateur à l'agence, étape par étape."], audio: "audio/agence-2.mp3", transcription: "Un désinfectant, ce n'est pas un produit ménager plus fort que les autres. C'est un produit qui a fait ses preuves dans des conditions précises : une dilution, un temps de contact. Si vous rincez trop tôt, ou si vous diluez à l'œil, il ne fait plus ce qu'il promet. Et tous les appareils ne se traitent pas de la même façon. Un humidificateur, avec son eau qui stagne, demande bien plus qu'un coup de chiffon. Mon conseil : gardez les protocoles à portée de main, près du poste de travail, et suivez-les à la lettre." }
         },
         {
@@ -181,7 +179,6 @@ window.MODULE = {
             "Stocker les matières dangereuses (oxygène) dans un local aéré ou ventilé, propre, fermé à clé, à l'abri des intempéries, avec peu de matières combustibles.",
             "Cuve d'oxygène pour le conditionnement : respecter les prescriptions de la rubrique ICPE 4725, dont l'annexe I de l'arrêté du 10 mars 1997 (régime de déclaration) : implantation, distances, accès, moyens de lutte contre l'incendie, extincteurs adaptés…"
           ],
-          note: "⚠ À vérifier : l'exigence de « mur coupe-feu de degré deux heures (REI 120), de 3 mètres de haut ou jusqu'à la toiture » du support d'origine, directement dans l'annexe I.",
           commentaire: { pistes: ["Ce qu'un intervenant doit savoir de la cuve de l'agence, même s'il ne la remplit pas."], audio: "audio/agence-4.mp3", transcription: "Un stock bien rangé, ce n'est pas qu'une question d'ordre. Le principe du premier entré, premier sorti évite qu'un appareil reste des mois au fond d'une étagère pendant que les autres tournent. Pour l'oxygène, on retrouve la même logique que dans le véhicule : de l'air, peu de choses qui brûlent, et un local fermé à clé. Et si votre agence a une cuve pour remplir les réservoirs, sachez qu'elle est soumise à des règles strictes d'implantation et de sécurité incendie. Si quelque chose vous paraît anormal autour, signalez-le." }
         }
       ]
@@ -254,7 +251,6 @@ window.MODULE = {
             "Il organise et contrôle l'exécution de la maintenance.",
             "Il tient pour chaque DM un registre des opérations, avec l'identité de l'intervenant et la date."
           ],
-          note: "⚠ À vérifier : la portée exacte des articles R5212-25 à R5212-35 pour un PSDM (ils visent d'abord les DM soumis à obligation de maintenance, dont la liste est fixée par arrêté).",
           commentaire: { pistes: ["Le registre de maintenance tel qu'il se remplit à l'agence."], audio: "audio/suivi-1.mp3", transcription: "La maintenance, ce n'est pas seulement réparer quand ça casse. C'est tout ce qu'on fait pour qu'un appareil continue de remplir sa fonction, du jour où il est mis en service jusqu'à la fin de sa vie. Pour vous, ça se traduit très concrètement : chaque fois que vous intervenez sur un appareil, ça doit être écrit. Qui, quand, quoi. Mon conseil : remplissez le registre tout de suite, pas en fin de journée. Une opération qui n'est pas notée, aux yeux de tout le monde, c'est une opération qui n'a pas eu lieu." }
         },
         {
@@ -310,7 +306,7 @@ window.MODULE = {
             "Facultatif : une réaction nocive et non voulue, lors d'une utilisation non conforme aux instructions du fabricant.",
             "Facultatif : tout dysfonctionnement, ou toute altération des caractéristiques ou des performances d'un DM.",
             "Facultatif : toute erreur, omission ou insuffisance dans la notice, le mode d'emploi ou le manuel de maintenance.",
-            "Le fabricant doit aussi informer l'ANSM de tout rappel de DM motivé par une raison technique ou médicale. Le MDR (art. 87) lui impose de déclarer les incidents graves et les mesures correctives de sécurité."
+            "Le fabricant doit aussi informer l'ANSM de tout rappel de DM motivé par une raison technique ou médicale. Le RDM (art. 87) lui impose de déclarer les incidents graves et les mesures correctives de sécurité."
           ],
           commentaire: { pistes: ["Un exemple d'incident « facultatif » dont le signalement a été utile."], audio: "audio/signaler-1.mp3", transcription: "La frontière entre obligatoire et facultatif est importante, mais ne vous y arrêtez pas trop. Si un incident a mis, ou aurait pu mettre, la vie ou la santé de quelqu'un en danger, le signalement est obligatoire, et immédiat. Pour tout le reste, il est facultatif. Facultatif ne veut pas dire inutile : une notice mal faite, ou un appareil qui se dérègle souvent, ce sont des informations précieuses. Et si vous hésitez sur la gravité, ce n'est pas à vous de trancher seul. Signalez, et le référent décidera." }
         },

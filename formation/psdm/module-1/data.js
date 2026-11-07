@@ -55,7 +55,7 @@ window.MODULE = {
           commentaire: {
             pistes: ["Les trois organismes qu'un technicien croise vraiment : HAS, ANSM, ARS."],
             audio: "audio/etat-1.mp3",
-            transcription: "Ce schéma peut donner le tournis, avec tous ces noms d'agences. Rassurez-vous : sur le terrain, vous en croiserez surtout trois. La Haute Autorité de santé, qui évalue et qui certifie. L'agence du médicament, qui surveille la sécurité des appareils que vous installez. Et l'agence régionale de santé, qui délivre les autorisations près de chez vous. Les autres agences existent, et il est bon de savoir qu'elles sont là, mais elles touchent moins votre quotidien. Mon conseil : retenez ces trois-là, et ce qu'elles font. Le reste se retrouve facilement quand on en a besoin."
+            transcription: "Cette liste peut donner le tournis, avec tous ces noms d'agences. Rassurez-vous : sur le terrain, vous en croiserez surtout trois. La Haute Autorité de santé, qui évalue et qui certifie. L'agence du médicament, qui surveille la sécurité des appareils que vous installez. Et l'agence régionale de santé, qui délivre les autorisations près de chez vous. Les autres agences existent, et il est bon de savoir qu'elles sont là, mais elles touchent moins votre quotidien. Mon conseil : retenez ces trois-là, et ce qu'elles font. Le reste se retrouve facilement quand on en a besoin."
           }
         },
         {
@@ -70,7 +70,6 @@ window.MODULE = {
             "Ses principales commissions : Commission de la transparence (CT), qui évalue les médicaments ; Commission nationale d'évaluation des dispositifs médicaux et des technologies de santé (CNEDiMTS), qui évalue les DM, les actes et les technologies de santé ; Commission évaluation économique et de santé publique (CEESP) ; Commission de certification des établissements de santé ; Commission des recommandations de bonne pratique ; Commission sociale et médico-sociale."
           ],
           retenir: "La CNEDiMTS est la commission qui concerne directement les PSDM.",
-          note: "⚠ À vérifier : la liste à jour des commissions sur has-sante.fr, rubrique « Missions ».",
           commentaire: {
             pistes: ["Ce que la certification HAS change concrètement pour une agence de prestataire."],
             audio: "audio/etat-2.mp3",
@@ -160,7 +159,7 @@ window.MODULE = {
           commentaire: {
             pistes: ["Un patient affilié à un régime spécial : ce qui change pour le dossier."],
             audio: "audio/secu-3.mp3",
-            transcription: "Les régimes spéciaux, c'est une partie de l'histoire de la Sécurité sociale. Ils existaient avant elle, et on les a conservés quand elle a été créée, après la guerre. Vous trouverez peut-être dans d'anciens supports qu'il y en aurait une centaine : c'est faux, on en compte une à deux dizaines selon la façon de compter. Pour vous, l'enjeu est simple : un ancien cheminot ou un ancien marin peut dépendre d'une caisse particulière. Ce n'est pas plus compliqué, mais l'interlocuteur n'est pas le même."
+            transcription: "Les régimes spéciaux, c'est une partie de l'histoire de la Sécurité sociale. Ils existaient avant elle, et on les a conservés quand elle a été créée, après la guerre. On en compte aujourd'hui une à deux dizaines, selon la façon de compter. Pour vous, l'enjeu est simple : un ancien cheminot ou un ancien marin peut dépendre d'une caisse particulière. Ce n'est pas plus compliqué, mais l'interlocuteur n'est pas le même."
           }
         },
         {
@@ -197,7 +196,6 @@ window.MODULE = {
             { titre: "Remboursement : 19 €", texte: "Versé par l'Assurance maladie." }
           ],
           retenir: "La part qui reste après le remboursement de la Sécurité sociale s'appelle le ticket modérateur, ici 30 % du tarif. Il est payé par l'assuré, ou par sa complémentaire santé.",
-          note: "⚠ À vérifier : le tarif et le taux en vigueur sur ameli.fr avant chaque session. Une baisse du taux de 70 % a été discutée en 2025.",
           commentaire: {
             pistes: ["La question « pourquoi je paie 2 € alors que j'ai une mutuelle ? » et comment y répondre."],
             audio: "audio/rembourser-1.mp3",
@@ -261,9 +259,9 @@ window.MODULE = {
       id: "dm", court: "Le DM", titre: "Qu'est-ce qu'un dispositif médical ?",
       ecrans: [
         {
-          type: "texte", kicker: "Définition (MDR, article 2, point 1)",
+          type: "texte", kicker: "Définition (RDM, article 2, point 1)",
           titre: "Une fin médicale, sans action pharmacologique",
-          corps: ["Texte de référence depuis le 26 mai 2021 : le règlement (UE) 2017/745 (MDR). Un dispositif médical (DM) est tout instrument, appareil, équipement, logiciel, implant, réactif, matière ou autre article, destiné par le fabricant à être utilisé, seul ou en association, chez l'homme, pour une ou plusieurs fins médicales :"],
+          corps: ["Texte de référence depuis le 26 mai 2021 : le règlement européen relatif aux dispositifs médicaux (RDM), n° 2017/745. Un dispositif médical (DM) est tout instrument, appareil, équipement, logiciel, implant, réactif, matière ou autre article, destiné par le fabricant à être utilisé, seul ou en association, chez l'homme, pour une ou plusieurs fins médicales :"],
           puces: [
             "diagnostic, prévention, contrôle, prédiction, pronostic, traitement ou atténuation d'une maladie ;",
             "diagnostic, contrôle, traitement, atténuation ou compensation d'une blessure ou d'un handicap ;",
@@ -294,7 +292,7 @@ window.MODULE = {
           }
         },
         {
-          type: "cartes", kicker: "Autres définitions (MDR, article 2) · 1/2",
+          type: "cartes", kicker: "Autres définitions (RDM, article 2) · 1/2",
           titre: "Le produit, son fabricant, son usage",
           cartes: [
             { icone: "scale", titre: "Produit frontière", texte: "À la limite entre deux réglementations, par exemple un DM associé à une substance active. Exemples : compresse imprégnée d'antiseptique, ciment osseux avec antibiotique." },
@@ -303,7 +301,6 @@ window.MODULE = {
             { icone: "shield", titre: "Fabricant", texte: "La personne physique ou morale qui fabrique ou remet à neuf un dispositif, ou le fait concevoir, fabriquer ou remettre à neuf, et le commercialise sous son nom ou sa marque." },
             { icone: "message", titre: "Destination", texte: "L'utilisation prévue par le fabricant, telle qu'indiquée dans l'étiquetage, la notice et les documents promotionnels." }
           ],
-          note: "Correction du support d'origine : les produits de nettoyage et de désinfection des DM ne sont pas des accessoires, ce sont eux-mêmes des DM.",
           commentaire: {
             pistes: ["Le chargeur remplacé par un modèle du commerce : pourquoi c'est un problème."],
             audio: "audio/dm-3.mp3",
@@ -311,7 +308,7 @@ window.MODULE = {
           }
         },
         {
-          type: "cartes", kicker: "Autres définitions (MDR, article 2) · 2/2",
+          type: "cartes", kicker: "Autres définitions (RDM, article 2) · 2/2",
           titre: "Le dispositif et le corps",
           cartes: [
             { icone: "hand", titre: "Dispositif invasif", texte: "Il pénètre, en tout ou en partie, à l'intérieur du corps, par un orifice ou à travers la surface du corps. Exemple : sonde urinaire." },
@@ -335,7 +332,7 @@ window.MODULE = {
         {
           type: "texte", kicker: "Le classement des DM",
           titre: "Plus le risque est grand, plus la classe est haute",
-          corps: ["Les DM sont répartis en 4 classes de risque : I, IIa, IIb et III. La classe I comprend les sous-classes Is (stérile), Im (fonction de mesure) et Ir (instrument chirurgical réutilisable). Le fabricant classe son DM avec les 22 règles de l'annexe VIII du MDR, selon :"],
+          corps: ["Les DM sont répartis en 4 classes de risque : I, IIa, IIb et III. La classe I comprend les sous-classes Is (stérile), Im (fonction de mesure) et Ir (instrument chirurgical réutilisable). Le fabricant classe son DM avec les 22 règles de l'annexe VIII du RDM, selon :"],
           puces: [
             "la durée d'utilisation (temporaire, court terme, long terme) ;",
             "le caractère invasif ou non ;",
@@ -359,7 +356,6 @@ window.MODULE = {
             { icone: "sun", titre: "Classe IIb · risque élevé", texte: "Les implants chirurgicaux à long terme (hors classe III) ; les dispositifs contraceptifs et ceux qui protègent contre les infections sexuellement transmissibles (IST) ; les DM actifs qui contrôlent l'administration d'un liquide ou d'une substance potentiellement dangereuse. Exemples : pompe à perfusion, ventilateur, préservatif, suture interne non résorbable." },
             { icone: "heart", titre: "Classe III · risque le plus élevé", texte: "Les dispositifs en contact avec le système nerveux central, le cœur ou le système circulatoire central ; ceux qui incorporent une substance considérée comme un médicament ; les implants biodégradables et les prothèses articulaires totales ; ceux qui incorporent des tissus d'origine animale. Exemples : prothèse totale de hanche, stent coronaire actif, valve cardiaque." }
           ],
-          note: "Correction du support d'origine : l'implant contraceptif hormonal est un médicament, pas un DM.",
           commentaire: {
             pistes: ["Classer ensemble le matériel du dépôt : lit, fauteuil, ventilateur…"],
             audio: "audio/classes-2.mp3",
@@ -369,10 +365,10 @@ window.MODULE = {
       ]
     },
     {
-      id: "mdr", court: "Le MDR", titre: "Le règlement européen et la vie d'un DM",
+      id: "mdr", court: "Le RDM", titre: "Le règlement européen et la vie d'un DM",
       ecrans: [
         {
-          type: "texte", kicker: "Le règlement (UE) 2017/745 (MDR)",
+          type: "texte", kicker: "Le règlement relatif aux dispositifs médicaux (RDM)",
           titre: "Un seul texte pour toute l'Europe",
           corps: ["Le règlement (UE) 2017/745 du Parlement européen et du Conseil est applicable depuis le 26 mai 2021. Il a remplacé les directives 93/42/CEE (DM) et 90/385/CEE (DM implantables actifs). Un règlement s'applique directement, sans transposition. Les DM de diagnostic in vitro relèvent d'un autre règlement, le 2017/746 (IVDR).", "Ce qu'il change :"],
           puces: [
@@ -380,7 +376,6 @@ window.MODULE = {
             "plus de transparence avec la base européenne EUDAMED (DM, opérateurs, certificats, vigilance, investigations) ;",
             "des organismes notifiés plus encadrés, et une surveillance après commercialisation renforcée."
           ],
-          note: "⚠ À vérifier : des périodes de transition (prolongées par le règlement (UE) 2023/607) permettent encore la commercialisation de certains DM certifiés sous les anciennes directives. Vérifier les dates en vigueur.",
           commentaire: {
             pistes: ["Ce que la surveillance renforcée attend du terrain."],
             audio: "audio/mdr-1.mp3",
@@ -388,15 +383,15 @@ window.MODULE = {
           }
         },
         {
-          type: "texte", kicker: "Objectifs du MDR et identifiant unique (IUD)",
+          type: "texte", kicker: "Objectifs du RDM et identifiant unique (IUD)",
           titre: "Chaque dispositif a sa carte d'identité",
-          corps: ["Les objectifs du MDR :"],
+          corps: ["Les objectifs du RDM :"],
           puces: [
             "améliorer le niveau de santé et de sécurité ;",
             "garantir le bon fonctionnement du marché intérieur des DM ;",
             "s'assurer que les produits suivent l'état de l'art."
           ],
-          retenir: "Traçabilité : le MDR crée l'IUD (identifiant unique des dispositifs, UDI en anglais), apposé sur l'étiquette et le conditionnement. Il facilite la traçabilité, la sécurité des patients, la lutte contre la contrefaçon et les rappels de produits.",
+          retenir: "Traçabilité : le RDM crée l'IUD (identifiant unique des dispositifs, UDI en anglais), apposé sur l'étiquette et le conditionnement. Il facilite la traçabilité, la sécurité des patients, la lutte contre la contrefaçon et les rappels de produits.",
           commentaire: {
             pistes: ["Un rappel de lot : retrouver vite les patients équipés grâce à une traçabilité bien tenue."],
             audio: "audio/mdr-2.mp3",
@@ -408,7 +403,7 @@ window.MODULE = {
           titre: "De la conception au retrait",
           etapes: [
             { titre: "Conception", texte: "Le fabricant conçoit le dispositif." },
-            { titre: "Évaluation de la conformité", texte: "Aux exigences générales en matière de sécurité et de performances (annexe I du MDR)." },
+            { titre: "Évaluation de la conformité", texte: "Aux exigences générales en matière de sécurité et de performances (annexe I du RDM)." },
             { titre: "Investigation clinique", texte: "Les essais cliniques." },
             { titre: "Marquage CE", texte: "Il autorise la commercialisation dans l'Espace économique européen." },
             { titre: "Mise sur le marché", texte: "Puis surveillance après commercialisation (vigilance)." },
@@ -416,11 +411,10 @@ window.MODULE = {
             { titre: "Audits de suivi", texte: "Par l'organisme notifié." },
             { titre: "Arrêt de commercialisation", texte: "Ou remplacement par un nouveau DM." }
           ],
-          note: "⚠ À vérifier : la « durée de vie moyenne d'un DM de 3 à 5 ans » du support d'origine n'a pas de source. Mieux vaut la retirer.",
           commentaire: {
             pistes: ["Ce que le terrain voit et que les essais ne voient pas."],
             audio: "audio/mdr-3.mp3",
-            transcription: "Ce cycle montre une chose importante : la vie d'un dispositif médical ne s'arrête pas à sa mise sur le marché. Le dispositif reste surveillé chez le patient. Il peut être modifié. Et un jour, il est retiré. Vous êtes à cette étape-là, au plus près de l'utilisation réelle. Un défaut qui n'est jamais apparu pendant les essais peut apparaître dans un salon, avec un patient âgé ou un usage imprévu. Vous verrez peut-être, dans d'anciens supports, une durée de vie moyenne de trois à cinq ans : elle n'a pas de source, mieux vaut ne pas la citer."
+            transcription: "Ce cycle montre une chose importante : la vie d'un dispositif médical ne s'arrête pas à sa mise sur le marché. Le dispositif reste surveillé chez le patient. Il peut être modifié. Et un jour, il est retiré. Vous êtes à cette étape-là, au plus près de l'utilisation réelle. Un défaut qui n'est jamais apparu pendant les essais peut apparaître dans un salon, avec un patient âgé ou un usage imprévu."
           }
         },
         {
@@ -447,7 +441,7 @@ window.MODULE = {
         {
           type: "texte", kicker: "Le marquage CE",
           titre: "Un passeport réglementaire, pas un label",
-          corps: ["Tout DM mis sur le marché doit être conforme aux exigences générales en matière de sécurité et de performances du MDR, et porter le marquage CE. Le marquage CE :"],
+          corps: ["Tout DM mis sur le marché doit être conforme aux exigences générales en matière de sécurité et de performances du RDM, et porter le marquage CE. Le marquage CE :"],
           puces: [
             "atteste la conformité du DM au règlement (UE) 2017/745 ;",
             "permet de le commercialiser dans tout l'Espace économique européen."
@@ -460,7 +454,7 @@ window.MODULE = {
           }
         },
         {
-          type: "texte", kicker: "Exigences générales en matière de sécurité et de performances (MDR, annexe I)",
+          type: "texte", kicker: "Exigences générales en matière de sécurité et de performances (RDM, annexe I)",
           titre: "Le cahier des charges de tout DM",
           puces: [
             "Exigences générales, applicables à tous les DM : sécurité des patients et des utilisateurs, performances annoncées, gestion des risques.",
@@ -603,7 +597,6 @@ window.MODULE = {
             "DM innovants : prise en charge dérogatoire et temporaire possible, via le forfait innovation (art. L165-1-1 du Code de la sécurité sociale), par arrêté ministériel après avis de la HAS.",
             "DM utilisés lors d'un acte professionnel : leur coût est intégré au tarif de l'acte inscrit dans les nomenclatures (CCAM pour les actes médicaux, NGAP, NABM pour la biologie), après avis de la HAS."
           ],
-          note: "⚠ À vérifier : l'exemple « appareils générateurs d'aérosols » pour les DM intégrés au GHS, peu clair dans le support d'origine. Mieux vaut un exemple certain : sondes, cathéters ou instruments utilisés pendant le séjour.",
           commentaire: {
             pistes: ["Le patient qui rentre chez lui avec un matériel découvert à l'hôpital."],
             audio: "audio/evaluer-3.mp3",
@@ -624,7 +617,6 @@ window.MODULE = {
             { titre: "Déclarer la cuve d'oxygène", texte: "Pour installer une cuve de stockage : déclaration au titre des ICPE, rubrique 4725 (arrêt « L'oxygène »)." },
             { titre: "Se préparer à la certification HAS", texte: "Elle conditionne désormais le remboursement LPP (LFSS pour 2021, décret n° 2022-169 du 11 février 2022, référentiel HAS de juin 2024)." }
           ],
-          note: "⚠ À vérifier : le calendrier d'entrée en vigueur de la certification sur has-sante.fr.",
           image: "../module-4/img/ch5.webp", alt: "Une technicienne téléphone, assise dans sa camionnette garée.",
           commentaire: {
             pistes: ["Les règles internes de l'agence qui découlent directement de ces démarches."],
@@ -642,7 +634,6 @@ window.MODULE = {
             "garantir le libre choix du prestataire par l'assuré ;",
             "respecter la transparence et contribuer à une gestion rigoureuse des dépenses d'assurance maladie."
           ],
-          note: "⚠ À vérifier : qu'aucune convention plus récente ne remplace celle de 2015 (ameli.fr, rubrique « Prestataires de services »).",
           commentaire: {
             pistes: ["Le libre choix du prestataire : ce que la qualité de l'accueil change pour un patient."],
             audio: "audio/installer-2.mp3",
@@ -656,9 +647,8 @@ window.MODULE = {
           puces: [
             "Oxygénothérapie de longue durée : accord préalable obligatoire (LPP, rubrique I-1.1.3).",
             "Oxygénothérapie de courte durée : pas d'accord préalable. Prescription pour 1 mois, renouvelable 2 fois au maximum.",
-            "VNI, PPC : voir la note ci-dessous."
+            "VNI, PPC : conditions fixées par la LPP, à confirmer auprès de la caisse."
           ],
-          note: "⚠ À vérifier : les conditions actuelles d'accord préalable pour la VNI et la PPC dans la LPP.",
           commentaire: {
             pistes: ["Vérifier la demande d'accord préalable à l'installation : signatures, pièces."],
             audio: "audio/installer-3.mp3",
@@ -681,7 +671,6 @@ window.MODULE = {
             "L'autorisation est un arrêté du directeur général de l'ARS.",
             "La dispensation se fait sous la responsabilité d'un pharmacien responsable."
           ],
-          note: "⚠ À vérifier : le délai d'instruction (le support d'origine dit 4 mois) dans le Code de la santé publique.",
           commentaire: {
             pistes: ["Ce qu'un pharmacien inspecteur regarde lors de sa visite."],
             audio: "audio/oxygene-1.mp3",
@@ -724,7 +713,7 @@ window.MODULE = {
               q: "Un collègue remplace le chargeur d'un appareil de PPC par un chargeur du commerce « qui a l'air identique ».",
               choix: ["Aucun problème : un chargeur n'est pas un dispositif médical.", "C'est acceptable s'il a la même tension.", "Non : le chargeur est un accessoire, traité comme un DM. On utilise celui prévu par le fabricant."],
               bonne: 2,
-              explication: "Un accessoire, destiné par le fabricant à être utilisé avec un DM conformément à sa destination, est traité comme un DM (MDR, article 2)."
+              explication: "Un accessoire, destiné par le fabricant à être utilisé avec un DM conformément à sa destination, est traité comme un DM (RDM, article 2)."
             },
             {
               q: "Un patient vous demande si c'est l'ANSM qui a délivré le marquage CE de son ventilateur.",
@@ -770,7 +759,7 @@ window.MODULE = {
             "Sécurité sociale : universalité, solidarité ; régime général (environ 88 % de la population), MSA, régimes spéciaux ; cinq branches.",
             "Remboursement : tarif conventionnel × taux, moins la participation forfaitaire ; le ticket modérateur va à l'assuré ou à sa complémentaire.",
             "Un DM agit sur le corps sans moyen pharmacologique, immunologique ni métabolique. Accessoires et produits de désinfection des DM sont traités comme des DM.",
-            "Quatre classes de risque (I, IIa, IIb, III), fixées par le fabricant selon les règles de l'annexe VIII du MDR.",
+            "Quatre classes de risque (I, IIa, IIb, III), fixées par le fabricant selon les règles de l'annexe VIII du RDM.",
             "Le marquage CE est un passeport réglementaire : fabricant, organisme notifié, et l'ANSM qui surveille.",
             "Conforme ne veut pas dire remboursé : CNEDiMTS (service attendu), CEPS (tarif), inscription sur la LPP. Le titre I est celui des PSDM.",
             "S'installer : convention nationale (tiers payant), autorisation ARS pour l'oxygène (par site), déclaration ICPE 4725 pour une cuve, certification HAS.",

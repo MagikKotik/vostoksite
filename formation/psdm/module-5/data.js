@@ -48,7 +48,6 @@ window.MODULE = {
             "Arrêté du 23 décembre 2011, modifié par l'arrêté du 8 mars 2012 : formation obligatoire des intervenants et des garants.",
             "Référentiel HAS de bonnes pratiques professionnelles des PSDM (juin 2024, mis à jour en juin 2026), base de la certification des PSDM (décret n° 2022-169)."
           ],
-          note: "⚠ À vérifier sur Légifrance : le nombre de catégories de matériels pour lesquelles un garant doit être désigné (le support dit « 4 catégories »).",
           commentaire: { pistes: ["Ce que la certification a changé dans le quotidien d'un garant."], audio: "audio/role-1.mp3", transcription: "Le garant n'est pas une simple idée d'organisation : c'est une obligation. Chaque prestataire doit en désigner, et la loi précise leur rôle. Je ne vous demande pas de retenir les dates de ces textes. Ce qu'il faut comprendre, c'est leur logique. Il y a des règles professionnelles, des bonnes pratiques, et une formation obligatoire pour les intervenants comme pour les garants. Et aujourd'hui, tout cela sert de base à la certification des prestataires. Le garant, c'est la personne qui fait le lien entre ces textes et le travail de tous les jours." }
         },
         {
