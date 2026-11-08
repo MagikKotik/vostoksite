@@ -7,7 +7,7 @@ window.MODULE = {
   titre: "Contexte réglementaire",
   titreCourt: "Contexte réglementaire",
   formatrice: { nom: "Stéphanie Plaisant", initiales: "SP", role: "formatrice PSDM", photo: "../../img/stephanie.webp" },
-  version: "Prototype · 3 novembre 2026 · d'après le support corrigé du module 1",
+  version: "Version du 7 novembre 2026",
 
   chapitres: [
     {

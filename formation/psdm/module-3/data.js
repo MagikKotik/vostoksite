@@ -7,7 +7,7 @@ window.MODULE = {
   titre: "Hygiène et sécurité",
   titreCourt: "Hygiène et sécurité",
   formatrice: { nom: "Stéphanie Plaisant", initiales: "SP", role: "formatrice PSDM", photo: "../../img/stephanie.webp" },
-  version: "Prototype · 3 novembre 2026 · d'après le support corrigé du module 3",
+  version: "Version du 7 novembre 2026",
 
   chapitres: [
     {

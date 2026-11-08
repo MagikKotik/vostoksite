@@ -1,13 +1,13 @@
 /* Module 4 — données affichées par ../../assets/formation.js.
    Chaque écran : ce qui s'affiche + un commentaire de la formatrice
-   (pistes pour le prototype ; audio + transcription dans la version finale). */
+   (pistes, audio et transcription). */
 window.MODULE = {
   formation: "Formation PSDM · Garant professionnel de santé",
   numero: 4,
   titre: "Intervention auprès de la personne malade ou présentant une incapacité ou un handicap",
   titreCourt: "Intervenir au domicile",
   formatrice: { nom: "Stéphanie Plaisant", initiales: "SP", role: "formatrice PSDM", photo: "../../img/stephanie.webp" },
-  version: "Prototype · 3 novembre 2026 · d'après le support corrigé du module 4",
+  version: "Version du 7 novembre 2026",
 
   chapitres: [
     {

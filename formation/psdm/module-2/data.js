@@ -7,7 +7,7 @@ window.MODULE = {
   titre: "Environnement professionnel",
   titreCourt: "Environnement professionnel",
   formatrice: { nom: "Stéphanie Plaisant", initiales: "SP", role: "formatrice PSDM", photo: "../../img/stephanie.webp" },
-  version: "Prototype · 3 novembre 2026 · d'après le support corrigé du module 2",
+  version: "Version du 7 novembre 2026",
 
   chapitres: [
     {
