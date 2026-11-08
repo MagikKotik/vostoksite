@@ -153,10 +153,10 @@ window.MODULE = {
             "Elle tue, élimine ou inactive les micro-organismes (bactéries, champignons, levures, spores selon le produit) et les virus. Son effet est limité dans le temps : sans conditionnement adapté, le matériel peut être de nouveau contaminé.",
             "Des produits adaptés à l'usage, bactéricides, fongicides et virucides : les désinfectants de DM sont eux-mêmes des DM, marqués CE ; les désinfectants de surfaces sont des produits biocides autorisés.",
             "Leur efficacité est démontrée par des normes, par exemple EN 13727 (bactéricide), EN 13624 (fongicide), EN 14476 (virucide). Respecter strictement dilution, temps de contact et rinçage.",
-            "Un protocole adapté au DM et à son niveau de risque infectieux : essuyage ou pulvérisation pour le matériel à risque faible ; immersion dans une solution diluée pour le matériel à risque plus élevé, qui contient de l'eau stagnante, comme les humidificateurs."
+            "Un protocole adapté au DM et à son niveau de risque infectieux : essuyage ou pulvérisation pour le matériel à risque faible ; immersion dans une solution diluée pour le matériel à risque plus élevé, qui contient de l'eau stagnante."
           ],
           retenir: "On ne désinfecte qu'un DM préalablement nettoyé. La désinfection protège les patients, mais aussi les intervenants et les familles.",
-          commentaire: { pistes: ["Le protocole d'un humidificateur à l'agence, étape par étape."], audio: "audio/agence-2.mp3", transcription: "Un désinfectant, ce n'est pas un produit ménager plus fort que les autres. C'est un produit qui a fait ses preuves dans des conditions précises : une dilution, un temps de contact. Si vous rincez trop tôt, ou si vous diluez à l'œil, il ne fait plus ce qu'il promet. Et tous les appareils ne se traitent pas de la même façon. Un humidificateur, avec son eau qui stagne, demande bien plus qu'un coup de chiffon. Mon conseil : gardez les protocoles à portée de main, près du poste de travail, et suivez-les à la lettre." }
+          commentaire: { pistes: ["Les DM à usage unique de l'agence : lesquels partent au rebut, lesquels se désinfectent."], audio: "audio/agence-2.mp3", transcription: "Un désinfectant, ce n'est pas un produit ménager plus fort que les autres. C'est un produit qui a fait ses preuves dans des conditions précises : une dilution, un temps de contact. Si vous rincez trop tôt, ou si vous diluez à l'œil, il ne fait plus ce qu'il promet. Et tous les appareils ne se traitent pas de la même façon. Un matériel qui garde de l'eau stagnante demande bien plus qu'un coup de chiffon. Et certains ne se désinfectent pas du tout : un humidificateur, par exemple, est à usage unique, il n'est jamais réutilisé. Mon conseil : gardez les protocoles à portée de main, près du poste de travail, et suivez-les à la lettre." }
         },
         {
           type: "texte", kicker: "La salle de désinfection",
@@ -371,10 +371,10 @@ window.MODULE = {
               explication: "Un DM à usage unique utilisé, ou dont l'emballage n'est plus intact, reste chez le patient. Il n'est jamais réutilisé pour un autre patient."
             },
             {
-              q: "Un humidificateur revient à l'agence. Il a l'air propre.",
-              choix: ["Vous le désinfectez directement : il n'est pas sale.", "Vous le filmez et le rangez dans le stock propre.", "Vous le nettoyez, puis le désinfectez selon le protocole prévu pour le matériel contenant de l'eau stagnante."],
+              q: "Un concentrateur revient à l'agence. Il a l'air propre.",
+              choix: ["Vous le désinfectez directement : il n'est pas sale.", "Vous le filmez et le rangez dans le stock propre.", "Vous le nettoyez, puis le désinfectez selon le protocole prévu pour ce matériel."],
               bonne: 2,
-              explication: "Propre ne veut pas dire désinfecté, et on ne désinfecte qu'un DM préalablement nettoyé. Un humidificateur, qui contient de l'eau stagnante, relève d'un protocole à risque plus élevé, par exemple par immersion."
+              explication: "Propre ne veut pas dire désinfecté, et on ne désinfecte qu'un DM préalablement nettoyé."
             },
             {
               q: "Chez Mme Roux, sous oxygène, vous remarquez un cendrier plein et des bougies à côté du concentrateur.",
