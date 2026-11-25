@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Photon &amp; Spin</title>
+<style>
+  html, body { margin: 0; height: 100%; background: #000; }
+  body { display: grid; place-items: center; }
+  video { width: 100vw; height: 100vh; height: 100dvh; object-fit: contain; background: #000; }
+</style>
+</head>
+<body>
+<video id="v" src="https://fanny.blob.core.windows.net/acacia/vostok/photon_spin_danse_boucle.mp4" controls autoplay loop playsinline preload="auto"></video>
+<script>
+const v = document.getElementById('v');
+function sonOn() { if (!v.muted) return; v.muted = false; v.currentTime = 0; v.play().catch(() => {}); }
+v.muted = false;
+v.play().catch(() => {
+  v.muted = true; v.play().catch(() => {});
+  ['pointerdown', 'keydown', 'touchstart'].forEach(e => document.addEventListener(e, sonOn, { once: true }));
+});
+</script>
+</body>
+</html>
